@@ -19,7 +19,7 @@ import jp.ceed.android.mylapslogger.viewModel.LoginFragmentViewModel
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class LoginFragment : Fragment(), TextWatcher {
+class LoginFragment : Fragment() {
 
 	private var _binding: FragmentLoginBinding? = null
 
@@ -32,7 +32,6 @@ class LoginFragment : Fragment(), TextWatcher {
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-
 		_binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 		binding.viewModel = viewModel
 		binding.lifecycleOwner = viewLifecycleOwner
@@ -51,24 +50,17 @@ class LoginFragment : Fragment(), TextWatcher {
 
 
 	private fun observeEvent(){
-		binding.userNameEditText.addTextChangedListener(this)
-		binding.passwordEditText.addTextChangedListener(this)
+		viewModel.userName.observe(viewLifecycleOwner){onTextChanged()}
+		viewModel.password.observe(viewLifecycleOwner){onTextChanged()}
 		viewModel.loginResult.observe(viewLifecycleOwner){	onFinishLogin(it) }
 	}
 
-	override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-		// Nothing to do.
+	private fun onTextChanged() {
+		viewModel.loginButtonEnabled.value =
+			!TextUtils.isEmpty(viewModel.userName.value)
+					&& !TextUtils.isEmpty(viewModel.password.value)
 	}
 
-	override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-		val userName = binding.userNameEditText.text?.toString()
-		val password = binding.passwordEditText.text?.toString()
-		viewModel.loginButtonEnabled.value = !TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)
-	}
-
-	override fun afterTextChanged(p0: Editable?) {
-		// Nothing to do.
-	}
 
 	private fun onFinishLogin(loginResult: LoginResult){
 		when(loginResult){

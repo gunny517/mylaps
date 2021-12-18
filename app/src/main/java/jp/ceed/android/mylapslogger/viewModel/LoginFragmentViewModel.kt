@@ -36,6 +36,4 @@ class LoginFragmentViewModel(application: Application) : AndroidViewModel(applic
 			})
 	}
 
-
-
 }
