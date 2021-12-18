@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	
+	<data>
+		<variable
+			name="viewModel"
+			type="jp.ceed.android.mylapslogger.viewModel.LoginFragmentViewModel" />
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".LoginFragment">
+
+		<EditText
+			android:id="@+id/userNameEditText"
+			android:layout_width="300dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="50sp"
+			android:lines="1"
+			android:inputType="textEmailAddress"
+			android:hint="@string/hint_user_name"
+			android:text="@={viewModel.userName}"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"/>
+
+		<EditText
+			android:id="@+id/passwordEditText"
+			android:layout_width="300dp"
+			android:layout_height="wrap_content"
+			android:lines="1"
+			android:inputType="textPassword"
+			android:hint="@string/hint_password"
+			android:text="@={viewModel.password}"
+			app:layout_constraintTop_toBottomOf="@id/userNameEditText"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"/>
+
+		<Button
+			android:id="@+id/loginButton"
+			android:layout_width="300dp"
+			android:layout_height="wrap_content"
+			android:text="@string/label_login_button"
+			android:enabled="@{viewModel.loginButtonEnabled}"
+			android:onClick="@{viewModel.callLogin}"
+			app:layout_constraintTop_toBottomOf="@id/passwordEditText"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
