@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="lapDto"
+            type="jp.ceed.android.mylapslogger.dto.LapDto" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@{context.getColor(lapDto.cellBgColor)}">
+
+        <TextView
+            android:id="@+id/diffPrevLap"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"
+            android:gravity="end"
+            android:text="@{lapDto.diffPrevLap}"
+            android:textColor="@{context.getColor(lapDto.diffTextColor)}"/>
+
+        <TextView
+            android:id="@+id/numberTextView"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="8dp"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:textColor="@color/text_default"
+            android:text="@{lapDto.number}"/>
+
+        <TextView
+            android:id="@+id/lapTimeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/diffPrevLap"
+            android:layout_toEndOf="@id/numberTextView"
+            android:layout_centerVertical="true"
+            android:textSize="32sp"
+            android:textColor="@color/text_default"
+            android:text="@{lapDto.duration}"/>
+    </RelativeLayout>
+</layout>

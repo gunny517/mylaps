@@ -1,7 +1,10 @@
 package jp.ceed.android.mylapslogger.dto;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
+import jp.ceed.android.mylapslogger.R;
 import jp.ceed.android.mylapslogger.network.response.SessionsResponse.Sessions;
 import jp.ceed.android.mylapslogger.network.response.SessionsResponse.Sessions.BestLapX;
 import jp.ceed.android.mylapslogger.network.response.SessionsResponse.Sessions.Laps;
@@ -34,9 +37,13 @@ public class LapDto implements Serializable {
 
 	public String sessionTime;
 
+	public int cellBgColor;
+
+	public int diffTextColor;
+
 
 	public LapDto(){
-
+		// Nothing to do.
 	}
 
 
@@ -44,6 +51,8 @@ public class LapDto implements Serializable {
 		number = String.valueOf(laps.nr);
 		duration = laps.duration;
 		status = laps.status;
+		cellBgColor = getCellBgColor(status);
+		diffTextColor = getDiffTextColor(status);
 		diffPrevLap = laps.diffPrevLap;
 	}
 
@@ -57,6 +66,29 @@ public class LapDto implements Serializable {
 	public LapDto(BestLapX bestLapx){
 		number = String.valueOf(bestLapx.nr);
 		duration = bestLapx.duration;
+	}
+
+	private int getCellBgColor(final String status){
+		if(LapDto.REPORT_BEST.equals(status)){
+			return R.color.bg_lap_list_report_best;
+		}else if(LapDto.SESSION_BEST.equals(status)){
+			return R.color.bg_lap_list_session_best;
+		}else{
+			return R.color.window_back_ground;
+		}
+	}
+
+
+	public int getDiffTextColor(final String status){
+		if(LapDto.REPORT_BEST.equals(status)
+			|| LapDto.SESSION_BEST.equals(status)
+			|| LapDto.FASTER.equals(status)){
+			return R.color.text_faster;
+		}else if(LapDto.SLOWER.equals(status)){
+			return R.color.text_slower;
+		}else{
+			return R.color.text_default;
+		}
 	}
 
 

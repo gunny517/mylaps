@@ -40,5 +40,10 @@
 			android:name="sessionId"
 			app:argType="integer"
 			app:nullable="false"/>
+
+		<argument
+			android:name="sessionDate"
+			app:argType="string"
+			app:nullable="false"/>
 	</fragment>
 </navigation>
