@@ -14,7 +14,12 @@
 		<action
 			android:id="@+id/action_ActivitiesFragment_to_LoginFragment"
 			app:destination="@id/LoginFragment" />
+
+		<action
+			android:id="@+id/action_ActivitiesFragment_to_PracticeResultsFragment"
+			app:destination="@id/PracticeResultFragment"/>
 	</fragment>
+
 	<fragment
 		android:id="@+id/LoginFragment"
 		android:name="jp.ceed.android.mylapslogger.LoginFragment"
@@ -24,5 +29,16 @@
 		<action
 			android:id="@+id/action_LoginFragment_to_ActivitiesFragment"
 			app:destination="@id/ActivitiesFragment" />
+	</fragment>
+
+	<fragment
+		android:id="@+id/PracticeResultFragment"
+		android:name="jp.ceed.android.mylapslogger.PracticeResultsFragment"
+		tools:layout="@layout/fragment_practice_result">
+
+		<argument
+			android:name="sessionId"
+			app:argType="integer"
+			app:nullable="false"/>
 	</fragment>
 </navigation>

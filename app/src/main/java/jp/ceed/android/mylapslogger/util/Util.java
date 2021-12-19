@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import jp.ceed.android.mylapslogger.model.ActivitiesIItem;
+import jp.ceed.android.mylapslogger.model.ActivitiesItem;
 import jp.ceed.android.mylapslogger.network.response.ActivitiesResponse.ActivityDto;
 
 /**
@@ -22,10 +22,10 @@ public class Util {
 	public static final String API_TIME_FORMAT_WITH_SEC = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 
 
-	public static List<ActivitiesIItem> convertToActivitiesItem(final List<ActivityDto> list){
-		List<ActivitiesIItem> results = new ArrayList<>(list.size());
+	public static List<ActivitiesItem> convertToActivitiesItem(final List<ActivityDto> list){
+		List<ActivitiesItem> results = new ArrayList<>(list.size());
 		for(ActivityDto entry : list){
-			results.add(new ActivitiesIItem(entry));
+			results.add(new ActivitiesItem(entry));
 		}
 		return results;
 	}

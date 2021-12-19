@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/activities_list_item.xml" value="0.35280797101449274" />
+        <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/content_main.xml" value="0.35280797101449274" />
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/fragment_activities.xml" value="0.1950354609929078" />
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/fragment_practice_result.xml" value="0.35280797101449274" />
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/fragment_rounds.xml" value="0.3641304347826087" />
       </map>
     </option>

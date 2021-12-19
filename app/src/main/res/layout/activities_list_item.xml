@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:padding="8dp"
-	android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+	<data>
+		<variable
+			name="item"
+			type="jp.ceed.android.mylapslogger.model.ActivitiesItem" />
+	</data>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="8dp"
+		android:orientation="vertical">
 
 	<TextView
 		android:id="@+id/dateTextView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:textSize="22dp"
-		android:textColor="@color/black"/>
+		android:textColor="@color/black"
+		android:text="@{item.startTime}"/>
 
 	<TextView
 		android:id="@+id/placeTextView"
@@ -19,6 +25,8 @@
 		android:layout_height="wrap_content"
 		android:textSize="16dp"
 		android:textColor="@color/black"
-		android:gravity="right"/>
+		android:gravity="right"
+		android:text="@{item.place}"/>
 
-</LinearLayout>
+	</LinearLayout>
+</layout>

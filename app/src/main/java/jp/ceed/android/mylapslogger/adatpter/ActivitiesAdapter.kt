@@ -5,36 +5,51 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
+import jp.ceed.android.mylapslogger.BR
 import jp.ceed.android.mylapslogger.R
-import jp.ceed.android.mylapslogger.model.ActivitiesIItem
+import jp.ceed.android.mylapslogger.databinding.ActivitiesListItemBinding
+import jp.ceed.android.mylapslogger.model.ActivitiesItem
 
 class ActivitiesAdapter(
 	private val context: Context,
-	private val itemList: List<ActivitiesIItem>)
-	: RecyclerView.Adapter<ActivitiesAdapter.ViewHolder>() {
+	private var activitiesItem: List<ActivitiesItem>,
+	private val onClickListener: OnClickListener
+	): RecyclerView.Adapter<ActivitiesAdapter.ViewHolder>() {
 
 	private val inflater: LayoutInflater = LayoutInflater.from(context)
 
 
-
-	class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-		val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
-		val placeTextView: TextView = itemView.findViewById(R.id.placeTextView)
+	fun setItems(_activitiesItem: List<ActivitiesItem>){
+		activitiesItem = _activitiesItem
 	}
 
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-		return ViewHolder(inflater.inflate(R.layout.activities_list_item, parent, false))
+		val binding: ActivitiesListItemBinding = DataBindingUtil.inflate(inflater, R.layout.activities_list_item, parent, false)
+		return ViewHolder(binding.root)
 	}
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		val item = itemList[position]
-		holder.dateTextView.text = item.startTime
-		holder.placeTextView.text = item.place
+		val item = activitiesItem[position]
+		holder.viewDataBinding?.setVariable(BR.item, item)
+		holder.itemView.setOnClickListener { onClickListener.onClick(item) }
 	}
 
 	override fun getItemCount(): Int {
-		return itemList.size
+		return activitiesItem.size
 	}
+
+	class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+		val viewDataBinding: ViewDataBinding? = DataBindingUtil.bind(itemView)
+	}
+
+	interface OnClickListener{
+		fun onClick(activitiesItem: ActivitiesItem)
+	}
+
 
 }

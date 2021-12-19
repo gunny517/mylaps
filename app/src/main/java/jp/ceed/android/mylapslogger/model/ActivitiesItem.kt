@@ -3,11 +3,13 @@ package jp.ceed.android.mylapslogger.model
 import jp.ceed.android.mylapslogger.network.response.ActivitiesResponse
 import jp.ceed.android.mylapslogger.util.Util
 
-class ActivitiesIItem(dto: ActivitiesResponse.ActivityDto){
+class ActivitiesItem(dto: ActivitiesResponse.ActivityDto){
 
-	var startTime: String = Util.convertTo(Util.API_TIME_FORMAT, FORMAT, dto.startTime)
+	val sessionId: Int = dto.id
 
-	var place: String = dto.location.name
+	val startTime: String = Util.convertTo(Util.API_TIME_FORMAT, FORMAT, dto.startTime)
+
+	val place: String = dto.location.name
 
 
 	companion object{
