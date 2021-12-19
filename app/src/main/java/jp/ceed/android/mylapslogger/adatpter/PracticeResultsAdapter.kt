@@ -14,7 +14,7 @@ import jp.ceed.android.mylapslogger.databinding.LaptimeListSectionBinding
 import jp.ceed.android.mylapslogger.dto.LapDto
 
 class PracticeResultsAdapter(
-	private val context: Context,
+	context: Context,
 	private var items: List<LapDto>
 
 ) : RecyclerView.Adapter<PracticeResultsAdapter.ViewHolder>() {
@@ -57,8 +57,8 @@ class PracticeResultsAdapter(
 	}
 
 	companion object{
-		private val VIEW_TYPE_SECTION = 0
-		private val VIEW_TYPE_LAP = 1
+		private const val VIEW_TYPE_SECTION = 0
+		private const val VIEW_TYPE_LAP = 1
 	}
 
 }

@@ -13,7 +13,7 @@ import jp.ceed.android.mylapslogger.databinding.ActivitiesListItemBinding
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 
 class ActivitiesAdapter(
-	private val context: Context,
+	context: Context,
 	private var activitiesItem: List<ActivitiesItem>,
 	private val onClickListener: OnClickListener
 	): RecyclerView.Adapter<ActivitiesAdapter.ViewHolder>() {
@@ -24,7 +24,6 @@ class ActivitiesAdapter(
 	fun setItems(_activitiesItem: List<ActivitiesItem>){
 		activitiesItem = _activitiesItem
 	}
-
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 		val binding: ActivitiesListItemBinding = DataBindingUtil.inflate(inflater, R.layout.activities_list_item, parent, false)
@@ -48,6 +47,5 @@ class ActivitiesAdapter(
 	interface OnClickListener{
 		fun onClick(activitiesItem: ActivitiesItem)
 	}
-
 
 }

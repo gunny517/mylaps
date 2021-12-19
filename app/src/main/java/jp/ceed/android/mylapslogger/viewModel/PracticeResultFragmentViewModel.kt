@@ -24,5 +24,4 @@ class PracticeResultFragmentViewModel(application: Application) : AndroidViewMod
 		})
 	}
 
-
 }

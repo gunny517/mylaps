@@ -24,5 +24,4 @@ class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(a
 		})
 	}
 
-
 }

@@ -2,13 +2,16 @@ package jp.ceed.android.mylapslogger
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.android.mylapslogger.adatpter.ActivitiesAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentActivitiesBinding
@@ -59,11 +62,12 @@ class ActivitiesFragment : Fragment() {
 		if(token == null || userId == null){
 			findNavController().navigate(R.id.action_ActivitiesFragment_to_LoginFragment)
 		}else{
-			initRecyclerView()
+			initLayout()
+			viewModel.callActivitiesRequest()
 		}
 	}
 
-	private fun initRecyclerView(){
+	private fun initLayout(){
 		context?.let { it ->
 			val adapter = ActivitiesAdapter(it, mutableListOf(), object : ActivitiesAdapter.OnClickListener {
 				override fun onClick(activitiesItem: ActivitiesItem) {
@@ -72,11 +76,11 @@ class ActivitiesFragment : Fragment() {
 			})
 			binding.recyclerView.adapter = adapter
 			binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+			binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
 			viewModel.activities.observe(viewLifecycleOwner, Observer {
 				adapter.setItems(it)
 				adapter.notifyDataSetChanged()
 			})
-			viewModel.callActivitiesRequest()
 		}
 	}
 

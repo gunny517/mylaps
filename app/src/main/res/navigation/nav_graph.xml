@@ -34,6 +34,7 @@
 	<fragment
 		android:id="@+id/PracticeResultFragment"
 		android:name="jp.ceed.android.mylapslogger.PracticeResultsFragment"
+		android:label="{sessionDate}"
 		tools:layout="@layout/fragment_practice_result">
 
 		<argument
@@ -45,5 +46,19 @@
 			android:name="sessionDate"
 			app:argType="string"
 			app:nullable="false"/>
+
+		<action
+			android:id="@+id/action_PracticeResultsFragment_to_PracticeSummaryFragment"
+			app:destination="@id/PracticeSummaryFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/PracticeSummaryFragment"
+		android:name="jp.ceed.android.mylapslogger.PracticeSummaryFragment"
+		tools:layout="@layout/fragment_prectice_summary">
+
+		<argument
+			android:name="params"
+			app:argType="jp.ceed.android.mylapslogger.args.PracticeSummaryFragmentParams"/>
 	</fragment>
 </navigation>
