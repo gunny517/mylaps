@@ -28,17 +28,22 @@ class PracticeSummaryFragment : Fragment() {
 		_binding = DataBindingUtil.inflate(inflater, R.layout.fragment_prectice_summary, container, false)
 		binding.viewModel = viewModel
 		binding.lifecycleOwner = viewLifecycleOwner
-		return binding.recyclerView
+		return binding.root
 	}
 
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		context?.let {
-			val adapter = PracticeResultsAdapter(it, args.params.sessionSummary)
+			val adapter = PracticeResultsAdapter(it)
 			binding.recyclerView.adapter = adapter
 			binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 			binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+			viewModel.recyclerViewItem.observe(viewLifecycleOwner, {
+				adapter.setItems(it)
+				adapter.notifyDataSetChanged()
+			})
+			viewModel.recyclerViewItem.value = args.params.sessionSummary
 		}
 	}
 

@@ -30,6 +30,7 @@ class PracticeResultsFragment: Fragment() {
 
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+		setHasOptionsMenu(true)
 		_binding = DataBindingUtil.inflate(inflater, R.layout.fragment_practice_result, container, false)
 		binding.viewModel = viewModel
 		binding.lifecycleOwner = viewLifecycleOwner
@@ -54,7 +55,7 @@ class PracticeResultsFragment: Fragment() {
 
 	private fun initLayout(){
 		context?.let {
-			val adapter = PracticeResultsAdapter(it, mutableListOf())
+			val adapter = PracticeResultsAdapter(it)
 			binding.recyclerView.adapter = adapter
 			binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 			binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))

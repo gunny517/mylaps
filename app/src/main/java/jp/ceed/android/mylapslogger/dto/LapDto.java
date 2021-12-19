@@ -66,6 +66,8 @@ public class LapDto implements Serializable {
 	public LapDto(BestLapX bestLapx){
 		number = String.valueOf(bestLapx.nr);
 		duration = bestLapx.duration;
+		cellBgColor = R.color.window_back_ground;
+		diffTextColor = R.color.text_default;
 	}
 
 	private int getCellBgColor(final String status){

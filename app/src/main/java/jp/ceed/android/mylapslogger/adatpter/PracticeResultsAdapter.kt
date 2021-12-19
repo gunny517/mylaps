@@ -14,16 +14,15 @@ import jp.ceed.android.mylapslogger.databinding.LaptimeListSectionBinding
 import jp.ceed.android.mylapslogger.dto.LapDto
 
 class PracticeResultsAdapter(
-	context: Context,
-	private var items: List<LapDto>
+	context: Context
 
 ) : RecyclerView.Adapter<PracticeResultsAdapter.ViewHolder>() {
 
 	private val inflater: LayoutInflater = LayoutInflater.from(context)
 
-	fun setItems(_items: List<LapDto>){
-		items = _items
-	}
+	private var items: List<LapDto> = mutableListOf()
+
+
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 		return if(viewType == VIEW_TYPE_SECTION){
@@ -50,6 +49,10 @@ class PracticeResultsAdapter(
 		}else{
 			VIEW_TYPE_SECTION
 		}
+	}
+
+	fun setItems(_items: List<LapDto>){
+		items = _items
 	}
 
 	class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
