@@ -16,7 +16,7 @@
 			android:layout_height="wrap_content"
 			android:padding="8dp"
 			android:textSize="18sp"
-			android:textColor="@android:color/white"
+			android:textColor="@color/text_default"
 			android:layout_alignParentStart="true"
 			android:text="@{lapDto.sectionTitle}"/>
 
@@ -26,7 +26,7 @@
 			android:layout_height="wrap_content"
 			android:padding="8dp"
 			android:textSize="18sp"
-			android:textColor="@android:color/white"
+			android:textColor="@color/text_default"
 			android:layout_alignParentEnd="true"
 			android:text="@{lapDto.sessionTime}"/>
 	</RelativeLayout>

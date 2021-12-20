@@ -14,10 +14,10 @@ class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(a
 
 	val progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
 
-	var isLoaded = false
+
 
 	fun callActivitiesRequest(){
-		if(isLoaded){
+		if(activities.value?.isNotEmpty() == true){
 			return
 		}
 		progressVisibility.value = true
@@ -27,7 +27,6 @@ class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(a
 					// TODO
 				}.onSuccess {
 					activities.postValue(it)
-					isLoaded = true
 				}
 				progressVisibility.value = false
 			}

@@ -18,6 +18,9 @@ class PracticeResultFragmentViewModel(application: Application) : AndroidViewMod
 
 
 	fun getPracticeResult() {
+		if(lapList.value?.sessionData?.isNotEmpty() == true){
+			return
+		}
 		sessionId.value?.let {
 			progressVisibility.value = true
 			apiRepository.sessionRequest(it, object : ApiRepository.GetPracticeResultCallback{
