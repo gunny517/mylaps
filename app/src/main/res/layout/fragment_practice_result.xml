@@ -4,14 +4,43 @@
 	xmlns:tools="http://schemas.android.com/tools">
 
 	<data>
+		<import type="android.view.View"/>
 		<variable
 			name="viewModel"
 			type="jp.ceed.android.mylapslogger.viewModel.PracticeResultFragmentViewModel" />
 	</data>
 
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/recyclerView"
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"/>
+		android:layout_height="match_parent">
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/recyclerView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/buttonReload"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom|end"
+			android:layout_marginEnd="@dimen/fab_margin"
+			android:layout_marginBottom="16dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:srcCompat="@android:drawable/ic_menu_revert"
+			android:onClick="@{() -> viewModel.getPracticeResult()}"/>
+
+		<ProgressBar
+			android:id="@+id/progressBar"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:visibility="@{viewModel.progressVisibility ? View.VISIBLE : View.GONE}"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>

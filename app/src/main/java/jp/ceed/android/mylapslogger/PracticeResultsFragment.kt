@@ -40,7 +40,6 @@ class PracticeResultsFragment: Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		initLayout()
-		viewModel.getPracticeResult(args.sessionId)
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -63,6 +62,10 @@ class PracticeResultsFragment: Fragment() {
 				adapter.setItems(it.sessionData)
 				adapter.notifyDataSetChanged()
 			})
+			viewModel.sessionId.observe(viewLifecycleOwner, {
+				viewModel.getPracticeResult()
+			})
+			viewModel.sessionId.value = args.sessionId
 		}
 	}
 

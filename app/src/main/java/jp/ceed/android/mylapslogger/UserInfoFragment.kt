@@ -26,6 +26,4 @@ class UserInfoFragment: Fragment() {
 		return binding.root
 	}
 
-
-
 }

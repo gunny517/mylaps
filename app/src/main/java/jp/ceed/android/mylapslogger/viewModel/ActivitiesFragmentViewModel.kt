@@ -12,14 +12,24 @@ class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(a
 
 	val activities: MutableLiveData<List<ActivitiesItem>> = MutableLiveData()
 
+	val progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
+
+	var isLoaded = false
+
 	fun callActivitiesRequest(){
+		if(isLoaded){
+			return
+		}
+		progressVisibility.value = true
 		apiRepository.getActivities(object : ApiRepository.GetActivitiesCallback{
 			override fun onFinish(result: Result<List<ActivitiesItem>>) {
 				result.onFailure {
 					// TODO
 				}.onSuccess {
 					activities.postValue(it)
+					isLoaded = true
 				}
+				progressVisibility.value = false
 			}
 		})
 	}
