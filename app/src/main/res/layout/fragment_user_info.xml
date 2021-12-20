@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<data>
+		<variable
+			name="viewModel"
+			type="jp.ceed.android.mylapslogger.viewModel.UserInfoFragmentViewModel" />
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="15sp">
+
+		<TextView
+			android:id="@+id/accessTokenTextView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10sp"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:textSize="20sp"
+			android:text="@{@string/format_access_token(viewModel.userInfo.accessToken)}"/>
+
+		<TextView
+			android:id="@+id/tokenTypeTextView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10sp"
+			app:layout_constraintTop_toBottomOf="@id/accessTokenTextView"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:textSize="20sp"
+			android:text="@{@string/format_token_type(viewModel.userInfo.tokenType)}"/>
+
+		<TextView
+			android:id="@+id/expiresInTextView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10sp"
+			app:layout_constraintTop_toBottomOf="@id/tokenTypeTextView"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:textSize="20sp"
+			android:text="@{@string/format_expires_in(viewModel.userInfo.expiresIn)}"/>
+
+		<TextView
+			android:id="@+id/userIdTextView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10sp"
+			app:layout_constraintTop_toBottomOf="@id/expiresInTextView"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:textSize="20sp"
+			android:text="@{@string/format_user_id(viewModel.userInfo.userId)}"/>
+
+		<TextView
+			android:id="@+id/issuedTextView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10sp"
+			app:layout_constraintTop_toBottomOf="@id/userIdTextView"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:textSize="20sp"
+			android:text="@{@string/format_issued(viewModel.userInfo.issued)}"/>
+
+		<TextView
+			android:id="@+id/expiresTextView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10sp"
+			app:layout_constraintTop_toBottomOf="@id/issuedTextView"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:textSize="20sp"
+			android:text="@{@string/format_expires(viewModel.userInfo.expires)}"/>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -18,6 +18,10 @@
 		<action
 			android:id="@+id/action_ActivitiesFragment_to_PracticeResultsFragment"
 			app:destination="@id/PracticeResultFragment"/>
+
+		<action
+			android:id="@+id/action_ActivitiesFragment_to_UserInfoFragment"
+			app:destination="@id/UserInfoFragment"/>
 	</fragment>
 
 	<fragment
@@ -60,5 +64,14 @@
 		<argument
 			android:name="params"
 			app:argType="jp.ceed.android.mylapslogger.args.PracticeSummaryFragmentParams"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/UserInfoFragment"
+		android:name="jp.ceed.android.mylapslogger.UserInfoFragment"
+		android:label="@string/label_user_info_fragment"
+		tools:layout="@layout/fragment_user_info">
+
+
 	</fragment>
 </navigation>

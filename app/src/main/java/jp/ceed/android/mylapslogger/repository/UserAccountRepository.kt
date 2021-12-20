@@ -17,11 +17,15 @@ class UserAccountRepository(val context: Context) {
 
 
 	fun getAccessToken(): String? {
-		return preferenceDao.read(PreferenceDao.PrefsKey.ACCESS_TOKEN)
+		return preferenceDao.read().accessToken
 	}
 
 	fun getUserId(): String? {
-		return preferenceDao.read(PrefsKey.USER_ID)
+		return preferenceDao.read().userId
+	}
+
+	fun getUserInfo(): OAuthResponse{
+		return preferenceDao.read()
 	}
 
 
@@ -32,9 +36,7 @@ class UserAccountRepository(val context: Context) {
 		request.executeRequest(context, object : Callback<OAuthResponse>{
 			override fun success(oAuthResponse: OAuthResponse?, p1: Response?) {
 				oAuthResponse?.let {
-					preferenceDao.save(PrefsKey.ACCESS_TOKEN, oAuthResponse.accessToken)
-					preferenceDao.save(PrefsKey.USER_ID, oAuthResponse.userId)
-					preferenceDao.save(PrefsKey.ACCESS_TOKEN_EXPIRE, oAuthResponse.expires)
+					preferenceDao.save(oAuthResponse)
 					callback.onFinish(Result.success(oAuthResponse))
 				}
 			}

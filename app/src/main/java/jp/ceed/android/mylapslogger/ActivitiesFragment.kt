@@ -1,10 +1,7 @@
 package jp.ceed.android.mylapslogger
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -37,6 +34,7 @@ class ActivitiesFragment : Fragment() {
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
+		setHasOptionsMenu(true)
 		_binding = DataBindingUtil.inflate(inflater, R.layout.fragment_activities, container, false)
 		binding.viewModel = viewModel
 		binding.lifecycleOwner = viewLifecycleOwner
@@ -53,6 +51,21 @@ class ActivitiesFragment : Fragment() {
 	override fun onResume() {
 		super.onResume()
 		checkAccount()
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		return when(item.itemId){
+			R.id.action_summary -> {
+				navigateToUserInfo()
+				true
+			}
+			else -> false
+		}
+	}
+
+
+	private fun navigateToUserInfo(){
+		findNavController().navigate(R.id.action_ActivitiesFragment_to_UserInfoFragment)
 	}
 
 

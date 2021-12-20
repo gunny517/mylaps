@@ -44,12 +44,12 @@ class PracticeResultsFragment: Fragment() {
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		when(item.itemId){
+		return when(item.itemId){
 			R.id.action_summary -> {
 				navigateToSessionSummary()
-				return true
+				true
 			}
-			else -> return false
+			else -> false
 		}
 	}
 

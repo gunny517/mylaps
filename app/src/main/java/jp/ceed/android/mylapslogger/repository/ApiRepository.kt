@@ -29,7 +29,7 @@ class ApiRepository(val context: Context) {
 	fun sessionRequest(sessionId: Int, callback: GetPracticeResultCallback){
 		val request = SessionRequest()
 		request.sessionId = sessionId.toString()
-		request.authorization = preferenceDao.read(PreferenceDao.PrefsKey.ACCESS_TOKEN)
+		request.authorization = preferenceDao.read().accessToken
 		request.executeRequest(context, object : Callback<SessionsResponse>{
 			override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
 				sessionsResponse?.let {
