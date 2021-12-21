@@ -1,8 +1,6 @@
 package jp.ceed.android.mylapslogger.repository
 
 import android.content.Context
-import android.widget.Toast
-import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.dao.PreferenceDao
 import jp.ceed.android.mylapslogger.dto.LapDto
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
@@ -11,13 +9,12 @@ import jp.ceed.android.mylapslogger.network.request.ActivitiesRequest
 import jp.ceed.android.mylapslogger.network.request.SessionRequest
 import jp.ceed.android.mylapslogger.network.response.ActivitiesResponse
 import jp.ceed.android.mylapslogger.network.response.SessionsResponse
-import jp.ceed.android.mylapslogger.network.response.SessionsResponse.Sessions
-import jp.ceed.android.mylapslogger.network.response.SessionsResponse.Sessions.Laps
 import jp.ceed.android.mylapslogger.util.Util
 import retrofit.Callback
 import retrofit.RetrofitError
 import retrofit.client.Response
 import java.io.IOException
+import java.lang.NumberFormatException
 import java.util.ArrayList
 
 class ApiRepository(val context: Context) {
@@ -51,8 +48,11 @@ class ApiRepository(val context: Context) {
 		val lapList = ArrayList<LapDto>()
 		for (session in sessionsResponse.sessions) {
 			lapList.add(LapDto(session))
+			val sessionBest: Float = parseBestLap(session.bestLap.duration)
 			for (lap in session.laps) {
-				lapList.add(LapDto(lap))
+				val lapDto = LapDto(lap)
+				applySpeedLevel(lapDto, sessionBest)
+				lapList.add(lapDto)
 			}
 		}
 		return lapList
@@ -87,6 +87,28 @@ class ApiRepository(val context: Context) {
 				callback.onFinish(Result.failure(error?: IOException("unKnown")))
 			}
 		})
+	}
+
+	private fun applySpeedLevel(lapDto: LapDto, sessionBest: Float){
+		try{
+			val duration = lapDto.duration.toFloat()
+			lapDto.speedLevel = (duration - (sessionBest - BEST_LAP_OFFSET)) * 0.1f
+		}catch (e: NumberFormatException){
+			lapDto.speedLevel = 1f
+		}
+	}
+
+	fun parseBestLap(bestLap: String): Float{
+		return try{
+			bestLap.toFloat()
+		}catch (e: NumberFormatException){
+			DEFAULT_BEST_LAP_TIME
+		}
+	}
+
+	companion object{
+		const val DEFAULT_BEST_LAP_TIME = 30.0f
+		const val BEST_LAP_OFFSET = 2f
 	}
 
 

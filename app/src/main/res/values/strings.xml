@@ -23,5 +23,6 @@
 	<string name="format_user_id">■USER_ID\n%s</string>
 	<string name="format_issued">■ISSUED\n%s</string>
 	<string name="format_expires">■EXPIRES\n%s</string>
+	<string name="format_session_title">セッション：%s</string>
 
 </resources>

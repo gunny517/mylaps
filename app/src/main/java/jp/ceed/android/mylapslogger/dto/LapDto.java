@@ -1,14 +1,15 @@
 package jp.ceed.android.mylapslogger.dto;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.databinding.BindingAdapter;
 import jp.ceed.android.mylapslogger.R;
 import jp.ceed.android.mylapslogger.network.response.SessionsResponse.Sessions;
 import jp.ceed.android.mylapslogger.network.response.SessionsResponse.Sessions.BestLapX;
 import jp.ceed.android.mylapslogger.network.response.SessionsResponse.Sessions.Laps;
 import jp.ceed.android.mylapslogger.util.Util;
+import androidx.constraintlayout.widget.Guideline;
 
 /**
  * Created by ARAKI on 2017/04/28.
@@ -41,6 +42,8 @@ public class LapDto implements Serializable {
 
 	public int diffTextColor;
 
+	public float speedLevel;
+
 
 	public LapDto(){
 		// Nothing to do.
@@ -59,7 +62,7 @@ public class LapDto implements Serializable {
 
 	public LapDto(Sessions sessions){
 		sessionTime = Util.convertTo(Util.API_TIME_FORMAT_WITH_SEC, "HH:mm:ss", sessions.dateTimeStart);
-		sectionTitle = String.format("セッション：%s", sessions.id);
+		sectionTitle = String.valueOf(sessions.id);
 	}
 
 
@@ -91,6 +94,13 @@ public class LapDto implements Serializable {
 		}else{
 			return R.color.text_default;
 		}
+	}
+
+	@BindingAdapter("layout_constraintGuide_percent")
+	public static void setLayoutConstraintGuidePercent(Guideline guideline, float percent) {
+		ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) guideline.getLayoutParams();
+		params.guidePercent = percent;
+		guideline.setLayoutParams(params);
 	}
 
 

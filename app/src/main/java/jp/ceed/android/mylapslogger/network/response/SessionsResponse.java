@@ -263,7 +263,7 @@ public class SessionsResponse implements Serializable {
 				 */
 
 				@SerializedName("kph")
-				public double kph;
+				public float kph;
 
 				@SerializedName("mps")
 				public double mps;

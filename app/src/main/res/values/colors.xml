@@ -14,4 +14,5 @@
 	<color name="text_slower">#b91702</color>
 	<color name="bg_lap_list_shown">#cccccc</color>
 	<color name="window_back_ground">#ffffff</color>
+	<color name="speed_bar">#0040FF</color>
 </resources>
