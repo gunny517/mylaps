@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android/projects/mylapslogger/app/src/main/res/drawable/ic_launcher_background.xml" value="0.29814814814814816" />
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/activities_list_item.xml" value="0.35280797101449274" />
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/activity_main.xml" value="0.31431159420289856" />
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/content_main.xml" value="0.35280797101449274" />
@@ -11,10 +12,12 @@
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/fragment_practice_result.xml" value="0.35280797101449274" />
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/fragment_prectice_summary.xml" value="0.31431159420289856" />
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/fragment_rounds.xml" value="0.3641304347826087" />
+        <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/fragment_session_info.xml" value="0.3351449275362319" />
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/fragment_user_info.xml" value="0.33016304347826086" />
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/laptime_list_lap.xml" value="0.31431159420289856" />
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/layout/laptime_list_section.xml" value="0.17552083333333332" />
         <entry key="..\:/android/projects/mylapslogger/app/src/main/res/menu/menu_main.xml" value="0.4010416666666667" />
+        <entry key="..\:/android/projects/mylapslogger/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.29814814814814816" />
       </map>
     </option>
   </component>

@@ -12,7 +12,8 @@
 	<color name="text_default">#ffffff</color>
 	<color name="text_faster">#94D17D</color>
 	<color name="text_slower">#EC8275</color>
+	<color name="text_menu">@color/white</color>
 	<color name="bg_lap_list_shown">#666666</color>
 	<color name="window_back_ground">#282828</color>
-	<color name="speed_bar">#1E56FF</color>
+	<color name="speed_bar">#678DFF</color>
 </resources>

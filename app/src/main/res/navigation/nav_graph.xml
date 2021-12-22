@@ -54,6 +54,10 @@
 		<action
 			android:id="@+id/action_PracticeResultsFragment_to_PracticeSummaryFragment"
 			app:destination="@id/PracticeSummaryFragment"/>
+
+		<action
+			android:id="@+id/action_PracticeResultsFragment_to_SessionInfoFragment"
+			app:destination="@id/SessionInfoFragment"/>
 	</fragment>
 
 	<fragment
@@ -70,8 +74,20 @@
 		android:id="@+id/UserInfoFragment"
 		android:name="jp.ceed.android.mylapslogger.UserInfoFragment"
 		android:label="@string/label_user_info_fragment"
-		tools:layout="@layout/fragment_user_info">
+		tools:layout="@layout/fragment_user_info"/>
 
+	<fragment
+		android:id="@+id/SessionInfoFragment"
+		android:name="jp.ceed.android.mylapslogger.SessionInfoFragment"
+		android:label="@string/label_session_info_fragment"
+		tools:layout="@layout/fragment_session_info">
 
+		<argument
+			android:name="sessionId"
+			app:argType="integer"/>
+
+		<action
+			android:id="@+id/action_SessionInfoFragment_to_PracticeResultsFragment"
+			app:destination="@id/PracticeResultFragment"/>
 	</fragment>
 </navigation>

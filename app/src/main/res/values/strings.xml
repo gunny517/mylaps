@@ -1,10 +1,13 @@
 <resources>
 	<string name="app_name">mylapslogger</string>
-	<string name="action_summary">Summary</string>
+	<string name="action_session_summary">サマリー</string>
+	<string name="action_user_info">ユーザー情報</string>
+	<string name="action_session_info">セッション情報</string>
 	<!-- Strings used for fragments for navigation -->
 	<string name="activities_fragment_label">走行日一覧</string>
 	<string name="login_fragment_label">ログイン</string>
 	<string name="label_user_info_fragment">ユーザー情報</string>
+	<string name="label_session_info_fragment">セッション情報</string>
 	<string name="next">Next</string>
 	<string name="previous">Previous</string>
 
@@ -25,4 +28,6 @@
 	<string name="format_expires">■EXPIRES\n%s</string>
 	<string name="format_session_title">セッション：%s</string>
 
+	<string name="label_session_info_title_description">備考</string>
+	<string name="label_session_info_save_button">保存</string>
 </resources>

@@ -15,5 +15,10 @@
 			tools:targetApi="l">?attr/colorPrimaryVariant
 		</item>
 		<!-- Customize your theme here. -->
+		<item name="android:actionMenuTextAppearance">@style/myCustomMenuTextAppearance</item>
+	</style>
+
+	<style name="myCustomMenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+		<item name="android:textColor">@color/text_menu</item>
 	</style>
 </resources>

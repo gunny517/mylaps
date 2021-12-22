@@ -1,10 +1,7 @@
 package jp.ceed.android.mylapslogger
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -42,10 +39,23 @@ class PracticeResultsFragment: Fragment() {
 		initLayout()
 	}
 
+
+	override fun onPrepareOptionsMenu(menu: Menu) {
+		menu.findItem(R.id.action_session_info).setVisible(true)
+		menu.findItem(R.id.action_session_summary).setVisible(true)
+		menu.findItem(R.id.action_user_info).setVisible(false)
+		super.onPrepareOptionsMenu(menu)
+	}
+
+
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		return when(item.itemId){
-			R.id.action_summary -> {
+			R.id.action_session_summary -> {
 				navigateToSessionSummary()
+				true
+			}
+			R.id.action_session_info -> {
+				navigateToSessionInfo()
 				true
 			}
 			else -> false
@@ -75,9 +85,14 @@ class PracticeResultsFragment: Fragment() {
 				it.sessionSummary as ArrayList<LapDto>,
 				args.sessionDate
 			)
-			val action = PracticeResultsFragmentDirections.actionPracticeResultsFragmentToPracticeSummaryFragment(params)
-			findNavController().navigate(action)
+			findNavController().navigate(PracticeResultsFragmentDirections
+				.actionPracticeResultsFragmentToPracticeSummaryFragment(params))
 		}
+	}
+
+	private fun navigateToSessionInfo(){
+		findNavController().navigate(PracticeResultsFragmentDirections
+			.actionPracticeResultsFragmentToSessionInfoFragment(args.sessionId))
 	}
 
 }

@@ -2,7 +2,6 @@ package jp.ceed.android.mylapslogger
 
 import android.os.Bundle
 import android.view.*
-import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -53,9 +52,17 @@ class ActivitiesFragment : Fragment() {
 		checkAccount()
 	}
 
+
+	override fun onPrepareOptionsMenu(menu: Menu) {
+		menu.findItem(R.id.action_session_info).setVisible(false)
+		menu.findItem(R.id.action_session_summary).setVisible(false)
+		menu.findItem(R.id.action_user_info).setVisible(true)
+		super.onPrepareOptionsMenu(menu)
+	}
+
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		return when(item.itemId){
-			R.id.action_summary -> {
+			R.id.action_session_summary -> {
 				navigateToUserInfo()
 				true
 			}
