@@ -28,7 +28,7 @@
 			android:layout_marginBottom="16dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:srcCompat="@android:drawable/ic_menu_revert"
+			app:srcCompat="@drawable/ic_reload"
 			android:onClick="@{() -> viewModel.getPracticeResult()}"/>
 
 		<ProgressBar
@@ -41,6 +41,4 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			android:visibility="@{viewModel.progressVisibility ? View.VISIBLE : View.GONE}"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </layout>
