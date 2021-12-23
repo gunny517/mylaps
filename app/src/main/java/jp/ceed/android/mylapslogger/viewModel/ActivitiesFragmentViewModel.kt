@@ -15,22 +15,19 @@ class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(a
 	val progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
-
-	fun callActivitiesRequest(){
-		if(activities.value?.isNotEmpty() == true){
+	fun callActivitiesRequest() {
+		if (activities.value?.isNotEmpty() == true) {
 			return
 		}
 		progressVisibility.value = true
-		apiRepository.getActivities(object : ApiRepository.GetActivitiesCallback{
-			override fun onFinish(result: Result<List<ActivitiesItem>>) {
-				result.onFailure {
-					// TODO
-				}.onSuccess {
-					activities.postValue(it)
-				}
-				progressVisibility.value = false
+		apiRepository.getActivities {
+			it.onFailure {
+				// TODO
+			}.onSuccess { it1 ->
+				activities.postValue(it1)
 			}
-		})
+			progressVisibility.value = false
+		}
 	}
 
 }

@@ -23,7 +23,7 @@ class ApiRepository(val context: Context) {
 
 	private val userAccountRepository = UserAccountRepository(context)
 
-	fun sessionRequest(sessionId: Int, callback: GetPracticeResultCallback){
+	fun sessionRequest(sessionId: Int, callback: (Result<PracticeResult>) -> Unit){
 		val request = SessionRequest()
 		request.sessionId = sessionId.toString()
 		request.authorization = preferenceDao.read().accessToken
@@ -34,12 +34,12 @@ class ApiRepository(val context: Context) {
 						createLapList(it),
 						createSessionData(it)
 					)
-					callback.onFinish(Result.success(practiceResult))
+					callback(Result.success(practiceResult))
 				}
 			}
 
 			override fun failure(error: RetrofitError?) {
-				callback.onFinish(Result.failure(error?: IOException("unKnown")))
+				callback(Result.failure(error?: IOException("unKnown")))
 			}
 		})
 	}
@@ -68,23 +68,18 @@ class ApiRepository(val context: Context) {
 	}
 
 
-	interface GetPracticeResultCallback{
-		fun onFinish(result: Result<PracticeResult>)
-	}
-
-
-	fun getActivities(callback: GetActivitiesCallback){
+	fun getActivities(callback: (Result<List<ActivitiesItem>>) -> Unit){
 		val request = ActivitiesRequest()
 		request.userId = userAccountRepository.getUserId()
 		request.executeRequest(context, object : Callback<ActivitiesResponse> {
 			override fun success(activitiesResponse: ActivitiesResponse?, response: Response?) {
 				activitiesResponse?.let {
 					val list = Util.convertToActivitiesItem(activitiesResponse.activities)
-					callback.onFinish(Result.success(list))
+					callback(Result.success(list))
 				}
 			}
 			override fun failure(error: RetrofitError?) {
-				callback.onFinish(Result.failure(error?: IOException("unKnown")))
+				callback(Result.failure(error?: IOException("unKnown")))
 			}
 		})
 	}
@@ -98,7 +93,7 @@ class ApiRepository(val context: Context) {
 		}
 	}
 
-	fun parseBestLap(bestLap: String): Float{
+	private fun parseBestLap(bestLap: String): Float{
 		return try{
 			bestLap.toFloat()
 		}catch (e: NumberFormatException){
@@ -111,9 +106,5 @@ class ApiRepository(val context: Context) {
 		const val BEST_LAP_OFFSET = 2f
 	}
 
-
-	interface GetActivitiesCallback{
-		fun onFinish(result: Result<List<ActivitiesItem>>)
-	}
 
 }

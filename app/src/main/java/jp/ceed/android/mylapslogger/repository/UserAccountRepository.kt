@@ -29,7 +29,7 @@ class UserAccountRepository(val context: Context) {
 	}
 
 
-	fun requestLogin(userName: String, password: String, callback: LoginCallback){
+	fun requestLogin(userName: String, password: String, callback: (Result<OAuthResponse>) -> Unit){
 		val request = OAuthRequest()
 		request.userName = userName
 		request.password = password
@@ -37,18 +37,15 @@ class UserAccountRepository(val context: Context) {
 			override fun success(oAuthResponse: OAuthResponse?, p1: Response?) {
 				oAuthResponse?.let {
 					preferenceDao.save(oAuthResponse)
-					callback.onFinish(Result.success(oAuthResponse))
+					callback(Result.success(oAuthResponse))
 				}
 			}
 
 			override fun failure(error: RetrofitError?) {
 				LogUtil.e(error?.message)
-				callback.onFinish(Result.failure(error?: IOException("unKnown")))
+				callback(Result.failure(error?: IOException("unKnown")))
 			}
 		})
 	}
 
-	interface LoginCallback{
-		fun onFinish(result: Result<OAuthResponse>)
-	}
 }

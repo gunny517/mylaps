@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import jp.ceed.android.mylapslogger.dao.SessionInfoDao
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 
-@Database(entities = [SessionInfo::class], version = 1)
+@Database(entities = [SessionInfo::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun sessionInfoDao(): SessionInfoDao

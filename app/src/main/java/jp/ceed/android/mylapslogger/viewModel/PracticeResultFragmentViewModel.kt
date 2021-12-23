@@ -23,16 +23,14 @@ class PracticeResultFragmentViewModel(application: Application) : AndroidViewMod
 		}
 		sessionId.value?.let {
 			progressVisibility.value = true
-			apiRepository.sessionRequest(it, object : ApiRepository.GetPracticeResultCallback{
-				override fun onFinish(result: Result<PracticeResult>) {
-					result.onSuccess {
-						lapList.postValue(it)
-					}.onFailure {
-						// Nothing to do.
-					}
-					progressVisibility.value = false
+			apiRepository.sessionRequest(it){ it2 ->
+				it2.onSuccess { it3 ->
+					lapList.postValue(it3)
+				}.onFailure {
+					// Nothing to do.
 				}
-			})
+				progressVisibility.value = false
+			}
 		}
 	}
 

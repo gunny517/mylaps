@@ -24,16 +24,13 @@ class LoginFragmentViewModel(application: Application) : AndroidViewModel(applic
 	fun callLogin(view: View){
 		userAccountRepository.requestLogin(
 			userName.value.toString(),
-			password.value.toString(),
-			object : UserAccountRepository.LoginCallback{
-				override fun onFinish(result: Result<OAuthResponse>) {
-					result.onSuccess {
-						loginResult.postValue(LoginResult.Success)
-					}.onFailure {
-						loginResult.postValue(LoginResult.Failed)
-					}
+			password.value.toString()) {
+				it.onSuccess {
+					loginResult.postValue(LoginResult.Success)
+				}.onFailure {
+					loginResult.postValue(LoginResult.Failed)
 				}
-			})
+		}
 	}
 
 }
