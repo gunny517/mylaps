@@ -54,15 +54,15 @@ class ActivitiesFragment : Fragment() {
 
 
 	override fun onPrepareOptionsMenu(menu: Menu) {
-		menu.findItem(R.id.action_session_info).setVisible(false)
-		menu.findItem(R.id.action_session_summary).setVisible(false)
-		menu.findItem(R.id.action_user_info).setVisible(true)
+		menu.findItem(R.id.action_session_info).isVisible = false
+		menu.findItem(R.id.action_session_summary).isVisible = false
+		menu.findItem(R.id.action_user_info).isVisible = true
 		super.onPrepareOptionsMenu(menu)
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		return when(item.itemId){
-			R.id.action_session_summary -> {
+			R.id.action_user_info -> {
 				navigateToUserInfo()
 				true
 			}
