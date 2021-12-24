@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class SessionInfo(
-	@PrimaryKey @ColumnInfo(name = "session_id") val sessionId: Int,
+data class ActivityInfo(
+	@PrimaryKey @ColumnInfo(name = "activity_id") val activityId: Int,
 	var description: String
 ) {
 }

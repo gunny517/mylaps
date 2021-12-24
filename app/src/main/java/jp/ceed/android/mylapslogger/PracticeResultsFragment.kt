@@ -75,7 +75,7 @@ class PracticeResultsFragment: Fragment() {
 			viewModel.sessionId.observe(viewLifecycleOwner, {
 				viewModel.getPracticeResult()
 			})
-			viewModel.sessionId.value = args.sessionId
+			viewModel.sessionId.value = args.activityId
 		}
 	}
 
@@ -92,7 +92,7 @@ class PracticeResultsFragment: Fragment() {
 
 	private fun navigateToSessionInfo(){
 		findNavController().navigate(PracticeResultsFragmentDirections
-			.actionPracticeResultsFragmentToSessionInfoFragment(args.sessionId))
+			.actionPracticeResultsFragmentToActivityInfoFragment(args.activityId))
 	}
 
 }

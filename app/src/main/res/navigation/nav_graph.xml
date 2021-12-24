@@ -42,7 +42,7 @@
 		tools:layout="@layout/fragment_practice_result">
 
 		<argument
-			android:name="sessionId"
+			android:name="activityId"
 			app:argType="integer"
 			app:nullable="false"/>
 
@@ -56,7 +56,11 @@
 			app:destination="@id/PracticeSummaryFragment"/>
 
 		<action
-			android:id="@+id/action_PracticeResultsFragment_to_SessionInfoFragment"
+			android:id="@+id/action_PracticeResultsFragment_to_ActivityInfoFragment"
+			app:destination="@id/ActivityInfoFragment"/>
+
+		<action
+			android:id="@+id/action_PracticeResultFragment_to_SessionInfoFragment"
 			app:destination="@id/SessionInfoFragment"/>
 	</fragment>
 
@@ -77,17 +81,22 @@
 		tools:layout="@layout/fragment_user_info"/>
 
 	<fragment
-		android:id="@+id/SessionInfoFragment"
-		android:name="jp.ceed.android.mylapslogger.SessionInfoFragment"
+		android:id="@+id/ActivityInfoFragment"
+		android:name="jp.ceed.android.mylapslogger.ActivityInfoFragment"
 		android:label="@string/label_session_info_fragment"
-		tools:layout="@layout/fragment_session_info">
+		tools:layout="@layout/fragment_activity_info">
+
+		<argument
+			android:name="activityId"
+			app:argType="integer"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/SessionInfoFragment"
+		android:name="jp.ceed.android.mylapslogger.SessionInfoFragment">
 
 		<argument
 			android:name="sessionId"
-			app:argType="integer"/>
-
-		<action
-			android:id="@+id/action_SessionInfoFragment_to_PracticeResultsFragment"
-			app:destination="@id/PracticeResultFragment"/>
+			app:argType="string"/>
 	</fragment>
 </navigation>

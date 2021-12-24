@@ -4,13 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import jp.ceed.android.mylapslogger.dao.SessionInfoDao
-import jp.ceed.android.mylapslogger.entity.SessionInfo
+import jp.ceed.android.mylapslogger.dao.ActivityInfoDao
+import jp.ceed.android.mylapslogger.entity.ActivityInfo
 
-@Database(entities = [SessionInfo::class], version = 1, exportSchema = false)
+@Database(entities = [ActivityInfo::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun sessionInfoDao(): SessionInfoDao
+    abstract fun activityInfoDao(): ActivityInfoDao
 
     companion object {
 
