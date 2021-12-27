@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<data>
 		<variable
@@ -9,10 +10,57 @@
 
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		android:padding="10sp">
 
+		<EditText
+			android:id="@+id/temperatureEditText"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:inputType="text"
+			android:text="@{viewModel.sessionInfo.temperature}"/>
 
+		<EditText
+			android:id="@+id/humidityEditText"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:layout_constraintTop_toBottomOf="@id/temperatureEditText"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:inputType="text"
+			android:text="@={viewModel.sessionInfo.humidity}"/>
 
+		<EditText
+			android:id="@+id/pressureEditText"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:layout_constraintTop_toBottomOf="@id/humidityEditText"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:inputType="text"
+			android:text="@={viewModel.sessionInfo.pressure}"/>
+
+		<EditText
+			android:id="@+id/descriptionEditText"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:layout_constraintTop_toBottomOf="@id/pressureEditText"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:lines="10"
+			android:text="@={viewModel.sessionInfo.description}"/>
+
+		<Button
+			android:id="@+id/saveButton"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:text="@string/label_session_info_save_button"
+			android:onClick="@{() -> viewModel.saveSessionInfo()}"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

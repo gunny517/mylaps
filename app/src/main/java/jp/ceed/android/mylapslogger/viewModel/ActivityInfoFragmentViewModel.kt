@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import jp.ceed.android.mylapslogger.entity.ActivityInfo
 import jp.ceed.android.mylapslogger.entity.Event
+import jp.ceed.android.mylapslogger.entity.EventState
 import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
 import kotlinx.coroutines.launch
 
@@ -17,17 +18,17 @@ class ActivityInfoFragmentViewModel(application: Application) : AndroidViewModel
 
     var activityId: MutableLiveData<Int> = MutableLiveData()
 
-    var onSaved: MutableLiveData<Event<String>> = MutableLiveData()
+    var onSaved: MutableLiveData<Event<EventState>> = MutableLiveData()
 
-    var hasRecord = false
+    var hadRecord = false
 
 
-    fun loadSessionInfo(_sessionId: Int) {
-        activityId.value = _sessionId
+    fun loadSessionInfo(_activityId: Int) {
+        activityId.value = _activityId
         viewModelScope.launch {
-            sessionInfoRepository.findBySessionId(_sessionId)?.let {
+            sessionInfoRepository.findById(_activityId)?.let {
                 description.value = it.description
-                hasRecord = true
+                hadRecord = true
             }
         }
     }
@@ -38,15 +39,15 @@ class ActivityInfoFragmentViewModel(application: Application) : AndroidViewModel
             description.value?.let { it2 ->
                 val dto = ActivityInfo(it1, it2)
                 viewModelScope.launch {
-                    if(hasRecord){
-                        sessionInfoRepository.updateSessionInfo(dto)
+                    if(hadRecord){
+                        sessionInfoRepository.update(dto)
                     }else{
-                        sessionInfoRepository.insertSessionInfo(dto)
+                        sessionInfoRepository.insert(dto)
                     }
+                    onSaved.value = Event(EventState.SAVED)
                 }
             }
         }
-        onSaved.value = Event("saved")
     }
 
 }

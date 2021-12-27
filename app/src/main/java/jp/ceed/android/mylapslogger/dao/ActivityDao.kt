@@ -14,12 +14,12 @@ interface ActivityInfoDao {
 	fun findAll(): List<ActivityInfo>
 
 	@Query("SELECT * FROM ActivityInfo WHERE activity_id = (:activityId)")
-	fun findBySessionId(activityId: Int): ActivityInfo
+	fun findById(activityId: Int): ActivityInfo
 
 	@Insert
 	fun insert(sessionInfo: ActivityInfo)
 
 	@Update(entity = ActivityInfo::class)
-	fun updateBySessionId(sessionInfo: ActivityInfo)
+	fun updateId(sessionInfo: ActivityInfo)
 
 }

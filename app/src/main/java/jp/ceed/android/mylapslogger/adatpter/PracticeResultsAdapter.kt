@@ -14,8 +14,8 @@ import jp.ceed.android.mylapslogger.databinding.LaptimeListSectionBinding
 import jp.ceed.android.mylapslogger.dto.LapDto
 
 class PracticeResultsAdapter(
-	context: Context
-
+	context: Context,
+	private val onClickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<PracticeResultsAdapter.ViewHolder>() {
 
 	private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -37,10 +37,17 @@ class PracticeResultsAdapter(
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		val item = items[position]
 		holder.viewDataBinding?.setVariable(BR.lapDto, item)
+		holder.itemView.setOnClickListener{onClickSection(item)}
 	}
 
 	override fun getItemCount(): Int {
 		return items.size
+	}
+
+	private fun onClickSection(lapDto: LapDto){
+		if(lapDto.sessionId != 0){
+			onClickListener(lapDto.sessionId)
+		}
 	}
 
 	override fun getItemViewType(position: Int): Int {

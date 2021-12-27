@@ -11,23 +11,23 @@ class ActivityInfoRepository(application: Application) {
 	private val dao = AppDatabase.getInstance(application).activityInfoDao()
 
 
-	suspend fun findBySessionId(sessionId: Int): ActivityInfo? {
+	suspend fun findById(sessionId: Int): ActivityInfo? {
 		var sessionInfo: ActivityInfo? = null
 		withContext(Dispatchers.IO){
-			sessionInfo = dao.findBySessionId(sessionId)
+			sessionInfo = dao.findById(sessionId)
 		}
 		return sessionInfo
 	}
 
 
-	suspend fun updateSessionInfo(sessionInfo: ActivityInfo){
+	suspend fun update(sessionInfo: ActivityInfo){
 		withContext(Dispatchers.IO){
-			dao.updateBySessionId(sessionInfo)
+			dao.updateId(sessionInfo)
 		}
 	}
 
 
-	suspend fun insertSessionInfo(sessionInfo: ActivityInfo){
+	suspend fun insert(sessionInfo: ActivityInfo){
 		withContext(Dispatchers.IO){
 			dao.insert(sessionInfo)
 		}

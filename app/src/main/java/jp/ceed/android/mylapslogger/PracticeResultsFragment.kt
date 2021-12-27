@@ -55,7 +55,7 @@ class PracticeResultsFragment: Fragment() {
 				true
 			}
 			R.id.action_session_info -> {
-				navigateToSessionInfo()
+				navigateToActivityInfo()
 				true
 			}
 			else -> false
@@ -64,7 +64,7 @@ class PracticeResultsFragment: Fragment() {
 
 	private fun initLayout(){
 		context?.let {
-			val adapter = PracticeResultsAdapter(it)
+			val adapter = PracticeResultsAdapter(it){ i: Int -> navigateToSessionInfo(i) }
 			binding.recyclerView.adapter = adapter
 			binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 			binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
@@ -90,9 +90,16 @@ class PracticeResultsFragment: Fragment() {
 		}
 	}
 
-	private fun navigateToSessionInfo(){
+	private fun navigateToActivityInfo(){
 		findNavController().navigate(PracticeResultsFragmentDirections
 			.actionPracticeResultsFragmentToActivityInfoFragment(args.activityId))
 	}
+
+
+	private fun navigateToSessionInfo(sessionId: Int){
+		findNavController().navigate(PracticeResultsFragmentDirections
+			.actionPracticeResultFragmentToSessionInfoFragment(sessionId))
+	}
+
 
 }
