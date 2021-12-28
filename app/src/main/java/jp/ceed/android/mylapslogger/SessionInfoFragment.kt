@@ -1,5 +1,6 @@
 package jp.ceed.android.mylapslogger
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,7 @@ class SessionInfoFragment: Fragment() {
 
     private val binding get() = _binding!!
 
-    private val viewModel: SessionInfoFragmentViewModel by viewModels()
+    private val viewModel: SessionInfoFragmentViewModel by viewModels(factoryProducer = ::viewModelFactoryProducer)
 
     private val args: SessionInfoFragmentArgs by navArgs()
 
@@ -45,9 +46,12 @@ class SessionInfoFragment: Fragment() {
     }
 
     private fun initLayout(){
-        viewModel.loadSessionInfo(args.sessionId)
         viewModel.onSaved.observe(viewLifecycleOwner){
             findNavController().navigateUp()
         }
+    }
+
+    private fun viewModelFactoryProducer(): SessionInfoFragmentViewModel.Factory {
+        return SessionInfoFragmentViewModel.Factory(args.sessionId, requireContext().applicationContext as Application)
     }
 }

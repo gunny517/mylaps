@@ -1,18 +1,17 @@
 package jp.ceed.android.mylapslogger.viewModel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import android.content.Context
+import androidx.lifecycle.*
 import jp.ceed.android.mylapslogger.entity.ActivityInfo
 import jp.ceed.android.mylapslogger.entity.Event
 import jp.ceed.android.mylapslogger.entity.EventState
 import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
 import kotlinx.coroutines.launch
 
-class ActivityInfoFragmentViewModel(application: Application) : AndroidViewModel(application) {
+class ActivityInfoFragmentViewModel(val id: Int, val application: Application) : ViewModel() {
 
-    private val sessionInfoRepository = ActivityInfoRepository(getApplication())
+    private val sessionInfoRepository = ActivityInfoRepository(application)
 
     var description: MutableLiveData<String> = MutableLiveData()
 
@@ -23,7 +22,11 @@ class ActivityInfoFragmentViewModel(application: Application) : AndroidViewModel
     var hadRecord = false
 
 
-    fun loadSessionInfo(_activityId: Int) {
+    init {
+    	loadSessionInfo(id)
+    }
+
+    private fun loadSessionInfo(_activityId: Int) {
         activityId.value = _activityId
         viewModelScope.launch {
             sessionInfoRepository.findById(_activityId)?.let {
@@ -47,6 +50,13 @@ class ActivityInfoFragmentViewModel(application: Application) : AndroidViewModel
                     onSaved.value = Event(EventState.SAVED)
                 }
             }
+        }
+    }
+
+    class Factory(val id: Int, val application: Application): ViewModelProvider.Factory {
+        @Suppress("unchecked_cast")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return ActivityInfoFragmentViewModel(id, application) as T
         }
     }
 

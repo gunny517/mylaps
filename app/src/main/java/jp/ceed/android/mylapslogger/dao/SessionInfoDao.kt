@@ -10,7 +10,7 @@ import jp.ceed.android.mylapslogger.entity.SessionInfo
 interface SessionInfoDao {
 
 	@Query("SELECT * FROM SessionInfo WHERE session_id = (:sessionId)")
-	fun findById(sessionId: Int) : SessionInfo
+	fun findById(sessionId: Long) : SessionInfo
 
 	@Insert
 	fun insert(sessionInfo: SessionInfo)

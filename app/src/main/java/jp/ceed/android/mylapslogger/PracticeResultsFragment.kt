@@ -1,5 +1,6 @@
 package jp.ceed.android.mylapslogger
 
+import android.app.Application
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -21,7 +22,7 @@ class PracticeResultsFragment: Fragment() {
 
 	private val binding get() = _binding!!
 
-	private val viewModel: PracticeResultFragmentViewModel by viewModels()
+	private val viewModel: PracticeResultFragmentViewModel by viewModels(factoryProducer = ::viewModelFactoryProducer)
 
 	private val args: PracticeResultsFragmentArgs by navArgs()
 
@@ -41,9 +42,9 @@ class PracticeResultsFragment: Fragment() {
 
 
 	override fun onPrepareOptionsMenu(menu: Menu) {
-		menu.findItem(R.id.action_session_info).setVisible(true)
-		menu.findItem(R.id.action_session_summary).setVisible(true)
-		menu.findItem(R.id.action_user_info).setVisible(false)
+		menu.findItem(R.id.action_session_info).isVisible = true
+		menu.findItem(R.id.action_session_summary).isVisible = true
+		menu.findItem(R.id.action_user_info).isVisible = false
 		super.onPrepareOptionsMenu(menu)
 	}
 
@@ -63,20 +64,14 @@ class PracticeResultsFragment: Fragment() {
 	}
 
 	private fun initLayout(){
-		context?.let {
-			val adapter = PracticeResultsAdapter(it){ i: Int -> navigateToSessionInfo(i) }
-			binding.recyclerView.adapter = adapter
-			binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-			binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-			viewModel.lapList.observe(viewLifecycleOwner, {
-				adapter.setItems(it.sessionData)
-				adapter.notifyDataSetChanged()
-			})
-			viewModel.sessionId.observe(viewLifecycleOwner, {
-				viewModel.getPracticeResult()
-			})
-			viewModel.sessionId.value = args.activityId
-		}
+		val adapter = PracticeResultsAdapter(requireContext()){ i: Long -> navigateToSessionInfo(i) }
+		binding.recyclerView.adapter = adapter
+		binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+		binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+		viewModel.lapList.observe(viewLifecycleOwner, {
+			adapter.setItems(it.sessionData)
+			adapter.notifyDataSetChanged()
+		})
 	}
 
 	private fun navigateToSessionSummary(){
@@ -96,9 +91,13 @@ class PracticeResultsFragment: Fragment() {
 	}
 
 
-	private fun navigateToSessionInfo(sessionId: Int){
+	private fun navigateToSessionInfo(sessionId: Long){
 		findNavController().navigate(PracticeResultsFragmentDirections
 			.actionPracticeResultFragmentToSessionInfoFragment(sessionId))
+	}
+
+	private fun viewModelFactoryProducer(): PracticeResultFragmentViewModel.Factory {
+		return PracticeResultFragmentViewModel.Factory(args.activityId, requireContext().applicationContext as Application)
 	}
 
 

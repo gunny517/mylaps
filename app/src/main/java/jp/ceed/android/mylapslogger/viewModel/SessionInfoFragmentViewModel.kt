@@ -6,9 +6,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import jp.ceed.android.mylapslogger.entity.Event
 import jp.ceed.android.mylapslogger.entity.EventState
 import jp.ceed.android.mylapslogger.entity.SessionInfo
@@ -17,7 +15,7 @@ import jp.ceed.android.mylapslogger.util.LogUtil
 import jp.ceed.android.mylapslogger.util.Util
 import kotlinx.coroutines.launch
 
-class SessionInfoFragmentViewModel(application: Application) : AndroidViewModel(application), SensorEventListener {
+class SessionInfoFragmentViewModel(val id: Long, val application: Application) : ViewModel(), SensorEventListener {
 
 	private val sessionInfoRepository = SessionInfoRepository(application.applicationContext)
 
@@ -43,10 +41,11 @@ class SessionInfoFragmentViewModel(application: Application) : AndroidViewModel(
 
 
 	init{
+		loadSessionInfo(id)
 		initSensor()
 	}
 
-	fun loadSessionInfo(_sessionId: Int){
+	private fun loadSessionInfo(_sessionId: Long){
 		viewModelScope.launch {
 			val _sessionInfo: SessionInfo? = sessionInfoRepository.findBySessionId(_sessionId)
 			sessionInfo.value = _sessionInfo ?: SessionInfo(sessionId = _sessionId)
@@ -68,7 +67,7 @@ class SessionInfoFragmentViewModel(application: Application) : AndroidViewModel(
 	}
 
 	private fun initSensor(){
-		Util.checkSensor(getApplication())
+		Util.checkSensor(application)
 		temperatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)
 		pressureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE)
 		humiditySensor = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY)
@@ -119,6 +118,13 @@ class SessionInfoFragmentViewModel(application: Application) : AndroidViewModel(
 
 	override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
 		// Nothing to do.
+	}
+
+	class Factory(val id: Long, val application: Application): ViewModelProvider.Factory {
+		@Suppress("unchecked_cast")
+		override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+			return SessionInfoFragmentViewModel(id, application) as T
+		}
 	}
 
 }

@@ -44,7 +44,7 @@ public class LapDto implements Serializable {
 
 	public float speedLevel;
 
-	public int sessionId;
+	public long sessionId;
 
 
 	public LapDto(){
@@ -63,9 +63,9 @@ public class LapDto implements Serializable {
 
 
 	public LapDto(Sessions sessions){
-		sessionTime = Util.convertTo(Util.API_TIME_FORMAT_WITH_SEC, "HH:mm:ss", sessions.dateTimeStart);
+		sessionTime = Util.toHmsFromDateTimeWithMilliSec(sessions.dateTimeStart);
 		sectionTitle = String.valueOf(sessions.id);
-		sessionId = sessions.chipId;
+		sessionId = Util.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart);
 	}
 
 

@@ -7,7 +7,7 @@ class ActivitiesItem(dto: ActivitiesResponse.ActivityDto){
 
 	val sessionId: Int = dto.id
 
-	val startTime: String = Util.convertTo(Util.API_TIME_FORMAT, FORMAT, dto.startTime)
+	val startTime: String = Util.toYmdFormatFromDateTime(dto.startTime)
 
 	val place: String = dto.location.name
 

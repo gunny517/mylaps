@@ -97,6 +97,6 @@
 
 		<argument
 			android:name="sessionId"
-			app:argType="integer"/>
+			app:argType="long"/>
 	</fragment>
 </navigation>

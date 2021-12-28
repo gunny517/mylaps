@@ -34,17 +34,15 @@ class PracticeSummaryFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		context?.let {
-			val adapter = PracticeResultsAdapter(it){}
-			binding.recyclerView.adapter = adapter
-			binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-			binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-			viewModel.recyclerViewItem.observe(viewLifecycleOwner, {
-				adapter.setItems(it)
-				adapter.notifyDataSetChanged()
-			})
-			viewModel.recyclerViewItem.value = args.params.sessionSummary
-		}
+		val adapter = PracticeResultsAdapter(requireContext()){}
+		binding.recyclerView.adapter = adapter
+		binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+		binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+		viewModel.recyclerViewItem.observe(viewLifecycleOwner, {
+			adapter.setItems(it)
+			adapter.notifyDataSetChanged()
+		})
+		viewModel.recyclerViewItem.value = args.params.sessionSummary
 	}
 
 }

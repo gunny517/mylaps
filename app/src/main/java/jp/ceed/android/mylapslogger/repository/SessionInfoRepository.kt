@@ -10,7 +10,7 @@ class SessionInfoRepository(context: Context) {
 
 	private val dao = AppDatabase.getInstance(context).sessionInfoDao()
 
-	suspend fun findBySessionId(sessionId: Int): SessionInfo? {
+	suspend fun findBySessionId(sessionId: Long): SessionInfo? {
 		var sessionInfo: SessionInfo? = null
 		withContext(Dispatchers.IO){
 			sessionInfo = dao.findById(sessionId)
