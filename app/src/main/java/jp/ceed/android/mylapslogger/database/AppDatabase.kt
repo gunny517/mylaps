@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import jp.ceed.android.mylapslogger.dao.ActivityInfoDao
 import jp.ceed.android.mylapslogger.dao.SessionInfoDao
 import jp.ceed.android.mylapslogger.entity.ActivityInfo
@@ -29,11 +31,22 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     DATABASE_NAME
-                ).build()
+                ).apply {
+                    addMigrations(MIGRATION_1_2)
+                }.build()
                 INSTANCE = instance
                 instance
             }
         }
+
+        const val CREATE_SESSION_INFO = "CREATE TABLE IF NOT EXISTS SessionInfo (session_id INTEGER NOT NULL, temperature TEXT, pressure TEXT, humidity TEXT, description TEXT, PRIMARY KEY(session_id))"
+
+        private val MIGRATION_1_2 = object : Migration(1, 2){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(CREATE_SESSION_INFO)
+            }
+        }
     }
+
 
 }

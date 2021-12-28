@@ -29,12 +29,20 @@ class SessionInfoFragment: Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.startSensor()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.stopSensor()
+    }
 
     private fun initLayout(){
         viewModel.loadSessionInfo(args.sessionId)

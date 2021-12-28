@@ -1,5 +1,9 @@
 package jp.ceed.android.mylapslogger.util;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,8 +34,6 @@ public class Util {
 		return results;
 	}
 
-
-
 	/**
 	 *
 	 * @param dateStr
@@ -45,9 +47,7 @@ public class Util {
 			LogUtil.e(e);
 			return null;
 		}
-
 	}
-
 
 	/**
 	 *
@@ -67,5 +67,12 @@ public class Util {
 		}
 	}
 
+	public static void checkSensor(Context context){
+		SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+		List<Sensor> list = sensorManager.getSensorList(Sensor.TYPE_ALL);
+		for(Sensor sensor : list){
+			LogUtil.d(sensor.getName());
+		}
+	}
 
 }

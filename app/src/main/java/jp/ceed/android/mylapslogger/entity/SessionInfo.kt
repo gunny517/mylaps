@@ -8,9 +8,9 @@ import androidx.room.PrimaryKey
 @Entity
 data class SessionInfo(
 	@PrimaryKey @ColumnInfo(name = "session_id") var sessionId: Int,
-	@ColumnInfo(name = "temperature") var temperature: String = "",
-	@ColumnInfo(name = "pressure") var pressure: String = "",
-	@ColumnInfo(name = "humidity") var humidity: String = "",
-	@ColumnInfo(name = "description") var description: String = ""
+	@ColumnInfo(name = "temperature") var temperature: String? = null,
+	@ColumnInfo(name = "pressure") var pressure: String? = null,
+	@ColumnInfo(name = "humidity") var humidity: String? = null,
+	@ColumnInfo(name = "description") var description: String? = null
 ) {
 }
