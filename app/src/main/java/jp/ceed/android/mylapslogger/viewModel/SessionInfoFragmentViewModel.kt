@@ -21,7 +21,7 @@ class SessionInfoFragmentViewModel(val id: Long, val application: Application) :
 
 	var sessionInfo: MutableLiveData<SessionInfo> = MutableLiveData()
 
-	var isInsert: Boolean = false
+	private var isInsert: Boolean = false
 
 	var onSaved: MutableLiveData<Event<EventState>> = MutableLiveData()
 

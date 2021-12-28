@@ -26,8 +26,8 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
 			return
 		}
 		progressVisibility.value = true
-		apiRepository.sessionRequest(id){ it2 ->
-			it2.onSuccess { it3 ->
+		apiRepository.sessionRequest(id){
+			it.onSuccess { it3 ->
 				lapList.postValue(it3)
 			}.onFailure {
 				// Nothing to do.
