@@ -1,11 +1,11 @@
 package jp.ceed.android.mylapslogger.viewModel
 
 import android.app.Application
+import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import jp.ceed.android.mylapslogger.model.LoginResult
-import jp.ceed.android.mylapslogger.network.response.OAuthResponse
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 
 class LoginFragmentViewModel(application: Application) : AndroidViewModel(application) {
@@ -16,9 +16,9 @@ class LoginFragmentViewModel(application: Application) : AndroidViewModel(applic
 
 	var password: MutableLiveData<String> = MutableLiveData()
 
-	var loginButtonEnabled: MutableLiveData<Boolean> = MutableLiveData()
-
 	var loginResult: MutableLiveData<LoginResult> = MutableLiveData()
+
+	var loginButtonEnabled: MutableLiveData<Boolean> = MutableLiveData()
 
 
 	fun callLogin(view: View){
@@ -31,6 +31,11 @@ class LoginFragmentViewModel(application: Application) : AndroidViewModel(applic
 					loginResult.postValue(LoginResult.Failed)
 				}
 		}
+	}
+
+
+	fun updateLoginButtonEnabled(){
+		loginButtonEnabled.value = !TextUtils.isEmpty(userName.value) && !TextUtils.isEmpty(password.value)
 	}
 
 }

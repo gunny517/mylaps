@@ -30,4 +30,5 @@
 
 	<string name="label_session_info_title_description">備考</string>
 	<string name="label_session_info_save_button">保存</string>
+	<string name="label_session_info_apply_weather">気温・湿度・気圧を入力</string>
 </resources>

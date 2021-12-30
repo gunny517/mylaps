@@ -50,15 +50,9 @@ class LoginFragment : Fragment() {
 
 
 	private fun observeEvent(){
-		viewModel.userName.observe(viewLifecycleOwner){onTextChanged()}
-		viewModel.password.observe(viewLifecycleOwner){onTextChanged()}
+		viewModel.userName.observe(viewLifecycleOwner){viewModel.updateLoginButtonEnabled()}
+		viewModel.password.observe(viewLifecycleOwner){viewModel.updateLoginButtonEnabled()}
 		viewModel.loginResult.observe(viewLifecycleOwner){	onFinishLogin(it) }
-	}
-
-	private fun onTextChanged() {
-		viewModel.loginButtonEnabled.value =
-			!TextUtils.isEmpty(viewModel.userName.value)
-					&& !TextUtils.isEmpty(viewModel.password.value)
 	}
 
 

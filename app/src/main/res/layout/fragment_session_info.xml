@@ -21,7 +21,7 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			android:inputType="text"
-			android:text="@{viewModel.sessionInfo.temperature}"/>
+			android:text="@={viewModel.sessionInfo.temperature}"/>
 
 		<EditText
 			android:id="@+id/humidityEditText"
@@ -62,5 +62,15 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			android:text="@string/label_session_info_save_button"
 			android:onClick="@{() -> viewModel.saveSessionInfo()}"/>
+
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:layout_constraintTop_toBottomOf="@id/saveButton"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			android:text="@string/label_session_info_apply_weather"
+			android:enabled="@{viewModel.weatherApplyButtonEnable}"
+			android:onClick="@{() -> viewModel.applyWeatherData()}"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
