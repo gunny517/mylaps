@@ -11,5 +11,4 @@ data class SessionInfo(
 	@ColumnInfo(name = "pressure") var pressure: String? = null,
 	@ColumnInfo(name = "humidity") var humidity: String? = null,
 	@ColumnInfo(name = "description") var description: String? = null
-) {
-}
+)

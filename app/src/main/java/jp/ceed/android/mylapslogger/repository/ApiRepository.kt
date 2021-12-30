@@ -101,6 +101,7 @@ class ApiRepository(val context: Context) {
 		}
 	}
 
+
 	companion object{
 		const val DEFAULT_BEST_LAP_TIME = 30.0f
 		const val BEST_LAP_OFFSET = 2f

@@ -2,12 +2,11 @@
 	<string name="app_name">mylapslogger</string>
 	<string name="action_session_summary">サマリー</string>
 	<string name="action_user_info">ユーザー情報</string>
-	<string name="action_session_info">セッション情報</string>
+	<string name="action_session_info">走行メモ</string>
 	<!-- Strings used for fragments for navigation -->
 	<string name="activities_fragment_label">走行日一覧</string>
 	<string name="login_fragment_label">ログイン</string>
 	<string name="label_user_info_fragment">ユーザー情報</string>
-	<string name="label_session_info_fragment">セッション情報</string>
 	<string name="next">Next</string>
 	<string name="previous">Previous</string>
 
@@ -30,5 +29,13 @@
 
 	<string name="label_session_info_title_description">備考</string>
 	<string name="label_session_info_save_button">保存</string>
-	<string name="label_session_info_apply_weather">気温・湿度・気圧を入力</string>
+	<string name="label_session_info_clear_button">クリア</string>
+	<string name="label_session_info_apply_weather">自動入力</string>
+	<string name="label_session_info_title_temperature">気温</string>
+	<string name="label_session_info_title_pressure">気圧</string>
+	<string name="label_session_info_title_humidity">湿度</string>
+	<string name="label_session_info_hint_temperature">°C</string>
+	<string name="label_session_info_hint_pressure">hp</string>
+	<string name="label_session_info_hint_humidity">%</string>
+	<string name="label_session_info_hint_description">備考</string>
 </resources>

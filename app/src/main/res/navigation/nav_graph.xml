@@ -83,7 +83,6 @@
 	<fragment
 		android:id="@+id/ActivityInfoFragment"
 		android:name="jp.ceed.android.mylapslogger.ActivityInfoFragment"
-		android:label="@string/label_session_info_fragment"
 		tools:layout="@layout/fragment_activity_info">
 
 		<argument
@@ -93,10 +92,19 @@
 
 	<fragment
 		android:id="@+id/SessionInfoFragment"
-		android:name="jp.ceed.android.mylapslogger.SessionInfoFragment">
+		android:name="jp.ceed.android.mylapslogger.SessionInfoFragment"
+		android:label="{sessionDate} {title}">
 
 		<argument
 			android:name="sessionId"
 			app:argType="long"/>
+
+		<argument
+			android:name="sessionDate"
+			app:argType="string"/>
+
+		<argument
+			android:name="title"
+			app:argType="string"/>
 	</fragment>
 </navigation>

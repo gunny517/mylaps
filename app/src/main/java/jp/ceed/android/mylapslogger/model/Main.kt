@@ -11,9 +11,9 @@ data class Main(
     @Json(name = "pressure")
     val pressure: Int,
     @Json(name = "temp")
-    var temp: Double,
+    val temp: Double,
     @Json(name = "temp_max")
-    var tempMax: Double,
+    val tempMax: Double,
     @Json(name = "temp_min")
-    var tempMin: Double
+    val tempMin: Double
 )

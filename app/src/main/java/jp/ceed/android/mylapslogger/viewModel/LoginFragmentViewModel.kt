@@ -21,7 +21,7 @@ class LoginFragmentViewModel(application: Application) : AndroidViewModel(applic
 	var loginButtonEnabled: MutableLiveData<Boolean> = MutableLiveData()
 
 
-	fun callLogin(view: View){
+	fun callLogin(){
 		userAccountRepository.requestLogin(
 			userName.value.toString(),
 			password.value.toString()) {
@@ -32,7 +32,6 @@ class LoginFragmentViewModel(application: Application) : AndroidViewModel(applic
 				}
 		}
 	}
-
 
 	fun updateLoginButtonEnabled(){
 		loginButtonEnabled.value = !TextUtils.isEmpty(userName.value) && !TextUtils.isEmpty(password.value)

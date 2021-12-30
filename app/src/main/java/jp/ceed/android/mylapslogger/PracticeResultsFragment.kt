@@ -64,7 +64,7 @@ class PracticeResultsFragment: Fragment() {
 	}
 
 	private fun initLayout(){
-		val adapter = PracticeResultsAdapter(requireContext()){ i: Long -> navigateToSessionInfo(i) }
+		val adapter = PracticeResultsAdapter(requireContext()){ id: Long, title: String -> navigateToSessionInfo(id, title) }
 		binding.recyclerView.adapter = adapter
 		binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 		binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -91,9 +91,10 @@ class PracticeResultsFragment: Fragment() {
 	}
 
 
-	private fun navigateToSessionInfo(sessionId: Long){
+	private fun navigateToSessionInfo(sessionId: Long, title: String){
+		val titleText = getString(R.string.format_session_title, title)
 		findNavController().navigate(PracticeResultsFragmentDirections
-			.actionPracticeResultFragmentToSessionInfoFragment(sessionId))
+			.actionPracticeResultFragmentToSessionInfoFragment(sessionId, args.sessionDate, titleText))
 	}
 
 	private fun viewModelFactoryProducer(): PracticeResultFragmentViewModel.Factory {

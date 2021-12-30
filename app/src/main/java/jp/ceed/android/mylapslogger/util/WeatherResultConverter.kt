@@ -1,17 +1,22 @@
 package jp.ceed.android.mylapslogger.util
 
-import jp.ceed.android.mylapslogger.model.OpenWeatherResult
+import jp.ceed.android.mylapslogger.model.Main
 
 class WeatherResultConverter {
 
+    fun createWeatherDataDto(org: Main): Main{
+        return Main(
+            temp = org.temp - TEMP_DELTA,
+            tempMin = org.tempMin - TEMP_DELTA,
+            tempMax = org.tempMax - TEMP_DELTA,
+            humidity = org.humidity,
+            pressure = org.pressure,
+            feelsLike = org.feelsLike
+        )
+    }
+
     companion object{
         const val TEMP_DELTA: Double = 273.15
-
-        fun convert(original: OpenWeatherResult){
-            original.main.temp -= TEMP_DELTA
-            original.main.tempMin -= TEMP_DELTA
-            original.main.tempMax -= TEMP_DELTA
-        }
     }
 
 }

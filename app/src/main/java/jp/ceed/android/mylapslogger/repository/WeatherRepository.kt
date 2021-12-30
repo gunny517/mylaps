@@ -5,6 +5,7 @@ import com.github.kittinunf.result.Result
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import jp.ceed.android.mylapslogger.model.OpenWeatherResult
+import jp.ceed.android.mylapslogger.model.WeatherDataDto
 import jp.ceed.android.mylapslogger.util.WeatherResultConverter
 import java.io.IOException
 
@@ -12,15 +13,15 @@ class WeatherRepository {
 
 	val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
-	fun getWeatherData(lat: Double, lon: Double, callback: (kotlin.Result<OpenWeatherResult>) -> Unit){
+	fun getWeatherData(lat: Double, lon: Double, callback: (kotlin.Result<WeatherDataDto>) -> Unit){
 		val param = listOf(Pair(LAT, lat), Pair(LON, lon), Pair(APPID, API_KEY))
 		BASE_URL.httpGet(param).responseString{request, response, result ->
 			when(result){
 				is Result.Success -> {
 					val openWeatherResult = moshi.adapter(OpenWeatherResult::class.java).fromJson(result.get())
 					openWeatherResult?.let {
-						WeatherResultConverter.convert(it)
-						callback(kotlin.Result.success(it))
+						val main = WeatherResultConverter().createWeatherDataDto(it.main)
+						callback(kotlin.Result.success(WeatherDataDto(main)))
 					}
 				}
 				is Result.Failure -> {

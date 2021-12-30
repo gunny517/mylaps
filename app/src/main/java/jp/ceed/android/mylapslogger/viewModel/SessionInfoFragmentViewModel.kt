@@ -35,12 +35,11 @@ class SessionInfoFragmentViewModel(val id: Long, val application: Application) :
 
 	private val sensorManager: SensorManager = application.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
-	private var currentTemperature: Double? = null
+	private var currentTemperature: String? = null
 
-	private var currentPressure: Int? = null
+	private var currentPressure: String? = null
 
-	private var currentHumidity: Int? = null
-
+	private var currentHumidity: String? = null
 
 
 	init{
@@ -82,9 +81,9 @@ class SessionInfoFragmentViewModel(val id: Long, val application: Application) :
 	private fun getWeatherData(location: Location){
 		weatherRepository.getWeatherData(location.latitude, location.longitude){ result ->
 			result.onSuccess {
-				currentTemperature = it.main.temp
-				currentHumidity = it.main.humidity
-				currentPressure = it.main.pressure
+				currentTemperature = it.temperature
+				currentHumidity = it.humidity
+				currentPressure = it.pressure
 				weatherApplyButtonEnable.value = true
 			}.onFailure {
 				LogUtil.e(it.message)
@@ -95,11 +94,19 @@ class SessionInfoFragmentViewModel(val id: Long, val application: Application) :
 	fun applyWeatherData(){
 		sessionInfo.value?.let {
 			sessionInfo.value = SessionInfo(
-				it.sessionId,
-				currentTemperature.toString(),
-				currentHumidity.toString(),
-				currentPressure.toString(),
-				it.description
+				sessionId = it.sessionId,
+				temperature = currentTemperature,
+				pressure = currentPressure,
+				humidity = currentHumidity,
+				description = it.description
+			)
+		}
+	}
+
+	fun clearEditText(){
+		sessionInfo.value?.let {
+			sessionInfo.value = SessionInfo(
+				sessionId = it.sessionId
 			)
 		}
 	}

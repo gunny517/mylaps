@@ -34,7 +34,7 @@ class PracticeSummaryFragment : Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		val adapter = PracticeResultsAdapter(requireContext()){}
+		val adapter = PracticeResultsAdapter(requireContext()){id: Long, title: String -> {}}
 		binding.recyclerView.adapter = adapter
 		binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 		binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
