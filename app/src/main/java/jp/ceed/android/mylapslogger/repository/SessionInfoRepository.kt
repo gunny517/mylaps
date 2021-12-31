@@ -8,28 +8,26 @@ import kotlinx.coroutines.withContext
 
 class SessionInfoRepository(context: Context) {
 
-	private val dao = AppDatabase.getInstance(context).sessionInfoDao()
+    private val dao = AppDatabase.getInstance(context).sessionInfoDao()
 
-	suspend fun findBySessionId(sessionId: Long): SessionInfo? {
-		var sessionInfo: SessionInfo? = null
-		withContext(Dispatchers.IO){
-			sessionInfo = dao.findById(sessionId)
-		}
-		return sessionInfo
-	}
+    suspend fun findBySessionId(sessionId: Long): SessionInfo? {
+        var sessionInfo: SessionInfo? = null
+        withContext(Dispatchers.IO) {
+            sessionInfo = dao.findById(sessionId)
+        }
+        return sessionInfo
+    }
 
+    suspend fun insert(sessionInfo: SessionInfo) {
+        withContext(Dispatchers.IO) {
+            dao.insert(sessionInfo)
+        }
+    }
 
-	suspend fun insert(sessionInfo: SessionInfo){
-		withContext(Dispatchers.IO){
-			dao.insert(sessionInfo)
-		}
-	}
-
-
-	suspend fun update(sessionInfo: SessionInfo){
-		withContext(Dispatchers.IO){
-			dao.update(sessionInfo)
-		}
-	}
+    suspend fun update(sessionInfo: SessionInfo) {
+        withContext(Dispatchers.IO) {
+            dao.update(sessionInfo)
+        }
+    }
 
 }

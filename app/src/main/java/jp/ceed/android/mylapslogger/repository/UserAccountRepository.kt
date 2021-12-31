@@ -13,39 +13,38 @@ import java.io.IOException
 
 class UserAccountRepository(val context: Context) {
 
-	private val preferenceDao: PreferenceDao = PreferenceDao(context)
+    private val preferenceDao: PreferenceDao = PreferenceDao(context)
 
 
-	fun getAccessToken(): String? {
-		return preferenceDao.read().accessToken
-	}
+    fun getAccessToken(): String? {
+        return preferenceDao.read().accessToken
+    }
 
-	fun getUserId(): String? {
-		return preferenceDao.read().userId
-	}
+    fun getUserId(): String? {
+        return preferenceDao.read().userId
+    }
 
-	fun getUserInfo(): OAuthResponse{
-		return preferenceDao.read()
-	}
+    fun getUserInfo(): OAuthResponse {
+        return preferenceDao.read()
+    }
 
 
-	fun requestLogin(userName: String, password: String, callback: (Result<OAuthResponse>) -> Unit){
-		val request = OAuthRequest()
-		request.userName = userName
-		request.password = password
-		request.executeRequest(context, object : Callback<OAuthResponse>{
-			override fun success(oAuthResponse: OAuthResponse?, p1: Response?) {
-				oAuthResponse?.let {
-					preferenceDao.save(oAuthResponse)
-					callback(Result.success(oAuthResponse))
-				}
-			}
-
-			override fun failure(error: RetrofitError?) {
-				LogUtil.e(error?.message)
-				callback(Result.failure(error?: IOException("unKnown")))
-			}
-		})
-	}
+    fun requestLogin(userName: String, password: String, callback: (Result<OAuthResponse>) -> Unit) {
+        val request = OAuthRequest()
+        request.userName = userName
+        request.password = password
+        request.executeRequest(context, object : Callback<OAuthResponse> {
+            override fun success(oAuthResponse: OAuthResponse?, p1: Response?) {
+                oAuthResponse?.let {
+                    preferenceDao.save(oAuthResponse)
+                    callback(Result.success(oAuthResponse))
+                }
+            }
+            override fun failure(error: RetrofitError?) {
+                LogUtil.e(error?.message)
+                callback(Result.failure(error ?: IOException("unKnown")))
+            }
+        })
+    }
 
 }
