@@ -37,6 +37,7 @@ class ApiRepository(val context: Context) {
                     callback(Result.success(practiceResult))
                 }
             }
+
             override fun failure(error: RetrofitError?) {
                 callback(Result.failure(error ?: IOException("unKnown")))
             }
@@ -77,6 +78,7 @@ class ApiRepository(val context: Context) {
                     callback(Result.success(list))
                 }
             }
+
             override fun failure(error: RetrofitError?) {
                 callback(Result.failure(error ?: IOException("unKnown")))
             }
@@ -102,6 +104,7 @@ class ApiRepository(val context: Context) {
 
 
     companion object {
+
         const val DEFAULT_BEST_LAP_TIME = 30.0f
         const val BEST_LAP_OFFSET = 2f
     }

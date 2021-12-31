@@ -2,7 +2,6 @@ package jp.ceed.android.mylapslogger.repository
 
 import android.content.Context
 import jp.ceed.android.mylapslogger.dao.PreferenceDao
-import jp.ceed.android.mylapslogger.dao.PreferenceDao.PrefsKey
 import jp.ceed.android.mylapslogger.network.request.OAuthRequest
 import jp.ceed.android.mylapslogger.network.response.OAuthResponse
 import jp.ceed.android.mylapslogger.util.LogUtil

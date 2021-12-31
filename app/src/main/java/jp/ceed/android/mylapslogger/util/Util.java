@@ -32,7 +32,6 @@ public class Util {
 
     private static final SimpleDateFormat API_SIMPLE_DATE_FORMAT_W_MILLI_SEC = new SimpleDateFormat(API_TIME_FORMAT_WITH_MILLI_SEC, Locale.JAPAN);
 
-
     public static List<ActivitiesItem> convertToActivitiesItem(final List<ActivityDto> list) {
         List<ActivitiesItem> results = new ArrayList<>(list.size());
         for (ActivityDto entry : list) {
@@ -41,29 +40,29 @@ public class Util {
         return results;
     }
 
-
     public static long toTimeFromDateTimeWithMilliSec(String dateTimeStr) {
         try {
             return Objects.requireNonNull(API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(dateTimeStr)).getTime();
         } catch (ParseException e) {
+            LogUtil.e(e);
             return 0L;
         }
     }
-
 
     public static String toHmsFromDateTimeWithMilliSec(String dateStr) {
         try {
             return HMS_SIMPLE_DATE_FORMAT.format(Objects.requireNonNull(API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(dateStr)).getTime());
         } catch (ParseException e) {
+            LogUtil.e(e);
             return null;
         }
     }
-
 
     public static String toYmdFormatFromDateTime(String dateTimeStr) {
         try {
             return YMD_SIMPLE_DATE_FORMAT.format(Objects.requireNonNull(API_SIMPLE_DATE_FORMAT.parse(dateTimeStr)).getTime());
         } catch (ParseException e) {
+            LogUtil.e(e);
             return null;
         }
     }
