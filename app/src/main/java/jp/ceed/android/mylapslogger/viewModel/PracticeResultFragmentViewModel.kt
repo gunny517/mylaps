@@ -3,6 +3,7 @@ package jp.ceed.android.mylapslogger.viewModel
 import android.app.Application
 import android.location.Location
 import androidx.lifecycle.*
+import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.model.PracticeResult
 import jp.ceed.android.mylapslogger.repository.ApiRepository
@@ -56,13 +57,17 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
             return
         }
         lapList.value?.let{
-            val lastItem = it.sessionData[it.sessionData.size - 1]
+            val lastItem: PracticeResultsItem = it.sessionData[it.sessionData.size - 1]
+            val sessionId: Long = when(lastItem){
+                is PracticeResultsItem.Section -> lastItem.sessionId
+                is PracticeResultsItem.Lap -> lastItem.sessionId
+            }
             viewModelScope.launch {
-                val sessionInfo = sessionInfoRepository.findBySessionId(lastItem.sessionId)
+                val sessionInfo = sessionInfoRepository.findBySessionId(sessionId)
                 if(sessionInfo == null){
                     locationRepository.getLocation {
                         it.onSuccess { location ->
-                            loadWeatherData(location, lastItem.sessionId)
+                            loadWeatherData(location, sessionId)
                         }.onFailure {
                             // Nothing to do.
                         }

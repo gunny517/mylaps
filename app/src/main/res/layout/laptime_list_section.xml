@@ -3,7 +3,7 @@
 	<data>
 		<variable
 			name="lapDto"
-			type="jp.ceed.android.mylapslogger.dto.LapDto" />
+			type="jp.ceed.android.mylapslogger.dto.PracticeResultsItem.Section" />
 	</data>
 	<RelativeLayout
 		android:layout_width="match_parent"

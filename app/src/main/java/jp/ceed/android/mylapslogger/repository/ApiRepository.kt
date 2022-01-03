@@ -3,6 +3,7 @@ package jp.ceed.android.mylapslogger.repository
 import android.content.Context
 import jp.ceed.android.mylapslogger.dao.PreferenceDao
 import jp.ceed.android.mylapslogger.dto.LapDto
+import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.model.PracticeResult
 import jp.ceed.android.mylapslogger.network.request.ActivitiesRequest
@@ -45,13 +46,13 @@ class ApiRepository(val context: Context) {
         })
     }
 
-    private fun createLapList(sessionsResponse: SessionsResponse): List<LapDto> {
-        val lapList = ArrayList<LapDto>()
+    private fun createLapList(sessionsResponse: SessionsResponse): List<PracticeResultsItem> {
+        val lapList = ArrayList<PracticeResultsItem>()
         for (session in sessionsResponse.sessions) {
-            lapList.add(LapDto(session))
+            lapList.add(PracticeResultsItem.Section(session))
             val sessionBest: Float = parseBestLap(session.bestLap.duration)
             for (lap in session.laps) {
-                val lapDto = LapDto(lap, session)
+                val lapDto = PracticeResultsItem.Lap(lap, session)
                 applySpeedLevel(lapDto, sessionBest)
                 lapList.add(lapDto)
             }
@@ -59,11 +60,11 @@ class ApiRepository(val context: Context) {
         return lapList
     }
 
-    private fun createSessionData(sessionsResponse: SessionsResponse): List<LapDto> {
-        val list: ArrayList<LapDto> = ArrayList<LapDto>()
+    private fun createSessionData(sessionsResponse: SessionsResponse): List<PracticeResultsItem> {
+        val list: ArrayList<PracticeResultsItem> = ArrayList<PracticeResultsItem>()
         for (session in sessionsResponse.sessions) {
-            list.add(LapDto(session))
-            list.add(LapDto(session.bestLap))
+            list.add(PracticeResultsItem.Section(session))
+            list.add(PracticeResultsItem.Lap(session.bestLap))
         }
         return list
     }
@@ -86,12 +87,12 @@ class ApiRepository(val context: Context) {
         })
     }
 
-    private fun applySpeedLevel(lapDto: LapDto, sessionBest: Float) {
+    private fun applySpeedLevel(item: PracticeResultsItem.Lap, sessionBest: Float) {
         try {
-            val duration = lapDto.duration.toFloat()
-            lapDto.speedLevel = (duration - (sessionBest - BEST_LAP_OFFSET)) * 0.1f
+            val duration = item.duration.toFloat()
+            item.speedLevel = (duration - (sessionBest - BEST_LAP_OFFSET)) * 0.1f
         } catch (e: NumberFormatException) {
-            lapDto.speedLevel = 1f
+            item.speedLevel = 1f
         }
     }
 

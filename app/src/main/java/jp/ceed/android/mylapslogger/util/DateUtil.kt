@@ -36,12 +36,12 @@ class DateUtil() {
             }
         }
 
-        fun toHmsFromDateTimeWithMilliSec(dateStr: String): String? {
+        fun toHmsFromDateTimeWithMilliSec(dateStr: String): String {
             return try {
                 HMS_SIMPLE_DATE_FORMAT.format(Objects.requireNonNull(API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(dateStr)).time)
             } catch (e: ParseException) {
                 LogUtil.e(e)
-                null
+                ""
             }
         }
 

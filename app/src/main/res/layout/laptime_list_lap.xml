@@ -4,7 +4,7 @@
     <data>
         <variable
             name="lapDto"
-            type="jp.ceed.android.mylapslogger.dto.LapDto" />
+            type="jp.ceed.android.mylapslogger.dto.PracticeResultsItem.Lap" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -14,6 +14,7 @@ import jp.ceed.android.mylapslogger.adatpter.PracticeResultsAdapter
 import jp.ceed.android.mylapslogger.args.PracticeSummaryFragmentParams
 import jp.ceed.android.mylapslogger.databinding.FragmentPracticeResultBinding
 import jp.ceed.android.mylapslogger.dto.LapDto
+import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.viewModel.PracticeResultFragmentViewModel
 
 class PracticeResultsFragment : Fragment() {
@@ -77,7 +78,7 @@ class PracticeResultsFragment : Fragment() {
     private fun navigateToSessionSummary() {
         viewModel.lapList.value?.let {
             val params = PracticeSummaryFragmentParams(
-                it.sessionSummary as ArrayList<LapDto>,
+                it.sessionSummary as ArrayList<PracticeResultsItem>,
                 args.sessionDate
             )
             findNavController().navigate(

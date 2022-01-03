@@ -3,11 +3,10 @@ package jp.ceed.android.mylapslogger.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import jp.ceed.android.mylapslogger.dto.LapDto
+import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 
 class PracticeSummaryFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
-    var recyclerViewItem: MutableLiveData<List<LapDto>> = MutableLiveData(mutableListOf())
+    var recyclerViewItem: MutableLiveData<List<PracticeResultsItem>> = MutableLiveData(mutableListOf())
 
 }
