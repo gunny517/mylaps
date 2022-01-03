@@ -37,7 +37,6 @@ class SessionInfoFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
-        checkLocationPermission()
     }
 
     private fun initLayout(){
@@ -51,16 +50,5 @@ class SessionInfoFragment: Fragment() {
     }
 
 
-    private fun checkLocationPermission(){
-        activity?.let {
-            if (ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(it,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION),
-                    AppConstants.RequestCode.REQUEST_LOCATION
-                )
-            }
-        }
-    }
+
 }

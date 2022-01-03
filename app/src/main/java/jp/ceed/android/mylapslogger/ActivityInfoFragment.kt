@@ -14,37 +14,37 @@ import jp.ceed.android.mylapslogger.databinding.FragmentActivityInfoBinding
 import jp.ceed.android.mylapslogger.entity.EventObserver
 import jp.ceed.android.mylapslogger.viewModel.ActivityInfoFragmentViewModel
 
-class ActivityInfoFragment: Fragment() {
+class ActivityInfoFragment : Fragment() {
 
-	private var _binding: FragmentActivityInfoBinding? = null
+    private var _binding: FragmentActivityInfoBinding? = null
 
-	private val binding get() = _binding!!
+    private val binding get() = _binding!!
 
-	private val viewModel: ActivityInfoFragmentViewModel by viewModels(factoryProducer = ::viewModelFactoryProducer)
+    private val viewModel: ActivityInfoFragmentViewModel by viewModels(factoryProducer = ::viewModelFactoryProducer)
 
-	private val args: ActivityInfoFragmentArgs by navArgs()
+    private val args: ActivityInfoFragmentArgs by navArgs()
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		_binding = DataBindingUtil.inflate(inflater, R.layout.fragment_activity_info, container, false)
-		binding.viewModel = viewModel
-		binding.lifecycleOwner = viewLifecycleOwner
-		return binding.root
-	}
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_activity_info, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
+    }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
-		initViewModel()
-	}
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViewModel()
+    }
 
 
-	private fun initViewModel(){
-		viewModel.onSaved.observe(viewLifecycleOwner, EventObserver{
-			findNavController().navigateUp()
-		})
-	}
+    private fun initViewModel() {
+        viewModel.onSaved.observe(viewLifecycleOwner, EventObserver {
+            findNavController().navigateUp()
+        })
+    }
 
-	private fun viewModelFactoryProducer(): ActivityInfoFragmentViewModel.Factory {
-		return ActivityInfoFragmentViewModel.Factory(args.activityId, requireContext().applicationContext as Application)
-	}
+    private fun viewModelFactoryProducer(): ActivityInfoFragmentViewModel.Factory {
+        return ActivityInfoFragmentViewModel.Factory(args.activityId, requireContext().applicationContext as Application)
+    }
 
 }

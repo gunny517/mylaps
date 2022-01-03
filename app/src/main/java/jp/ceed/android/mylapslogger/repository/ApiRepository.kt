@@ -32,7 +32,8 @@ class ApiRepository(val context: Context) {
                 sessionsResponse?.let {
                     val practiceResult = PracticeResult(
                         createLapList(it),
-                        createSessionData(it)
+                        createSessionData(it),
+                        it.sessions.get(it.sessions.size - 1).dateTimeStart
                     )
                     callback(Result.success(practiceResult))
                 }
@@ -50,7 +51,7 @@ class ApiRepository(val context: Context) {
             lapList.add(LapDto(session))
             val sessionBest: Float = parseBestLap(session.bestLap.duration)
             for (lap in session.laps) {
-                val lapDto = LapDto(lap)
+                val lapDto = LapDto(lap, session)
                 applySpeedLevel(lapDto, sessionBest)
                 lapList.add(lapDto)
             }

@@ -3,10 +3,11 @@ package jp.ceed.android.mylapslogger.repository
 import android.content.Context
 import jp.ceed.android.mylapslogger.database.AppDatabase
 import jp.ceed.android.mylapslogger.entity.ActivityInfo
+import jp.ceed.android.mylapslogger.util.Util
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ActivityInfoRepository(context: Context) {
+class ActivityInfoRepository(val context: Context) {
 
     private val dao = AppDatabase.getInstance(context).activityInfoDao()
 
@@ -14,6 +15,7 @@ class ActivityInfoRepository(context: Context) {
         var sessionInfo: ActivityInfo? = null
         withContext(Dispatchers.IO) {
             sessionInfo = dao.findById(sessionId)
+            Util.checkThread(context, "withContext()")
         }
         return sessionInfo
     }

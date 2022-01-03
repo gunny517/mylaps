@@ -10,31 +10,32 @@ import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 
 class LoginFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
-	var userAccountRepository: UserAccountRepository = UserAccountRepository(getApplication())
+    var userAccountRepository: UserAccountRepository = UserAccountRepository(getApplication())
 
-	var userName: MutableLiveData<String> = MutableLiveData()
+    var userName: MutableLiveData<String> = MutableLiveData()
 
-	var password: MutableLiveData<String> = MutableLiveData()
+    var password: MutableLiveData<String> = MutableLiveData()
 
-	var loginResult: MutableLiveData<LoginResult> = MutableLiveData()
+    var loginResult: MutableLiveData<LoginResult> = MutableLiveData()
 
-	var loginButtonEnabled: MutableLiveData<Boolean> = MutableLiveData()
+    var loginButtonEnabled: MutableLiveData<Boolean> = MutableLiveData()
 
 
-	fun callLogin(){
-		userAccountRepository.requestLogin(
-			userName.value.toString(),
-			password.value.toString()) {
-				it.onSuccess {
-					loginResult.postValue(LoginResult.Success)
-				}.onFailure {
-					loginResult.postValue(LoginResult.Failed)
-				}
-		}
-	}
+    fun callLogin() {
+        userAccountRepository.requestLogin(
+            userName.value.toString(),
+            password.value.toString()
+        ) {
+            it.onSuccess {
+                loginResult.postValue(LoginResult.Success)
+            }.onFailure {
+                loginResult.postValue(LoginResult.Failed)
+            }
+        }
+    }
 
-	fun updateLoginButtonEnabled(){
-		loginButtonEnabled.value = !TextUtils.isEmpty(userName.value) && !TextUtils.isEmpty(password.value)
-	}
+    fun updateLoginButtonEnabled() {
+        loginButtonEnabled.value = !TextUtils.isEmpty(userName.value) && !TextUtils.isEmpty(password.value)
+    }
 
 }
