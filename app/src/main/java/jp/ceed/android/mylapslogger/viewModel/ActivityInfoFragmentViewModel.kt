@@ -6,6 +6,7 @@ import jp.ceed.android.mylapslogger.entity.ActivityInfo
 import jp.ceed.android.mylapslogger.entity.Event
 import jp.ceed.android.mylapslogger.entity.EventState
 import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
+import jp.ceed.android.mylapslogger.util.Util
 import kotlinx.coroutines.launch
 
 class ActivityInfoFragmentViewModel(val id: Int, val application: Application) : ViewModel() {
@@ -28,6 +29,7 @@ class ActivityInfoFragmentViewModel(val id: Int, val application: Application) :
             sessionInfoRepository.findById(id)?.let {
                 description.value = it.description
                 isUpdate = true
+                Util.checkThread(application, "viewModelScope.launch")
             }
         }
     }
