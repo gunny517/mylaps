@@ -8,6 +8,6 @@ import jp.ceed.android.mylapslogger.dto.LapDto
 
 class PracticeSummaryFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
-	var recyclerViewItem: MutableLiveData<List<LapDto>> = MutableLiveData(mutableListOf())
+    var recyclerViewItem: MutableLiveData<List<LapDto>> = MutableLiveData(mutableListOf())
 
 }

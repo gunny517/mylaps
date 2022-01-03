@@ -17,7 +17,7 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
 
     private val apiRepository = ApiRepository(application)
 
-    private val weatherRepository = WeatherRepository(application)
+    private val weatherRepository = WeatherRepository()
 
     private val locationRepository = LocationRepository(application.applicationContext)
 
@@ -94,6 +94,9 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
         }
     }
 
+    /**
+     * [PracticeResultFragmentViewModel]にパラメータを渡すためのFactory
+     */
     class Factory(val id: Int, val application: Application) : ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")

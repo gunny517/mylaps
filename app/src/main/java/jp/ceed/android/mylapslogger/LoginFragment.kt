@@ -21,45 +21,45 @@ import jp.ceed.android.mylapslogger.viewModel.LoginFragmentViewModel
  */
 class LoginFragment : Fragment() {
 
-	private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentLoginBinding? = null
 
-	private val binding get() = _binding!!
+    private val binding get() = _binding!!
 
-	private val viewModel: LoginFragmentViewModel by viewModels()
-
-
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? {
-		_binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
-		binding.viewModel = viewModel
-		binding.lifecycleOwner = viewLifecycleOwner
-		return binding.root
-	}
-
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
-		observeEvent()
-	}
-
-	override fun onDestroyView() {
-		super.onDestroyView()
-		_binding = null
-	}
+    private val viewModel: LoginFragmentViewModel by viewModels()
 
 
-	private fun observeEvent(){
-		viewModel.userName.observe(viewLifecycleOwner){viewModel.updateLoginButtonEnabled()}
-		viewModel.password.observe(viewLifecycleOwner){viewModel.updateLoginButtonEnabled()}
-		viewModel.loginResult.observe(viewLifecycleOwner){	onFinishLogin(it) }
-	}
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeEvent()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 
-	private fun onFinishLogin(loginResult: LoginResult){
-		when(loginResult){
-			LoginResult.Success -> findNavController().navigate(R.id.action_LoginFragment_to_ActivitiesFragment)
-			else -> Toast.makeText(context, R.string.login_failed, Toast.LENGTH_LONG).show()
-		}
-	}
+    private fun observeEvent() {
+        viewModel.userName.observe(viewLifecycleOwner) { viewModel.updateLoginButtonEnabled() }
+        viewModel.password.observe(viewLifecycleOwner) { viewModel.updateLoginButtonEnabled() }
+        viewModel.loginResult.observe(viewLifecycleOwner) { onFinishLogin(it) }
+    }
+
+
+    private fun onFinishLogin(loginResult: LoginResult) {
+        when (loginResult) {
+            LoginResult.Success -> findNavController().navigate(R.id.action_LoginFragment_to_ActivitiesFragment)
+            else -> Toast.makeText(context, R.string.login_failed, Toast.LENGTH_LONG).show()
+        }
+    }
 }

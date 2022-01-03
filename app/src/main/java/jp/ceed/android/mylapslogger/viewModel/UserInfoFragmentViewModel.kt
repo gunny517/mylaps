@@ -8,11 +8,11 @@ import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 
 class UserInfoFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
-	val userInfo: MutableLiveData<OAuthResponse> = MutableLiveData()
+    val userInfo: MutableLiveData<OAuthResponse> = MutableLiveData()
 
-	private val userAccountRepository = UserAccountRepository(getApplication())
+    private val userAccountRepository = UserAccountRepository(getApplication())
 
-	init {
-		userInfo.value = userAccountRepository.getUserInfo()
-	}
+    init {
+        userInfo.value = userAccountRepository.getUserInfo()
+    }
 }

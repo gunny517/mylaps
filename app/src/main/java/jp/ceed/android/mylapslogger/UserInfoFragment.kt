@@ -10,20 +10,20 @@ import androidx.fragment.app.viewModels
 import jp.ceed.android.mylapslogger.databinding.FragmentUserInfoBinding
 import jp.ceed.android.mylapslogger.viewModel.UserInfoFragmentViewModel
 
-class UserInfoFragment: Fragment() {
+class UserInfoFragment : Fragment() {
 
-	private var _binding: FragmentUserInfoBinding? = null
+    private var _binding: FragmentUserInfoBinding? = null
 
-	val binding get() = _binding!!
+    val binding get() = _binding!!
 
-	val viewModel: UserInfoFragmentViewModel by viewModels()
+    val viewModel: UserInfoFragmentViewModel by viewModels()
 
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		_binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_info, container, false)
-		binding.viewModel = viewModel
-		binding.lifecycleOwner = viewLifecycleOwner
-		return binding.root
-	}
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_info, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
+    }
 
 }

@@ -8,11 +8,9 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import jp.ceed.android.mylapslogger.model.OpenWeatherResult
 import jp.ceed.android.mylapslogger.model.WeatherDataDto
 import jp.ceed.android.mylapslogger.util.WeatherResultConverter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.IOException
 
-class WeatherRepository(context: Context) {
+class WeatherRepository() {
 
     val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 

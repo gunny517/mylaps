@@ -75,6 +75,9 @@ class SessionInfoFragmentViewModel(val id: Long, val application: Application) :
         }
     }
 
+    /**
+     * [SessionInfoFragmentViewModel]にパラメータを渡すためのFactory
+     */
     class Factory(val id: Long, val application: Application) : ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")

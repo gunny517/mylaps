@@ -16,33 +16,33 @@ import jp.ceed.android.mylapslogger.viewModel.PracticeSummaryFragmentViewModel
 
 class PracticeSummaryFragment : Fragment() {
 
-	private var _binding: FragmentPrecticeSummaryBinding? = null
+    private var _binding: FragmentPrecticeSummaryBinding? = null
 
-	private val binding get() = _binding!!
+    private val binding get() = _binding!!
 
-	private val viewModel: PracticeSummaryFragmentViewModel by viewModels()
+    private val viewModel: PracticeSummaryFragmentViewModel by viewModels()
 
-	private val args: PracticeSummaryFragmentArgs by navArgs()
+    private val args: PracticeSummaryFragmentArgs by navArgs()
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		_binding = DataBindingUtil.inflate(inflater, R.layout.fragment_prectice_summary, container, false)
-		binding.viewModel = viewModel
-		binding.lifecycleOwner = viewLifecycleOwner
-		return binding.root
-	}
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_prectice_summary, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
+    }
 
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
-		val adapter = PracticeResultsAdapter(requireContext()){id: Long, title: String -> {}}
-		binding.recyclerView.adapter = adapter
-		binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-		binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-		viewModel.recyclerViewItem.observe(viewLifecycleOwner, {
-			adapter.setItems(it)
-			adapter.notifyDataSetChanged()
-		})
-		viewModel.recyclerViewItem.value = args.params.sessionSummary
-	}
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val adapter = PracticeResultsAdapter(requireContext()) { id: Long, title: String -> {} }
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        viewModel.recyclerViewItem.observe(viewLifecycleOwner, {
+            adapter.setItems(it)
+            adapter.notifyDataSetChanged()
+        })
+        viewModel.recyclerViewItem.value = args.params.sessionSummary
+    }
 
 }

@@ -49,6 +49,9 @@ class ActivityInfoFragmentViewModel(val id: Int, val application: Application) :
         }
     }
 
+    /**
+     * [ActivityInfoFragmentViewModel]にパラメータを渡すためのFactory
+     */
     class Factory(val id: Int, val application: Application): ViewModelProvider.Factory {
         @Suppress("unchecked_cast")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
