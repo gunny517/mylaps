@@ -10,6 +10,7 @@ import jp.ceed.android.mylapslogger.repository.LocationRepository
 import jp.ceed.android.mylapslogger.repository.SessionInfoRepository
 import jp.ceed.android.mylapslogger.repository.WeatherRepository
 import jp.ceed.android.mylapslogger.util.DateUtil
+import jp.ceed.android.mylapslogger.util.LogUtil
 import kotlinx.coroutines.launch
 
 class PracticeResultFragmentViewModel(val id: Int, val application: Application) : ViewModel() {
@@ -51,7 +52,7 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
     }
 
     private fun onLoadResult(){
-        if(DateUtil.isToday(dataStartTime)){
+        if(!DateUtil.isToday(dataStartTime)){
             return
         }
         lapList.value?.let{
@@ -73,16 +74,16 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
 
 
     private fun loadWeatherData(location: Location, sessionId: Long){
-        viewModelScope.launch {
-            weatherRepository.getWeatherDataByLocation(location.longitude, location.longitude){result ->
-                result.onSuccess { weatherDto ->
-                    saveSessionData(SessionInfo(
-                        sessionId = sessionId,
-                        temperature = weatherDto.temperature,
-                        humidity = weatherDto.humidity,
-                        pressure = weatherDto.pressure
-                    ))
-                }
+        weatherRepository.getWeatherDataByLocation(location.latitude, location.longitude){result ->
+            result.onSuccess { weatherDto ->
+                saveSessionData(SessionInfo(
+                    sessionId = sessionId,
+                    temperature = weatherDto.temperature,
+                    humidity = weatherDto.humidity,
+                    pressure = weatherDto.pressure
+                ))
+            }.onFailure {
+                LogUtil.e(it.message)
             }
         }
     }

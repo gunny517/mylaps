@@ -1,6 +1,7 @@
 package jp.ceed.android.mylapslogger.util
 
 import jp.ceed.android.mylapslogger.dto.LapDto
+import jp.ceed.android.mylapslogger.model.Sys
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -62,6 +63,11 @@ class DateUtil() {
             return cal.get(Calendar.YEAR) == ymd[0].toInt()
                     && cal.get(Calendar.MONTH) == ymd[1].toInt() -1
                     && cal.get(Calendar.DATE) == ymd[2].toInt()
+        }
+
+
+        fun createDateTimeString(): String {
+            return API_SIMPLE_DATE_FORMAT.format(System.currentTimeMillis())
         }
 
     }
