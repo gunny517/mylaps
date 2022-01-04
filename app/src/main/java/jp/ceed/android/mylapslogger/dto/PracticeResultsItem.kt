@@ -39,11 +39,12 @@ sealed class PracticeResultsItem {
         var sessionId: Long,
         var sectionTitle: String,
         var sessionTime: String,
+        var sessionInfoLabel: String? = null
     ): PracticeResultsItem(){
         constructor(sessions: SessionsResponse.Sessions): this(
-            sessionTime = DateUtil.toHmsFromDateTimeWithMilliSec(sessions.dateTimeStart),
+            sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart),
             sectionTitle = sessions.id.toString (),
-            sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart)
+            sessionTime = DateUtil.toHmsFromDateTimeWithMilliSec(sessions.dateTimeStart)
         )
     }
 

@@ -35,7 +35,7 @@ class PracticeResultsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: PracticeResultsItem = items[position]
-        holder.viewDataBinding?.setVariable(BR.lapDto, item)
+        holder.viewDataBinding?.setVariable(BR.item, item)
         holder.itemView.setOnClickListener {
             when(item){
                 is PracticeResultsItem.Section -> { onClickSection(item) }

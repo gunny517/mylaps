@@ -3,6 +3,7 @@ package jp.ceed.android.mylapslogger.viewModel
 import android.app.Application
 import android.location.Location
 import androidx.lifecycle.*
+import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.model.PracticeResult
@@ -12,7 +13,9 @@ import jp.ceed.android.mylapslogger.repository.SessionInfoRepository
 import jp.ceed.android.mylapslogger.repository.WeatherRepository
 import jp.ceed.android.mylapslogger.util.DateUtil
 import jp.ceed.android.mylapslogger.util.LogUtil
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PracticeResultFragmentViewModel(val id: Int, val application: Application) : ViewModel() {
 
@@ -41,14 +44,37 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
         }
         progressVisibility.value = true
         apiRepository.sessionRequest(id) {
-            it.onSuccess { it3 ->
-                lapList.value = it3
-                dataStartTime = it3.dateStartTime
-                onLoadResult()
+            it.onSuccess { practiceResult ->
+                applySessionInfoLabel(practiceResult)
             }.onFailure {
                 // Nothing to do.
             }
             progressVisibility.value = false
+        }
+    }
+
+
+
+    private fun applySessionInfoLabel(practiceResult: PracticeResult){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                for(entry in practiceResult.sessionData){
+                    when(entry){
+                        is PracticeResultsItem.Section -> {
+                            val id = entry.sessionId
+                            var sessionInfo: SessionInfo? = sessionInfoRepository.findBySessionId(id)
+                            entry.sessionInfoLabel = if(sessionInfo == null){
+                                application.getString(R.string.label_practice_result_section_no_session_info)
+                            }else{
+                                application.getString(R.string.label_practice_result_section_has_session_info)
+                            }
+                        }else -> continue
+                    }
+                }
+                lapList.postValue(practiceResult)
+                onLoadResult()
+                dataStartTime = practiceResult.dateStartTime
+            }
         }
     }
 

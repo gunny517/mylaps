@@ -20,6 +20,14 @@ class SessionInfoRepository(context: Context) {
         return sessionInfo
     }
 
+    suspend fun findAll(): List<SessionInfo> {
+        var list: List<SessionInfo> = mutableListOf<SessionInfo>()
+        withContext(Dispatchers.IO){
+            list = dao.findAll()
+        }
+        return list
+    }
+
     suspend fun insert(sessionInfo: SessionInfo) {
         withContext(Dispatchers.IO) {
             dao.insert(sessionInfo)
