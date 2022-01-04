@@ -1,10 +1,8 @@
 package jp.ceed.android.mylapslogger.repository
 
 import android.content.Context
-import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.dao.PreferenceDao
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
-import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.model.PracticeResult
 import jp.ceed.android.mylapslogger.network.request.ActivitiesRequest
@@ -12,14 +10,11 @@ import jp.ceed.android.mylapslogger.network.request.SessionRequest
 import jp.ceed.android.mylapslogger.network.response.ActivitiesResponse
 import jp.ceed.android.mylapslogger.network.response.SessionsResponse
 import jp.ceed.android.mylapslogger.util.Util
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import retrofit.Callback
 import retrofit.RetrofitError
 import retrofit.client.Response
 import java.io.IOException
-import java.lang.NumberFormatException
-import java.util.ArrayList
+import java.util.*
 
 class ApiRepository(val context: Context) {
 
@@ -27,7 +22,6 @@ class ApiRepository(val context: Context) {
 
     private val userAccountRepository = UserAccountRepository(context)
 
-    private val sessionInfoRepository = SessionInfoRepository(context)
 
     fun sessionRequest(sessionId: Int, callback: (Result<PracticeResult>) -> Unit) {
         val request = SessionRequest()

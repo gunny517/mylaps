@@ -31,8 +31,6 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
 
     val progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    var dataStartTime: String? = null
-
 
     init {
         getPracticeResult()
@@ -53,44 +51,40 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
         }
     }
 
-
-
-    private fun applySessionInfoLabel(practiceResult: PracticeResult){
+    private fun applySessionInfoLabel(practiceResult: PracticeResult) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                for(entry in practiceResult.sessionData){
-                    when(entry){
+            withContext(Dispatchers.IO) {
+                for (entry in practiceResult.sessionData) {
+                    when (entry) {
                         is PracticeResultsItem.Section -> {
-                            val id = entry.sessionId
-                            var sessionInfo: SessionInfo? = sessionInfoRepository.findBySessionId(id)
-                            entry.sessionInfoLabel = if(sessionInfo == null){
+                            entry.sessionInfoLabel = if (sessionInfoRepository.findBySessionId(entry.sessionId) == null) {
                                 application.getString(R.string.label_practice_result_section_no_session_info)
-                            }else{
+                            } else {
                                 application.getString(R.string.label_practice_result_section_has_session_info)
                             }
-                        }else -> continue
+                        }
+                        else -> continue
                     }
                 }
                 lapList.postValue(practiceResult)
-                onLoadResult()
-                dataStartTime = practiceResult.dateStartTime
+                onLoadResult(practiceResult.dateStartTime)
             }
         }
     }
 
-    private fun onLoadResult(){
-        if(!DateUtil.isToday(dataStartTime)){
+    private fun onLoadResult(dataStartTime: String) {
+        if (!DateUtil.isToday(dataStartTime)) {
             return
         }
-        lapList.value?.let{
+        lapList.value?.let {
             val lastItem: PracticeResultsItem = it.sessionData[it.sessionData.size - 1]
-            val sessionId: Long = when(lastItem){
+            val sessionId: Long = when (lastItem) {
                 is PracticeResultsItem.Section -> lastItem.sessionId
                 is PracticeResultsItem.Lap -> lastItem.sessionId
             }
             viewModelScope.launch {
                 val sessionInfo = sessionInfoRepository.findBySessionId(sessionId)
-                if(sessionInfo == null){
+                if (sessionInfo == null) {
                     locationRepository.getLocation {
                         it.onSuccess { location ->
                             loadWeatherData(location, sessionId)
@@ -104,22 +98,24 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
     }
 
 
-    private fun loadWeatherData(location: Location, sessionId: Long){
-        weatherRepository.getWeatherDataByLocation(location.latitude, location.longitude){result ->
+    private fun loadWeatherData(location: Location, sessionId: Long) {
+        weatherRepository.getWeatherDataByLocation(location.latitude, location.longitude) { result ->
             result.onSuccess { weatherDto ->
-                saveSessionData(SessionInfo(
-                    sessionId = sessionId,
-                    temperature = weatherDto.temperature,
-                    humidity = weatherDto.humidity,
-                    pressure = weatherDto.pressure
-                ))
+                saveSessionData(
+                    SessionInfo(
+                        sessionId = sessionId,
+                        temperature = weatherDto.temperature,
+                        humidity = weatherDto.humidity,
+                        pressure = weatherDto.pressure
+                    )
+                )
             }.onFailure {
                 LogUtil.e(it.message)
             }
         }
     }
 
-    private fun saveSessionData(sessionInfo: SessionInfo){
+    private fun saveSessionData(sessionInfo: SessionInfo) {
         viewModelScope.launch {
             sessionInfoRepository.insert(sessionInfo)
         }
