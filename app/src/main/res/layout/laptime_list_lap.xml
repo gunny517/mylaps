@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="lapDto"
-            type="jp.ceed.android.mylapslogger.dto.LapDto" />
+            name="item"
+            type="jp.ceed.android.mylapslogger.dto.PracticeResultsItem.Lap" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:padding="8dp"
-            android:background="@{context.getColor(lapDto.cellBgColor)}">
+            android:background="@{context.getColor(item.cellBgColor)}">
 
             <TextView
                 android:id="@+id/diffPrevLap"
@@ -30,8 +30,8 @@
                 android:layout_centerVertical="true"
                 android:textSize="20sp"
                 android:gravity="end"
-                android:text="@{lapDto.diffPrevLap}"
-                android:textColor="@{context.getColor(lapDto.diffTextColor)}"/>
+                android:text="@{item.diffPrevLap}"
+                android:textColor="@{context.getColor(item.diffTextColor)}"/>
 
             <TextView
                 android:id="@+id/numberTextView"
@@ -42,7 +42,7 @@
                 android:layout_centerVertical="true"
                 android:textSize="16sp"
                 android:textColor="@color/text_default"
-                android:text="@{lapDto.number}"/>
+                android:text="@{item.number}"/>
 
             <TextView
                 android:id="@+id/lapTimeTextView"
@@ -53,7 +53,7 @@
                 android:layout_centerVertical="true"
                 android:textSize="32sp"
                 android:textColor="@color/text_default"
-                android:text="@{lapDto.duration}"/>
+                android:text="@{item.duration}"/>
         </RelativeLayout>
 
         <androidx.constraintlayout.widget.Guideline
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="@{lapDto.speedLevel}" />
+            app:layout_constraintGuide_percent="@{item.speedLevel}" />
 
         <ImageView
             android:layout_width="0dp"

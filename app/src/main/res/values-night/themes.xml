@@ -16,5 +16,6 @@
 		</item>
 		<!-- Customize your theme here. -->
 		<item name="android:textColor">@color/text_default</item>
+		<item name="android:windowBackground">@color/window_back_ground</item>
 	</style>
 </resources>

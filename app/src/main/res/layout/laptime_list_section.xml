@@ -1,33 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-	<data>
-		<variable
-			name="lapDto"
-			type="jp.ceed.android.mylapslogger.dto.LapDto" />
-	</data>
-	<RelativeLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@color/bg_lap_list_section">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="item"
+            type="jp.ceed.android.mylapslogger.dto.PracticeResultsItem.Section" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@color/bg_lap_list_section">
 
-		<TextView
-			android:id="@+id/titleTextView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:padding="8dp"
-			android:textSize="18sp"
-			android:textColor="@color/text_default"
-			android:layout_alignParentStart="true"
-			android:text="@{@string/format_session_title(lapDto.sectionTitle)}"/>
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="18sp"
+            android:textColor="@color/text_default"
+            android:layout_alignParentStart="true"
+            android:text="@{@string/format_session_title(item.sectionTitle)}"
+            tools:text="タイトル"/>
 
-		<TextView
-			android:id="@+id/timeTextView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:padding="8dp"
-			android:textSize="18sp"
-			android:textColor="@color/text_default"
-			android:layout_alignParentEnd="true"
-			android:text="@{lapDto.sessionTime}"/>
-	</RelativeLayout>
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/titleTextView"
+            android:layout_marginStart="30sp"
+            android:textSize="18sp"
+            android:textColor="@color/text_default"
+            android:layout_alignParentEnd="true"
+            android:text="@{item.sessionTime}"
+            tools:text="開始時間"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@{item.sessionInfoLabel}"
+            tools:text="未入力"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

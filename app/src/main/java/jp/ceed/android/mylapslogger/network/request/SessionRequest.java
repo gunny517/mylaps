@@ -16,43 +16,41 @@ import retrofit.http.QueryMap;
 
 /**
  * Created by ARAKI on 2017/04/28.
- *
  */
 
 public class SessionRequest extends AbstractRetrofitGsonRequest<SessionsResponse> {
 
-	private static final String END_POINT = "https://practice-api.speedhive.com";
+    private static final String END_POINT = "https://practice-api.speedhive.com";
 
-	private static final String PATH_FORMAT = "api/v1/training/activities/%s/sessions";
+    private static final String PATH_FORMAT = "api/v1/training/activities/%s/sessions";
 
-	private static final String AUTH_FORMAT = "bearer %s";
+    private static final String AUTH_FORMAT = "bearer %s";
 
+    @RequestParameter(serialiseName = "optimized")
+    private String optimized = "false";
 
-	@RequestParameter(seriarizeName = "optimized")
-	private String optimized = "false";
+    public String sessionId;
 
-	public String sessionId;
+    public String authorization;
 
-	public String authorization;
+    @Override
+    public void executeRequest(Context context, Callback<SessionsResponse> callback) {
+        String path = String.format(Locale.JAPAN, PATH_FORMAT, sessionId);
+        String auth = String.format(Locale.JAPAN, AUTH_FORMAT, authorization);
+        getRestAdapter(context, END_POINT).create(SessionService.class)
+                .getSessionResults(auth, API_KEY, path, toParamMap(), callback);
 
+    }
 
-	@Override
-	public void executeRequest(Context context, Callback<SessionsResponse> callback) {
-		String path = String.format(Locale.JAPAN, PATH_FORMAT, sessionId);
-		String auth = String.format(Locale.JAPAN, AUTH_FORMAT, authorization);
-		getRestAdapter(context, END_POINT).create(SessionService.class)
-				.getSessionResults(auth, API_KEY, path, toParamMap(), callback);
+    private interface SessionService {
 
-	}
-
-	private interface SessionService{
-		@GET("/{path}")
-		void getSessionResults(
-				@Header("Authorization") String auth,
-				@Header("ApiKey") String apiKey,
-				@Path(value = "path", encode = false) String path,
-				@QueryMap Map<String,String> map,
-				Callback<SessionsResponse> callback);
-	}
+        @GET("/{path}")
+        void getSessionResults(
+                @Header("Authorization") String auth,
+                @Header("ApiKey") String apiKey,
+                @Path(value = "path", encode = false) String path,
+                @QueryMap Map<String, String> map,
+                Callback<SessionsResponse> callback);
+    }
 
 }

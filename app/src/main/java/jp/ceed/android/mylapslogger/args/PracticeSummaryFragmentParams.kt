@@ -1,10 +1,10 @@
 package jp.ceed.android.mylapslogger.args
 
-import jp.ceed.android.mylapslogger.dto.LapDto
+import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import java.io.Serializable
 
-class PracticeSummaryFragmentParams (
-	val sessionSummary: ArrayList<LapDto>,
-	val sessionDate: String
-) :Serializable {
+class PracticeSummaryFragmentParams(
+    val sessionSummary: ArrayList<PracticeResultsItem>,
+    val sessionDate: String
+) : Serializable {
 }

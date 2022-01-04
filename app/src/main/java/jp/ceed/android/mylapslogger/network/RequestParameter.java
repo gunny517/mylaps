@@ -7,13 +7,13 @@ import java.lang.annotation.Target;
 
 /**
  * APIリクエストクラスのパラメータとなるフィールド用のアノテーション
- * @author UU023938
  *
+ * @author UU023938
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
 public @interface RequestParameter {
 
-	String seriarizeName();
+    String serialiseName();
 
 }

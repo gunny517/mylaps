@@ -11,7 +11,7 @@ import jp.ceed.android.mylapslogger.BR
 import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.databinding.LaptimeListLapBinding
 import jp.ceed.android.mylapslogger.databinding.LaptimeListSectionBinding
-import jp.ceed.android.mylapslogger.dto.LapDto
+import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 
 class PracticeResultsAdapter(
     context: Context,
@@ -20,7 +20,7 @@ class PracticeResultsAdapter(
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
-    private var items: List<LapDto> = mutableListOf()
+    private var items: List<PracticeResultsItem> = mutableListOf()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,30 +34,34 @@ class PracticeResultsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
-        holder.viewDataBinding?.setVariable(BR.lapDto, item)
-        holder.itemView.setOnClickListener { onClickSection(item) }
+        val item: PracticeResultsItem = items[position]
+        holder.viewDataBinding?.setVariable(BR.item, item)
+        holder.itemView.setOnClickListener {
+            when(item){
+                is PracticeResultsItem.Section -> { onClickSection(item) }
+                else -> null
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-    private fun onClickSection(lapDto: LapDto) {
-        if (lapDto.sessionId != 0L) {
-            onClickListener(lapDto.sessionId, lapDto.sectionTitle)
+    private fun onClickSection(item: PracticeResultsItem.Section) {
+        if (item.sessionId != 0L) {
+            onClickListener(item.sessionId, item.sectionTitle)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (items[position].sectionTitle == null) {
-            VIEW_TYPE_LAP
-        } else {
-            VIEW_TYPE_SECTION
+        return when(items[position]){
+            is PracticeResultsItem.Section -> VIEW_TYPE_SECTION
+            else -> VIEW_TYPE_LAP
         }
     }
 
-    fun setItems(_items: List<LapDto>) {
+    fun setItems(_items: List<PracticeResultsItem>) {
         items = _items
     }
 

@@ -6,6 +6,7 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,7 +15,9 @@ import jp.ceed.android.mylapslogger.adatpter.PracticeResultsAdapter
 import jp.ceed.android.mylapslogger.args.PracticeSummaryFragmentParams
 import jp.ceed.android.mylapslogger.databinding.FragmentPracticeResultBinding
 import jp.ceed.android.mylapslogger.dto.LapDto
+import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.viewModel.PracticeResultFragmentViewModel
+import kotlinx.coroutines.launch
 
 class PracticeResultsFragment : Fragment() {
 
@@ -72,12 +75,13 @@ class PracticeResultsFragment : Fragment() {
             adapter.setItems(it.sessionData)
             adapter.notifyDataSetChanged()
         })
+        lifecycleScope.launch {  }
     }
 
     private fun navigateToSessionSummary() {
         viewModel.lapList.value?.let {
             val params = PracticeSummaryFragmentParams(
-                it.sessionSummary as ArrayList<LapDto>,
+                it.sessionSummary as ArrayList<PracticeResultsItem>,
                 args.sessionDate
             )
             findNavController().navigate(
