@@ -81,6 +81,7 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
             val sessionId: Long = when (lastItem) {
                 is PracticeResultsItem.Section -> lastItem.sessionId
                 is PracticeResultsItem.Lap -> lastItem.sessionId
+                is PracticeResultsItem.Summary -> lastItem.sessionId
             }
             viewModelScope.launch {
                 val sessionInfo = sessionInfoRepository.findBySessionId(sessionId)

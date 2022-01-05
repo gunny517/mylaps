@@ -11,6 +11,7 @@ import jp.ceed.android.mylapslogger.BR
 import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.databinding.LaptimeListLapBinding
 import jp.ceed.android.mylapslogger.databinding.LaptimeListSectionBinding
+import jp.ceed.android.mylapslogger.databinding.SummaryListLapBinding
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 
 class PracticeResultsAdapter(
@@ -24,12 +25,19 @@ class PracticeResultsAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return if (viewType == VIEW_TYPE_SECTION) {
-            val binding: LaptimeListSectionBinding = DataBindingUtil.inflate(inflater, R.layout.laptime_list_section, parent, false)
-            ViewHolder(binding.root)
-        } else {
-            val binding: LaptimeListLapBinding = DataBindingUtil.inflate(inflater, R.layout.laptime_list_lap, parent, false)
-            ViewHolder(binding.root)
+        return when(viewType){
+            VIEW_TYPE_SECTION -> {
+                val binding: LaptimeListSectionBinding = DataBindingUtil.inflate(inflater, R.layout.laptime_list_section, parent, false)
+                ViewHolder(binding.root)
+            }
+            VIEW_TYPE_LAP -> {
+                val binding: LaptimeListLapBinding = DataBindingUtil.inflate(inflater, R.layout.laptime_list_lap, parent, false)
+                ViewHolder(binding.root)
+            }
+            else -> {
+                val binding: SummaryListLapBinding = DataBindingUtil.inflate(inflater, R.layout.summary_list_lap, parent, false)
+                ViewHolder(binding.root)
+            }
         }
     }
 
@@ -57,7 +65,8 @@ class PracticeResultsAdapter(
     override fun getItemViewType(position: Int): Int {
         return when(items[position]){
             is PracticeResultsItem.Section -> VIEW_TYPE_SECTION
-            else -> VIEW_TYPE_LAP
+            is PracticeResultsItem.Lap -> VIEW_TYPE_LAP
+            else -> VIEW_TYPE_SUMMARY
         }
     }
 
@@ -71,9 +80,9 @@ class PracticeResultsAdapter(
     }
 
     companion object {
-
         private const val VIEW_TYPE_SECTION = 0
         private const val VIEW_TYPE_LAP = 1
+        private const val VIEW_TYPE_SUMMARY = 2
     }
 
 }

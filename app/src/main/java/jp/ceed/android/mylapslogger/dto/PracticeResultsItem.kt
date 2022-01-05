@@ -25,14 +25,6 @@ sealed class PracticeResultsItem {
             diffTextColor = getDiffTextColor(laps.status),
             diffPrevLap = laps.diffPrevLap
         )
-        constructor(bestLapx: SessionsResponse.Sessions.BestLapX): this(
-            sessionId = 0L,
-            number = bestLapx.nr.toString(),
-            duration = bestLapx.duration,
-            status = Status.NONE,
-            cellBgColor = R.color.window_back_ground,
-            diffTextColor = R . color . text_default
-        )
     }
 
     data class Section(
@@ -45,6 +37,20 @@ sealed class PracticeResultsItem {
             sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart),
             sectionTitle = sessions.id.toString (),
             sessionTime = DateUtil.toHmsFromDateTimeWithMilliSec(sessions.dateTimeStart)
+        )
+    }
+
+    data class Summary(
+        var sessionId: Long,
+        var number: String,
+        var duration: String,
+        var medianDuration: String
+    ): PracticeResultsItem(){
+        constructor(sessions: SessionsResponse.Sessions):this(
+            sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart),
+            number = sessions.bestLap.nr.toString(),
+            duration = sessions.bestLap.duration,
+            medianDuration = sessions.medianLapDuration
         )
     }
 
