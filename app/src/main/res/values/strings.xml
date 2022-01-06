@@ -40,4 +40,6 @@
 	<string name="label_session_info_hint_description">備考</string>
 	<string name="label_practice_result_section_has_session_info">入力済み</string>
 	<string name="label_practice_result_section_no_session_info">未入力</string>
+	<string name="label_session_info_title_average">平均タイム</string>
+	<string name="label_session_info_title_median">中間タイム</string>
 </resources>

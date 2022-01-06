@@ -1,19 +1,15 @@
 package jp.ceed.android.mylapslogger
 
-import android.Manifest
 import android.app.Application
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import jp.ceed.android.mylapslogger.constants.AppConstants
 import jp.ceed.android.mylapslogger.databinding.FragmentSessionInfoBinding
 import jp.ceed.android.mylapslogger.viewModel.SessionInfoFragmentViewModel
 
@@ -46,7 +42,7 @@ class SessionInfoFragment: Fragment() {
     }
 
     private fun viewModelFactoryProducer(): SessionInfoFragmentViewModel.Factory {
-        return SessionInfoFragmentViewModel.Factory(args.sessionId, requireContext().applicationContext as Application)
+        return SessionInfoFragmentViewModel.Factory(args.params, requireContext().applicationContext as Application)
     }
 
 

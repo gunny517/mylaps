@@ -10,6 +10,8 @@ class DateUtil() {
 
     companion object {
 
+        private const val DELTA_FOR_WEATHER_DATA = 30 * 60 * 1000L
+
         private const val API_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ"
 
         private const val API_TIME_FORMAT_WITH_MILLI_SEC = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
@@ -54,15 +56,13 @@ class DateUtil() {
             }
         }
 
-        fun isToday(dateStr: String?): Boolean{
+        fun isValidForWeather(dateStr: String?): Boolean{
             if(dateStr == null){
                 return false
             }
-            val ymd = dateStr.split("T")[0].split("-")
-            val cal: Calendar = Calendar.getInstance()
-            return cal.get(Calendar.YEAR) == ymd[0].toInt()
-                    && cal.get(Calendar.MONTH) == ymd[1].toInt() -1
-                    && cal.get(Calendar.DATE) == ymd[2].toInt()
+            val sessionStartTime = API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(dateStr)?.time ?: 0
+            val now = System.currentTimeMillis()
+            return now - sessionStartTime < DELTA_FOR_WEATHER_DATA
         }
 
 

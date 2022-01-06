@@ -16,7 +16,7 @@ import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 
 class PracticeResultsAdapter(
     context: Context,
-    private val onClickListener: (Long, String) -> Unit
+    private val onClickListener: (PracticeResultsItem.Section) -> Unit
 ) : RecyclerView.Adapter<PracticeResultsAdapter.ViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -58,7 +58,7 @@ class PracticeResultsAdapter(
 
     private fun onClickSection(item: PracticeResultsItem.Section) {
         if (item.sessionId != 0L) {
-            onClickListener(item.sessionId, item.sectionTitle)
+            onClickListener(item)
         }
     }
 

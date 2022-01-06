@@ -73,7 +73,7 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
     }
 
     private fun onLoadResult(dataStartTime: String) {
-        if (!DateUtil.isToday(dataStartTime)) {
+        if (!DateUtil.isValidForWeather(dataStartTime)) {
             return
         }
         lapList.value?.let {

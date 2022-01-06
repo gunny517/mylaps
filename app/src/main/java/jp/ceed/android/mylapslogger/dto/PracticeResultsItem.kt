@@ -31,11 +31,15 @@ sealed class PracticeResultsItem {
         var sessionId: Long,
         var sectionTitle: String,
         var sessionTime: String,
-        var sessionInfoLabel: String? = null
+        var sessionInfoLabel: String? = null,
+        var averageDuration: String,
+        var medianDuration: String
     ): PracticeResultsItem(){
         constructor(sessions: SessionsResponse.Sessions): this(
             sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart),
             sectionTitle = sessions.id.toString (),
+            averageDuration = sessions.aveLapDuration,
+            medianDuration = sessions.medianLapDuration,
             sessionTime = DateUtil.toHmsFromDateTimeWithMilliSec(sessions.dateTimeStart)
         )
     }
