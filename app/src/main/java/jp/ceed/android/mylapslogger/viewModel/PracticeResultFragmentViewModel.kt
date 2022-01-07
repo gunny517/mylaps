@@ -37,9 +37,6 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
     }
 
     fun getPracticeResult() {
-        if (lapList.value?.sessionData?.isNotEmpty() == true) {
-            return
-        }
         progressVisibility.value = true
         apiRepository.sessionRequest(id) {
             it.onSuccess { practiceResult ->

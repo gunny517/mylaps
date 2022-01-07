@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="jp.ceed.android.mylapslogger.viewModel.SessionInfoFragmentViewModel" />
@@ -170,11 +170,21 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_margin="6sp"
-            android:enabled="@{viewModel.weatherApplyButtonEnable}"
-            android:onClick="@{() -> viewModel.applyWeatherData()}"
+            android:enabled="@{viewModel.weatherButtonEnable}"
+            android:onClick="@{() -> viewModel.getLocationForWeather()}"
             android:text="@string/label_session_info_apply_weather"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/clearButton"
             app:layout_constraintTop_toBottomOf="@id/createdTextView" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{viewModel.progressVisibility ? View.VISIBLE : View.GONE}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
