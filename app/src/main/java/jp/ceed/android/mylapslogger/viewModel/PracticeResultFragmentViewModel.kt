@@ -37,9 +37,6 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
     }
 
     fun getPracticeResult() {
-        if (lapList.value?.sessionData?.isNotEmpty() == true) {
-            return
-        }
         progressVisibility.value = true
         apiRepository.sessionRequest(id) {
             it.onSuccess { practiceResult ->
@@ -73,7 +70,7 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
     }
 
     private fun onLoadResult(dataStartTime: String) {
-        if (!DateUtil.isToday(dataStartTime)) {
+        if (!DateUtil.isValidForWeather(dataStartTime)) {
             return
         }
         lapList.value?.let {
@@ -81,6 +78,7 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
             val sessionId: Long = when (lastItem) {
                 is PracticeResultsItem.Section -> lastItem.sessionId
                 is PracticeResultsItem.Lap -> lastItem.sessionId
+                is PracticeResultsItem.Summary -> lastItem.sessionId
             }
             viewModelScope.launch {
                 val sessionInfo = sessionInfoRepository.findBySessionId(sessionId)

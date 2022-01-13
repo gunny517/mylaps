@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.android.mylapslogger.adatpter.PracticeResultsAdapter
 import jp.ceed.android.mylapslogger.args.PracticeSummaryFragmentParams
+import jp.ceed.android.mylapslogger.args.SessionInfoFragmentParams
 import jp.ceed.android.mylapslogger.databinding.FragmentPracticeResultBinding
 import jp.ceed.android.mylapslogger.dto.LapDto
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
@@ -67,7 +68,7 @@ class PracticeResultsFragment : Fragment() {
     }
 
     private fun initLayout() {
-        val adapter = PracticeResultsAdapter(requireContext()) { id: Long, title: String -> navigateToSessionInfo(id, title) }
+        val adapter = PracticeResultsAdapter(requireContext()) { section: PracticeResultsItem.Section -> navigateToSessionInfo(section) }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -81,8 +82,7 @@ class PracticeResultsFragment : Fragment() {
     private fun navigateToSessionSummary() {
         viewModel.lapList.value?.let {
             val params = PracticeSummaryFragmentParams(
-                it.sessionSummary as ArrayList<PracticeResultsItem>,
-                args.sessionDate
+                it.sessionSummary as ArrayList<PracticeResultsItem>
             )
             findNavController().navigate(
                 PracticeResultsFragmentDirections
@@ -99,11 +99,16 @@ class PracticeResultsFragment : Fragment() {
     }
 
 
-    private fun navigateToSessionInfo(sessionId: Long, title: String) {
-        val titleText = getString(R.string.format_session_title, title)
+    private fun navigateToSessionInfo(section: PracticeResultsItem.Section) {
+        val titleText = getString(R.string.format_session_title, section.sectionTitle)
+        val sessionInfoFragmentParams = SessionInfoFragmentParams(
+            sessionId = section.sessionId,
+            averageDuration = section.averageDuration,
+            medianDuration = section.medianDuration
+        )
         findNavController().navigate(
             PracticeResultsFragmentDirections
-                .actionPracticeResultFragmentToSessionInfoFragment(sessionId, args.sessionDate, titleText)
+                .actionPracticeResultFragmentToSessionInfoFragment(sessionInfoFragmentParams, args.sessionDate, titleText)
         )
     }
 

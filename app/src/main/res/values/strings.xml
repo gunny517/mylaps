@@ -30,7 +30,7 @@
 	<string name="label_session_info_title_description">備考</string>
 	<string name="label_session_info_save_button">保存</string>
 	<string name="label_session_info_clear_button">クリア</string>
-	<string name="label_session_info_apply_weather">自動入力</string>
+	<string name="label_session_info_apply_weather">気象データ取得</string>
 	<string name="label_session_info_title_temperature">気温</string>
 	<string name="label_session_info_title_pressure">気圧</string>
 	<string name="label_session_info_title_humidity">湿度</string>
@@ -40,4 +40,6 @@
 	<string name="label_session_info_hint_description">備考</string>
 	<string name="label_practice_result_section_has_session_info">入力済み</string>
 	<string name="label_practice_result_section_no_session_info">未入力</string>
+	<string name="label_session_info_title_average">平均タイム</string>
+	<string name="label_session_info_title_median">中間タイム</string>
 </resources>

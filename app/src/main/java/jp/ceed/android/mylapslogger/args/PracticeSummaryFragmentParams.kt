@@ -4,7 +4,6 @@ import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import java.io.Serializable
 
 class PracticeSummaryFragmentParams(
-    val sessionSummary: ArrayList<PracticeResultsItem>,
-    val sessionDate: String
+    val sessionSummary: ArrayList<PracticeResultsItem>
 ) : Serializable {
 }

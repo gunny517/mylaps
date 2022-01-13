@@ -63,7 +63,7 @@ class ApiRepository(val context: Context) {
         val list: ArrayList<PracticeResultsItem> = ArrayList<PracticeResultsItem>()
         for (session in sessionsResponse.sessions) {
             list.add(PracticeResultsItem.Section(session))
-            list.add(PracticeResultsItem.Lap(session.bestLap))
+            list.add(PracticeResultsItem.Summary(session))
         }
         return list
     }

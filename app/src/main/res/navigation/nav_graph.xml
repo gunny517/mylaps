@@ -96,8 +96,8 @@
 		android:label="{sessionDate} {title}">
 
 		<argument
-			android:name="sessionId"
-			app:argType="long"/>
+			android:name="params"
+			app:argType="jp.ceed.android.mylapslogger.args.SessionInfoFragmentParams"/>
 
 		<argument
 			android:name="sessionDate"

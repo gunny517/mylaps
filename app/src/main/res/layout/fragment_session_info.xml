@@ -1,122 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-	<data>
-		<variable
-			name="viewModel"
-			type="jp.ceed.android.mylapslogger.viewModel.SessionInfoFragmentViewModel" />
-	</data>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="jp.ceed.android.mylapslogger.viewModel.SessionInfoFragmentViewModel" />
+    </data>
 
-	<androidx.constraintlayout.widget.ConstraintLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:padding="10sp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10sp">
 
-		<TextView
-			android:id="@+id/temperatureTitle"
-			android:layout_width="60sp"
-			android:layout_height="wrap_content"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintBottom_toBottomOf="@id/temperatureEditText"
-			android:text="@string/label_session_info_title_temperature"
-			android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/averageTitle"
+            android:layout_width="@dimen/header_width_m"
+            android:layout_height="wrap_content"
+            android:text="@string/label_session_info_title_average"
+            app:layout_constraintTop_toTopOf="@id/averageValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/averageValue"
+            android:textSize="18sp"/>
 
-		<EditText
-			android:id="@+id/temperatureEditText"
-			android:layout_width="0sp"
-			android:layout_height="wrap_content"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintStart_toEndOf="@id/temperatureTitle"
-			app:layout_constraintEnd_toEndOf="parent"
-			android:inputType="text"
-			android:text="@={viewModel.sessionInfo.temperature}"
-			android:hint="@string/label_session_info_hint_temperature"/>
+        <TextView
+            android:id="@+id/averageValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4sp"
+            android:layout_marginBottom="4sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/averageTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@{viewModel.averageDuration}"
+            android:textSize="22sp"/>
 
-		<TextView
-			android:id="@+id/humidityTitle"
-			android:layout_width="60sp"
-			android:layout_height="wrap_content"
-			app:layout_constraintTop_toBottomOf="@id/temperatureEditText"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintBottom_toBottomOf="@id/humidityEditText"
-			android:text="@string/label_session_info_title_humidity"
-			android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/medianTitle"
+            android:layout_width="@dimen/header_width_m"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/medianValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/medianValue"
+            android:text="@string/label_session_info_title_median"
+            android:textSize="18sp"/>
 
-		<EditText
-			android:id="@+id/humidityEditText"
-			android:layout_width="0sp"
-			android:layout_height="wrap_content"
-			app:layout_constraintTop_toBottomOf="@id/temperatureEditText"
-			app:layout_constraintStart_toEndOf="@id/humidityTitle"
-			app:layout_constraintEnd_toEndOf="parent"
-			android:inputType="text"
-			android:text="@={viewModel.sessionInfo.humidity}"
-			android:hint="@string/label_session_info_hint_humidity"/>
+        <TextView
+            android:id="@+id/medianValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4sp"
+            android:layout_marginBottom="4sp"
+            app:layout_constraintTop_toBottomOf="@id/averageValue"
+            app:layout_constraintStart_toEndOf="@id/medianTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@{viewModel.medianDuration}"
+            android:textSize="22sp"/>
 
-		<TextView
-			android:id="@+id/pressureTitle"
-			android:layout_width="60sp"
-			android:layout_height="wrap_content"
-			app:layout_constraintTop_toBottomOf="@id/humidityEditText"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintBottom_toBottomOf="@id/pressureEditText"
-			android:text="@string/label_session_info_title_pressure"
-			android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/temperatureTitle"
+            android:layout_width="@dimen/header_width_m"
+            android:layout_height="wrap_content"
+            android:text="@string/label_session_info_title_temperature"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="@id/temperatureEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/temperatureEditText"/>
 
-		<EditText
-			android:id="@+id/pressureEditText"
-			android:layout_width="0sp"
-			android:layout_height="wrap_content"
-			app:layout_constraintTop_toBottomOf="@id/humidityEditText"
-			app:layout_constraintStart_toEndOf="@id/pressureTitle"
-			app:layout_constraintEnd_toEndOf="parent"
-			android:inputType="text"
-			android:text="@={viewModel.sessionInfo.pressure}"
-			android:hint="@string/label_session_info_hint_pressure"/>
+        <EditText
+            android:id="@+id/temperatureEditText"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_session_info_hint_temperature"
+            android:inputType="text"
+            android:text="@={viewModel.sessionInfo.temperature}"
+            app:layout_constraintTop_toBottomOf="@id/medianValue"
+            app:layout_constraintStart_toEndOf="@id/temperatureTitle"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-		<EditText
-			android:id="@+id/descriptionEditText"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:gravity="start|top"
-			app:layout_constraintTop_toBottomOf="@id/pressureEditText"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			android:lines="6"
-			android:text="@={viewModel.sessionInfo.description}"
-			android:hint="@string/label_session_info_hint_description"/>
+        <TextView
+            android:id="@+id/humidityTitle"
+            android:layout_width="@dimen/header_width_m"
+            android:layout_height="wrap_content"
+            android:text="@string/label_session_info_title_humidity"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="@id/humidityEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/humidityEditText"/>
 
-		<Button
-			android:id="@+id/saveButton"
-			android:layout_width="0sp"
-			android:layout_height="wrap_content"
-			android:layout_margin="6sp"
-			app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
-			app:layout_constraintStart_toStartOf="parent"
-			android:text="@string/label_session_info_save_button"
-			android:onClick="@{() -> viewModel.saveSessionInfo()}"/>
+        <EditText
+            android:id="@+id/humidityEditText"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_session_info_hint_humidity"
+            android:inputType="text"
+            android:text="@={viewModel.sessionInfo.humidity}"
+            app:layout_constraintTop_toBottomOf="@id/temperatureEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/humidityTitle"/>
 
-		<Button
-			android:id="@+id/clearButton"
-			android:layout_width="0sp"
-			android:layout_height="wrap_content"
-			android:layout_margin="6sp"
-			app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
-			app:layout_constraintStart_toEndOf="@id/saveButton"
-			android:text="@string/label_session_info_clear_button"
-			android:onClick="@{() -> viewModel.clearEditText()}"/>
+        <TextView
+            android:id="@+id/pressureTitle"
+            android:layout_width="@dimen/header_width_m"
+            android:layout_height="wrap_content"
+            android:text="@string/label_session_info_title_pressure"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="@id/pressureEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/pressureEditText" />
 
-		<Button
-			android:layout_width="0sp"
-			android:layout_height="wrap_content"
-			android:layout_margin="6sp"
-			app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
-			app:layout_constraintStart_toEndOf="@id/clearButton"
-			app:layout_constraintEnd_toEndOf="parent"
-			android:text="@string/label_session_info_apply_weather"
-			android:enabled="@{viewModel.weatherApplyButtonEnable}"
-			android:onClick="@{() -> viewModel.applyWeatherData()}"/>
-	</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/pressureEditText"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_session_info_hint_pressure"
+            android:inputType="text"
+            android:text="@={viewModel.sessionInfo.pressure}"
+            app:layout_constraintTop_toBottomOf="@id/humidityEditText"
+            app:layout_constraintStart_toEndOf="@id/pressureTitle"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <EditText
+            android:id="@+id/descriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|top"
+            android:hint="@string/label_session_info_hint_description"
+            android:lines="6"
+            android:text="@={viewModel.sessionInfo.description}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pressureEditText" />
+
+        <TextView
+            android:id="@+id/createdTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="18sp"
+            android:gravity="end"
+            android:text="@{viewModel.sessionInfo.created}"
+            tools:text="2022-01-01T12:34:56.789+09:00"/>
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6sp"
+            android:onClick="@{() -> viewModel.saveSessionInfo()}"
+            android:text="@string/label_session_info_save_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/createdTextView"/>
+
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6sp"
+            android:onClick="@{() -> viewModel.clearEditText()}"
+            android:text="@string/label_session_info_clear_button"
+            app:layout_constraintStart_toEndOf="@id/saveButton"
+            app:layout_constraintTop_toBottomOf="@id/createdTextView" />
+
+        <Button
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6sp"
+            android:enabled="@{viewModel.weatherButtonEnable}"
+            android:onClick="@{() -> viewModel.getLocationForWeather()}"
+            android:text="@string/label_session_info_apply_weather"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/clearButton"
+            app:layout_constraintTop_toBottomOf="@id/createdTextView" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{viewModel.progressVisibility ? View.VISIBLE : View.GONE}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
