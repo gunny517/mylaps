@@ -15,7 +15,6 @@ import jp.ceed.android.mylapslogger.adatpter.PracticeResultsAdapter
 import jp.ceed.android.mylapslogger.args.PracticeSummaryFragmentParams
 import jp.ceed.android.mylapslogger.args.SessionInfoFragmentParams
 import jp.ceed.android.mylapslogger.databinding.FragmentPracticeResultBinding
-import jp.ceed.android.mylapslogger.dto.LapDto
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.viewModel.PracticeResultFragmentViewModel
 import kotlinx.coroutines.launch
@@ -72,7 +71,7 @@ class PracticeResultsFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
-        viewModel.lapList.observe(viewLifecycleOwner, {
+        viewModel.practiceResult.observe(viewLifecycleOwner, {
             adapter.setItems(it.sessionData)
             adapter.notifyDataSetChanged()
         })
@@ -80,7 +79,7 @@ class PracticeResultsFragment : Fragment() {
     }
 
     private fun navigateToSessionSummary() {
-        viewModel.lapList.value?.let {
+        viewModel.practiceResult.value?.let {
             val params = PracticeSummaryFragmentParams(
                 it.sessionSummary as ArrayList<PracticeResultsItem>
             )
@@ -92,10 +91,17 @@ class PracticeResultsFragment : Fragment() {
     }
 
     private fun navigateToActivityInfo() {
-        findNavController().navigate(
-            PracticeResultsFragmentDirections
-                .actionPracticeResultsFragmentToActivityInfoFragment(args.activityId)
-        )
+        viewModel.practiceResult.value?.let {
+            findNavController().navigate(
+                PracticeResultsFragmentDirections.actionPracticeResultsFragmentToActivityInfoFragment(
+                        args.activityId,
+                        it.bestLap,
+                        it.totalLap,
+                        it.totalTime,
+                        it.totalDistance
+                    )
+            )
+        }
     }
 
 
@@ -113,7 +119,7 @@ class PracticeResultsFragment : Fragment() {
     }
 
     private fun viewModelFactoryProducer(): PracticeResultFragmentViewModel.Factory {
-        return PracticeResultFragmentViewModel.Factory(args.activityId, requireContext().applicationContext as Application)
+        return PracticeResultFragmentViewModel.Factory(args, requireContext().applicationContext as Application)
     }
 
 

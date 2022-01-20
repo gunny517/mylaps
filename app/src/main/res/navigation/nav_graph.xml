@@ -49,6 +49,11 @@
 		<argument
 			android:name="sessionDate"
 			app:argType="string"
+			app:nullable="true"/>
+
+		<argument
+			android:name="trackLength"
+			app:argType="integer"
 			app:nullable="false"/>
 
 		<action
@@ -88,6 +93,22 @@
 		<argument
 			android:name="activityId"
 			app:argType="integer"/>
+
+		<argument
+			android:name="bestLap"
+			app:argType="string"/>
+
+		<argument
+			android:name="totalLap"
+			app:argType="string"/>
+
+		<argument
+			android:name="totalTime"
+			app:argType="string"/>
+
+		<argument
+			android:name="totalDistance"
+			app:argType="string"/>
 	</fragment>
 
 	<fragment
@@ -101,7 +122,8 @@
 
 		<argument
 			android:name="sessionDate"
-			app:argType="string"/>
+			app:argType="string"
+			app:nullable="true"/>
 
 		<argument
 			android:name="title"

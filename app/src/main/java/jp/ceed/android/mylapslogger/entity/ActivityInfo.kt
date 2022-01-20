@@ -8,5 +8,4 @@ import androidx.room.PrimaryKey
 data class ActivityInfo(
 	@PrimaryKey @ColumnInfo(name = "activity_id") val activityId: Int,
 	var description: String
-) {
-}
+)

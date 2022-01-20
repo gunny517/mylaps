@@ -23,7 +23,7 @@ class ApiRepository(val context: Context) {
     private val userAccountRepository = UserAccountRepository(context)
 
 
-    fun sessionRequest(sessionId: Int, callback: (Result<PracticeResult>) -> Unit) {
+    fun sessionRequest(sessionId: Int, trackLength: Int, callback: (Result<PracticeResult>) -> Unit) {
         val request = SessionRequest()
         request.sessionId = sessionId.toString()
         request.authorization = preferenceDao.read().accessToken
@@ -31,9 +31,13 @@ class ApiRepository(val context: Context) {
             override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
                 sessionsResponse?.let {
                     val practiceResult = PracticeResult(
-                        createLapList(it),
-                        createSessionData(it),
-                        it.sessions.get(it.sessions.size - 1).dateTimeStart
+                        sessionData = createLapList(it),
+                        sessionSummary =  createSessionData(it),
+                        dateStartTime = it.sessions.get(it.sessions.size - 1).dateTimeStart,
+                        bestLap = it.bestLap.duration,
+                        totalLap = it.stats.lapCount.toString(),
+                        totalTime = it.stats.activeTrainingTime,
+                        totalDistance = Util.createTrainingTimeString(it.stats.lapCount, trackLength)
                     )
                     callback(Result.success(practiceResult))
                 }

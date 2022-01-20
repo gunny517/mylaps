@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import jp.ceed.android.mylapslogger.model.ActivitiesItem;
 import jp.ceed.android.mylapslogger.network.response.ActivitiesResponse.ActivityDto;
@@ -25,5 +26,11 @@ public class Util {
 
     public static void checkThread(final Context context, final String name){
         LogUtil.d("[" + name + " is main thread] : " + Thread.currentThread().equals(context.getMainLooper().getThread()));
+    }
+
+
+    public static String createTrainingTimeString(final int lap, final int trackDistance){
+        int length = lap * trackDistance;
+        return String.format(Locale.JAPAN, "%,d", length);
     }
 }

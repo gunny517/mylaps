@@ -91,7 +91,7 @@ class ActivitiesFragment : Fragment() {
         context?.let { it ->
             val adapter = ActivitiesAdapter(it, mutableListOf(), object : ActivitiesAdapter.OnClickListener {
                 override fun onClick(activitiesItem: ActivitiesItem) {
-                    navigateToPracticeResults(activitiesItem.sessionId, activitiesItem.startTime)
+                    navigateToPracticeResults(activitiesItem)
                 }
             })
             binding.recyclerView.adapter = adapter
@@ -104,11 +104,12 @@ class ActivitiesFragment : Fragment() {
         }
     }
 
-    private fun navigateToPracticeResults(sessionId: Int, sessionDatetime: String?) {
-        sessionDatetime?.let {
-            val action = ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(sessionId, sessionDatetime)
-            findNavController().navigate(action)
-        }
+    private fun navigateToPracticeResults(activitiesItem: ActivitiesItem) {
+        val action = ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(
+            activitiesItem.sessionId,
+            activitiesItem.startTime,
+            activitiesItem.trackLength)
+        findNavController().navigate(action)
     }
 
 
