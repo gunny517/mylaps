@@ -57,6 +57,7 @@ class ActivitiesFragment : Fragment() {
         menu.findItem(R.id.action_session_info).isVisible = false
         menu.findItem(R.id.action_session_summary).isVisible = false
         menu.findItem(R.id.action_user_info).isVisible = true
+        menu.findItem(R.id.action_app_info).isVisible = true
         super.onPrepareOptionsMenu(menu)
     }
 
@@ -66,6 +67,10 @@ class ActivitiesFragment : Fragment() {
                 navigateToUserInfo()
                 true
             }
+            R.id.action_app_info -> {
+                navigateToAppInfo()
+                true
+            }
             else -> false
         }
     }
@@ -73,6 +78,11 @@ class ActivitiesFragment : Fragment() {
 
     private fun navigateToUserInfo() {
         findNavController().navigate(R.id.action_ActivitiesFragment_to_UserInfoFragment)
+    }
+
+
+    private fun navigateToAppInfo(){
+        findNavController().navigate(R.id.action_ActivitiesFragment_to_AppInfoFragment)
     }
 
 

@@ -22,6 +22,10 @@
 		<action
 			android:id="@+id/action_ActivitiesFragment_to_UserInfoFragment"
 			app:destination="@id/UserInfoFragment"/>
+
+		<action
+			android:id="@+id/action_ActivitiesFragment_to_AppInfoFragment"
+			app:destination="@id/AppInfoFragment"/>
 	</fragment>
 
 	<fragment
@@ -129,4 +133,9 @@
 			android:name="title"
 			app:argType="string"/>
 	</fragment>
+
+	<fragment
+		android:id="@+id/AppInfoFragment"
+		android:name="jp.ceed.android.mylapslogger.AppInfoFragment"
+		android:label="@string/label_app_info_fragment"/>
 </navigation>

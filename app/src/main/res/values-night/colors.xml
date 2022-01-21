@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="colorPrimary">#FF5722</color>
-	<color name="colorPrimaryDark">#C2441C</color>
+	<color name="colorPrimary">#464646</color>
+	<color name="colorPrimaryDark">#33FF9A6B</color>
 	<color name="colorAccent">#3184c9</color>
 	<color name="black">#FF000000</color>
 	<color name="white">#FFFFFFFF</color>
@@ -14,6 +14,6 @@
 	<color name="text_slower">#EC8275</color>
 	<color name="text_menu">@color/white</color>
 	<color name="bg_lap_list_shown">#666666</color>
-	<color name="window_back_ground">#383838</color>
+	<color name="window_back_ground">#161616</color>
 	<color name="speed_bar">#678DFF</color>
 </resources>
