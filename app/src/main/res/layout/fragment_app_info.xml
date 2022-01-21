@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="jp.ceed.android.mylapslogger.viewModel.AppInfoFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_m">
+
+        <TextView
+            android:id="@+id/appVersionTitleTextView"
+            android:layout_width="@dimen/header_width_xl"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/text_size_m"
+            android:text="@string/label_app_inf_title_app_version"/>
+
+        <TextView
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/appVersionTitleTextView"
+            app:layout_constraintBottom_toBottomOf="@id/appVersionTitleTextView"
+            android:textSize="@dimen/text_size_m"
+            android:text="@{viewModel.appVersionName}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
