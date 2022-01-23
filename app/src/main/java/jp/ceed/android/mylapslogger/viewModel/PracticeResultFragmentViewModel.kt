@@ -37,7 +37,7 @@ class PracticeResultFragmentViewModel(val _args: PracticeResultsFragmentArgs, va
         loadPracticeResult()
     }
 
-    private fun loadPracticeResult() {
+    fun loadPracticeResult() {
         progressVisibility.value = true
         apiRepository.sessionRequest(_args.activityId, _args.trackLength) {
             it.onSuccess { practiceResult ->

@@ -29,7 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/ic_reload"
-            android:onClick="@{() -> viewModel.getPracticeResult()}"/>
+            android:onClick="@{() -> viewModel.loadPracticeResult()}"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
