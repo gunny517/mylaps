@@ -123,7 +123,7 @@ class PracticeResultFragmentViewModel(val _args: PracticeResultsFragmentArgs, va
     /**
      * [PracticeResultFragmentViewModel]にパラメータを渡すためのFactory
      */
-    class Factory(val practiceResultsFragmentArgs: PracticeResultsFragmentArgs, val application: Application) : ViewModelProvider.Factory {
+    class Factory(private val practiceResultsFragmentArgs: PracticeResultsFragmentArgs, val application: Application) : ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

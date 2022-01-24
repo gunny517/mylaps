@@ -50,5 +50,7 @@
 	<string name="label_activity_info_title_total_distance">走行距離</string>
 	<string name="label_activity_info_title_total_time">走行時間</string>
 	<string name="label_activity_info_title_best_lap">ベストラップ</string>
+	<string name="label_session_list_title_best_lap">Best</string>
+	<string name="label_session_list_title_lap_count">Laps</string>
 	<string name="label_app_inf_title_app_version">アプリバージョン：</string>
 </resources>

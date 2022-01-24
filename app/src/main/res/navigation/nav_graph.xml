@@ -26,6 +26,10 @@
 		<action
 			android:id="@+id/action_ActivitiesFragment_to_AppInfoFragment"
 			app:destination="@id/AppInfoFragment"/>
+
+		<action
+			android:id="@+id/action_ActivitiesFragment_to_SessionListFragment"
+			app:destination="@id/SessionListFragment"/>
 	</fragment>
 
 	<fragment
@@ -133,6 +137,22 @@
 			android:name="title"
 			app:argType="string"/>
 	</fragment>
+
+	<fragment
+		android:id="@+id/SessionListFragment"
+		android:name="jp.ceed.android.mylapslogger.SessionListFragment"
+		android:label="{sessionDate}">
+
+		<argument
+			android:name="activityId"
+			app:argType="integer"/>
+
+		<argument
+			android:name="sessionDate"
+			app:argType="string"
+			app:nullable="true"/>
+	</fragment>
+
 
 	<fragment
 		android:id="@+id/AppInfoFragment"

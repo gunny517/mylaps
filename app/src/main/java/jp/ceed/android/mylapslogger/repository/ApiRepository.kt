@@ -5,6 +5,7 @@ import jp.ceed.android.mylapslogger.dao.PreferenceDao
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.model.PracticeResult
+import jp.ceed.android.mylapslogger.model.SessionListItem
 import jp.ceed.android.mylapslogger.network.request.ActivitiesRequest
 import jp.ceed.android.mylapslogger.network.request.SessionRequest
 import jp.ceed.android.mylapslogger.network.response.ActivitiesResponse
@@ -23,9 +24,35 @@ class ApiRepository(val context: Context) {
     private val userAccountRepository = UserAccountRepository(context)
 
 
+    fun loadPracticeResultsForSessionList(sessionId: Int, callback: (Result<List<SessionListItem>>) -> Unit) {
+        val request = SessionRequest()
+        request.activityId = sessionId.toString()
+        request.authorization = preferenceDao.read().accessToken
+        request.executeRequest(context, object : Callback<SessionsResponse>{
+            override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
+                sessionsResponse?.let {
+                    callback(Result.success(createSessionItemList(sessionsResponse)))
+                }
+            }
+
+            override fun failure(error: RetrofitError?) {
+                callback(Result.failure(error ?: IOException("UnKnown")))
+            }
+        })
+    }
+
+    private fun createSessionItemList(sessionsResponse: SessionsResponse): List<SessionListItem>{
+        val list = mutableListOf<SessionListItem>()
+        for(entry in sessionsResponse.sessions){
+            list.add(SessionListItem(entry))
+        }
+        return list
+    }
+
+
     fun sessionRequest(sessionId: Int, trackLength: Int, callback: (Result<PracticeResult>) -> Unit) {
         val request = SessionRequest()
-        request.sessionId = sessionId.toString()
+        request.activityId = sessionId.toString()
         request.authorization = preferenceDao.read().accessToken
         request.executeRequest(context, object : Callback<SessionsResponse> {
             override fun success(sessionsResponse: SessionsResponse?, response: Response?) {

@@ -29,13 +29,13 @@ public class SessionRequest extends AbstractRetrofitGsonRequest<SessionsResponse
     @RequestParameter(serialiseName = "optimized")
     private String optimized = "false";
 
-    public String sessionId;
+    public String activityId;
 
     public String authorization;
 
     @Override
     public void executeRequest(Context context, Callback<SessionsResponse> callback) {
-        String path = String.format(Locale.JAPAN, PATH_FORMAT, sessionId);
+        String path = String.format(Locale.JAPAN, PATH_FORMAT, activityId);
         String auth = String.format(Locale.JAPAN, AUTH_FORMAT, authorization);
         getRestAdapter(context, END_POINT).create(SessionService.class)
                 .getSessionResults(auth, API_KEY, path, toParamMap(), callback);

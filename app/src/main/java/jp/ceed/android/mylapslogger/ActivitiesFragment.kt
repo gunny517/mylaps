@@ -115,10 +115,13 @@ class ActivitiesFragment : Fragment() {
     }
 
     private fun navigateToPracticeResults(activitiesItem: ActivitiesItem) {
-        val action = ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(
-            activitiesItem.sessionId,
-            activitiesItem.startTime,
-            activitiesItem.trackLength)
+//        val action = ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(
+//            activitiesItem.sessionId,
+//            activitiesItem.startTime,
+//            activitiesItem.trackLength)
+//        findNavController().navigate(action)
+        val action = ActivitiesFragmentDirections.actionActivitiesFragmentToSessionListFragment(
+            activitiesItem.sessionId, activitiesItem.startTime)
         findNavController().navigate(action)
     }
 
