@@ -18,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PracticeResultFragmentViewModel(val _args: PracticeResultsFragmentArgs, val application: Application) : ViewModel() {
+class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val application: Application) : ViewModel() {
 
     private val apiRepository = ApiRepository(application)
 
@@ -39,7 +39,7 @@ class PracticeResultFragmentViewModel(val _args: PracticeResultsFragmentArgs, va
 
     fun loadPracticeResult() {
         progressVisibility.value = true
-        apiRepository.sessionRequest(_args.activityId, _args.trackLength) {
+        apiRepository.sessionRequest(args.activityId, args.trackLength, args.sessionNo) {
             it.onSuccess { practiceResult ->
                 applySessionInfoLabel(practiceResult)
             }.onFailure {

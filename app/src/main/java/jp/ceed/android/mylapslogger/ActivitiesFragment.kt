@@ -13,6 +13,7 @@ import jp.ceed.android.mylapslogger.adatpter.ActivitiesAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentActivitiesBinding
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
+import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.viewModel.ActivitiesFragmentViewModel
 
 /**
@@ -115,14 +116,24 @@ class ActivitiesFragment : Fragment() {
     }
 
     private fun navigateToPracticeResults(activitiesItem: ActivitiesItem) {
-//        val action = ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(
-//            activitiesItem.sessionId,
-//            activitiesItem.startTime,
-//            activitiesItem.trackLength)
-//        findNavController().navigate(action)
-        val action = ActivitiesFragmentDirections.actionActivitiesFragmentToSessionListFragment(
-            activitiesItem.sessionId, activitiesItem.startTime)
-        findNavController().navigate(action)
+        if(AppSettings(requireContext()).isShowPracticeResultsAsSeparate()){
+            findNavController().navigate(
+                ActivitiesFragmentDirections.actionActivitiesFragmentToSessionListFragment(
+                    activitiesItem.sessionId,
+                    activitiesItem.startTime,
+                    activitiesItem.trackLength
+                )
+            )
+        }else{
+            findNavController().navigate(
+                ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(
+                    activitiesItem.sessionId,
+                    activitiesItem.startTime,
+                    activitiesItem.trackLength,
+                0
+                )
+            )
+        }
     }
 
 

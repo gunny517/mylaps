@@ -50,7 +50,7 @@ class ApiRepository(val context: Context) {
     }
 
 
-    fun sessionRequest(sessionId: Int, trackLength: Int, callback: (Result<PracticeResult>) -> Unit) {
+    fun sessionRequest(sessionId: Int, trackLength: Int, sessionNo: Int?, callback: (Result<PracticeResult>) -> Unit) {
         val request = SessionRequest()
         request.activityId = sessionId.toString()
         request.authorization = preferenceDao.read().accessToken
@@ -58,7 +58,7 @@ class ApiRepository(val context: Context) {
             override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
                 sessionsResponse?.let {
                     val practiceResult = PracticeResult(
-                        sessionData = createLapList(it),
+                        sessionData = createLapList(it, sessionNo),
                         sessionSummary =  createSessionData(it),
                         dateStartTime = it.sessions.get(it.sessions.size - 1).dateTimeStart,
                         bestLap = it.bestLap.duration,
@@ -76,9 +76,12 @@ class ApiRepository(val context: Context) {
         })
     }
 
-    private fun createLapList(sessionsResponse: SessionsResponse): List<PracticeResultsItem> {
+    private fun createLapList(sessionsResponse: SessionsResponse, sessionNo: Int?): List<PracticeResultsItem> {
         val lapList = ArrayList<PracticeResultsItem>()
         for (session in sessionsResponse.sessions) {
+            if(sessionNo != 0 && sessionNo != session.id){
+                continue
+            }
             lapList.add(PracticeResultsItem.Section(session))
             val sessionBest: Float = parseBestLap(session.bestLap.duration)
             for (lap in session.laps) {

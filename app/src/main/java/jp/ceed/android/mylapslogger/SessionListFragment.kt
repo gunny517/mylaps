@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,7 +42,7 @@ class SessionListFragment: Fragment() {
     private fun initLayout(){
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-        val adapter = SessionListAdapter(requireContext())
+        val adapter = SessionListAdapter(requireContext(), ::navigateToPracticeResult)
         binding.recyclerView.adapter = adapter
         viewModel.sessionItemList.observe(viewLifecycleOwner){
             adapter.setItems(it)
@@ -49,9 +50,19 @@ class SessionListFragment: Fragment() {
         }
     }
 
-
     private fun factoryProducer(): SessionListFragmentViewModel.Factory{
         return SessionListFragmentViewModel.Factory(args.activityId, requireContext())
+    }
+
+    private fun navigateToPracticeResult(sessionNo: Int){
+        findNavController().navigate(
+            SessionListFragmentDirections.actionSessionListFragmentToPracticeResultFragment(
+                args.activityId,
+                args.sessionDate,
+                args.trackLength,
+                sessionNo
+            )
+        )
     }
 
 }

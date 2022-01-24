@@ -64,6 +64,10 @@
 			app:argType="integer"
 			app:nullable="false"/>
 
+		<argument
+			android:name="sessionNo"
+			app:argType="integer"/>
+
 		<action
 			android:id="@+id/action_PracticeResultsFragment_to_PracticeSummaryFragment"
 			app:destination="@id/PracticeSummaryFragment"/>
@@ -143,6 +147,10 @@
 		android:name="jp.ceed.android.mylapslogger.SessionListFragment"
 		android:label="{sessionDate}">
 
+		<action
+			android:id="@+id/action_SessionListFragment_to_PracticeResultFragment"
+			app:destination="@id/PracticeResultFragment"/>
+
 		<argument
 			android:name="activityId"
 			app:argType="integer"/>
@@ -151,8 +159,12 @@
 			android:name="sessionDate"
 			app:argType="string"
 			app:nullable="true"/>
-	</fragment>
 
+		<argument
+			android:name="trackLength"
+			app:argType="integer"
+			app:nullable="false"/>
+	</fragment>
 
 	<fragment
 		android:id="@+id/AppInfoFragment"

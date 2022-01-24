@@ -12,7 +12,7 @@ import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.databinding.SessionListItemBinding
 import jp.ceed.android.mylapslogger.model.SessionListItem
 
-class SessionListAdapter(context: Context): RecyclerView.Adapter<SessionListAdapter.ViewHolder>() {
+class SessionListAdapter(context: Context, private val onClickCell: (Int) -> Unit): RecyclerView.Adapter<SessionListAdapter.ViewHolder>() {
 
     private var items: List<SessionListItem> = mutableListOf()
 
@@ -24,19 +24,21 @@ class SessionListAdapter(context: Context): RecyclerView.Adapter<SessionListAdap
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val _binding = DataBindingUtil.inflate<SessionListItemBinding>(inflater, R.layout.session_list_item, parent, false)
-        return ViewHolder(_binding.root)
+        val binding = DataBindingUtil.inflate<SessionListItemBinding>(inflater, R.layout.session_list_item, parent, false)
+        return ViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.viewDataBinding?.setVariable(BR.item, item)
+        holder.itemView.setOnClickListener(View.OnClickListener {
+            onClickCell(Integer.parseInt(item.no))
+        })
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
-
 
     fun setItems(_items: List<SessionListItem>){
         items = _items
