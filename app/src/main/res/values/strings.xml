@@ -54,4 +54,5 @@
 	<string name="label_session_list_title_lap_count">Laps</string>
 	<string name="label_app_info_title_app_version">アプリバージョン：</string>
 	<string name="label_app_info_title_show_practice_results_as_separate">セッションを分割して表示</string>
+	<string name="label_app_info_title_show_speed_bar">ラップタイムの下にグラフバーを表示</string>
 </resources>

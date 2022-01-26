@@ -10,6 +10,7 @@ import jp.ceed.android.mylapslogger.network.request.ActivitiesRequest
 import jp.ceed.android.mylapslogger.network.request.SessionRequest
 import jp.ceed.android.mylapslogger.network.response.ActivitiesResponse
 import jp.ceed.android.mylapslogger.network.response.SessionsResponse
+import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.util.Util
 import retrofit.Callback
 import retrofit.RetrofitError
@@ -44,7 +45,7 @@ class ApiRepository(val context: Context) {
     private fun createSessionItemList(sessionsResponse: SessionsResponse): List<SessionListItem>{
         val list = mutableListOf<SessionListItem>()
         for(entry in sessionsResponse.sessions){
-            list.add(SessionListItem(entry))
+            list.add(SessionListItem(entry, sessionsResponse.bestLap.duration))
         }
         return list
     }
@@ -77,6 +78,7 @@ class ApiRepository(val context: Context) {
     }
 
     private fun createLapList(sessionsResponse: SessionsResponse, sessionNo: Int?): List<PracticeResultsItem> {
+        val showSpeedBar = AppSettings(context).isShowSpeedBar()
         val lapList = ArrayList<PracticeResultsItem>()
         for (session in sessionsResponse.sessions) {
             if(sessionNo != 0 && sessionNo != session.id){
@@ -86,7 +88,9 @@ class ApiRepository(val context: Context) {
             val sessionBest: Float = parseBestLap(session.bestLap.duration)
             for (lap in session.laps) {
                 val item = PracticeResultsItem.Lap(lap, session)
-                applySpeedLevel(item, sessionBest)
+                if(showSpeedBar){
+                    applySpeedLevel(item, sessionBest)
+                }
                 lapList.add(item)
             }
         }
@@ -125,7 +129,7 @@ class ApiRepository(val context: Context) {
             val duration = item.duration.toFloat()
             item.speedLevel = (duration - (sessionBest - BEST_LAP_OFFSET)) * 0.1f
         } catch (e: NumberFormatException) {
-            item.speedLevel = 1f
+            item.speedLevel = 0f
         }
     }
 

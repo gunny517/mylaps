@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:textSize="@dimen/text_size_s"
+            android:textSize="@dimen/text_size_ms"
             android:text="@string/label_app_info_title_app_version"/>
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/appVersionTitleTextView"
             app:layout_constraintBottom_toBottomOf="@id/appVersionTitleTextView"
-            android:textSize="@dimen/text_size_s"
+            android:textSize="@dimen/text_size_ms"
             android:text="@{viewModel.appVersionName}"/>
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_marginTop="@dimen/padding_m"
             app:layout_constraintTop_toBottomOf="@+id/appVersionTitleTextView"
             app:layout_constraintStart_toStartOf="parent"
-            android:textSize="@dimen/text_size_s"
+            android:textSize="@dimen/text_size_ms"
             android:text="@string/label_app_info_title_show_practice_results_as_separate"/>
 
         <CheckBox
@@ -48,5 +48,24 @@
             app:layout_constraintTop_toTopOf="@id/showAsSeparateTitleTextView"
             app:layout_constraintBottom_toBottomOf="@id/showAsSeparateTitleTextView"
             android:checked="@={viewModel.showPracticeResultAsSeparate}"/>
+
+        <TextView
+            android:id="@+id/showSpeedBarTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_m"
+            app:layout_constraintTop_toBottomOf="@id/showAsSeparateTitleTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/text_size_ms"
+            android:text="@string/label_app_info_title_show_speed_bar"/>
+
+        <CheckBox
+            android:id="@+id/showSpeedBarCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/showSpeedBarTitleTextView"
+            app:layout_constraintTop_toTopOf="@id/showSpeedBarTitleTextView"
+            app:layout_constraintBottom_toBottomOf="@id/showSpeedBarTitleTextView"
+            android:checked="@={viewModel.showSpeedBar}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

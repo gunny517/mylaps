@@ -8,11 +8,13 @@ import jp.ceed.android.mylapslogger.util.AppSettings
 
 class AppInfoFragmentViewModel(application: Application): AndroidViewModel(application) {
 
-    val appSettings = AppSettings(application)
+    private val appSettings = AppSettings(application)
 
     var appVersionName: MutableLiveData<String> = MutableLiveData()
 
     var showPracticeResultAsSeparate: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    var showSpeedBar: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
     init {
@@ -28,10 +30,15 @@ class AppInfoFragmentViewModel(application: Application): AndroidViewModel(appli
 
     private fun initAppSettings(){
         showPracticeResultAsSeparate.value = appSettings.isShowPracticeResultsAsSeparate()
+        showSpeedBar.value = appSettings.isShowSpeedBar()
     }
 
     fun saveShowPracticeResultsAsSeparate(){
         appSettings.saveShowPracticeResultsAsSeparate(showPracticeResultAsSeparate.value ?: false)
+    }
+
+    fun saveShowSpeedBar(){
+        appSettings.saveSpeedBar(showSpeedBar.value ?: false)
     }
 
 }

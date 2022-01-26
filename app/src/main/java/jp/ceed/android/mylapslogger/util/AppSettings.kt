@@ -13,6 +13,14 @@ class AppSettings(val context: Context) {
         getPreferences().edit().putBoolean(SHOW_PRACTICE_RESULTS_AS_SEPARATE, value).apply()
     }
 
+    fun isShowSpeedBar(): Boolean {
+        return getPreferences().getBoolean(SHOW_SPEED_BAR, false)
+    }
+
+    fun saveSpeedBar(value: Boolean){
+        getPreferences().edit().putBoolean(SHOW_SPEED_BAR, value).apply()
+    }
+
     private fun getPreferences(): SharedPreferences{
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
@@ -20,6 +28,7 @@ class AppSettings(val context: Context) {
     companion object{
         const val PREFS_NAME = "APP_SETTINGS"
         const val SHOW_PRACTICE_RESULTS_AS_SEPARATE = "SHOW_PRACTICE_RESULTS_AS_SEPARATE"
+        const val SHOW_SPEED_BAR = "SHOW_SPEED_BAR"
     }
 
 }

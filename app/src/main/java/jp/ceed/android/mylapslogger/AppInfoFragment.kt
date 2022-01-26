@@ -31,6 +31,9 @@ class AppInfoFragment: Fragment() {
         viewModel.showPracticeResultAsSeparate.observe(viewLifecycleOwner){
             viewModel.saveShowPracticeResultsAsSeparate()
         }
+        viewModel.showSpeedBar.observe(viewLifecycleOwner){
+            viewModel.saveShowSpeedBar()
+        }
     }
 
 }
