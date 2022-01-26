@@ -1,4 +1,11 @@
 <resources>
 	<dimen name="fab_margin">16dp</dimen>
 	<dimen name="header_width_m">100sp</dimen>
+	<dimen name="header_width_l">150sp</dimen>
+	<dimen name="header_width_xl">200sp</dimen>
+	<dimen name="text_size_s">16sp</dimen>
+	<dimen name="text_size_ms">18sp</dimen>
+	<dimen name="text_size_m">20sp</dimen>
+	<dimen name="text_size_l">24sp</dimen>
+	<dimen name="padding_m">10sp</dimen>
 </resources>

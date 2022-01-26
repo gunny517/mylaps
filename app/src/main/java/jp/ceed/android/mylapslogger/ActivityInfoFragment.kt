@@ -44,7 +44,7 @@ class ActivityInfoFragment : Fragment() {
     }
 
     private fun viewModelFactoryProducer(): ActivityInfoFragmentViewModel.Factory {
-        return ActivityInfoFragmentViewModel.Factory(args.activityId, requireContext().applicationContext as Application)
+        return ActivityInfoFragmentViewModel.Factory(args, requireContext().applicationContext as Application)
     }
 
 }

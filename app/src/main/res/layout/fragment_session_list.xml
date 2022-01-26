@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="jp.ceed.android.mylapslogger.viewModel.PracticeResultFragmentViewModel" />
+            type="jp.ceed.android.mylapslogger.viewModel.SessionListFragmentViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/ic_reload"
-            android:onClick="@{() -> viewModel.loadPracticeResult()}"/>
+            android:onClick="@{() -> viewModel.loadSessionInfo()}"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -39,6 +39,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="@{viewModel.progressVisibility ? View.VISIBLE : View.GONE}"/>
+            android:visibility="@{viewModel.isLoading() ? View.VISIBLE : View.GONE}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

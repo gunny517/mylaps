@@ -13,6 +13,7 @@ import jp.ceed.android.mylapslogger.adatpter.ActivitiesAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentActivitiesBinding
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
+import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.viewModel.ActivitiesFragmentViewModel
 
 /**
@@ -57,6 +58,7 @@ class ActivitiesFragment : Fragment() {
         menu.findItem(R.id.action_session_info).isVisible = false
         menu.findItem(R.id.action_session_summary).isVisible = false
         menu.findItem(R.id.action_user_info).isVisible = true
+        menu.findItem(R.id.action_app_info).isVisible = true
         super.onPrepareOptionsMenu(menu)
     }
 
@@ -66,6 +68,10 @@ class ActivitiesFragment : Fragment() {
                 navigateToUserInfo()
                 true
             }
+            R.id.action_app_info -> {
+                navigateToAppInfo()
+                true
+            }
             else -> false
         }
     }
@@ -73,6 +79,11 @@ class ActivitiesFragment : Fragment() {
 
     private fun navigateToUserInfo() {
         findNavController().navigate(R.id.action_ActivitiesFragment_to_UserInfoFragment)
+    }
+
+
+    private fun navigateToAppInfo(){
+        findNavController().navigate(R.id.action_ActivitiesFragment_to_AppInfoFragment)
     }
 
 
@@ -91,7 +102,7 @@ class ActivitiesFragment : Fragment() {
         context?.let { it ->
             val adapter = ActivitiesAdapter(it, mutableListOf(), object : ActivitiesAdapter.OnClickListener {
                 override fun onClick(activitiesItem: ActivitiesItem) {
-                    navigateToPracticeResults(activitiesItem.sessionId, activitiesItem.startTime)
+                    navigateToPracticeResults(activitiesItem)
                 }
             })
             binding.recyclerView.adapter = adapter
@@ -104,10 +115,24 @@ class ActivitiesFragment : Fragment() {
         }
     }
 
-    private fun navigateToPracticeResults(sessionId: Int, sessionDatetime: String?) {
-        sessionDatetime?.let {
-            val action = ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(sessionId, sessionDatetime)
-            findNavController().navigate(action)
+    private fun navigateToPracticeResults(activitiesItem: ActivitiesItem) {
+        if(AppSettings(requireContext()).isShowPracticeResultsAsSeparate()){
+            findNavController().navigate(
+                ActivitiesFragmentDirections.actionActivitiesFragmentToSessionListFragment(
+                    activitiesItem.sessionId,
+                    activitiesItem.startTime,
+                    activitiesItem.trackLength
+                )
+            )
+        }else{
+            findNavController().navigate(
+                ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(
+                    activitiesItem.sessionId,
+                    activitiesItem.startTime,
+                    activitiesItem.trackLength,
+                0
+                )
+            )
         }
     }
 

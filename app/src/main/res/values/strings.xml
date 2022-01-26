@@ -1,12 +1,14 @@
 <resources>
 	<string name="app_name">mylapslogger</string>
-	<string name="action_session_summary">サマリー</string>
+	<string name="action_session_summary">セッションサマリー</string>
 	<string name="action_user_info">ユーザー情報</string>
-	<string name="action_session_info">走行メモ</string>
+	<string name="action_session_info">走行データ</string>
+	<string name="action_app_info">アプリ情報</string>
 	<!-- Strings used for fragments for navigation -->
 	<string name="activities_fragment_label">走行日一覧</string>
 	<string name="login_fragment_label">ログイン</string>
 	<string name="label_user_info_fragment">ユーザー情報</string>
+	<string name="label_app_info_fragment">アプリ情報</string>
 	<string name="next">Next</string>
 	<string name="previous">Previous</string>
 
@@ -26,6 +28,8 @@
 	<string name="format_issued">■ISSUED\n%s</string>
 	<string name="format_expires">■EXPIRES\n%s</string>
 	<string name="format_session_title">セッション：%s</string>
+	<string name="format_activity_info_total_laps">%s 周</string>
+	<string name="format_activity_info_total_distance">%s km</string>
 
 	<string name="label_session_info_title_description">備考</string>
 	<string name="label_session_info_save_button">保存</string>
@@ -42,4 +46,13 @@
 	<string name="label_practice_result_section_no_session_info">未入力</string>
 	<string name="label_session_info_title_average">平均タイム</string>
 	<string name="label_session_info_title_median">中間タイム</string>
+	<string name="label_activity_info_title_lap_count">周回数</string>
+	<string name="label_activity_info_title_total_distance">走行距離</string>
+	<string name="label_activity_info_title_total_time">走行時間</string>
+	<string name="label_activity_info_title_best_lap">ベストラップ</string>
+	<string name="label_session_list_title_best_lap">Best</string>
+	<string name="label_session_list_title_lap_count">Laps</string>
+	<string name="label_app_info_title_app_version">アプリバージョン：</string>
+	<string name="label_app_info_title_show_practice_results_as_separate">セッションを分割して表示</string>
+	<string name="label_app_info_title_show_speed_bar">ラップタイムの下にグラフバーを表示</string>
 </resources>

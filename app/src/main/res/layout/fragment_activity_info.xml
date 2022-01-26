@@ -1,48 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-	<data>
-		<variable
-			name="viewModel"
-			type="jp.ceed.android.mylapslogger.viewModel.ActivityInfoFragmentViewModel" />
-	</data>
+    <data>
+        <variable
+            name="viewModel"
+            type="jp.ceed.android.mylapslogger.viewModel.ActivityInfoFragmentViewModel" />
+    </data>
 
-	<androidx.constraintlayout.widget.ConstraintLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:padding="10sp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10sp">
 
 		<TextView
-			android:id="@+id/descriptionTitle"
-			android:layout_width="match_parent"
+			android:id="@+id/bestLapTitleTextView"
+			android:layout_width="@dimen/header_width_l"
 			android:layout_height="wrap_content"
+			style="@style/activity_info_text"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			android:text="@string/label_session_info_title_description"
-			android:textSize="20sp"/>
+			android:text="@string/label_activity_info_title_best_lap"/>
 
-		<EditText
-			android:id="@+id/descriptionEditText"
-			android:layout_width="match_parent"
+		<TextView
+			android:layout_width="0sp"
 			android:layout_height="wrap_content"
-			android:lines="10"
-			app:layout_constraintTop_toBottomOf="@id/descriptionTitle"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			android:text="@={viewModel.description}" />
+			style="@style/activity_info_text"
+			app:layout_constraintStart_toEndOf="@id/bestLapTitleTextView"
+			app:layout_constraintBottom_toBottomOf="@id/bestLapTitleTextView"
+			android:text="@{viewModel.args.bestLap}"/>
 
-		<Button
-			android:id="@+id/saveButton"
-			android:layout_width="match_parent"
+		<TextView
+			android:id="@+id/totalLapTitleTexView"
+			android:layout_width="@dimen/header_width_l"
 			android:layout_height="wrap_content"
-			app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
+			style="@style/activity_info_text"
+			app:layout_constraintTop_toBottomOf="@id/bestLapTitleTextView"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			android:text="@string/label_session_info_save_button"
-			android:onClick="@{() -> viewModel.saveSessionInfo()}"/>
-	</androidx.constraintlayout.widget.ConstraintLayout>
+			android:text="@string/label_activity_info_title_lap_count"/>
 
+		<TextView
+			android:id="@+id/totalLapTextView"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			style="@style/activity_info_text"
+			app:layout_constraintBottom_toBottomOf="@id/totalLapTitleTexView"
+			app:layout_constraintStart_toEndOf="@id/totalLapTitleTexView"
+			android:text="@{@string/format_activity_info_total_laps(viewModel.args.totalLap)}"/>
+
+		<TextView
+			android:id="@+id/totalDistanceTitleTextView"
+			android:layout_width="@dimen/header_width_l"
+			android:layout_height="wrap_content"
+			style="@style/activity_info_text"
+			app:layout_constraintTop_toBottomOf="@id/totalLapTitleTexView"
+			app:layout_constraintStart_toStartOf="parent"
+			android:text="@string/label_activity_info_title_total_distance" />
+
+		<TextView
+			android:id="@+id/totalDistanceTextView"
+			android:layout_width="0sp"
+			android:layout_height="wrap_content"
+			style="@style/activity_info_text"
+			app:layout_constraintStart_toEndOf="@id/totalDistanceTitleTextView"
+			app:layout_constraintBottom_toBottomOf="@id/totalDistanceTitleTextView"
+			android:text="@{@string/format_activity_info_total_distance(viewModel.args.totalDistance)}"/>
+
+		<TextView
+			android:id="@+id/totalTimeTitleTextView"
+			android:layout_width="@dimen/header_width_l"
+			android:layout_height="wrap_content"
+			style="@style/activity_info_text"
+			app:layout_constraintTop_toBottomOf="@id/totalDistanceTitleTextView"
+			app:layout_constraintStart_toStartOf="parent"
+			android:text="@string/label_activity_info_title_total_time"/>
+
+		<TextView
+			android:id="@+id/totalTimeTextView"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			style="@style/activity_info_text"
+			app:layout_constraintStart_toEndOf="@id/totalTimeTitleTextView"
+			app:layout_constraintBottom_toBottomOf="@id/totalTimeTitleTextView"
+			android:text="@{viewModel.args.totalTime}"/>
+
+        <TextView
+            android:id="@+id/descriptionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/totalTimeTitleTextView"
+			style="@style/activity_info_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/label_session_info_title_description"/>
+
+        <EditText
+            android:id="@+id/descriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="10"
+            app:layout_constraintTop_toBottomOf="@id/descriptionTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@={viewModel.description}" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/label_session_info_save_button"
+            android:onClick="@{() -> viewModel.saveSessionInfo()}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

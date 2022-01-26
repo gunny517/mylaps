@@ -12,9 +12,6 @@ class ActivitiesItem(dto: ActivitiesResponse.ActivityDto) {
 
     val place: String = dto.location.name
 
+    val trackLength: Int = dto.location.trackLength
 
-    companion object {
-
-        const val FORMAT = "yyyy/MM/dd"
-    }
 }

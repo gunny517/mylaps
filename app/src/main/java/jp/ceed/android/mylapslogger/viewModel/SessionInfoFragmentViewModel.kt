@@ -38,12 +38,6 @@ class SessionInfoFragmentViewModel(params: SessionInfoFragmentParams, val applic
 
     var onSaved: MutableLiveData<Event<EventState>> = MutableLiveData()
 
-    private var currentTemperature: String? = null
-
-    private var currentPressure: String? = null
-
-    private var currentHumidity: String? = null
-
     private var sessionId: Long? = null
 
 
@@ -125,11 +119,11 @@ class SessionInfoFragmentViewModel(params: SessionInfoFragmentParams, val applic
     /**
      * [SessionInfoFragmentViewModel]にパラメータを渡すためのFactory
      */
-    class Factory(val params: SessionInfoFragmentParams, val application: Application) : ViewModelProvider.Factory {
+    class Factory(val args: SessionInfoFragmentParams, val application: Application) : ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return SessionInfoFragmentViewModel(params, application) as T
+            return SessionInfoFragmentViewModel(args, application) as T
         }
     }
 

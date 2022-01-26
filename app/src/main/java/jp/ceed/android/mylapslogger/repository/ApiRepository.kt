@@ -5,10 +5,12 @@ import jp.ceed.android.mylapslogger.dao.PreferenceDao
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.model.PracticeResult
+import jp.ceed.android.mylapslogger.model.SessionListItem
 import jp.ceed.android.mylapslogger.network.request.ActivitiesRequest
 import jp.ceed.android.mylapslogger.network.request.SessionRequest
 import jp.ceed.android.mylapslogger.network.response.ActivitiesResponse
 import jp.ceed.android.mylapslogger.network.response.SessionsResponse
+import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.util.Util
 import retrofit.Callback
 import retrofit.RetrofitError
@@ -23,17 +25,47 @@ class ApiRepository(val context: Context) {
     private val userAccountRepository = UserAccountRepository(context)
 
 
-    fun sessionRequest(sessionId: Int, callback: (Result<PracticeResult>) -> Unit) {
+    fun loadPracticeResultsForSessionList(sessionId: Int, callback: (Result<List<SessionListItem>>) -> Unit) {
         val request = SessionRequest()
-        request.sessionId = sessionId.toString()
+        request.activityId = sessionId.toString()
+        request.authorization = preferenceDao.read().accessToken
+        request.executeRequest(context, object : Callback<SessionsResponse>{
+            override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
+                sessionsResponse?.let {
+                    callback(Result.success(createSessionItemList(sessionsResponse)))
+                }
+            }
+
+            override fun failure(error: RetrofitError?) {
+                callback(Result.failure(error ?: IOException("UnKnown")))
+            }
+        })
+    }
+
+    private fun createSessionItemList(sessionsResponse: SessionsResponse): List<SessionListItem>{
+        val list = mutableListOf<SessionListItem>()
+        for(entry in sessionsResponse.sessions){
+            list.add(SessionListItem(entry, sessionsResponse.bestLap.duration))
+        }
+        return list
+    }
+
+
+    fun sessionRequest(sessionId: Int, trackLength: Int, sessionNo: Int?, callback: (Result<PracticeResult>) -> Unit) {
+        val request = SessionRequest()
+        request.activityId = sessionId.toString()
         request.authorization = preferenceDao.read().accessToken
         request.executeRequest(context, object : Callback<SessionsResponse> {
             override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
                 sessionsResponse?.let {
                     val practiceResult = PracticeResult(
-                        createLapList(it),
-                        createSessionData(it),
-                        it.sessions.get(it.sessions.size - 1).dateTimeStart
+                        sessionData = createLapList(it, sessionNo),
+                        sessionSummary =  createSessionData(it),
+                        dateStartTime = it.sessions.get(it.sessions.size - 1).dateTimeStart,
+                        bestLap = it.bestLap.duration,
+                        totalLap = it.stats.lapCount.toString(),
+                        totalTime = it.stats.activeTrainingTime,
+                        totalDistance = Util.createTrainingTimeString(it.stats.lapCount, trackLength)
                     )
                     callback(Result.success(practiceResult))
                 }
@@ -45,14 +77,20 @@ class ApiRepository(val context: Context) {
         })
     }
 
-    private fun createLapList(sessionsResponse: SessionsResponse): List<PracticeResultsItem> {
+    private fun createLapList(sessionsResponse: SessionsResponse, sessionNo: Int?): List<PracticeResultsItem> {
+        val showSpeedBar = AppSettings(context).isShowSpeedBar()
         val lapList = ArrayList<PracticeResultsItem>()
         for (session in sessionsResponse.sessions) {
+            if(sessionNo != 0 && sessionNo != session.id){
+                continue
+            }
             lapList.add(PracticeResultsItem.Section(session))
             val sessionBest: Float = parseBestLap(session.bestLap.duration)
             for (lap in session.laps) {
                 val item = PracticeResultsItem.Lap(lap, session)
-                applySpeedLevel(item, sessionBest)
+                if(showSpeedBar){
+                    applySpeedLevel(item, sessionBest)
+                }
                 lapList.add(item)
             }
         }
@@ -91,7 +129,7 @@ class ApiRepository(val context: Context) {
             val duration = item.duration.toFloat()
             item.speedLevel = (duration - (sessionBest - BEST_LAP_OFFSET)) * 0.1f
         } catch (e: NumberFormatException) {
-            item.speedLevel = 1f
+            item.speedLevel = 0f
         }
     }
 

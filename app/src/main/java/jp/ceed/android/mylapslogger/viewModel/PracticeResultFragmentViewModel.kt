@@ -3,6 +3,7 @@ package jp.ceed.android.mylapslogger.viewModel
 import android.app.Application
 import android.location.Location
 import androidx.lifecycle.*
+import jp.ceed.android.mylapslogger.PracticeResultsFragmentArgs
 import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.entity.SessionInfo
@@ -17,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PracticeResultFragmentViewModel(val id: Int, val application: Application) : ViewModel() {
+class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val application: Application) : ViewModel() {
 
     private val apiRepository = ApiRepository(application)
 
@@ -27,18 +28,18 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
 
     private val sessionInfoRepository = SessionInfoRepository(application.applicationContext)
 
-    val lapList: MutableLiveData<PracticeResult> = MutableLiveData()
+    val practiceResult: MutableLiveData<PracticeResult> = MutableLiveData()
 
     val progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
     init {
-        getPracticeResult()
+        loadPracticeResult()
     }
 
-    fun getPracticeResult() {
+    fun loadPracticeResult() {
         progressVisibility.value = true
-        apiRepository.sessionRequest(id) {
+        apiRepository.sessionRequest(args.activityId, args.trackLength, args.sessionNo) {
             it.onSuccess { practiceResult ->
                 applySessionInfoLabel(practiceResult)
             }.onFailure {
@@ -63,7 +64,7 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
                         else -> continue
                     }
                 }
-                lapList.postValue(practiceResult)
+                this@PracticeResultFragmentViewModel.practiceResult.postValue(practiceResult)
                 onLoadResult(practiceResult.dateStartTime)
             }
         }
@@ -73,7 +74,7 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
         if (!DateUtil.isValidForWeather(dataStartTime)) {
             return
         }
-        lapList.value?.let {
+        practiceResult.value?.let {
             val lastItem: PracticeResultsItem = it.sessionData[it.sessionData.size - 1]
             val sessionId: Long = when (lastItem) {
                 is PracticeResultsItem.Section -> lastItem.sessionId
@@ -122,11 +123,11 @@ class PracticeResultFragmentViewModel(val id: Int, val application: Application)
     /**
      * [PracticeResultFragmentViewModel]にパラメータを渡すためのFactory
      */
-    class Factory(val id: Int, val application: Application) : ViewModelProvider.Factory {
+    class Factory(private val practiceResultsFragmentArgs: PracticeResultsFragmentArgs, val application: Application) : ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return PracticeResultFragmentViewModel(id, application) as T
+            return PracticeResultFragmentViewModel(practiceResultsFragmentArgs, application) as T
         }
     }
 
