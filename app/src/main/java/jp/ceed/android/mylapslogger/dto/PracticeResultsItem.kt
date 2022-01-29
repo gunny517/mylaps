@@ -62,10 +62,10 @@ sealed class PracticeResultsItem {
 
         fun getCellBgColor(status: String?): Int {
             return when {
-                Status.REPORTBEST.name.equals(status) -> {
+                Status.REPORTBEST.name == status -> {
                     R.color.bg_lap_list_report_best
                 }
-                Status.SESSIONBEST.name.equals(status) -> {
+                Status.SESSIONBEST.name == status -> {
                     R.color.bg_lap_list_session_best
                 }
                 else -> {
@@ -75,12 +75,12 @@ sealed class PracticeResultsItem {
         }
 
         fun getDiffTextColor(status: String?): Int {
-            return if (Status.REPORTBEST.name.equals(status)
-                || Status.SESSIONBEST.name.equals(status)
-                || Status.FASTER.name.equals(status)
+            return if (Status.REPORTBEST.name == status
+                || Status.SESSIONBEST.name == status
+                || Status.FASTER.name == status
             ) {
                 R.color.text_faster
-            } else if (Status.SLOWER.name.equals(status)) {
+            } else if (Status.SLOWER.name == status) {
                 R.color.text_slower
             } else {
                 R.color.text_default
@@ -99,7 +99,7 @@ enum class Status() {
     companion object {
         fun statusOf(status: String): Status{
             for(entry in Status.values()){
-                if(entry.name.equals(status)){
+                if(entry.name == status){
                     return entry
                 }
             }

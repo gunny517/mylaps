@@ -119,7 +119,7 @@ class ActivitiesFragment : Fragment() {
         if(AppSettings(requireContext()).isShowPracticeResultsAsSeparate()){
             findNavController().navigate(
                 ActivitiesFragmentDirections.actionActivitiesFragmentToSessionListFragment(
-                    activitiesItem.sessionId,
+                    activitiesItem.id,
                     activitiesItem.startTime,
                     activitiesItem.trackLength
                 )
@@ -127,7 +127,7 @@ class ActivitiesFragment : Fragment() {
         }else{
             findNavController().navigate(
                 ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(
-                    activitiesItem.sessionId,
+                    activitiesItem.id,
                     activitiesItem.startTime,
                     activitiesItem.trackLength,
                 0

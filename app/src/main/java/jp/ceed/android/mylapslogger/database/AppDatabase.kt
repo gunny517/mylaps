@@ -6,17 +6,24 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import jp.ceed.android.mylapslogger.dao.ActivityInfoDao
-import jp.ceed.android.mylapslogger.dao.SessionInfoDao
+import jp.ceed.android.mylapslogger.dao.*
 import jp.ceed.android.mylapslogger.entity.ActivityInfo
+import jp.ceed.android.mylapslogger.entity.Practice
 import jp.ceed.android.mylapslogger.entity.SessionInfo
+import jp.ceed.android.mylapslogger.entity.Track
 
-@Database(entities = [ActivityInfo::class, SessionInfo::class], version = 2)
+@Database(entities = [ActivityInfo::class, SessionInfo::class, Track::class, Practice::class], version = 3)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun activityInfoDao(): ActivityInfoDao
 
     abstract fun sessionInfoDao(): SessionInfoDao
+
+    abstract fun trackDao(): TrackDao
+
+    abstract fun practiceDao(): PracticeDao
+
+    abstract fun practiceTrackDao(): PracticeTrackDao
 
     companion object {
 
