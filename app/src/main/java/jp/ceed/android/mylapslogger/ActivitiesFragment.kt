@@ -125,7 +125,7 @@ class ActivitiesFragment : Fragment() {
             findNavController().navigate(
                 ActivitiesFragmentDirections.actionActivitiesFragmentToSessionListFragment(
                     activitiesItem.id,
-                    activitiesItem.startTime,
+                    activitiesItem.displayTime,
                     activitiesItem.trackLength
                 )
             )
@@ -133,7 +133,7 @@ class ActivitiesFragment : Fragment() {
             findNavController().navigate(
                 ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(
                     activitiesItem.id,
-                    activitiesItem.startTime,
+                    activitiesItem.displayTime,
                     activitiesItem.trackLength,
                 0
                 )

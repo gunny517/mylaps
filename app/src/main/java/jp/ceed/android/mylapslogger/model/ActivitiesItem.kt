@@ -9,8 +9,8 @@ import kotlinx.parcelize.Parcelize
 data class ActivitiesItem(
     val id: Int,
     val locationId: Int,
-    val startTime: String?,
-    val startTimeRaw: String,
+    val displayTime: String?,
+    val startTime: String,
     val endTimeRaw: String,
     val place: String,
     val trackLength: Int
@@ -19,8 +19,8 @@ data class ActivitiesItem(
     constructor(dto: ActivitiesResponse.ActivityDto): this(
         id = dto.id,
         locationId = dto.location.id,
-        startTime = DateUtil.toYmdFormatFromDateTime(dto.startTime),
-        startTimeRaw = dto.startTime,
+        displayTime = DateUtil.toYmdFormatFromDateTime(dto.startTime),
+        startTime = dto.startTime,
         endTimeRaw = dto.endTime,
         place = dto.location.name,
         trackLength = dto.location.trackLength

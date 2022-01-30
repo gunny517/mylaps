@@ -21,13 +21,7 @@ class TrackBestFragmentViewModel(application: Application) : AndroidViewModel(ap
 
     private fun loadTrackBest(){
         viewModelScope.launch {
-            val list: List<PracticeTrack> = practiceTrackRepository.findBestLapList()
-            for(entry in list){
-                entry.startTime?.let {
-                    entry.startTime = DateUtil.toYmdFormatFromDateTime(it)
-                }
-            }
-            trackBestList.value = list
+            trackBestList.value = practiceTrackRepository.findBestLapList()
         }
     }
 }
