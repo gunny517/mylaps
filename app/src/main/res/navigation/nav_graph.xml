@@ -34,6 +34,10 @@
 		<action
 			android:id="@+id/action_ActivitiesFragment_to_TrackBestFragment"
 			app:destination="@id/TrackBestFragment"/>
+
+		<action
+			android:id="@+id/action_ActivitiesFragment_to_TotalDistanceFragment"
+			app:destination="@id/TotalDistanceFragment"/>
 	</fragment>
 
 	<fragment
@@ -179,4 +183,9 @@
 		android:id="@+id/TrackBestFragment"
 		android:name="jp.ceed.android.mylapslogger.TrackBestFragment"
 		android:label="@string/label_track_best_fragment"/>
+
+	<fragment
+		android:id="@+id/TotalDistanceFragment"
+		android:name="jp.ceed.android.mylapslogger.TotalDistanceFragment"
+		android:label="@string/label_total_distance"/>
 </navigation>
