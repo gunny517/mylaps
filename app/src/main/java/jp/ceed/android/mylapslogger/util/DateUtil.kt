@@ -83,6 +83,10 @@ class DateUtil() {
             return API_SIMPLE_DATE_FORMAT.format(System.currentTimeMillis())
         }
 
+        fun convertToTimeMillis(timeString: String): Long {
+            return API_SIMPLE_DATE_FORMAT.parse(timeString).time
+        }
+
     }
 
 }

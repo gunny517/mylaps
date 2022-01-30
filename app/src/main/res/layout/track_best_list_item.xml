@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="jp.ceed.android.mylapslogger.entity.PracticeTrack" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_m">
+
+        <TextView
+            android:id="@+id/trackNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="@dimen/padding_m"
+            android:textSize="@dimen/text_size_s"
+            android:text="@{item.trackName}"/>
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/trackNameTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/text_size_s"
+            android:text="@{item.displayTime}"/>
+
+        <TextView
+            android:id="@+id/bestLapTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/trackNameTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/text_size_ms"
+            android:text="@{item.bestLap}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

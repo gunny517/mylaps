@@ -59,6 +59,7 @@ class ActivitiesFragment : Fragment() {
         menu.findItem(R.id.action_session_summary).isVisible = false
         menu.findItem(R.id.action_user_info).isVisible = true
         menu.findItem(R.id.action_app_info).isVisible = true
+        menu.findItem(R.id.action_track_best).isVisible = true
         super.onPrepareOptionsMenu(menu)
     }
 
@@ -70,6 +71,10 @@ class ActivitiesFragment : Fragment() {
             }
             R.id.action_app_info -> {
                 navigateToAppInfo()
+                true
+            }
+            R.id.action_track_best -> {
+                navigateToTrackBest()
                 true
             }
             else -> false
@@ -119,21 +124,25 @@ class ActivitiesFragment : Fragment() {
         if(AppSettings(requireContext()).isShowPracticeResultsAsSeparate()){
             findNavController().navigate(
                 ActivitiesFragmentDirections.actionActivitiesFragmentToSessionListFragment(
-                    activitiesItem.sessionId,
-                    activitiesItem.startTime,
+                    activitiesItem.id,
+                    activitiesItem.displayTime,
                     activitiesItem.trackLength
                 )
             )
         }else{
             findNavController().navigate(
                 ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(
-                    activitiesItem.sessionId,
-                    activitiesItem.startTime,
+                    activitiesItem.id,
+                    activitiesItem.displayTime,
                     activitiesItem.trackLength,
                 0
                 )
             )
         }
+    }
+
+    private fun navigateToTrackBest(){
+        findNavController().navigate(R.id.action_ActivitiesFragment_to_TrackBestFragment)
     }
 
 

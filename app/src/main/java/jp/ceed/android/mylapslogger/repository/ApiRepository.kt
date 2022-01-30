@@ -3,6 +3,7 @@ package jp.ceed.android.mylapslogger.repository
 import android.content.Context
 import jp.ceed.android.mylapslogger.dao.PreferenceDao
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
+import jp.ceed.android.mylapslogger.entity.Practice
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.model.PracticeResult
 import jp.ceed.android.mylapslogger.model.SessionListItem
@@ -25,9 +26,25 @@ class ApiRepository(val context: Context) {
     private val userAccountRepository = UserAccountRepository(context)
 
 
-    fun loadPracticeResultsForSessionList(sessionId: Int, callback: (Result<List<SessionListItem>>) -> Unit) {
+    fun loadPracticeResultForPracticeTable(activitiesItem: ActivitiesItem, callback: (Result<Practice>) -> Unit){
         val request = SessionRequest()
-        request.activityId = sessionId.toString()
+        request.activityId = activitiesItem.id.toString()
+        request.authorization = preferenceDao.read().accessToken
+        request.executeRequest(context, object : Callback<SessionsResponse>{
+            override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
+                sessionsResponse?.let {
+                    callback(Result.success(Practice(activitiesItem, sessionsResponse)))
+                }
+            }
+            override fun failure(error: RetrofitError?) {
+                callback(Result.failure(error ?: IOException("UnKnown")))
+            }
+        })
+    }
+
+    fun loadPracticeResultsForSessionList(activityId: Int, callback: (Result<List<SessionListItem>>) -> Unit) {
+        val request = SessionRequest()
+        request.activityId = activityId.toString()
         request.authorization = preferenceDao.read().accessToken
         request.executeRequest(context, object : Callback<SessionsResponse>{
             override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
@@ -35,7 +52,6 @@ class ApiRepository(val context: Context) {
                     callback(Result.success(createSessionItemList(sessionsResponse)))
                 }
             }
-
             override fun failure(error: RetrofitError?) {
                 callback(Result.failure(error ?: IOException("UnKnown")))
             }
@@ -51,9 +67,9 @@ class ApiRepository(val context: Context) {
     }
 
 
-    fun sessionRequest(sessionId: Int, trackLength: Int, sessionNo: Int?, callback: (Result<PracticeResult>) -> Unit) {
+    fun sessionRequest(activityId: Int, trackLength: Int, sessionNo: Int?, callback: (Result<PracticeResult>) -> Unit) {
         val request = SessionRequest()
-        request.activityId = sessionId.toString()
+        request.activityId = activityId.toString()
         request.authorization = preferenceDao.read().accessToken
         request.executeRequest(context, object : Callback<SessionsResponse> {
             override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
@@ -107,7 +123,7 @@ class ApiRepository(val context: Context) {
     }
 
 
-    fun getActivities(callback: (Result<List<ActivitiesItem>>) -> Unit) {
+    fun getActivities(callback: (Result<ArrayList<ActivitiesItem>>) -> Unit) {
         val request = ActivitiesRequest()
         request.userId = userAccountRepository.getUserId()
         request.executeRequest(context, object : Callback<ActivitiesResponse> {

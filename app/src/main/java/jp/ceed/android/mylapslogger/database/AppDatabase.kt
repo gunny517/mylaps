@@ -6,17 +6,24 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import jp.ceed.android.mylapslogger.dao.ActivityInfoDao
-import jp.ceed.android.mylapslogger.dao.SessionInfoDao
+import jp.ceed.android.mylapslogger.dao.*
 import jp.ceed.android.mylapslogger.entity.ActivityInfo
+import jp.ceed.android.mylapslogger.entity.Practice
 import jp.ceed.android.mylapslogger.entity.SessionInfo
+import jp.ceed.android.mylapslogger.entity.Track
 
-@Database(entities = [ActivityInfo::class, SessionInfo::class], version = 2)
+@Database(entities = [ActivityInfo::class, SessionInfo::class, Track::class, Practice::class], version = 3)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun activityInfoDao(): ActivityInfoDao
 
     abstract fun sessionInfoDao(): SessionInfoDao
+
+    abstract fun trackDao(): TrackDao
+
+    abstract fun practiceDao(): PracticeDao
+
+    abstract fun practiceTrackDao(): PracticeTrackDao
 
     companion object {
 
@@ -33,6 +40,7 @@ abstract class AppDatabase : RoomDatabase() {
                     DATABASE_NAME
                 ).apply {
                     addMigrations(MIGRATION_1_2)
+                    addMigrations(MIGRATION_2_3)
                 }.build()
                 INSTANCE = instance
                 instance
@@ -46,7 +54,17 @@ abstract class AppDatabase : RoomDatabase() {
                 database.execSQL(CREATE_SESSION_INFO)
             }
         }
+        
+        const val CREATE_TRACK = "CREATE TABLE IF NOT EXISTS Track (id INTEGER NOT NULL, name TEXT NOT NULL, length INTEGER NOT NULL, created INTEGER NOT NULL, PRIMARY KEY(id))"
+        
+        const val CREATE_PRACTICE = "CREATE TABLE IF NOT EXISTS Practice (id INTEGER NOT NULL, track_id INTEGER NOT NULL, lap_count INTEGER NOT NULL, best_lap TEXT NOT NULL, start_time TEXT NOT NULL, end_time TEXT NOT NULL, display_time TEXT, total_training_time TEXT NOT NULL, PRIMARY KEY(id))"
+
+        private val MIGRATION_2_3 = object : Migration(2, 3){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(CREATE_TRACK)
+                database.execSQL(CREATE_PRACTICE)
+            }
+        }
+
     }
-
-
 }

@@ -15,8 +15,8 @@ import jp.ceed.android.mylapslogger.network.response.ActivitiesResponse.Activity
 
 public class Util {
 
-    public static List<ActivitiesItem> convertToActivitiesItem(final List<ActivityDto> list) {
-        List<ActivitiesItem> results = new ArrayList<>(list.size());
+    public static ArrayList<ActivitiesItem> convertToActivitiesItem(final List<ActivityDto> list) {
+        ArrayList<ActivitiesItem> results = new ArrayList<>(list.size());
         for (ActivityDto entry : list) {
             results.add(new ActivitiesItem(entry));
         }
