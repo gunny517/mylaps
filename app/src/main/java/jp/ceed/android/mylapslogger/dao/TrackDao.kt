@@ -6,7 +6,7 @@ import jp.ceed.android.mylapslogger.entity.Track
 @Dao
 interface TrackDao {
 
-    @Query("SELECT * from Track")
+    @Query("SELECT * from Track ORDER BY created ASC")
     fun findAll(): List<Track>
 
     @Query("SELECT * FROM Track WHERE id = (:id)")

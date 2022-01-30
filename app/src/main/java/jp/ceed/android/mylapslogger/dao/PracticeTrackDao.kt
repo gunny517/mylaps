@@ -13,6 +13,6 @@ interface PracticeTrackDao {
                 "AND p.track_id = (:trackId) " +
                 "ORDER BY p.best_lap limit 1 "
     )
-    fun findBestLapByTrackId(trackId: Int): PracticeTrack
+    fun findBestLapByTrackId(trackId: Int): PracticeTrack?
 
 }

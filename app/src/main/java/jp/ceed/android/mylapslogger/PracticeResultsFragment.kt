@@ -71,10 +71,10 @@ class PracticeResultsFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
-        viewModel.practiceResult.observe(viewLifecycleOwner, {
+        viewModel.practiceResult.observe(viewLifecycleOwner) {
             adapter.setItems(it.sessionData)
             adapter.notifyDataSetChanged()
-        })
+        }
         lifecycleScope.launch {  }
     }
 

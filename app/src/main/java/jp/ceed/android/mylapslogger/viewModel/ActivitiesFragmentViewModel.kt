@@ -5,14 +5,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
-import jp.ceed.android.mylapslogger.repository.PracticeTrackRepository
 import jp.ceed.android.mylapslogger.service.PracticeDataService
-import jp.ceed.android.mylapslogger.util.LogUtil
-import kotlinx.coroutines.launch
-import java.util.ArrayList
 
 class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -37,12 +32,6 @@ class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(a
             }
             progressVisibility.value = false
         }
-
-        viewModelScope.launch {
-            val list = PracticeTrackRepository(getApplication()).findBestLapList()
-            LogUtil.d("BestLap", list.toString())
-        }
-
     }
 
     private fun startPracticeService(activities: ArrayList<ActivitiesItem>){

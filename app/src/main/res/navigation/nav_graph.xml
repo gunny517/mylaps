@@ -30,6 +30,10 @@
 		<action
 			android:id="@+id/action_ActivitiesFragment_to_SessionListFragment"
 			app:destination="@id/SessionListFragment"/>
+
+		<action
+			android:id="@+id/action_ActivitiesFragment_to_TrackBestFragment"
+			app:destination="@id/TrackBestFragment"/>
 	</fragment>
 
 	<fragment
@@ -170,4 +174,9 @@
 		android:id="@+id/AppInfoFragment"
 		android:name="jp.ceed.android.mylapslogger.AppInfoFragment"
 		android:label="@string/label_app_info_fragment"/>
+
+	<fragment
+		android:id="@+id/TrackBestFragment"
+		android:name="jp.ceed.android.mylapslogger.TrackBestFragment"
+		android:label="@string/label_track_best_fragment"/>
 </navigation>

@@ -18,15 +18,18 @@ class PracticeTrackRepository(context: Context) {
         withContext(Dispatchers.IO){
             val trackList = trackDao.findAll()
             for(track in trackList){
-                list.add(getBestLapByTrackId(track.id))
+                val record = getBestLapByTrackId(track.id)
+                record?.let {
+                    list.add(record)
+                }
             }
         }
         return list
     }
 
 
-    private suspend fun getBestLapByTrackId(trackId: Int): PracticeTrack {
-        var entity: PracticeTrack
+    private suspend fun getBestLapByTrackId(trackId: Int): PracticeTrack? {
+        var entity: PracticeTrack?
         withContext(Dispatchers.IO){
             entity = practiceTrackDao.findBestLapByTrackId(trackId)
         }

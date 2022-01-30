@@ -7,9 +7,11 @@ import jp.ceed.android.mylapslogger.model.ActivitiesItem
 
 @Entity
 data  class Track(
-    @PrimaryKey @ColumnInfo(name = "id") val id: Int,
-    @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "length") val length: Int
+    @PrimaryKey val id: Int,
+    val name: String,
+    val length: Int,
+    val created: Long = System.currentTimeMillis()
+
 ){
     constructor(activitiesItem: ActivitiesItem): this(
         id = activitiesItem.locationId,
