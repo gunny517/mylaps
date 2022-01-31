@@ -17,7 +17,6 @@
             android:id="@+id/trackNameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_l"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="@dimen/text_size_s"
@@ -27,6 +26,7 @@
             android:id="@+id/totalDistanceTextView"
             android:layout_width="@dimen/header_width_l"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_m"
             app:layout_constraintTop_toBottomOf="@id/trackNameTextView"
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="end"
@@ -37,10 +37,21 @@
             android:id="@+id/lapCountTextView"
             android:layout_width="@dimen/header_width_m"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_m"
             app:layout_constraintTop_toBottomOf="@id/trackNameTextView"
             app:layout_constraintEnd_toStartOf="@id/totalDistanceTextView"
             android:gravity="end"
             android:textSize="@dimen/text_size_ms"
             android:text="@{@string/format_activity_info_total_laps(item.displayLapCount)}"/>
+
+        <TextView
+            android:layout_width="@dimen/header_width_m"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_m"
+            app:layout_constraintTop_toBottomOf="@id/trackNameTextView"
+            app:layout_constraintEnd_toStartOf="@id/lapCountTextView"
+            android:gravity="end"
+            android:textSize="@dimen/text_size_ms"
+            android:text="@{@string/format_total_distance_training_count(item.trainingCount)}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
