@@ -60,6 +60,7 @@ class ActivitiesFragment : Fragment() {
         menu.findItem(R.id.action_user_info).isVisible = true
         menu.findItem(R.id.action_app_info).isVisible = true
         menu.findItem(R.id.action_track_best).isVisible = true
+        menu.findItem(R.id.action_total_distance).isVisible = true
         super.onPrepareOptionsMenu(menu)
     }
 
@@ -75,6 +76,10 @@ class ActivitiesFragment : Fragment() {
             }
             R.id.action_track_best -> {
                 navigateToTrackBest()
+                true
+            }
+            R.id.action_total_distance -> {
+                navigateToTotalDistance()
                 true
             }
             else -> false
@@ -143,6 +148,10 @@ class ActivitiesFragment : Fragment() {
 
     private fun navigateToTrackBest(){
         findNavController().navigate(R.id.action_ActivitiesFragment_to_TrackBestFragment)
+    }
+
+    private fun navigateToTotalDistance(){
+        findNavController().navigate(R.id.action_ActivitiesFragment_to_TotalDistanceFragment)
     }
 
 

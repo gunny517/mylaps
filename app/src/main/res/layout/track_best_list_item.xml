@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="@dimen/padding_m"
             android:textSize="@dimen/text_size_s"
             android:text="@{item.trackName}"/>
 
@@ -27,18 +26,20 @@
             android:id="@+id/dateTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_m"
             app:layout_constraintTop_toBottomOf="@id/trackNameTextView"
             app:layout_constraintStart_toStartOf="parent"
-            android:textSize="@dimen/text_size_s"
+            android:textSize="@dimen/text_size_ms"
             android:text="@{item.displayTime}"/>
 
         <TextView
             android:id="@+id/bestLapTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_m"
             app:layout_constraintTop_toBottomOf="@id/trackNameTextView"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="@dimen/text_size_ms"
+            android:textSize="@dimen/text_size_m"
             android:text="@{item.bestLap}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,6 +3,7 @@ package jp.ceed.android.mylapslogger.repository
 import android.content.Context
 import jp.ceed.android.mylapslogger.database.AppDatabase
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
+import jp.ceed.android.mylapslogger.entity.TotalDistance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -12,6 +13,14 @@ class PracticeTrackRepository(context: Context) {
 
     private val trackDao = AppDatabase.getInstance(context).trackDao()
 
+
+    suspend fun getTotalDistanceList(): List<TotalDistance> {
+        val list: List<TotalDistance>
+        withContext(Dispatchers.IO){
+            list = practiceTrackDao.getTotalDistance()
+        }
+        return list
+    }
 
     suspend fun findBestLapList(): List<PracticeTrack> {
         val list: MutableList<PracticeTrack> = mutableListOf()
