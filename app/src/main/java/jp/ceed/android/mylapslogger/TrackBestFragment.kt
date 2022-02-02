@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ceed.android.mylapslogger.adatpter.TrackBestAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentTrackBestBinding
+import jp.ceed.android.mylapslogger.entity.PracticeTrack
 import jp.ceed.android.mylapslogger.viewModel.TrackBestFragmentViewModel
 
 class TrackBestFragment: Fragment() {
@@ -34,7 +36,7 @@ class TrackBestFragment: Fragment() {
     }
 
     private fun initLayout(){
-        val adapter = TrackBestAdapter(requireContext())
+        val adapter = TrackBestAdapter(requireContext(), ::navigateToPracticeResult)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
@@ -42,6 +44,17 @@ class TrackBestFragment: Fragment() {
             adapter.setListItems(it)
             adapter.notifyDataSetChanged()
         }
+    }
+
+    private fun navigateToPracticeResult(item: PracticeTrack){
+        findNavController().navigate(
+            TrackBestFragmentDirections.actionTrackBestFragmentToPracticeResultFragment(
+                item.activityId,
+                item.displayTime,
+                item.trackLength,
+                0
+            )
+        )
     }
 
 }

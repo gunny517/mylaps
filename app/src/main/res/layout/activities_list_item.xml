@@ -9,24 +9,25 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:padding="10sp"
-		android:orientation="vertical">
+		android:orientation="vertical"
+		android:background="?android:attr/selectableItemBackground">
 
-	<TextView
-		android:id="@+id/dateTextView"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:textSize="22sp"
-		android:textColor="@color/text_default"
-		android:text="@{item.displayTime}"/>
+		<TextView
+			android:id="@+id/dateTextView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textSize="@dimen/text_size_m"
+			android:textColor="@color/text_default"
+			android:text="@{item.displayTime}"/>
 
-	<TextView
-		android:id="@+id/placeTextView"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:textSize="16sp"
-		android:textColor="@color/text_default"
-		android:gravity="end"
-		android:text="@{item.place}"/>
-
+		<TextView
+			android:id="@+id/placeTextView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/padding_m"
+			android:textSize="@dimen/text_size_s"
+			android:textColor="@color/text_default"
+			android:gravity="end"
+			android:text="@{item.place}"/>
 	</LinearLayout>
 </layout>

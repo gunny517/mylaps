@@ -16,7 +16,7 @@ import jp.ceed.android.mylapslogger.entity.Track
     ActivityInfo::class,
     SessionInfo::class,
     Track::class,
-    Practice::class], version = 4)
+    Practice::class], version = 5)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun activityInfoDao(): ActivityInfoDao
@@ -46,6 +46,7 @@ abstract class AppDatabase : RoomDatabase() {
                     addMigrations(MIGRATION_1_2)
                     addMigrations(MIGRATION_2_3)
                     addMigrations(MIGRATION_3_4)
+                    addMigrations(MIGRATION_4_5)
                 }.build()
                 INSTANCE = instance
                 instance
@@ -83,6 +84,7 @@ abstract class AppDatabase : RoomDatabase() {
                 "display_time TEXT, " +
                 "total_training_time TEXT NOT NULL, " +
                 "active_training_time TEXT NOT NULL, " +
+                "activity_id INTEGER NOT NULL, " +
                 "PRIMARY KEY(id))"
 
         private val MIGRATION_2_3 = object : Migration(2, 3){
@@ -92,15 +94,20 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        const val ALTER_PRACTICE = "ALTER TABLE Practice ADD active_training_time TEXT NOT NULL DEFAULT '' "
-        const val TRUNCATE_PRACTICE = "DELETE FROM Practice"
+        const val DROP_PRACTICE = "DROP TABLE Practice"
 
         private val MIGRATION_3_4 = object : Migration(3, 4){
             override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(ALTER_PRACTICE)
-                database.execSQL(TRUNCATE_PRACTICE)
+                database.execSQL(DROP_PRACTICE)
+                database.execSQL(CREATE_PRACTICE)
             }
         }
 
+        private val MIGRATION_4_5 = object : Migration(4, 5){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(DROP_PRACTICE)
+                database.execSQL(CREATE_PRACTICE)
+            }
+        }
     }
 }

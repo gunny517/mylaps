@@ -11,7 +11,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_m">
+        android:padding="@dimen/padding_m"
+        android:background="?android:attr/selectableItemBackground">
 
         <TextView
             android:id="@+id/trackNameTextView"

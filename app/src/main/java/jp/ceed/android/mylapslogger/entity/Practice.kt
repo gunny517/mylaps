@@ -17,7 +17,8 @@ data class Practice(
     @ColumnInfo(name = "end_time") var endTime: String,
     @ColumnInfo(name = "display_time") val displayTime: String?,
     @ColumnInfo(name = "total_training_time") var totalTrainingTime: String,
-    @ColumnInfo(name = "active_training_time") var activeTrainingTime: String
+    @ColumnInfo(name = "active_training_time") var activeTrainingTime: String,
+    @ColumnInfo(name = "activity_id") val activityId: Int
 ){
     constructor(activitiesItem: ActivitiesItem, sessionsResponse: SessionsResponse): this(
         id = activitiesItem.id,
@@ -28,6 +29,7 @@ data class Practice(
         endTime = activitiesItem.endTimeRaw,
         displayTime = activitiesItem.displayTime,
         totalTrainingTime = sessionsResponse.stats.totalTrainingTime,
-        activeTrainingTime = sessionsResponse.stats.activeTrainingTime
+        activeTrainingTime = sessionsResponse.stats.activeTrainingTime,
+        activityId = activitiesItem.id
     )
 }

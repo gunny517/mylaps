@@ -182,7 +182,12 @@
 	<fragment
 		android:id="@+id/TrackBestFragment"
 		android:name="jp.ceed.android.mylapslogger.TrackBestFragment"
-		android:label="@string/label_track_best_fragment"/>
+		android:label="@string/label_track_best_fragment">
+
+		<action
+			android:id="@+id/action_TrackBestFragment_to_PracticeResultFragment"
+			app:destination="@id/PracticeResultFragment"/>
+	</fragment>
 
 	<fragment
 		android:id="@+id/TotalDistanceFragment"
