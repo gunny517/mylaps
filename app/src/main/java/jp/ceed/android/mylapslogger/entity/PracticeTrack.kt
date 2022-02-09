@@ -13,6 +13,5 @@ data class PracticeTrack(
     @ColumnInfo(name = "display_time") var displayTime: String?,
     @ColumnInfo(name = "end_time") val endTime: String,
     @ColumnInfo(name = "total_training_time") val totalTrainingTime: String,
-    @ColumnInfo(name = "activity_id") val activityId: Int,
     @ColumnInfo(name = "track_length") val trackLength: Int
 )

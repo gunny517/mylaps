@@ -12,7 +12,9 @@ import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.databinding.TotalDistacneItemBinding
 import jp.ceed.android.mylapslogger.entity.TotalDistance
 
-class TotalDistanceAdapter(context: Context): RecyclerView.Adapter<TotalDistanceAdapter.ViewHolder>() {
+class TotalDistanceAdapter(
+    context: Context,
+    private val onClickItem: (item: TotalDistance) -> Unit): RecyclerView.Adapter<TotalDistanceAdapter.ViewHolder>() {
 
     private val inflater = LayoutInflater.from(context)
 
@@ -28,7 +30,11 @@ class TotalDistanceAdapter(context: Context): RecyclerView.Adapter<TotalDistance
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.viewDataBinding?.setVariable(BR.item,  items[position])
+        val item = items[position]
+        holder.viewDataBinding?.setVariable(BR.item, item)
+        holder.itemView.setOnClickListener {
+            onClickItem(item)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -192,5 +192,32 @@
 	<fragment
 		android:id="@+id/TotalDistanceFragment"
 		android:name="jp.ceed.android.mylapslogger.TotalDistanceFragment"
-		android:label="@string/label_total_distance"/>
+		android:label="@string/label_total_distance">
+
+		<action
+			android:id="@+id/action_TotalDistanceFragment_to_PracticeByTrackFragment"
+			app:destination="@id/PracticeByTrackFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/PracticeByTrackFragment"
+		android:name="jp.ceed.android.mylapslogger.PracticeByTrackFragment"
+		android:label="{trackName}">
+
+		<argument
+			android:name="trackId"
+			app:argType="integer"/>
+
+		<argument
+			android:name="trackName"
+			app:argType="string"/>
+
+		<action
+			android:id="@+id/action_PracticeByTrackFragment_to_PracticeResultFragment"
+			app:destination="@id/PracticeResultFragment"/>
+
+		<action
+			android:id="@+id/action_PracticeByTrackFragment_to_SessionListFragment"
+			app:destination="@id/SessionListFragment"/>
+	</fragment>
 </navigation>

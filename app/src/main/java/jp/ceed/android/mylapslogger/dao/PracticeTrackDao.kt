@@ -18,7 +18,6 @@ interface PracticeTrackDao {
                 "p.end_time, " +
                 "p.display_time, " +
                 "p.total_training_time, " +
-                "p.activity_id, " +
                 "t.length as track_length " +
                 "FROM Practice p, Track t WHERE p.track_id = t.id " +
                 "AND p.track_id = (:trackId) " +
@@ -27,7 +26,8 @@ interface PracticeTrackDao {
     fun findBestLapByTrackId(trackId: Int): PracticeTrack?
 
     @Query(
-        "SELECT t.id, t.name, " +
+        "SELECT t.id, " +
+                "t.name, " +
                 "t.length, " +
                 "sum(p.lap_count) AS total_lap_count, " +
                 "(t.length * sum(p.lap_count)) AS distance, " +
@@ -38,5 +38,21 @@ interface PracticeTrackDao {
 
     )
     fun getTotalDistance(): List<TotalDistance>
+
+    @Query(
+        "SELECT p.id, " +
+                "p.track_id, " +
+                "t.name, " +
+                "p.lap_count, " +
+                "p.best_lap, " +
+                "p.start_time, " +
+                "p.end_time, " +
+                "p.display_time, " +
+                "p.total_training_time, " +
+                "t.length as track_length " +
+                "FROM Practice p, Track t WHERE p.track_id = t.id " +
+                "AND p.track_id = (:trackId) "
+    )
+    fun getPracticeListByTrack(trackId: Int): List<PracticeTrack>
 
 }

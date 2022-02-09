@@ -12,7 +12,10 @@ import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.databinding.TrackBestListItemBinding
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
 
-class TrackBestAdapter(context: Context, private val onClick: (PracticeTrack) -> Unit): RecyclerView.Adapter<TrackBestAdapter.ViewHolder>() {
+class TrackBestAdapter(
+    context: Context,
+    private val onClick: (PracticeTrack) -> Unit,
+    private val hideTrackName: Boolean = false): RecyclerView.Adapter<TrackBestAdapter.ViewHolder>() {
 
     val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -30,6 +33,11 @@ class TrackBestAdapter(context: Context, private val onClick: (PracticeTrack) ->
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.viewDataBinding?.setVariable(BR.item, item)
+        holder.viewDataBinding?.setVariable(BR.trackNameVisibility, if(hideTrackName){
+            View.GONE
+        }else{
+            View.VISIBLE
+        })
         holder.itemView.setOnClickListener {
             onClick(item)
         }

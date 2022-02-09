@@ -126,24 +126,22 @@ class ActivitiesFragment : Fragment() {
     }
 
     private fun navigateToPracticeResults(activitiesItem: ActivitiesItem) {
-        if(AppSettings(requireContext()).isShowPracticeResultsAsSeparate()){
-            findNavController().navigate(
+        findNavController().navigate(
+            if(AppSettings(requireContext()).isShowPracticeResultsAsSeparate()){
                 ActivitiesFragmentDirections.actionActivitiesFragmentToSessionListFragment(
                     activitiesItem.id,
                     activitiesItem.displayTime,
                     activitiesItem.trackLength
                 )
-            )
-        }else{
-            findNavController().navigate(
+            }else{
                 ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(
                     activitiesItem.id,
                     activitiesItem.displayTime,
                     activitiesItem.trackLength,
-                0
+                    0
                 )
-            )
-        }
+            }
+        )
     }
 
     private fun navigateToTrackBest(){

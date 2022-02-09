@@ -16,7 +16,7 @@ import jp.ceed.android.mylapslogger.entity.Track
     ActivityInfo::class,
     SessionInfo::class,
     Track::class,
-    Practice::class], version = 5)
+    Practice::class], version = 6)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun activityInfoDao(): ActivityInfoDao

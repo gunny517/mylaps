@@ -6,6 +6,9 @@
         <variable
             name="item"
             type="jp.ceed.android.mylapslogger.entity.PracticeTrack" />
+        <variable
+            name="trackNameVisibility"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +24,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="@dimen/text_size_s"
-            android:text="@{item.trackName}"/>
+            android:text="@{item.trackName}"
+            android:visibility="@{trackNameVisibility}"/>
 
         <TextView
             android:id="@+id/dateTextView"

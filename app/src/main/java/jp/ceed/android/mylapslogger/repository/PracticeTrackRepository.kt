@@ -45,4 +45,12 @@ class PracticeTrackRepository(context: Context) {
         return entity
     }
 
+    suspend fun getPracticeListByTrack(trackId: Int): List<PracticeTrack> {
+        var list: List<PracticeTrack>
+        withContext(Dispatchers.IO){
+            list = practiceTrackDao.getPracticeListByTrack(trackId)
+        }
+        return list
+    }
+
 }
