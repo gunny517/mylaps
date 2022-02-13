@@ -47,6 +47,7 @@ abstract class AppDatabase : RoomDatabase() {
                     addMigrations(MIGRATION_2_3)
                     addMigrations(MIGRATION_3_4)
                     addMigrations(MIGRATION_4_5)
+                    addMigrations(MIGRATION_5_6)
                 }.build()
                 INSTANCE = instance
                 instance
@@ -84,7 +85,6 @@ abstract class AppDatabase : RoomDatabase() {
                 "display_time TEXT, " +
                 "total_training_time TEXT NOT NULL, " +
                 "active_training_time TEXT NOT NULL, " +
-                "activity_id INTEGER NOT NULL, " +
                 "PRIMARY KEY(id))"
 
         private val MIGRATION_2_3 = object : Migration(2, 3){
@@ -104,6 +104,13 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private val MIGRATION_4_5 = object : Migration(4, 5){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(DROP_PRACTICE)
+                database.execSQL(CREATE_PRACTICE)
+            }
+        }
+
+        private val MIGRATION_5_6 = object : Migration(5, 6){
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(DROP_PRACTICE)
                 database.execSQL(CREATE_PRACTICE)
