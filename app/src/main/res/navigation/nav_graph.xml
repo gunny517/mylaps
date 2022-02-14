@@ -34,6 +34,10 @@
 		<action
 			android:id="@+id/action_ActivitiesFragment_to_TrackBestFragment"
 			app:destination="@id/TrackBestFragment"/>
+
+		<action
+			android:id="@+id/action_ActivitiesFragment_to_TotalDistanceFragment"
+			app:destination="@id/TotalDistanceFragment"/>
 	</fragment>
 
 	<fragment
@@ -178,5 +182,42 @@
 	<fragment
 		android:id="@+id/TrackBestFragment"
 		android:name="jp.ceed.android.mylapslogger.TrackBestFragment"
-		android:label="@string/label_track_best_fragment"/>
+		android:label="@string/label_track_best_fragment">
+
+		<action
+			android:id="@+id/action_TrackBestFragment_to_PracticeResultFragment"
+			app:destination="@id/PracticeResultFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/TotalDistanceFragment"
+		android:name="jp.ceed.android.mylapslogger.TotalDistanceFragment"
+		android:label="@string/label_total_distance">
+
+		<action
+			android:id="@+id/action_TotalDistanceFragment_to_PracticeByTrackFragment"
+			app:destination="@id/PracticeByTrackFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/PracticeByTrackFragment"
+		android:name="jp.ceed.android.mylapslogger.PracticeByTrackFragment"
+		android:label="{trackName}">
+
+		<argument
+			android:name="trackId"
+			app:argType="integer"/>
+
+		<argument
+			android:name="trackName"
+			app:argType="string"/>
+
+		<action
+			android:id="@+id/action_PracticeByTrackFragment_to_PracticeResultFragment"
+			app:destination="@id/PracticeResultFragment"/>
+
+		<action
+			android:id="@+id/action_PracticeByTrackFragment_to_SessionListFragment"
+			app:destination="@id/SessionListFragment"/>
+	</fragment>
 </navigation>

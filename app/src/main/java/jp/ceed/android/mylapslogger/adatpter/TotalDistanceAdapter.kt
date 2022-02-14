@@ -9,37 +9,31 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.android.mylapslogger.BR
 import jp.ceed.android.mylapslogger.R
-import jp.ceed.android.mylapslogger.databinding.TrackBestListItemBinding
-import jp.ceed.android.mylapslogger.entity.PracticeTrack
+import jp.ceed.android.mylapslogger.databinding.TotalDistacneItemBinding
+import jp.ceed.android.mylapslogger.entity.TotalDistance
 
-class TrackBestAdapter(
+class TotalDistanceAdapter(
     context: Context,
-    private val onClick: (PracticeTrack) -> Unit,
-    private val hideTrackName: Boolean = false): RecyclerView.Adapter<TrackBestAdapter.ViewHolder>() {
+    private val onClickItem: (item: TotalDistance) -> Unit): RecyclerView.Adapter<TotalDistanceAdapter.ViewHolder>() {
 
-    val inflater: LayoutInflater = LayoutInflater.from(context)
+    private val inflater = LayoutInflater.from(context)
 
-    var items: List<PracticeTrack> = mutableListOf()
+    private var items: List<TotalDistance> = listOf()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val viewDataBinding: ViewDataBinding? = DataBindingUtil.bind(itemView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: TrackBestListItemBinding = DataBindingUtil.inflate(inflater, R.layout.track_best_list_item, parent, false)
+        val binding: TotalDistacneItemBinding = DataBindingUtil.inflate(inflater, R.layout.total_distacne_item, parent, false)
         return ViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.viewDataBinding?.setVariable(BR.item, item)
-        holder.viewDataBinding?.setVariable(BR.trackNameVisibility, if(hideTrackName){
-            View.GONE
-        }else{
-            View.VISIBLE
-        })
         holder.itemView.setOnClickListener {
-            onClick(item)
+            onClickItem(item)
         }
     }
 
@@ -47,8 +41,9 @@ class TrackBestAdapter(
         return items.size
     }
 
-    fun setListItems(_items: List<PracticeTrack>){
+    fun setListItem(_items: List<TotalDistance>){
         items = _items
     }
+
 
 }

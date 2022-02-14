@@ -12,7 +12,11 @@ import jp.ceed.android.mylapslogger.entity.Practice
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.entity.Track
 
-@Database(entities = [ActivityInfo::class, SessionInfo::class, Track::class, Practice::class], version = 3)
+@Database(entities = [
+    ActivityInfo::class,
+    SessionInfo::class,
+    Track::class,
+    Practice::class], version = 6)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun activityInfoDao(): ActivityInfoDao
@@ -41,13 +45,22 @@ abstract class AppDatabase : RoomDatabase() {
                 ).apply {
                     addMigrations(MIGRATION_1_2)
                     addMigrations(MIGRATION_2_3)
+                    addMigrations(MIGRATION_3_4)
+                    addMigrations(MIGRATION_4_5)
+                    addMigrations(MIGRATION_5_6)
                 }.build()
                 INSTANCE = instance
                 instance
             }
         }
 
-        const val CREATE_SESSION_INFO = "CREATE TABLE IF NOT EXISTS SessionInfo (session_id INTEGER NOT NULL, temperature TEXT, pressure TEXT, humidity TEXT, description TEXT, PRIMARY KEY(session_id))"
+        const val CREATE_SESSION_INFO = "CREATE TABLE IF NOT EXISTS SessionInfo " +
+                "(session_id INTEGER NOT NULL, " +
+                "temperature TEXT, " +
+                "pressure TEXT, " +
+                "humidity TEXT, " +
+                "description TEXT, " +
+                "PRIMARY KEY(session_id))"
 
         private val MIGRATION_1_2 = object : Migration(1, 2){
             override fun migrate(database: SupportSQLiteDatabase) {
@@ -55,9 +68,24 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
         
-        const val CREATE_TRACK = "CREATE TABLE IF NOT EXISTS Track (id INTEGER NOT NULL, name TEXT NOT NULL, length INTEGER NOT NULL, created INTEGER NOT NULL, PRIMARY KEY(id))"
+        const val CREATE_TRACK = "CREATE TABLE IF NOT EXISTS Track " +
+                "(id INTEGER NOT NULL, " +
+                "name TEXT NOT NULL, " +
+                "length INTEGER NOT NULL, " +
+                "created INTEGER NOT NULL, " +
+                "PRIMARY KEY(id))"
         
-        const val CREATE_PRACTICE = "CREATE TABLE IF NOT EXISTS Practice (id INTEGER NOT NULL, track_id INTEGER NOT NULL, lap_count INTEGER NOT NULL, best_lap TEXT NOT NULL, start_time TEXT NOT NULL, end_time TEXT NOT NULL, display_time TEXT, total_training_time TEXT NOT NULL, PRIMARY KEY(id))"
+        const val CREATE_PRACTICE = "CREATE TABLE IF NOT EXISTS Practice " +
+                "(id INTEGER NOT NULL, " +
+                "track_id INTEGER NOT NULL, " +
+                "lap_count INTEGER NOT NULL, " +
+                "best_lap TEXT NOT NULL, " +
+                "start_time TEXT NOT NULL, " +
+                "end_time TEXT NOT NULL, " +
+                "display_time TEXT, " +
+                "total_training_time TEXT NOT NULL, " +
+                "active_training_time TEXT NOT NULL, " +
+                "PRIMARY KEY(id))"
 
         private val MIGRATION_2_3 = object : Migration(2, 3){
             override fun migrate(database: SupportSQLiteDatabase) {
@@ -66,5 +94,27 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        const val DROP_PRACTICE = "DROP TABLE Practice"
+
+        private val MIGRATION_3_4 = object : Migration(3, 4){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(DROP_PRACTICE)
+                database.execSQL(CREATE_PRACTICE)
+            }
+        }
+
+        private val MIGRATION_4_5 = object : Migration(4, 5){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(DROP_PRACTICE)
+                database.execSQL(CREATE_PRACTICE)
+            }
+        }
+
+        private val MIGRATION_5_6 = object : Migration(5, 6){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(DROP_PRACTICE)
+                database.execSQL(CREATE_PRACTICE)
+            }
+        }
     }
 }

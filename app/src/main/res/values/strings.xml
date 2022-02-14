@@ -5,12 +5,14 @@
 	<string name="action_session_info">走行データ</string>
 	<string name="action_app_info">アプリ情報</string>
 	<string name="action_track_best_fragment">ベストタイム</string>
+	<string name="action_total_distance">走行距離</string>
 	<!-- Strings used for fragments for navigation -->
 	<string name="activities_fragment_label">走行日一覧</string>
 	<string name="login_fragment_label">ログイン</string>
 	<string name="label_user_info_fragment">ユーザー情報</string>
 	<string name="label_app_info_fragment">アプリ情報</string>
 	<string name="label_track_best_fragment">ベストタイム</string>
+	<string name="label_total_distance">走行距離</string>
 	<string name="next">Next</string>
 	<string name="previous">Previous</string>
 
@@ -32,6 +34,7 @@
 	<string name="format_session_title">セッション：%s</string>
 	<string name="format_activity_info_total_laps">%s 周</string>
 	<string name="format_activity_info_total_distance">%s km</string>
+	<string name="format_total_distance_training_count">%d 回</string>
 
 	<string name="label_session_info_title_description">備考</string>
 	<string name="label_session_info_save_button">保存</string>

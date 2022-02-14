@@ -33,7 +33,9 @@ class ApiRepository(val context: Context) {
         request.executeRequest(context, object : Callback<SessionsResponse>{
             override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
                 sessionsResponse?.let {
-                    callback(Result.success(Practice(activitiesItem, sessionsResponse)))
+                    sessionsResponse.bestLap?.let {
+                        callback(Result.success(Practice(activitiesItem, sessionsResponse)))
+                    }
                 }
             }
             override fun failure(error: RetrofitError?) {

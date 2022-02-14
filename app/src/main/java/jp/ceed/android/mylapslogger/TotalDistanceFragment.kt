@@ -10,49 +10,45 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import jp.ceed.android.mylapslogger.adatpter.TrackBestAdapter
-import jp.ceed.android.mylapslogger.databinding.FragmentTrackBestBinding
+import jp.ceed.android.mylapslogger.adatpter.TotalDistanceAdapter
+import jp.ceed.android.mylapslogger.databinding.FragmentTotalDistanceBinding
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
-import jp.ceed.android.mylapslogger.viewModel.TrackBestFragmentViewModel
+import jp.ceed.android.mylapslogger.entity.TotalDistance
+import jp.ceed.android.mylapslogger.viewModel.TotalDistanceFragmentViewModel
 
-class TrackBestFragment: Fragment() {
+class TotalDistanceFragment: Fragment() {
 
-    var _binding: FragmentTrackBestBinding? = null
+    private var _binding: FragmentTotalDistanceBinding? = null
 
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
-    val viewModel: TrackBestFragmentViewModel by viewModels()
+    private val viewModel: TotalDistanceFragmentViewModel by viewModels()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_track_best, container, false)
-        binding.viewModel = viewModel
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_total_distance, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initLayout()
-    }
-
-    private fun initLayout(){
-        val adapter = TrackBestAdapter(requireContext(), ::navigateToPracticeResult)
+        val adapter = TotalDistanceAdapter(requireContext(), ::navigateToPracticeByTrack)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
-        viewModel.trackBestList.observe(viewLifecycleOwner){
-            adapter.setListItems(it)
+        viewModel.totalDistanceList.observe(viewLifecycleOwner){
+            adapter.setListItem(it)
             adapter.notifyDataSetChanged()
         }
     }
 
-    private fun navigateToPracticeResult(item: PracticeTrack){
+    private fun navigateToPracticeByTrack(totalDistance: TotalDistance){
         findNavController().navigate(
-            TrackBestFragmentDirections.actionTrackBestFragmentToPracticeResultFragment(
-                item.id,
-                item.displayTime,
-                item.trackLength,
-                0
+            TotalDistanceFragmentDirections.actionTotalDistanceFragmentToPracticeByTrackFragment(
+                totalDistance.id,
+                totalDistance.name
             )
         )
     }
