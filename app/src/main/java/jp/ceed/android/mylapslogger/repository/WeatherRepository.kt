@@ -1,6 +1,5 @@
 package jp.ceed.android.mylapslogger.repository
 
-import android.content.Context
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import com.squareup.moshi.Moshi

@@ -3,18 +3,20 @@ package jp.ceed.android.mylapslogger.repository
 import android.content.Context
 import jp.ceed.android.mylapslogger.database.AppDatabase
 import jp.ceed.android.mylapslogger.entity.SessionInfo
-import jp.ceed.android.mylapslogger.model.WeatherDataDto
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SessionInfoRepository(context: Context) {
+class SessionInfoRepository(
+    context: Context,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
     private val dao = AppDatabase.getInstance(context).sessionInfoDao()
 
 
     suspend fun findBySessionId(sessionId: Long): SessionInfo? {
         var sessionInfo: SessionInfo? = null
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             sessionInfo = dao.findById(sessionId)
         }
         return sessionInfo
@@ -22,33 +24,39 @@ class SessionInfoRepository(context: Context) {
 
     suspend fun findAll(): List<SessionInfo> {
         var list: List<SessionInfo> = mutableListOf<SessionInfo>()
-        withContext(Dispatchers.IO){
+        withContext(dispatcher){
             list = dao.findAll()
         }
         return list
     }
 
     suspend fun insert(sessionInfo: SessionInfo) {
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             dao.insert(sessionInfo)
         }
     }
 
     suspend fun update(sessionInfo: SessionInfo) {
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             dao.update(sessionInfo)
         }
     }
 
     suspend fun loadWeatherAndSave(sessionId: Long){
-        withContext(Dispatchers.IO){
+        withContext(dispatcher){
 
         }
     }
 
     suspend fun saveSessionInfo(sessionInfo: SessionInfo){
-        withContext(Dispatchers.IO){
+        withContext(dispatcher){
             insert(sessionInfo)
+        }
+    }
+
+    suspend fun deleteAll(){
+        withContext(dispatcher){
+            dao.deleteAll()
         }
     }
 

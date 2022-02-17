@@ -8,9 +8,11 @@ import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.PracticeRepository
 import jp.ceed.android.mylapslogger.repository.TrackRepository
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+@DelicateCoroutinesApi
 class PracticeDataService(): Service() {
 
     private lateinit var practiceRepository: PracticeRepository

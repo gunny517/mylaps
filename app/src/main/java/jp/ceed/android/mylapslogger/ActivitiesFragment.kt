@@ -15,6 +15,7 @@ import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.viewModel.ActivitiesFragmentViewModel
+import java.lang.RuntimeException
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.

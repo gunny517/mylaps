@@ -4,16 +4,19 @@ import android.content.Context
 import jp.ceed.android.mylapslogger.database.AppDatabase
 import jp.ceed.android.mylapslogger.entity.ActivityInfo
 import jp.ceed.android.mylapslogger.util.Util
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ActivityInfoRepository(val context: Context) {
+class ActivityInfoRepository(
+    val context: Context,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
     private val dao = AppDatabase.getInstance(context).activityInfoDao()
 
     suspend fun findById(sessionId: Int): ActivityInfo? {
         var sessionInfo: ActivityInfo? = null
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             sessionInfo = dao.findById(sessionId)
             Util.checkThread(context, "withContext()")
         }
@@ -21,13 +24,13 @@ class ActivityInfoRepository(val context: Context) {
     }
 
     suspend fun update(sessionInfo: ActivityInfo) {
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             dao.updateId(sessionInfo)
         }
     }
 
     suspend fun insert(sessionInfo: ActivityInfo) {
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             dao.insert(sessionInfo)
         }
     }

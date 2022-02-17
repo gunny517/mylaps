@@ -2,13 +2,12 @@ package jp.ceed.android.mylapslogger.repository
 
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.platform.app.InstrumentationRegistry
+import com.google.common.truth.Truth.assertThat
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 
 @RunWith(RobolectricTestRunner::class)
 class UserAccountRepositoryTest {
@@ -20,11 +19,15 @@ class UserAccountRepositoryTest {
     @Test
     fun requestLogin() {
         repository.requestLogin(
-            "gunny517@gmail.com",
-            "gunny517"
+            USER_NAME,
+            PASSWORD
         ) {
-            assertEquals(true, it.isSuccess)
+            assertThat(it.isSuccess).isTrue()
         }
+    }
 
+    companion object {
+        const val USER_NAME = "gunny517@gmail.com"
+        const val PASSWORD = "gunny517"
     }
 }

@@ -122,7 +122,7 @@ class SessionInfoFragmentViewModel(params: SessionInfoFragmentParams, val applic
     class Factory(val args: SessionInfoFragmentParams, val application: Application) : ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return SessionInfoFragmentViewModel(args, application) as T
         }
     }
