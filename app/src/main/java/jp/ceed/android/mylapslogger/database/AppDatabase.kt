@@ -7,16 +7,14 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import jp.ceed.android.mylapslogger.dao.*
-import jp.ceed.android.mylapslogger.entity.ActivityInfo
-import jp.ceed.android.mylapslogger.entity.Practice
-import jp.ceed.android.mylapslogger.entity.SessionInfo
-import jp.ceed.android.mylapslogger.entity.Track
+import jp.ceed.android.mylapslogger.entity.*
 
 @Database(entities = [
     ActivityInfo::class,
     SessionInfo::class,
     Track::class,
-    Practice::class], version = 6)
+    Practice::class,
+    ErrorLog::class ], version = 7)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun activityInfoDao(): ActivityInfoDao
@@ -28,6 +26,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun practiceDao(): PracticeDao
 
     abstract fun practiceTrackDao(): PracticeTrackDao
+
+    abstract fun errorLogDao(): ErrorLogDao
 
     companion object {
 
@@ -48,6 +48,7 @@ abstract class AppDatabase : RoomDatabase() {
                     addMigrations(MIGRATION_3_4)
                     addMigrations(MIGRATION_4_5)
                     addMigrations(MIGRATION_5_6)
+                    addMigrations(MIGRATION_6_7)
                 }.build()
                 INSTANCE = instance
                 instance
@@ -87,6 +88,11 @@ abstract class AppDatabase : RoomDatabase() {
                 "active_training_time TEXT NOT NULL, " +
                 "PRIMARY KEY(id))"
 
+        const val CRATE_ERROR_LOG = "CREATE TABLE IF NOT EXISTS ErrorLog " +
+                "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "stack_trace TEXT NOT NULL, " +
+                "created INTEGER NOT NULL)"
+
         private val MIGRATION_2_3 = object : Migration(2, 3){
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(CREATE_TRACK)
@@ -115,6 +121,13 @@ abstract class AppDatabase : RoomDatabase() {
                 database.execSQL(DROP_PRACTICE)
                 database.execSQL(CREATE_PRACTICE)
             }
+        }
+
+        private val MIGRATION_6_7 = object : Migration(6, 7){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(CRATE_ERROR_LOG)
+            }
+
         }
     }
 }

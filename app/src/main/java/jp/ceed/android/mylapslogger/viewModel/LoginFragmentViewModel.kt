@@ -5,8 +5,10 @@ import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import jp.ceed.android.mylapslogger.model.LoginResult
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
+import jp.ceed.android.mylapslogger.util.ExceptionUtil
 
 class LoginFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -28,7 +30,8 @@ class LoginFragmentViewModel(application: Application) : AndroidViewModel(applic
         ) {
             it.onSuccess {
                 loginResult.postValue(LoginResult.Success)
-            }.onFailure {
+            }.onFailure { t ->
+                ExceptionUtil(getApplication()).save(t, viewModelScope)
                 loginResult.postValue(LoginResult.Failed)
             }
         }

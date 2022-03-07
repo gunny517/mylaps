@@ -26,7 +26,7 @@ class PracticeByTrackFragmentViewModel(args: PracticeByTrackFragmentArgs, contex
     class Factory(val args: PracticeByTrackFragmentArgs, val context: Context): ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return PracticeByTrackFragmentViewModel(args, context) as T
         }
 

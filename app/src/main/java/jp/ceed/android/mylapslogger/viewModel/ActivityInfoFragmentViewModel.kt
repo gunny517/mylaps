@@ -62,7 +62,7 @@ class ActivityInfoFragmentViewModel(val _args: ActivityInfoFragmentArgs, val app
      */
     class Factory(val args: ActivityInfoFragmentArgs, val application: Application): ViewModelProvider.Factory {
         @Suppress("unchecked_cast")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return ActivityInfoFragmentViewModel(args, application) as T
         }
     }

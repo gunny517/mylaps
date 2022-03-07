@@ -1,9 +1,6 @@
 package jp.ceed.android.mylapslogger.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 
 @Dao
@@ -20,5 +17,8 @@ interface SessionInfoDao {
 
 	@Update(entity = SessionInfo::class)
 	fun update(sessionInfo: SessionInfo)
+
+	@Query("DELETE FROM SessionInfo")
+	fun deleteAll()
 
 }

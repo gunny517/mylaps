@@ -31,11 +31,22 @@
             android:text="@{viewModel.appVersionName}"/>
 
         <TextView
+            android:id="@+id/settingTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/appVersionTitleTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/padding_m"
+            android:textSize="@dimen/text_size_m"
+            android:textStyle="bold"
+            android:text="@string/label_app_info_title_settings"/>
+
+        <TextView
             android:id="@+id/showAsSeparateTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_m"
-            app:layout_constraintTop_toBottomOf="@+id/appVersionTitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/settingTitleTextView"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="@dimen/text_size_ms"
             android:text="@string/label_app_info_title_show_practice_results_as_separate"/>
@@ -67,5 +78,28 @@
             app:layout_constraintTop_toTopOf="@id/showSpeedBarTitleTextView"
             app:layout_constraintBottom_toBottomOf="@id/showSpeedBarTitleTextView"
             android:checked="@={viewModel.showSpeedBar}"/>
+
+        <TextView
+            android:id="@+id/debugInfoTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/showSpeedBarTitleTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/padding_m"
+            android:textSize="@dimen/text_size_m"
+            android:textStyle="bold"
+            android:text="@string/label_app_info_title_debug_info"/>
+
+        <TextView
+            android:id="@+id/showErrorLogTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/debugInfoTitleTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="end"
+            android:textSize="@dimen/text_size_ms"
+            android:textColor="@color/text_link"
+            android:text="@string/label_show_error_log"
+            android:onClick="@{() -> viewModel.onClickShowErrorLog()}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

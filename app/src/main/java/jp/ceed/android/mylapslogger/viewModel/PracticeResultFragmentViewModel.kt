@@ -13,6 +13,7 @@ import jp.ceed.android.mylapslogger.repository.LocationRepository
 import jp.ceed.android.mylapslogger.repository.SessionInfoRepository
 import jp.ceed.android.mylapslogger.repository.WeatherRepository
 import jp.ceed.android.mylapslogger.util.DateUtil
+import jp.ceed.android.mylapslogger.util.ExceptionUtil
 import jp.ceed.android.mylapslogger.util.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,8 +43,8 @@ class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val
         apiRepository.sessionRequest(args.activityId, args.trackLength, args.sessionNo) {
             it.onSuccess { practiceResult ->
                 applySessionInfoLabel(practiceResult)
-            }.onFailure {
-                // Nothing to do.
+            }.onFailure { t ->
+                ExceptionUtil(application).save(t, viewModelScope)
             }
             progressVisibility.value = false
         }
@@ -84,11 +85,11 @@ class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val
             viewModelScope.launch {
                 val sessionInfo = sessionInfoRepository.findBySessionId(sessionId)
                 if (sessionInfo == null) {
-                    locationRepository.getLocation {
-                        it.onSuccess { location ->
+                    locationRepository.getLocation { result ->
+                        result.onSuccess { location ->
                             loadWeatherData(location, sessionId)
-                        }.onFailure {
-                            // Nothing to do.
+                        }.onFailure { t ->
+                            ExceptionUtil(application).save(t, viewModelScope)
                         }
                     }
                 }
@@ -108,8 +109,8 @@ class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val
                         pressure = weatherDto.pressure
                     )
                 )
-            }.onFailure {
-                LogUtil.e(it.message)
+            }.onFailure { t ->
+                ExceptionUtil(application).save(t, viewModelScope)
             }
         }
     }
@@ -126,7 +127,7 @@ class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val
     class Factory(private val practiceResultsFragmentArgs: PracticeResultsFragmentArgs, val application: Application) : ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return PracticeResultFragmentViewModel(practiceResultsFragmentArgs, application) as T
         }
     }

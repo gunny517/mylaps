@@ -25,4 +25,7 @@ interface PracticeDao {
         }
     }
 
+    @Query("DELETE FROM Practice")
+    fun deleteAll()
+
 }

@@ -33,4 +33,5 @@ public class Util {
         int length = lap * trackDistance;
         return String.format(Locale.JAPAN, "%,d", length);
     }
+
 }

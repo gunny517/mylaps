@@ -15,6 +15,7 @@ import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.viewModel.ActivitiesFragmentViewModel
+import java.lang.RuntimeException
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -45,6 +46,7 @@ class ActivitiesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userAccountRepository = UserAccountRepository(view.context)
+        initLayout()
     }
 
 
@@ -103,7 +105,6 @@ class ActivitiesFragment : Fragment() {
         if (token == null || userId == null) {
             findNavController().navigate(R.id.action_ActivitiesFragment_to_LoginFragment)
         } else {
-            initLayout()
             viewModel.callActivitiesRequest()
         }
     }

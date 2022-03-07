@@ -5,9 +5,13 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
+import jp.ceed.android.mylapslogger.repository.ErrorLogRepository
 import jp.ceed.android.mylapslogger.service.PracticeDataService
+import jp.ceed.android.mylapslogger.util.ExceptionUtil
+import kotlinx.coroutines.launch
 
 class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -24,8 +28,8 @@ class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(a
         }
         progressVisibility.value = true
         apiRepository.getActivities {
-            it.onFailure {
-                // TODO
+            it.onFailure { t ->
+                ExceptionUtil(getApplication()).save(t, viewModelScope)
             }.onSuccess { activities ->
                 this.activities.postValue(activities)
                 startPracticeService(activities)
@@ -40,5 +44,6 @@ class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(a
         intent.putParcelableArrayListExtra(PracticeDataService.PARAM_ACTIVITIES, activities)
         context.startService(intent)
     }
+
 
 }

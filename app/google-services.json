@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "900353471490",
+    "project_id": "mylapslogger",
+    "storage_bucket": "mylapslogger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900353471490:android:ccf1e02c2c4c02e280a31b",
+        "android_client_info": {
+          "package_name": "jp.ceed.android.mylapslogger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900353471490-c55n1co0mfelmv32fqut3c6r31cmqodp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABXpFCCAkKRLOTQ-lc-TyVNHe4OcJE04w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900353471490-c55n1co0mfelmv32fqut3c6r31cmqodp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -22,6 +22,8 @@ class DateUtil() {
 
         private const val YMD_FORMAT = "yyyy-MM-dd (EEE)"
 
+        private const val YMD_HMS_FORMAT = "yyyy-MM-dd HH:mm:ss"
+
         private val YMD_SIMPLE_DATE_FORMAT = SimpleDateFormat(YMD_FORMAT, Locale.US)
 
         private val HMS_SIMPLE_DATE_FORMAT = SimpleDateFormat(HMS_FORMAT, Locale.JAPAN)
@@ -31,6 +33,8 @@ class DateUtil() {
         private val API_SIMPLE_DATE_FORMAT = SimpleDateFormat(API_TIME_FORMAT, Locale.JAPAN)
 
         private val API_SIMPLE_DATE_FORMAT_W_MILLI_SEC = SimpleDateFormat(API_TIME_FORMAT_WITH_MILLI_SEC, Locale.JAPAN)
+
+        private val YMD_HMS_SIMPLE_DATE_FORMAT = SimpleDateFormat(YMD_HMS_FORMAT, Locale.JAPAN)
 
 
         fun toTimeFromDateTimeWithMilliSec(dateTimeStr: String): Long {
@@ -85,6 +89,10 @@ class DateUtil() {
 
         fun convertToTimeMillis(timeString: String): Long {
             return API_SIMPLE_DATE_FORMAT.parse(timeString).time
+        }
+
+        fun createYmdHmsString(time: Long): String{
+            return YMD_HMS_SIMPLE_DATE_FORMAT.format(Date(time))
         }
 
     }
