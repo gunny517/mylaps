@@ -8,8 +8,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class PracticeTrackRepository(
-    context: Context,
+class PracticeTrackRepository(context: Context,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
     private val practiceTrackDao = AppDatabase.getInstance(context).practiceTrackDao()

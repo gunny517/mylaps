@@ -25,14 +25,6 @@ class ApiRepositoryTest {
 
     @Test
     fun loadPracticeResultForPracticeTable() {
-        val activitiesItem = ActivitiesItem(
-            TEST_ACTIVITY_ID,
-            0,
-            null,
-            "",
-            "",
-            "",
-            0)
         apiRepository.loadPracticeResultForPracticeTable(activitiesItem){
             it.onSuccess { practice ->
                 assertThat(practice.bestLap).isEqualTo(TEST_BEST_LAP)
@@ -73,6 +65,14 @@ class ApiRepositoryTest {
     companion object{
         const val TEST_ACTIVITY_ID = 834841864
         const val TEST_BEST_LAP = "43.061"
+        val activitiesItem = ActivitiesItem(
+            TEST_ACTIVITY_ID,
+            0,
+            null,
+            "",
+            "",
+            "",
+            0)
     }
 
 }

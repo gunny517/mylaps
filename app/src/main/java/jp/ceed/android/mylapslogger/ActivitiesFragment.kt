@@ -46,6 +46,7 @@ class ActivitiesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userAccountRepository = UserAccountRepository(view.context)
+        initLayout()
     }
 
 
@@ -104,7 +105,6 @@ class ActivitiesFragment : Fragment() {
         if (token == null || userId == null) {
             findNavController().navigate(R.id.action_ActivitiesFragment_to_LoginFragment)
         } else {
-            initLayout()
             viewModel.callActivitiesRequest()
         }
     }

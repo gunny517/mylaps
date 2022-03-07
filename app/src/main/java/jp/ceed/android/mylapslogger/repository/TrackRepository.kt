@@ -8,8 +8,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class TrackRepository(
-    context: Context,
+class TrackRepository(context: Context,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
     private val trackDao = AppDatabase.getInstance(context).trackDao()

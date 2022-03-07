@@ -7,11 +7,19 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class PracticeRepository(
-    context: Context,
+class PracticeRepository(context: Context,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
     private val practiceDao = AppDatabase.getInstance(context).practiceDao()
+
+
+    suspend fun findById(id: Int): Practice {
+        val result: Practice
+        withContext(dispatcher){
+            result = practiceDao.findById(id)
+        }
+        return result
+    }
 
     suspend fun savePractice(practice: Practice){
         withContext(dispatcher){
@@ -28,6 +36,12 @@ class PracticeRepository(
             }
         }
         return list
+    }
+
+    suspend fun deleteAll(){
+        withContext(dispatcher){
+            practiceDao.deleteAll()
+        }
     }
 
 }

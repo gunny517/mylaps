@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="jp.ceed.android.mylapslogger">
+
+    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="21" />
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+    <instrumentation
+        android:name="androidx.test.runner.AndroidJUnitRunner"
+        android:targetPackage="jp.ceed.android.mylapslogger"
+        android:label="Hello World Test"/>
+
+</manifest>

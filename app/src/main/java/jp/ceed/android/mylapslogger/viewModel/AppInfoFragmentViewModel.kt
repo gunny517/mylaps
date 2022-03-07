@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.pm.PackageInfo
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import jp.ceed.android.mylapslogger.entity.Event
+import jp.ceed.android.mylapslogger.entity.EventState
 import jp.ceed.android.mylapslogger.util.AppSettings
 
 class AppInfoFragmentViewModel(application: Application): AndroidViewModel(application) {
@@ -15,6 +17,8 @@ class AppInfoFragmentViewModel(application: Application): AndroidViewModel(appli
     var showPracticeResultAsSeparate: MutableLiveData<Boolean> = MutableLiveData(false)
 
     var showSpeedBar: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    val clickShowErrorLogEvent: MutableLiveData<Event<EventState>> = MutableLiveData()
 
 
     init {
@@ -39,6 +43,10 @@ class AppInfoFragmentViewModel(application: Application): AndroidViewModel(appli
 
     fun saveShowSpeedBar(){
         appSettings.saveSpeedBar(showSpeedBar.value ?: false)
+    }
+
+    fun onClickShowErrorLog(){
+        clickShowErrorLogEvent.value = Event(EventState.CLICKED)
     }
 
 }

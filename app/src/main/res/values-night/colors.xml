@@ -15,6 +15,7 @@
 	<color name="text_slower">#EC8275</color>
 	<color name="text_menu">@color/white</color>
 	<color name="text_session_list_best_lap">#9B54FD</color>
+	<color name="text_link">#03A9F4</color>
 	<color name="bg_lap_list_shown">#666666</color>
 	<color name="window_back_ground">#161616</color>
 	<color name="speed_bar">#002CB1</color>

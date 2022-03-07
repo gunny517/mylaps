@@ -177,7 +177,12 @@
 	<fragment
 		android:id="@+id/AppInfoFragment"
 		android:name="jp.ceed.android.mylapslogger.AppInfoFragment"
-		android:label="@string/label_app_info_fragment"/>
+		android:label="@string/label_app_info_fragment">
+
+		<action
+			android:id="@+id/action_AppInfoFragment_to_ErrorLogFragment"
+			app:destination="@id/ErrorLogFragment"/>
+	</fragment>
 
 	<fragment
 		android:id="@+id/TrackBestFragment"
@@ -220,4 +225,9 @@
 			android:id="@+id/action_PracticeByTrackFragment_to_SessionListFragment"
 			app:destination="@id/SessionListFragment"/>
 	</fragment>
+
+	<fragment
+		android:id="@+id/ErrorLogFragment"
+		android:name="jp.ceed.android.mylapslogger.ErrorLogFragment"
+		android:label="@string/label_error_log"/>
 </navigation>

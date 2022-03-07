@@ -13,6 +13,7 @@ import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.repository.LocationRepository
 import jp.ceed.android.mylapslogger.repository.SessionInfoRepository
 import jp.ceed.android.mylapslogger.repository.WeatherRepository
+import jp.ceed.android.mylapslogger.util.ExceptionUtil
 import jp.ceed.android.mylapslogger.util.LogUtil
 import kotlinx.coroutines.launch
 
@@ -88,8 +89,8 @@ class SessionInfoFragmentViewModel(params: SessionInfoFragmentParams, val applic
                     locationRepository.getLocation {
                         it.onSuccess { location ->
                             loadWeatherData(location, _sessionId)
-                        }.onFailure {
-                            // Nothing to do.
+                        }.onFailure { t ->
+                            ExceptionUtil(application).save(t, viewModelScope)
                         }
                     }
                 }
@@ -108,8 +109,8 @@ class SessionInfoFragmentViewModel(params: SessionInfoFragmentParams, val applic
                     )
                 progressVisibility.value = false
                 weatherButtonEnable.value = true
-            }.onFailure {
-                LogUtil.e(it.message)
+            }.onFailure { t ->
+                ExceptionUtil(application).save(t, viewModelScope)
                 progressVisibility.value = false
                 weatherButtonEnable.value = true
             }

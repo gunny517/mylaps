@@ -7,8 +7,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SessionInfoRepository(
-    context: Context,
+class SessionInfoRepository(context: Context,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
     private val dao = AppDatabase.getInstance(context).sessionInfoDao()

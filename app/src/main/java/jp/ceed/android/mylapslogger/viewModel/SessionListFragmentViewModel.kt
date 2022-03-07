@@ -4,10 +4,12 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import jp.ceed.android.mylapslogger.model.SessionListItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
+import jp.ceed.android.mylapslogger.util.ExceptionUtil
 
-class SessionListFragmentViewModel(context: Context, val activityId: Int): ViewModel() {
+class SessionListFragmentViewModel(val context: Context, val activityId: Int): ViewModel() {
 
     private val apiRepository: ApiRepository = ApiRepository(context)
 
@@ -25,8 +27,8 @@ class SessionListFragmentViewModel(context: Context, val activityId: Int): ViewM
         apiRepository.loadPracticeResultsForSessionList(activityId){
             it.onSuccess { result ->
                 sessionItemList.value = result
-            }.onFailure {
-                // Nothing to do.
+            }.onFailure { t ->
+                ExceptionUtil(context).save(t, viewModelScope)
             }
             isLoading.value = false
         }

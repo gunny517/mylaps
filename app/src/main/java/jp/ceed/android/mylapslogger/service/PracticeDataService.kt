@@ -8,6 +8,7 @@ import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.PracticeRepository
 import jp.ceed.android.mylapslogger.repository.TrackRepository
+import jp.ceed.android.mylapslogger.util.ExceptionUtil
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -65,8 +66,8 @@ class PracticeDataService(): Service() {
                 continue
             }
             apiRepository.loadPracticeResultForPracticeTable(entry){
-                it.onFailure {
-                    // Nothing to do.
+                it.onFailure { t ->
+                    ExceptionUtil(applicationContext).save(t, GlobalScope)
                 }.onSuccess { practice ->
                     savePractice(practice)
                 }

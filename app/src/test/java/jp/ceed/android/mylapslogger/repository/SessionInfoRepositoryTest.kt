@@ -20,13 +20,11 @@ class SessionInfoRepositoryTest {
 
     private val context = ApplicationProvider.getApplicationContext() as Context
 
-    private val sessionInfoRepository = SessionInfoRepository(context)
+    private val sessionInfoRepository = SessionInfoRepository(context, Dispatchers.Main)
 
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
     @Before
     fun setUp() {
-        Dispatchers.setMain(mainThreadSurrogate)
         GlobalScope.launch {
             sessionInfoRepository.deleteAll()
             sessionInfoRepository.insert(entity1)
@@ -36,14 +34,12 @@ class SessionInfoRepositoryTest {
 
     @After
     fun tearDown(){
-        Dispatchers.resetMain()
-        mainThreadSurrogate.close()
     }
 
     @Test
     fun findBySessionId() {
         GlobalScope.launch {
-            val item1 = sessionInfoRepository.findBySessionId(SESSION_ID_1)
+            val item1 = sessionInfoRepository.findBySessionId(entity1.sessionId)
             assertThat(item1).isEqualTo(entity1)
         }
     }
@@ -58,10 +54,22 @@ class SessionInfoRepositoryTest {
 
     @Test
     fun insert() {
+        GlobalScope.launch {
+            sessionInfoRepository.insert(entity3)
+            val result = sessionInfoRepository.findBySessionId(entity3.sessionId)
+            assertThat(result?.sessionId).isEqualTo(entity3.sessionId)
+        }
     }
 
     @Test
     fun update() {
+        val expectedDescription = "this is expected value."
+        entity2.description = expectedDescription
+        GlobalScope.launch {
+            sessionInfoRepository.update(entity2)
+            val result = sessionInfoRepository.findBySessionId(entity2.sessionId)
+            assertThat(result?.description).isEqualTo(expectedDescription)
+        }
     }
 
     @Test
@@ -73,10 +81,8 @@ class SessionInfoRepositoryTest {
     }
 
     companion object{
-        private const val SESSION_ID_1 = 111L
-        private const val SESSION_ID_2 = 112L
         private val entity1 = SessionInfo(
-            SESSION_ID_1,
+            111L,
             "10",
             "1000",
             "50",
@@ -84,11 +90,19 @@ class SessionInfoRepositoryTest {
             DateUtil.createDateTimeString()
         )
         private val entity2 = SessionInfo(
-            SESSION_ID_2,
+            112L,
             "20",
             "1001",
             "60",
             "entity1",
+            DateUtil.createDateTimeString()
+        )
+        private val entity3 = SessionInfo(
+            113L,
+            "30",
+            "1002",
+            "70",
+            "entity3",
             DateUtil.createDateTimeString()
         )
     }

@@ -13,6 +13,7 @@
 	<string name="label_app_info_fragment">アプリ情報</string>
 	<string name="label_track_best_fragment">ベストタイム</string>
 	<string name="label_total_distance">走行距離</string>
+	<string name="label_error_log">エラーログ</string>
 	<string name="next">Next</string>
 	<string name="previous">Previous</string>
 
@@ -60,4 +61,7 @@
 	<string name="label_app_info_title_app_version">アプリバージョン：</string>
 	<string name="label_app_info_title_show_practice_results_as_separate">セッションを分割して表示</string>
 	<string name="label_app_info_title_show_speed_bar">ラップタイムの下にグラフバーを表示</string>
+	<string name="label_app_info_title_settings">設定</string>
+	<string name="label_app_info_title_debug_info">デバッグ機能</string>
+	<string name="label_show_error_log">エラーログを表示</string>
 </resources>

@@ -40,7 +40,6 @@ class UserAccountRepository(val context: Context) {
                 }
             }
             override fun failure(error: RetrofitError?) {
-                LogUtil.e(error?.message)
                 callback(Result.failure(error ?: IOException("unKnown")))
             }
         })

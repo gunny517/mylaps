@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import jp.ceed.android.mylapslogger.databinding.FragmentAppInfoBinding
 import jp.ceed.android.mylapslogger.viewModel.AppInfoFragmentViewModel
 
@@ -34,6 +35,13 @@ class AppInfoFragment: Fragment() {
         viewModel.showSpeedBar.observe(viewLifecycleOwner){
             viewModel.saveShowSpeedBar()
         }
+        viewModel.clickShowErrorLogEvent.observe(viewLifecycleOwner){
+            navigateToErrorLog()
+        }
+    }
+
+    private fun navigateToErrorLog(){
+        findNavController().navigate(R.id.action_AppInfoFragment_to_ErrorLogFragment)
     }
 
 }
