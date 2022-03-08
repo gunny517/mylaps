@@ -39,10 +39,10 @@ class PracticeSummaryFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-        viewModel.recyclerViewItem.observe(viewLifecycleOwner, {
+        viewModel.recyclerViewItem.observe(viewLifecycleOwner) {
             adapter.setItems(it)
             adapter.notifyDataSetChanged()
-        })
+        }
         viewModel.recyclerViewItem.value = args.params.sessionSummary
     }
 

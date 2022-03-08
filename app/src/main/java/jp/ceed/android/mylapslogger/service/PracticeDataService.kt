@@ -8,6 +8,7 @@ import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.PracticeRepository
 import jp.ceed.android.mylapslogger.repository.TrackRepository
+import jp.ceed.android.mylapslogger.util.DateUtil
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -62,7 +63,8 @@ class PracticeDataService(): Service() {
 
     private fun loadAndSavePracticeList(activities: List<ActivitiesItem>, practiceIdList: List<Int>){
         for(entry in activities){
-            if(practiceIdList.contains(entry.id)){
+            // 当日の場合は常に再取得する。（今以降にベストが更新される可能性があるので）
+            if(!DateUtil.isToday(entry.startTime) && practiceIdList.contains(entry.id)){
                 continue
             }
             apiRepository.loadPracticeResultForPracticeTable(entry){

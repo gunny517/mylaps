@@ -48,13 +48,15 @@ sealed class PracticeResultsItem {
         var sessionId: Long,
         var number: String,
         var duration: String,
-        var medianDuration: String
+        var medianDuration: String,
+        var cellBgColor: Int
     ): PracticeResultsItem(){
-        constructor(sessions: SessionsResponse.Sessions):this(
+        constructor(sessions: SessionsResponse.Sessions, bestLap: String):this(
             sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart),
             number = sessions.bestLap.nr.toString(),
             duration = sessions.bestLap.duration,
-            medianDuration = sessions.medianLapDuration
+            medianDuration = sessions.medianLapDuration,
+            cellBgColor = if(bestLap.equals(sessions.bestLap.duration)) R.color.bg_lap_list_report_best else R.color.window_back_ground
         )
     }
 

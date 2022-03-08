@@ -1,7 +1,5 @@
 package jp.ceed.android.mylapslogger.util
 
-import jp.ceed.android.mylapslogger.dto.LapDto
-import jp.ceed.android.mylapslogger.model.Sys
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -87,12 +85,23 @@ class DateUtil() {
             return API_SIMPLE_DATE_FORMAT.format(System.currentTimeMillis())
         }
 
-        fun convertToTimeMillis(timeString: String): Long {
-            return API_SIMPLE_DATE_FORMAT.parse(timeString).time
-        }
 
         fun createYmdHmsString(time: Long): String{
             return YMD_HMS_SIMPLE_DATE_FORMAT.format(Date(time))
+        }
+
+        fun isToday(startTime: String): Boolean{
+            val cal = Calendar.getInstance()
+            cal.set(Calendar.HOUR_OF_DAY, 0)
+            cal.set(Calendar.MINUTE, 0)
+            cal.set(Calendar.SECOND, 0)
+            cal.set(Calendar.MILLISECOND, 0)
+            val todayLong = cal.time.time
+            val startTimeLong = API_SIMPLE_DATE_FORMAT.parse(startTime)?.time
+            startTimeLong?.let {
+                return startTimeLong > todayLong
+            }
+            return false
         }
 
     }

@@ -75,7 +75,7 @@ class ApiRepository(val context: Context) {
         request.authorization = preferenceDao.read().accessToken
         request.executeRequest(context, object : Callback<SessionsResponse> {
             override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
-                sessionsResponse?.let {
+                sessionsResponse?.let { it ->
                     val practiceResult = PracticeResult(
                         sessionData = createLapList(it, sessionNo),
                         sessionSummary =  createSessionData(it),
@@ -119,7 +119,7 @@ class ApiRepository(val context: Context) {
         val list: ArrayList<PracticeResultsItem> = ArrayList<PracticeResultsItem>()
         for (session in sessionsResponse.sessions) {
             list.add(PracticeResultsItem.Section(session))
-            list.add(PracticeResultsItem.Summary(session))
+            list.add(PracticeResultsItem.Summary(session, sessionsResponse.bestLap.duration))
         }
         return list
     }

@@ -76,8 +76,7 @@ class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val
             return
         }
         practiceResult.value?.let {
-            val lastItem: PracticeResultsItem = it.sessionData[it.sessionData.size - 1]
-            val sessionId: Long = when (lastItem) {
+            val sessionId: Long = when (val lastItem: PracticeResultsItem = it.sessionData[it.sessionData.size - 1]) {
                 is PracticeResultsItem.Section -> lastItem.sessionId
                 is PracticeResultsItem.Lap -> lastItem.sessionId
                 is PracticeResultsItem.Summary -> lastItem.sessionId

@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:padding="8dp"
-            android:background="@color/window_back_ground">
+            android:background="@{context.getColor(item.cellBgColor)}">
 
             <TextView
                 android:id="@+id/medianDuration"
