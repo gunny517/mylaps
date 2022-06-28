@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="jp.ceed.android.mylapslogger.R"/>
         <variable
             name="item"
             type="jp.ceed.android.mylapslogger.dto.PracticeResultsItem.Summary" />
@@ -30,7 +31,7 @@
                 android:layout_centerVertical="true"
                 android:textSize="20sp"
                 android:gravity="end"
-                android:text="@{item.medianDuration}"
+                android:text="@{context.getString(R.string.format_summary_list_lap_count, item.lapCount)}"
                 android:textColor="@color/text_default"/>
 
             <TextView

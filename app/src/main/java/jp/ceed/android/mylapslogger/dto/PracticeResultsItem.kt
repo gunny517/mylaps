@@ -48,13 +48,13 @@ sealed class PracticeResultsItem {
         var sessionId: Long,
         var number: String,
         var duration: String,
-        var medianDuration: String
+        var lapCount: Int,
     ): PracticeResultsItem(){
         constructor(sessions: SessionsResponse.Sessions):this(
             sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart),
             number = sessions.bestLap.nr.toString(),
             duration = sessions.bestLap.duration,
-            medianDuration = sessions.medianLapDuration
+            lapCount = sessions.laps.size
         )
     }
 

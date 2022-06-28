@@ -22,11 +22,9 @@ class ActivityInfoFragmentViewModel(val _args: ActivityInfoFragmentArgs, val app
 
     private var isUpdate = false
 
-
     init {
     	loadActivityInfo()
     }
-
 
     private fun loadActivityInfo() {
         viewModelScope.launch {
@@ -41,7 +39,6 @@ class ActivityInfoFragmentViewModel(val _args: ActivityInfoFragmentArgs, val app
             isUpdate = true
         }
     }
-
 
     fun saveSessionInfo() {
         description.value?.let {

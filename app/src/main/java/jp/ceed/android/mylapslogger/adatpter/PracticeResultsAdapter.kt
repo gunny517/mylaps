@@ -47,7 +47,7 @@ class PracticeResultsAdapter(
         holder.itemView.setOnClickListener {
             when(item){
                 is PracticeResultsItem.Section -> { onClickSection(item) }
-                else -> null
+                else -> {}
             }
         }
     }
