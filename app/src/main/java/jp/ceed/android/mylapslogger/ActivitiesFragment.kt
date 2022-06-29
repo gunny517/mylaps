@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.adatpter.ActivitiesAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentActivitiesBinding
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
@@ -17,9 +18,7 @@ import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.viewModel.ActivitiesFragmentViewModel
 import java.lang.RuntimeException
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+@AndroidEntryPoint
 class ActivitiesFragment : Fragment() {
 
     private var _binding: FragmentActivitiesBinding? = null
