@@ -9,6 +9,7 @@ import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 
@@ -25,6 +26,11 @@ object RepositoryModule {
     @Provides
     fun bindsUserAccountRepository(@ApplicationContext context: Context): UserAccountRepository {
         return UserAccountRepository(context)
+    }
+
+    @Provides
+    fun bindsActivityInfoRepository(@ApplicationContext context: Context): ActivityInfoRepository {
+        return ActivityInfoRepository(context)
     }
 
 }
