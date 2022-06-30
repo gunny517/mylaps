@@ -9,10 +9,13 @@ import androidx.lifecycle.viewModelScope
 import jp.ceed.android.mylapslogger.model.LoginResult
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
+import javax.inject.Inject
 
 class LoginFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
-    var userAccountRepository: UserAccountRepository = UserAccountRepository(getApplication())
+    @Inject lateinit var userAccountRepository: UserAccountRepository
+
+    @Inject lateinit var exceptionUtil: ExceptionUtil
 
     var userName: MutableLiveData<String> = MutableLiveData()
 
@@ -31,7 +34,7 @@ class LoginFragmentViewModel(application: Application) : AndroidViewModel(applic
             it.onSuccess {
                 loginResult.postValue(LoginResult.Success)
             }.onFailure { t ->
-                ExceptionUtil(getApplication()).save(t, viewModelScope)
+                exceptionUtil.save(t, viewModelScope)
                 loginResult.postValue(LoginResult.Failed)
             }
         }

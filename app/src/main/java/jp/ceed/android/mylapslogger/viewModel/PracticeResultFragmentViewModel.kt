@@ -18,16 +18,17 @@ import jp.ceed.android.mylapslogger.util.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val application: Application) : ViewModel() {
 
-    private val apiRepository = ApiRepository(application)
+    @Inject lateinit var apiRepository: ApiRepository
 
-    private val weatherRepository = WeatherRepository()
+    @Inject lateinit var weatherRepository: WeatherRepository
 
-    private val locationRepository = LocationRepository(application.applicationContext)
+    @Inject lateinit var locationRepository: LocationRepository
 
-    private val sessionInfoRepository = SessionInfoRepository(application.applicationContext)
+    @Inject lateinit var sessionInfoRepository:SessionInfoRepository
 
     val practiceResult: MutableLiveData<PracticeResult> = MutableLiveData()
 

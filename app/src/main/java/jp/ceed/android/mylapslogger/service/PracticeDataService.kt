@@ -12,15 +12,16 @@ import jp.ceed.android.mylapslogger.util.ExceptionUtil
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @DelicateCoroutinesApi
 class PracticeDataService(): Service() {
 
-    private lateinit var practiceRepository: PracticeRepository
+    @Inject lateinit var practiceRepository: PracticeRepository
 
-    private lateinit var apiRepository: ApiRepository
+    @Inject lateinit var apiRepository: ApiRepository
 
-    private lateinit var trackRepository: TrackRepository
+    @Inject lateinit var trackRepository: TrackRepository
 
 
     override fun onCreate() {
@@ -31,7 +32,6 @@ class PracticeDataService(): Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        practiceRepository = PracticeRepository(applicationContext)
         trackRepository = TrackRepository(applicationContext)
         apiRepository = ApiRepository(applicationContext)
         val activities: List<ActivitiesItem>? = intent?.getParcelableArrayListExtra(PARAM_ACTIVITIES)

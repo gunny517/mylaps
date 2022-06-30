@@ -6,16 +6,18 @@ import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
-import jp.ceed.android.mylapslogger.repository.ErrorLogRepository
 import jp.ceed.android.mylapslogger.service.PracticeDataService
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
-import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val apiRepository = ApiRepository(getApplication())
+    @Inject lateinit var apiRepository: ApiRepository
+
+    @Inject lateinit var exceptionUtil: ExceptionUtil
 
     val activities: MutableLiveData<List<ActivitiesItem>> = MutableLiveData()
 
@@ -29,7 +31,7 @@ class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(a
         progressVisibility.value = true
         apiRepository.getActivities {
             it.onFailure { t ->
-                ExceptionUtil(getApplication()).save(t, viewModelScope)
+                exceptionUtil.save(t, viewModelScope)
             }.onSuccess { activities ->
                 this.activities.postValue(activities)
                 startPracticeService(activities)

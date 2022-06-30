@@ -22,7 +22,9 @@ import java.io.IOException
 import java.util.*
 import javax.inject.Inject
 
-class ApiRepository @Inject constructor (@ApplicationContext val context: Context) {
+class ApiRepository @Inject constructor (
+    @ApplicationContext val context: Context
+) {
 
     private val preferenceDao = PreferenceDao(context)
 

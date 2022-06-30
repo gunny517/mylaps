@@ -1,6 +1,5 @@
 package jp.ceed.android.mylapslogger.viewModel
 
-import android.app.Application
 import android.location.Location
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,16 +13,20 @@ import jp.ceed.android.mylapslogger.repository.LocationRepository
 import jp.ceed.android.mylapslogger.repository.SessionInfoRepository
 import jp.ceed.android.mylapslogger.repository.WeatherRepository
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
-import jp.ceed.android.mylapslogger.util.LogUtil
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SessionInfoFragmentViewModel(params: SessionInfoFragmentParams, val application: Application) : ViewModel() {
+class SessionInfoFragmentViewModel(
+    params: SessionInfoFragmentParams
+) : ViewModel() {
 
-    private val sessionInfoRepository = SessionInfoRepository(application.applicationContext)
+    @Inject lateinit var sessionInfoRepository: SessionInfoRepository
 
-    private val locationRepository = LocationRepository(application.applicationContext)
+    @Inject lateinit var locationRepository: LocationRepository
 
-    private val weatherRepository = WeatherRepository()
+    @Inject lateinit var weatherRepository: WeatherRepository
+
+    @Inject lateinit var exceptionUtil: ExceptionUtil
 
     var sessionInfo: MutableLiveData<SessionInfo> = MutableLiveData()
 
@@ -90,7 +93,7 @@ class SessionInfoFragmentViewModel(params: SessionInfoFragmentParams, val applic
                         it.onSuccess { location ->
                             loadWeatherData(location, _sessionId)
                         }.onFailure { t ->
-                            ExceptionUtil(application).save(t, viewModelScope)
+                            exceptionUtil.save(t, viewModelScope)
                         }
                     }
                 }
@@ -110,7 +113,7 @@ class SessionInfoFragmentViewModel(params: SessionInfoFragmentParams, val applic
                 progressVisibility.value = false
                 weatherButtonEnable.value = true
             }.onFailure { t ->
-                ExceptionUtil(application).save(t, viewModelScope)
+                exceptionUtil.save(t, viewModelScope)
                 progressVisibility.value = false
                 weatherButtonEnable.value = true
             }
@@ -120,11 +123,11 @@ class SessionInfoFragmentViewModel(params: SessionInfoFragmentParams, val applic
     /**
      * [SessionInfoFragmentViewModel]にパラメータを渡すためのFactory
      */
-    class Factory(val args: SessionInfoFragmentParams, val application: Application) : ViewModelProvider.Factory {
+    class Factory(val args: SessionInfoFragmentParams) : ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return SessionInfoFragmentViewModel(args, application) as T
+            return SessionInfoFragmentViewModel(args) as T
         }
     }
 

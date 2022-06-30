@@ -7,9 +7,12 @@ import jp.ceed.android.mylapslogger.entity.TotalDistance
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class PracticeTrackRepository(context: Context,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
+class PracticeTrackRepository @Inject constructor (
+    context: Context,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
 
     private val practiceTrackDao = AppDatabase.getInstance(context).practiceTrackDao()
 

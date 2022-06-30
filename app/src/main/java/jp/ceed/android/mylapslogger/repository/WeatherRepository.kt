@@ -8,8 +8,9 @@ import jp.ceed.android.mylapslogger.model.OpenWeatherResult
 import jp.ceed.android.mylapslogger.model.WeatherDataDto
 import jp.ceed.android.mylapslogger.util.WeatherResultConverter
 import java.io.IOException
+import javax.inject.Inject
 
-class WeatherRepository() {
+class WeatherRepository @Inject constructor() {
 
     val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 

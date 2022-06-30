@@ -5,13 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.model.SessionListItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
+import javax.inject.Inject
 
-class SessionListFragmentViewModel(val context: Context, val activityId: Int): ViewModel() {
+class SessionListFragmentViewModel(
+    val activityId: Int
+): ViewModel() {
 
-    private val apiRepository: ApiRepository = ApiRepository(context)
+    @Inject lateinit var apiRepository: ApiRepository
+
+    @Inject lateinit var exceptionUtil: ExceptionUtil
 
     var sessionItemList: MutableLiveData<List<SessionListItem>> = MutableLiveData()
 
@@ -28,7 +35,7 @@ class SessionListFragmentViewModel(val context: Context, val activityId: Int): V
             it.onSuccess { result ->
                 sessionItemList.value = result
             }.onFailure { t ->
-                ExceptionUtil(context).save(t, viewModelScope)
+                exceptionUtil.save(t, viewModelScope)
             }
             isLoading.value = false
         }
@@ -37,7 +44,7 @@ class SessionListFragmentViewModel(val context: Context, val activityId: Int): V
     class Factory(val activityId: Int, val context: Context): ViewModelProvider.Factory{
         @Suppress("unchecked_cast")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return SessionListFragmentViewModel(context, activityId) as T
+            return SessionListFragmentViewModel(activityId) as T
         }
 
     }

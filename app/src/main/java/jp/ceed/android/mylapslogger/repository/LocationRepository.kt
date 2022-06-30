@@ -9,9 +9,13 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.OnTokenCanceledListener
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
+import javax.inject.Inject
 
-class LocationRepository(val context: Context) {
+class LocationRepository @Inject constructor (
+    @ApplicationContext val context: Context
+) {
 
     private val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
 

@@ -1,6 +1,5 @@
 package jp.ceed.android.mylapslogger
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,7 +41,7 @@ class SessionInfoFragment: Fragment() {
     }
 
     private fun viewModelFactoryProducer(): SessionInfoFragmentViewModel.Factory {
-        return SessionInfoFragmentViewModel.Factory(args.params, requireContext().applicationContext as Application)
+        return SessionInfoFragmentViewModel.Factory(args.params)
     }
 
 
