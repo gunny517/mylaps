@@ -9,10 +9,11 @@ import jp.ceed.android.mylapslogger.PracticeByTrackFragmentArgs
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
 import jp.ceed.android.mylapslogger.repository.PracticeTrackRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class PracticeByTrackFragmentViewModel(args: PracticeByTrackFragmentArgs, context: Context) : ViewModel() {
 
-    private val practiceTrackRepository = PracticeTrackRepository(context)
+    @Inject lateinit var practiceTrackRepository: PracticeTrackRepository
 
     val practiceTrackList: MutableLiveData<List<PracticeTrack>> = MutableLiveData()
 

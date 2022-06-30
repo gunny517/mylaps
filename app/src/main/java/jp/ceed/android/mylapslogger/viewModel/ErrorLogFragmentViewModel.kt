@@ -7,12 +7,13 @@ import androidx.lifecycle.viewModelScope
 import jp.ceed.android.mylapslogger.dto.ErrorLogItem
 import jp.ceed.android.mylapslogger.repository.ErrorLogRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class ErrorLogFragmentViewModel(application: Application) : AndroidViewModel(application) {
 
     var listItems: MutableLiveData<List<ErrorLogItem>> = MutableLiveData()
 
-    private val errorLogRepository = ErrorLogRepository(application.applicationContext)
+    @Inject lateinit var errorLogRepository: ErrorLogRepository
 
     init {
         loadItems()

@@ -1,22 +1,27 @@
 package jp.ceed.android.mylapslogger.viewModel
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import jp.ceed.android.mylapslogger.ActivityInfoFragmentArgs
 import jp.ceed.android.mylapslogger.entity.ActivityInfo
 import jp.ceed.android.mylapslogger.entity.Event
 import jp.ceed.android.mylapslogger.entity.EventState
 import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
-import jp.ceed.android.mylapslogger.util.Util
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ActivityInfoFragmentViewModel(val _args: ActivityInfoFragmentArgs, val application: Application) : ViewModel() {
+class ActivityInfoFragmentViewModel(
+    private val fragmentArgs: ActivityInfoFragmentArgs
+) : ViewModel() {
 
-    private val sessionInfoRepository = ActivityInfoRepository(application)
+    @Inject lateinit var sessionInfoRepository: ActivityInfoRepository
 
     var description: MutableLiveData<String> = MutableLiveData()
 
-    var args: MutableLiveData<ActivityInfoFragmentArgs> = MutableLiveData(_args)
+    var args: MutableLiveData<ActivityInfoFragmentArgs> = MutableLiveData(fragmentArgs)
 
     var onSaved: MutableLiveData<Event<EventState>> = MutableLiveData()
 
@@ -28,8 +33,7 @@ class ActivityInfoFragmentViewModel(val _args: ActivityInfoFragmentArgs, val app
 
     private fun loadActivityInfo() {
         viewModelScope.launch {
-            onLoadActivityInfo(sessionInfoRepository.findById(_args.activityId))
-            Util.checkThread(application, "viewModelScope.launch")
+            onLoadActivityInfo(sessionInfoRepository.findById(fragmentArgs.activityId))
         }
     }
 
@@ -42,7 +46,7 @@ class ActivityInfoFragmentViewModel(val _args: ActivityInfoFragmentArgs, val app
 
     fun saveSessionInfo() {
         description.value?.let {
-            val dto = ActivityInfo(_args.activityId, it)
+            val dto = ActivityInfo(fragmentArgs.activityId, it)
             viewModelScope.launch {
                 if(isUpdate){
                     sessionInfoRepository.update(dto)
@@ -60,7 +64,7 @@ class ActivityInfoFragmentViewModel(val _args: ActivityInfoFragmentArgs, val app
     class Factory(val args: ActivityInfoFragmentArgs, val application: Application): ViewModelProvider.Factory {
         @Suppress("unchecked_cast")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return ActivityInfoFragmentViewModel(args, application) as T
+            return ActivityInfoFragmentViewModel(args) as T
         }
     }
 

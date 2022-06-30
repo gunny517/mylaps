@@ -1,6 +1,8 @@
 package jp.ceed.android.mylapslogger.repository
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.dao.PreferenceDao
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.entity.Practice
@@ -18,8 +20,11 @@ import retrofit.RetrofitError
 import retrofit.client.Response
 import java.io.IOException
 import java.util.*
+import javax.inject.Inject
 
-class ApiRepository(val context: Context) {
+class ApiRepository @Inject constructor (
+    @ApplicationContext val context: Context
+) {
 
     private val preferenceDao = PreferenceDao(context)
 

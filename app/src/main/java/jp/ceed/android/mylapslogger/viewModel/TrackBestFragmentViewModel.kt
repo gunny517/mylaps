@@ -1,17 +1,16 @@
 package jp.ceed.android.mylapslogger.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
 import jp.ceed.android.mylapslogger.repository.PracticeTrackRepository
-import jp.ceed.android.mylapslogger.util.DateUtil
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TrackBestFragmentViewModel(application: Application) : AndroidViewModel(application) {
+class TrackBestFragmentViewModel() : ViewModel() {
 
-    private val practiceTrackRepository = PracticeTrackRepository(application.applicationContext)
+    @Inject lateinit var practiceTrackRepository: PracticeTrackRepository
 
     val trackBestList: MutableLiveData<List<PracticeTrack>> = MutableLiveData()
 

@@ -1,16 +1,17 @@
 package jp.ceed.android.mylapslogger.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.entity.TotalDistance
 import jp.ceed.android.mylapslogger.repository.PracticeTrackRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TotalDistanceFragmentViewModel(application: Application) : AndroidViewModel(application) {
+class TotalDistanceFragmentViewModel(): ViewModel() {
 
-    private val practiceTrackRepository = PracticeTrackRepository(application.applicationContext)
+    @Inject lateinit var practiceTrackRepository: PracticeTrackRepository
 
     val totalDistanceList: MutableLiveData<List<TotalDistance>> = MutableLiveData()
 
