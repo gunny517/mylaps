@@ -4,14 +4,15 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.repository.*
 
 
 @Module
-@InstallIn(ActivityComponent::class)
-object RepositoryModule {
+@InstallIn(FragmentComponent::class)
+object RepositoryForActivityModule {
 
     @Provides
     fun bindsApiRepository(@ApplicationContext context: Context): ApiRepository {
@@ -56,6 +57,16 @@ object RepositoryModule {
     @Provides
     fun bindsPracticeTrackRepository(@ApplicationContext context: Context): PracticeTrackRepository {
         return PracticeTrackRepository(context)
+    }
+
+    @Provides
+    fun bindsTrackRepository(@ApplicationContext context: Context): TrackRepository {
+        return TrackRepository(context)
+    }
+
+    @Provides
+    fun bindsResourceRepository(@ActivityContext context: Context): ResourceRepository {
+        return ResourceRepository(context)
     }
 
 }

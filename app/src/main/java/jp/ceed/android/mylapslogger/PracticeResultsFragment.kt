@@ -1,6 +1,5 @@
 package jp.ceed.android.mylapslogger
 
-import android.app.Application
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -11,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.adatpter.PracticeResultsAdapter
 import jp.ceed.android.mylapslogger.args.PracticeSummaryFragmentParams
 import jp.ceed.android.mylapslogger.args.SessionInfoFragmentParams
@@ -19,16 +19,16 @@ import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.viewModel.PracticeResultFragmentViewModel
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class PracticeResultsFragment : Fragment() {
+
+    private val args: PracticeResultsFragmentArgs by navArgs()
 
     private var _binding: FragmentPracticeResultBinding? = null
 
     private val binding get() = _binding!!
 
-    private val viewModel: PracticeResultFragmentViewModel by viewModels(factoryProducer = ::viewModelFactoryProducer)
-
-    private val args: PracticeResultsFragmentArgs by navArgs()
-
+    private val viewModel: PracticeResultFragmentViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
@@ -117,10 +117,4 @@ class PracticeResultsFragment : Fragment() {
                 .actionPracticeResultFragmentToSessionInfoFragment(sessionInfoFragmentParams, args.sessionDate, titleText)
         )
     }
-
-    private fun viewModelFactoryProducer(): PracticeResultFragmentViewModel.Factory {
-        return PracticeResultFragmentViewModel.Factory(args, requireContext().applicationContext as Application)
-    }
-
-
 }

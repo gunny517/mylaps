@@ -14,7 +14,6 @@ class WeatherRepository @Inject constructor() {
 
     val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
-
     fun getWeatherDataByLocation(lat: Double, lon: Double, callback: (kotlin.Result<WeatherDataDto>) -> Unit) {
         val param = listOf(Pair(LAT, lat), Pair(LON, lon), Pair(APPID, API_KEY))
         BASE_URL.httpGet(param).responseString { request, response, result ->

@@ -1,6 +1,7 @@
 package jp.ceed.android.mylapslogger.repository
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.database.AppDatabase
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
 import jp.ceed.android.mylapslogger.entity.TotalDistance
@@ -10,7 +11,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PracticeTrackRepository @Inject constructor (
-    context: Context,
+    @ApplicationContext context: Context,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 

@@ -1,39 +1,43 @@
 package jp.ceed.android.mylapslogger.viewModel
 
-import android.app.Application
 import android.location.Location
-import androidx.lifecycle.*
-import jp.ceed.android.mylapslogger.PracticeResultsFragmentArgs
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.model.PracticeResult
-import jp.ceed.android.mylapslogger.repository.ApiRepository
-import jp.ceed.android.mylapslogger.repository.LocationRepository
-import jp.ceed.android.mylapslogger.repository.SessionInfoRepository
-import jp.ceed.android.mylapslogger.repository.WeatherRepository
+import jp.ceed.android.mylapslogger.repository.*
 import jp.ceed.android.mylapslogger.util.DateUtil
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
-import jp.ceed.android.mylapslogger.util.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val application: Application) : ViewModel() {
-
-    @Inject lateinit var apiRepository: ApiRepository
-
-    @Inject lateinit var weatherRepository: WeatherRepository
-
-    @Inject lateinit var locationRepository: LocationRepository
-
-    @Inject lateinit var sessionInfoRepository:SessionInfoRepository
+@HiltViewModel
+class PracticeResultFragmentViewModel @Inject constructor (
+    state: SavedStateHandle,
+    var apiRepository: ApiRepository,
+    var weatherRepository: WeatherRepository,
+    var locationRepository: LocationRepository,
+    var sessionInfoRepository: SessionInfoRepository,
+    var exceptionUtil: ExceptionUtil,
+    var resourceRepository: ResourceRepository,
+) : ViewModel() {
 
     val practiceResult: MutableLiveData<PracticeResult> = MutableLiveData()
 
     val progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    val activityId: Int = state.get<Int>("activityId") ?: 0
+
+    val trackLength: Int = state.get<Int>("trackLength") ?: 0
+
+    private val sessionNo: Int = state.get<Int>("sessionNo") ?: 0
 
     init {
         loadPracticeResult()
@@ -41,11 +45,11 @@ class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val
 
     fun loadPracticeResult() {
         progressVisibility.value = true
-        apiRepository.sessionRequest(args.activityId, args.trackLength, args.sessionNo) {
+        apiRepository.sessionRequest(activityId, trackLength, sessionNo) {
             it.onSuccess { practiceResult ->
                 applySessionInfoLabel(practiceResult)
             }.onFailure { t ->
-                ExceptionUtil(application).save(t, viewModelScope)
+                exceptionUtil.save(t, viewModelScope)
             }
             progressVisibility.value = false
         }
@@ -58,9 +62,9 @@ class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val
                     when (entry) {
                         is PracticeResultsItem.Section -> {
                             entry.sessionInfoLabel = if (sessionInfoRepository.findBySessionId(entry.sessionId) == null) {
-                                application.getString(R.string.label_practice_result_section_no_session_info)
+                                resourceRepository.getString(R.string.label_practice_result_section_no_session_info)
                             } else {
-                                application.getString(R.string.label_practice_result_section_has_session_info)
+                                resourceRepository.getString(R.string.label_practice_result_section_has_session_info)
                             }
                         }
                         else -> continue
@@ -90,7 +94,7 @@ class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val
                         result.onSuccess { location ->
                             loadWeatherData(location, sessionId)
                         }.onFailure { t ->
-                            ExceptionUtil(application).save(t, viewModelScope)
+                            exceptionUtil.save(t, viewModelScope)
                         }
                     }
                 }
@@ -111,7 +115,7 @@ class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val
                     )
                 )
             }.onFailure { t ->
-                ExceptionUtil(application).save(t, viewModelScope)
+                exceptionUtil.save(t, viewModelScope)
             }
         }
     }
@@ -119,17 +123,6 @@ class PracticeResultFragmentViewModel(val args: PracticeResultsFragmentArgs, val
     private fun saveSessionData(sessionInfo: SessionInfo) {
         viewModelScope.launch {
             sessionInfoRepository.insert(sessionInfo)
-        }
-    }
-
-    /**
-     * [PracticeResultFragmentViewModel]にパラメータを渡すためのFactory
-     */
-    class Factory(private val practiceResultsFragmentArgs: PracticeResultsFragmentArgs, val application: Application) : ViewModelProvider.Factory {
-
-        @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PracticeResultFragmentViewModel(practiceResultsFragmentArgs, application) as T
         }
     }
 

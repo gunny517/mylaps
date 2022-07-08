@@ -13,7 +13,10 @@ import jp.ceed.android.mylapslogger.service.PracticeDataService
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
 import javax.inject.Inject
 
-class ActivitiesFragmentViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class ActivitiesFragmentViewModel @Inject constructor (
+    application: Application
+) : AndroidViewModel(application) {
 
     @Inject lateinit var apiRepository: ApiRepository
 

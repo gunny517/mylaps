@@ -1,11 +1,10 @@
 package jp.ceed.android.mylapslogger.viewModel
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import jp.ceed.android.mylapslogger.ActivityInfoFragmentArgs
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.entity.ActivityInfo
 import jp.ceed.android.mylapslogger.entity.Event
 import jp.ceed.android.mylapslogger.entity.EventState
@@ -13,15 +12,23 @@ import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ActivityInfoFragmentViewModel(
-    private val fragmentArgs: ActivityInfoFragmentArgs
+@HiltViewModel
+class ActivityInfoFragmentViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
+    var activityInfoRepository: ActivityInfoRepository
 ) : ViewModel() {
-
-    @Inject lateinit var sessionInfoRepository: ActivityInfoRepository
 
     var description: MutableLiveData<String> = MutableLiveData()
 
-    var args: MutableLiveData<ActivityInfoFragmentArgs> = MutableLiveData(fragmentArgs)
+    var activityId: Int = savedStateHandle.get<Int>("activityId") ?: throw IllegalStateException("Should have activityId")
+
+    var bestLap: MutableLiveData<String> = MutableLiveData(savedStateHandle.get("bestLap"))
+
+    var totalLap: MutableLiveData<String> = MutableLiveData(savedStateHandle.get("totalLap"))
+
+    var totalTime: MutableLiveData<String> = MutableLiveData(savedStateHandle.get("totalTime"))
+
+    var totalDistance: MutableLiveData<String> = MutableLiveData(savedStateHandle.get("totalDistance"))
 
     var onSaved: MutableLiveData<Event<EventState>> = MutableLiveData()
 
@@ -33,7 +40,7 @@ class ActivityInfoFragmentViewModel(
 
     private fun loadActivityInfo() {
         viewModelScope.launch {
-            onLoadActivityInfo(sessionInfoRepository.findById(fragmentArgs.activityId))
+            onLoadActivityInfo(activityInfoRepository.findById(activityId))
         }
     }
 
@@ -46,26 +53,15 @@ class ActivityInfoFragmentViewModel(
 
     fun saveSessionInfo() {
         description.value?.let {
-            val dto = ActivityInfo(fragmentArgs.activityId, it)
+            val dto = ActivityInfo(activityId, it)
             viewModelScope.launch {
                 if(isUpdate){
-                    sessionInfoRepository.update(dto)
+                    activityInfoRepository.update(dto)
                 }else{
-                    sessionInfoRepository.insert(dto)
+                    activityInfoRepository.insert(dto)
                 }
                 onSaved.value = Event(EventState.SAVED)
             }
         }
     }
-
-    /**
-     * [ActivityInfoFragmentViewModel]にパラメータを渡すためのFactory
-     */
-    class Factory(val args: ActivityInfoFragmentArgs, val application: Application): ViewModelProvider.Factory {
-        @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return ActivityInfoFragmentViewModel(args) as T
-        }
-    }
-
 }

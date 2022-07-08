@@ -3,6 +3,7 @@ package jp.ceed.android.mylapslogger.service
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.entity.Practice
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
@@ -15,13 +16,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @DelicateCoroutinesApi
-class PracticeDataService(): Service() {
+@AndroidEntryPoint
+class PracticeDataService @Inject constructor (): Service() {
 
     @Inject lateinit var practiceRepository: PracticeRepository
 
     @Inject lateinit var apiRepository: ApiRepository
 
     @Inject lateinit var trackRepository: TrackRepository
+
+    @Inject lateinit var exceptionUtil: ExceptionUtil
 
 
     override fun onCreate() {
@@ -67,7 +71,7 @@ class PracticeDataService(): Service() {
             }
             apiRepository.loadPracticeResultForPracticeTable(entry){
                 it.onFailure { t ->
-                    ExceptionUtil(applicationContext).save(t, GlobalScope)
+                    exceptionUtil.save(t, GlobalScope)
                 }.onSuccess { practice ->
                     savePractice(practice)
                 }
