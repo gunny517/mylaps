@@ -24,7 +24,6 @@ class LoginFragmentViewModel @Inject constructor(
 
     var loginButtonEnabled: MutableLiveData<Boolean> = MutableLiveData()
 
-
     fun callLogin() {
         userAccountRepository.requestLogin(
             userName.value.toString(),
@@ -42,5 +41,4 @@ class LoginFragmentViewModel @Inject constructor(
     fun updateLoginButtonEnabled() {
         loginButtonEnabled.value = !TextUtils.isEmpty(userName.value) && !TextUtils.isEmpty(password.value)
     }
-
 }

@@ -125,5 +125,4 @@ class PracticeResultFragmentViewModel @Inject constructor (
             sessionInfoRepository.insert(sessionInfo)
         }
     }
-
 }

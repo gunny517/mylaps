@@ -11,8 +11,10 @@ import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.service.PracticeDataService
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
+import kotlinx.coroutines.DelicateCoroutinesApi
 import javax.inject.Inject
 
+@DelicateCoroutinesApi
 @HiltViewModel
 class ActivitiesFragmentViewModel @Inject constructor (
     application: Application
@@ -25,7 +27,6 @@ class ActivitiesFragmentViewModel @Inject constructor (
     val activities: MutableLiveData<List<ActivitiesItem>> = MutableLiveData()
 
     val progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
-
 
     fun callActivitiesRequest() {
         if (activities.value?.isNotEmpty() == true) {
@@ -49,6 +50,4 @@ class ActivitiesFragmentViewModel @Inject constructor (
         intent.putParcelableArrayListExtra(PracticeDataService.PARAM_ACTIVITIES, activities)
         context.startService(intent)
     }
-
-
 }
