@@ -1,11 +1,13 @@
 package jp.ceed.android.mylapslogger.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
+import javax.inject.Inject
 
-class PracticeSummaryFragmentViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class PracticeSummaryFragmentViewModel @Inject constructor () : ViewModel() {
 
     var recyclerViewItem: MutableLiveData<List<PracticeResultsItem>> = MutableLiveData(mutableListOf())
 

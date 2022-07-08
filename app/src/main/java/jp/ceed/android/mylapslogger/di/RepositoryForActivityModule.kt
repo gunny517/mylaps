@@ -30,11 +30,6 @@ object RepositoryForActivityModule {
     }
 
     @Provides
-    fun bindsErrorLogRepository(@ApplicationContext context: Context): ErrorLogRepository {
-        return ErrorLogRepository(context)
-    }
-
-    @Provides
     fun bindsLocationRepository(@ApplicationContext context: Context): LocationRepository {
         return LocationRepository(context)
     }
@@ -68,5 +63,4 @@ object RepositoryForActivityModule {
     fun bindsResourceRepository(@ActivityContext context: Context): ResourceRepository {
         return ResourceRepository(context)
     }
-
 }

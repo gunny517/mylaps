@@ -1,19 +1,20 @@
 package jp.ceed.android.mylapslogger.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.dto.ErrorLogItem
 import jp.ceed.android.mylapslogger.repository.ErrorLogRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ErrorLogFragmentViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class ErrorLogFragmentViewModel @Inject constructor(
+    var errorLogRepository: ErrorLogRepository,
+) : ViewModel() {
 
     var listItems: MutableLiveData<List<ErrorLogItem>> = MutableLiveData()
-
-    @Inject lateinit var errorLogRepository: ErrorLogRepository
 
     init {
         loadItems()

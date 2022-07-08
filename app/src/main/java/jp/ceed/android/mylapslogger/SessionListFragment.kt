@@ -11,11 +11,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.adatpter.SessionListAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentSessionListBinding
 import jp.ceed.android.mylapslogger.viewModel.SessionListFragmentViewModel
 
+@AndroidEntryPoint
 class SessionListFragment: Fragment() {
 
     private val args: SessionListFragmentArgs by navArgs()
@@ -24,7 +25,7 @@ class SessionListFragment: Fragment() {
 
     val binding get() = _binding!!
 
-    private val viewModel: SessionListFragmentViewModel by viewModels(factoryProducer = ::factoryProducer)
+    private val viewModel: SessionListFragmentViewModel by viewModels()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,10 +49,6 @@ class SessionListFragment: Fragment() {
             adapter.setItems(it)
             adapter.notifyDataSetChanged()
         }
-    }
-
-    private fun factoryProducer(): SessionListFragmentViewModel.Factory{
-        return SessionListFragmentViewModel.Factory(args.activityId, requireContext())
     }
 
     private fun navigateToPracticeResult(sessionNo: Int){

@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.adatpter.ErrorLogAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentErrorLogBinding
 import jp.ceed.android.mylapslogger.viewModel.ErrorLogFragmentViewModel
 
+@AndroidEntryPoint
 class ErrorLogFragment: Fragment() {
 
     private val viewModel: ErrorLogFragmentViewModel by viewModels()

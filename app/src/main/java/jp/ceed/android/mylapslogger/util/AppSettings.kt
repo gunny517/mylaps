@@ -2,8 +2,12 @@ package jp.ceed.android.mylapslogger.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class AppSettings(val context: Context) {
+class AppSettings @Inject constructor (
+    @ApplicationContext val context: Context
+) {
 
     fun isShowPracticeResultsAsSeparate(): Boolean {
         return getPreferences().getBoolean(SHOW_PRACTICE_RESULTS_AS_SEPARATE, false)

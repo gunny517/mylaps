@@ -11,13 +11,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.adatpter.TrackBestAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentPracticeByTrackBinding
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
-import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.viewModel.PracticeByTrackFragmentViewModel
 
+@AndroidEntryPoint
 class PracticeByTrackFragment: Fragment() {
 
     var _binding: FragmentPracticeByTrackBinding? = null;
@@ -26,8 +27,7 @@ class PracticeByTrackFragment: Fragment() {
 
     val args: PracticeByTrackFragmentArgs by navArgs()
 
-    val viewModel: PracticeByTrackFragmentViewModel by viewModels(factoryProducer = ::factoryProducer)
-
+    val viewModel: PracticeByTrackFragmentViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_practice_by_track, container, false)
@@ -50,11 +50,6 @@ class PracticeByTrackFragment: Fragment() {
             adapter.setListItems(it)
             adapter.notifyDataSetChanged()
         }
-    }
-
-
-    private fun factoryProducer(): PracticeByTrackFragmentViewModel.Factory{
-        return PracticeByTrackFragmentViewModel.Factory(args, requireContext())
     }
 
     private fun navigateToPracticeResults(practiceTrack: PracticeTrack) {

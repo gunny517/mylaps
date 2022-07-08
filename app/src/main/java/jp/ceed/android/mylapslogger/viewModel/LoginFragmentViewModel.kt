@@ -1,21 +1,20 @@
 package jp.ceed.android.mylapslogger.viewModel
 
-import android.app.Application
 import android.text.TextUtils
-import android.view.View
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.model.LoginResult
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
 import javax.inject.Inject
 
-class LoginFragmentViewModel(application: Application) : AndroidViewModel(application) {
-
-    @Inject lateinit var userAccountRepository: UserAccountRepository
-
-    @Inject lateinit var exceptionUtil: ExceptionUtil
+@HiltViewModel
+class LoginFragmentViewModel @Inject constructor(
+    var userAccountRepository: UserAccountRepository,
+    var exceptionUtil: ExceptionUtil,
+) : ViewModel() {
 
     var userName: MutableLiveData<String> = MutableLiveData()
 

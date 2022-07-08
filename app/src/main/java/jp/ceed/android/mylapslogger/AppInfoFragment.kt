@@ -8,9 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.databinding.FragmentAppInfoBinding
 import jp.ceed.android.mylapslogger.viewModel.AppInfoFragmentViewModel
 
+@AndroidEntryPoint
 class AppInfoFragment: Fragment() {
 
     private var _binding: FragmentAppInfoBinding? = null

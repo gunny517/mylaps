@@ -1,16 +1,19 @@
 package jp.ceed.android.mylapslogger.viewModel
 
-import android.app.Application
-import android.content.pm.PackageInfo
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.entity.Event
 import jp.ceed.android.mylapslogger.entity.EventState
+import jp.ceed.android.mylapslogger.repository.AppInfoRepository
 import jp.ceed.android.mylapslogger.util.AppSettings
+import javax.inject.Inject
 
-class AppInfoFragmentViewModel(application: Application): AndroidViewModel(application) {
-
-    private val appSettings = AppSettings(application)
+@HiltViewModel
+class AppInfoFragmentViewModel @Inject constructor (
+    private var appSettings: AppSettings,
+    private var appInfoRepository: AppInfoRepository,
+): ViewModel() {
 
     var appVersionName: MutableLiveData<String> = MutableLiveData()
 
@@ -20,16 +23,13 @@ class AppInfoFragmentViewModel(application: Application): AndroidViewModel(appli
 
     val clickShowErrorLogEvent: MutableLiveData<Event<EventState>> = MutableLiveData()
 
-
     init {
         setAppInfo()
         initAppSettings()
     }
 
     private fun setAppInfo(){
-        val appName = getApplication<Application>().packageName
-        val appInfo: PackageInfo? = getApplication<Application>().packageManager.getPackageInfo(appName, 0)
-        appVersionName.value = appInfo?.versionName
+        appVersionName.value = appInfoRepository.getVersionName()
     }
 
     private fun initAppSettings(){

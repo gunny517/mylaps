@@ -10,11 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.adatpter.PracticeResultsAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentPrecticeSummaryBinding
-import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.viewModel.PracticeSummaryFragmentViewModel
 
+@AndroidEntryPoint
 class PracticeSummaryFragment : Fragment() {
 
     private var _binding: FragmentPrecticeSummaryBinding? = null
