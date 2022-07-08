@@ -3,6 +3,7 @@ package jp.ceed.android.mylapslogger.repository
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.database.AppDatabase
+import jp.ceed.android.mylapslogger.di.IoDispatcher
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
 import jp.ceed.android.mylapslogger.entity.TotalDistance
 import kotlinx.coroutines.CoroutineDispatcher
@@ -12,7 +13,7 @@ import javax.inject.Inject
 
 class PracticeTrackRepository @Inject constructor (
     @ApplicationContext context: Context,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
     private val practiceTrackDao = AppDatabase.getInstance(context).practiceTrackDao()

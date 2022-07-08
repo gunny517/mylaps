@@ -10,11 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.adatpter.TrackBestAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentTrackBestBinding
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
 import jp.ceed.android.mylapslogger.viewModel.TrackBestFragmentViewModel
 
+@AndroidEntryPoint
 class TrackBestFragment: Fragment() {
 
     var _binding: FragmentTrackBestBinding? = null

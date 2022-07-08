@@ -10,12 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.adatpter.TotalDistanceAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentTotalDistanceBinding
-import jp.ceed.android.mylapslogger.entity.PracticeTrack
 import jp.ceed.android.mylapslogger.entity.TotalDistance
 import jp.ceed.android.mylapslogger.viewModel.TotalDistanceFragmentViewModel
 
+@AndroidEntryPoint
 class TotalDistanceFragment: Fragment() {
 
     private var _binding: FragmentTotalDistanceBinding? = null
@@ -23,7 +24,6 @@ class TotalDistanceFragment: Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: TotalDistanceFragmentViewModel by viewModels()
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_total_distance, container, false)
@@ -52,5 +52,4 @@ class TotalDistanceFragment: Fragment() {
             )
         )
     }
-
 }

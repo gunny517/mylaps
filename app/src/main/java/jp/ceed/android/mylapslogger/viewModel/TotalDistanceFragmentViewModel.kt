@@ -9,9 +9,10 @@ import jp.ceed.android.mylapslogger.repository.PracticeTrackRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TotalDistanceFragmentViewModel(): ViewModel() {
-
-    @Inject lateinit var practiceTrackRepository: PracticeTrackRepository
+@HiltViewModel
+class TotalDistanceFragmentViewModel @Inject constructor(
+    var practiceTrackRepository: PracticeTrackRepository,
+): ViewModel() {
 
     val totalDistanceList: MutableLiveData<List<TotalDistance>> = MutableLiveData()
 

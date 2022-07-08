@@ -2,9 +2,10 @@ package jp.ceed.android.mylapslogger.viewModel
 
 import android.location.Location
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.args.SessionInfoFragmentParams
 import jp.ceed.android.mylapslogger.entity.Event
 import jp.ceed.android.mylapslogger.entity.EventState
@@ -16,17 +17,14 @@ import jp.ceed.android.mylapslogger.util.ExceptionUtil
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SessionInfoFragmentViewModel(
-    params: SessionInfoFragmentParams
+@HiltViewModel
+class SessionInfoFragmentViewModel @Inject constructor (
+    savedStateHandle: SavedStateHandle,
+    var sessionInfoRepository: SessionInfoRepository,
+    var locationRepository: LocationRepository,
+    var weatherRepository: WeatherRepository,
+    var exceptionUtil: ExceptionUtil,
 ) : ViewModel() {
-
-    @Inject lateinit var sessionInfoRepository: SessionInfoRepository
-
-    @Inject lateinit var locationRepository: LocationRepository
-
-    @Inject lateinit var weatherRepository: WeatherRepository
-
-    @Inject lateinit var exceptionUtil: ExceptionUtil
 
     var sessionInfo: MutableLiveData<SessionInfo> = MutableLiveData()
 
@@ -44,8 +42,8 @@ class SessionInfoFragmentViewModel(
 
     private var sessionId: Long? = null
 
-
     init {
+        val params: SessionInfoFragmentParams = savedStateHandle.get("params") ?: throw IllegalStateException("Should have session params")
         averageDuration.value = params.averageDuration
         medianDuration.value = params.medianDuration
         loadSessionInfo(params.sessionId)
@@ -119,16 +117,4 @@ class SessionInfoFragmentViewModel(
             }
         }
     }
-
-    /**
-     * [SessionInfoFragmentViewModel]にパラメータを渡すためのFactory
-     */
-    class Factory(val args: SessionInfoFragmentParams) : ViewModelProvider.Factory {
-
-        @Suppress("unchecked_cast")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return SessionInfoFragmentViewModel(args) as T
-        }
-    }
-
 }
