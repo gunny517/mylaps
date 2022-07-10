@@ -59,16 +59,18 @@ class ActivityInfoFragmentViewModel @Inject constructor(
     }
 
     fun saveSessionInfo() {
-        description.value?.let {
-            val dto = ActivityInfo(activityId, it, fuelConsumption.value?.toFloat())
-            viewModelScope.launch {
-                if(isUpdate){
-                    activityInfoRepository.update(dto)
-                }else{
-                    activityInfoRepository.insert(dto)
-                }
-                onSaved.value = Event(EventState.SAVED)
+        val dto = ActivityInfo(
+            activityId,
+            description.value ?: "",
+            fuelConsumption.value?.toFloat()
+        )
+        viewModelScope.launch {
+            if(isUpdate){
+                activityInfoRepository.update(dto)
+            }else{
+                activityInfoRepository.insert(dto)
             }
+            onSaved.value = Event(EventState.SAVED)
         }
     }
 
