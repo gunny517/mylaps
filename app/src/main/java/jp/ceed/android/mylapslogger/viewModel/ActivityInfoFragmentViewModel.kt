@@ -9,6 +9,7 @@ import jp.ceed.android.mylapslogger.entity.ActivityInfo
 import jp.ceed.android.mylapslogger.entity.Event
 import jp.ceed.android.mylapslogger.entity.EventState
 import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
+import jp.ceed.android.mylapslogger.util.FuelCalculator
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,7 +19,9 @@ class ActivityInfoFragmentViewModel @Inject constructor(
     var activityInfoRepository: ActivityInfoRepository
 ) : ViewModel() {
 
-    var description: MutableLiveData<String> = MutableLiveData()
+    var description: MutableLiveData<String?> = MutableLiveData()
+
+    var fuelConsumption: MutableLiveData<String?> = MutableLiveData()
 
     var activityId: Int = savedStateHandle.get<Int>("activityId") ?: throw IllegalStateException("Should have activityId")
 
@@ -30,6 +33,8 @@ class ActivityInfoFragmentViewModel @Inject constructor(
 
     var totalDistance: MutableLiveData<String> = MutableLiveData(savedStateHandle.get("totalDistance"))
 
+    var spendFuel: MutableLiveData<String> = MutableLiveData()
+
     var onSaved: MutableLiveData<Event<EventState>> = MutableLiveData()
 
     private var isUpdate = false
@@ -37,6 +42,7 @@ class ActivityInfoFragmentViewModel @Inject constructor(
     init {
     	loadActivityInfo()
     }
+
 
     private fun loadActivityInfo() {
         viewModelScope.launch {
@@ -47,13 +53,14 @@ class ActivityInfoFragmentViewModel @Inject constructor(
     private fun onLoadActivityInfo(activityInfo: ActivityInfo?){
         activityInfo?.let {
             description.value = activityInfo.description
+            fuelConsumption.value = activityInfo.fuelConsumption.toString()
             isUpdate = true
         }
     }
 
     fun saveSessionInfo() {
         description.value?.let {
-            val dto = ActivityInfo(activityId, it)
+            val dto = ActivityInfo(activityId, it, fuelConsumption.value?.toFloat())
             viewModelScope.launch {
                 if(isUpdate){
                     activityInfoRepository.update(dto)
@@ -62,6 +69,13 @@ class ActivityInfoFragmentViewModel @Inject constructor(
                 }
                 onSaved.value = Event(EventState.SAVED)
             }
+        }
+    }
+
+    fun calculateFuelConsumption(){
+        val spend = spendFuel.value?.toFloat() ?: 0f
+        totalLap.value?.let {
+            fuelConsumption.value = FuelCalculator.calculateConsumption(spend, it.toInt()).toString()
         }
     }
 }

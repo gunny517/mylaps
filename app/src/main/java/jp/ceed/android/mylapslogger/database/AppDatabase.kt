@@ -14,7 +14,7 @@ import jp.ceed.android.mylapslogger.entity.*
     SessionInfo::class,
     Track::class,
     Practice::class,
-    ErrorLog::class ], version = 7)
+    ErrorLog::class ], version = 8)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun activityInfoDao(): ActivityInfoDao
@@ -49,6 +49,7 @@ abstract class AppDatabase : RoomDatabase() {
                     addMigrations(MIGRATION_4_5)
                     addMigrations(MIGRATION_5_6)
                     addMigrations(MIGRATION_6_7)
+                    addMigrations(MIGRATION_7_8)
                 }.build()
                 INSTANCE = instance
                 instance
@@ -93,6 +94,9 @@ abstract class AppDatabase : RoomDatabase() {
                 "stack_trace TEXT NOT NULL, " +
                 "created INTEGER NOT NULL)"
 
+        const val ALTER_ACTIVITY_INFO_ADD_FUEL_CONSUMPTION = "ALTER TABLE ActivityInfo " +
+                "ADD COLUMN fuel_consumption REAL "
+
         private val MIGRATION_2_3 = object : Migration(2, 3){
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(CREATE_TRACK)
@@ -127,7 +131,12 @@ abstract class AppDatabase : RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(CRATE_ERROR_LOG)
             }
+        }
 
+        private val MIGRATION_7_8 = object : Migration(7, 8){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(ALTER_ACTIVITY_INFO_ADD_FUEL_CONSUMPTION)
+            }
         }
     }
 }

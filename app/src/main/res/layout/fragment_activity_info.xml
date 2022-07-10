@@ -84,25 +84,55 @@
 			app:layout_constraintBottom_toBottomOf="@id/totalTimeTitleTextView"
 			android:text="@{viewModel.totalTime}"/>
 
-        <TextView
-            android:id="@+id/descriptionTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/totalTimeTitleTextView"
+		<TextView
+			android:id="@+id/fuelConsumptionTitleTextView"
+			android:layout_width="@dimen/header_width_l"
+			android:layout_height="wrap_content"
 			style="@style/activity_info_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/label_session_info_title_description"/>
+			app:layout_constraintTop_toBottomOf="@id/totalTimeTitleTextView"
+			app:layout_constraintStart_toStartOf="parent"
+			android:text="@string/label_activity_info_title_fuel_consumption"/>
+
+		<TextView
+			android:id="@+id/fuelConsumptionTextView"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			style="@style/activity_info_text"
+			app:layout_constraintStart_toEndOf="@id/fuelConsumptionTitleTextView"
+			app:layout_constraintBottom_toBottomOf="@id/fuelConsumptionTitleTextView"
+			android:text="@{viewModel.fuelConsumption}"/>
+
+		<EditText
+			android:id="@+id/spendFuelEditText"
+			android:layout_width="200dp"
+			android:layout_height="wrap_content"
+			app:layout_constraintTop_toBottomOf="@id/fuelConsumptionTitleTextView"
+			app:layout_constraintStart_toStartOf="parent"
+			android:hint="@string/label_session_info_fuel_net_hint"
+			android:inputType="number"
+			android:text="@={viewModel.spendFuel}"/>
+
+		<Button
+			android:id="@+id/fuelCalculateButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="@id/spendFuelEditText"
+			app:layout_constraintBottom_toBottomOf="@id/spendFuelEditText"
+			android:text="@string/label_session_info_fuel_calc_button"
+			android:onClick="@{() -> viewModel.calculateFuelConsumption()}"/>
 
         <EditText
             android:id="@+id/descriptionEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lines="10"
-            app:layout_constraintTop_toBottomOf="@id/descriptionTitle"
+            android:lines="6"
+			android:gravity="top"
+			android:hint="@string/label_session_info_hint_description"
+            app:layout_constraintTop_toBottomOf="@id/spendFuelEditText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="@={viewModel.description}" />
+            android:text="@={viewModel.description}"/>
 
         <Button
             android:id="@+id/saveButton"

@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 7,
-    "identityHash": "7b3ae05e434a5317d47415a4ea7f3885",
+    "version": 8,
+    "identityHash": "f20a75c4707912f9a7907f4837c71738",
     "entities": [
       {
         "tableName": "ActivityInfo",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`activity_id` INTEGER NOT NULL, `description` TEXT, `fuel_consumption` REAL, PRIMARY KEY(`activity_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`activity_id` INTEGER NOT NULL, `description` TEXT NOT NULL, `fuel_consumption` REAL, PRIMARY KEY(`activity_id`))",
         "fields": [
           {
             "fieldPath": "activityId",
@@ -18,7 +18,7 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "fuelConsumption",
@@ -228,7 +228,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7b3ae05e434a5317d47415a4ea7f3885')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f20a75c4707912f9a7907f4837c71738')"
     ]
   }
 }
