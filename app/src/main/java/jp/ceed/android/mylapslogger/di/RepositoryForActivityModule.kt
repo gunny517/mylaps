@@ -63,4 +63,9 @@ object RepositoryForActivityModule {
     fun bindsResourceRepository(@ActivityContext context: Context): ResourceRepository {
         return ResourceRepository(context)
     }
+
+    @Provides
+    fun bindsActivityInfoTrackRepository(@ActivityContext context: Context): ActivityInfoTrackRepository {
+        return ActivityInfoTrackRepository(context)
+    }
 }

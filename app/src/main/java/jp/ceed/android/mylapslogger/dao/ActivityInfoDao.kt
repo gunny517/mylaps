@@ -22,4 +22,7 @@ interface ActivityInfoDao {
 	@Update(entity = ActivityInfo::class)
 	fun updateId(sessionInfo: ActivityInfo)
 
+	@Query("SELECT * FROM ActivityInfo WHERE fuel_consumption IS NOT NULL AND fuel_consumption != ''")
+	fun findAllFuelConsumptionIsNotNull(): List<ActivityInfo>
+
 }

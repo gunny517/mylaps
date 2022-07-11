@@ -18,7 +18,7 @@ class ActivityInfoRepository @Inject constructor (
     private val dao = AppDatabase.getInstance(context).activityInfoDao()
 
     suspend fun findById(sessionId: Int): ActivityInfo? {
-        var sessionInfo: ActivityInfo? = null
+        var sessionInfo: ActivityInfo?
         withContext(dispatcher) {
             sessionInfo = dao.findById(sessionId)
             Util.checkThread(context, "withContext()")
@@ -37,5 +37,4 @@ class ActivityInfoRepository @Inject constructor (
             dao.insert(sessionInfo)
         }
     }
-
 }

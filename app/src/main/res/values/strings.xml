@@ -14,6 +14,7 @@
 	<string name="label_track_best_fragment">ベストタイム</string>
 	<string name="label_total_distance">走行距離</string>
 	<string name="label_error_log">エラーログ</string>
+	<string name="label_fuel_consumption_ist">燃費データ</string>
 	<string name="next">Next</string>
 	<string name="previous">Previous</string>
 

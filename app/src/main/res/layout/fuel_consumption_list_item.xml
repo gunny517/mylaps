@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="item"
+            type="jp.ceed.android.mylapslogger.model.FuelConsumptionListItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_m">
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{item.dateTime}"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_size_m"
+            tools:text="2022-07-01"/>
+
+        <TextView
+            android:id="@+id/fuelConsumptionTextView"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/dateTextView"
+            app:layout_constraintTop_toTopOf="@id/dateTextView"
+            app:layout_constraintBottom_toBottomOf="@id/dateTextView"
+            android:textColor="@color/text_default"
+            android:textSize="@dimen/text_size_m"
+            android:text="@{item.fuelConsumption}"
+            tools:text="68.3"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

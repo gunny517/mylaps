@@ -16,7 +16,6 @@ import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.viewModel.ActivitiesFragmentViewModel
-import java.lang.RuntimeException
 
 @AndroidEntryPoint
 class ActivitiesFragment : Fragment() {
@@ -62,6 +61,7 @@ class ActivitiesFragment : Fragment() {
         menu.findItem(R.id.action_app_info).isVisible = true
         menu.findItem(R.id.action_track_best).isVisible = true
         menu.findItem(R.id.action_total_distance).isVisible = true
+        menu.findItem(R.id.fuel_consumption_list).isVisible = true
         super.onPrepareOptionsMenu(menu)
     }
 
@@ -83,6 +83,10 @@ class ActivitiesFragment : Fragment() {
                 navigateToTotalDistance()
                 true
             }
+            R.id.fuel_consumption_list -> {
+                navigateToFuelConsumptionList()
+                true
+            }
             else -> false
         }
     }
@@ -95,6 +99,10 @@ class ActivitiesFragment : Fragment() {
 
     private fun navigateToAppInfo(){
         findNavController().navigate(R.id.action_ActivitiesFragment_to_AppInfoFragment)
+    }
+
+    private fun navigateToFuelConsumptionList(){
+        findNavController().navigate(R.id.action_ActivitiesFragment_to_FuelConsumptionListFragment)
     }
 
 

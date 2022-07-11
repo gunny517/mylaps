@@ -38,6 +38,10 @@
 		<action
 			android:id="@+id/action_ActivitiesFragment_to_TotalDistanceFragment"
 			app:destination="@id/TotalDistanceFragment"/>
+
+		<action
+			android:id="@+id/action_ActivitiesFragment_to_FuelConsumptionListFragment"
+			app:destination="@id/FuelConsumptionListFragment"/>
 	</fragment>
 
 	<fragment
@@ -230,4 +234,9 @@
 		android:id="@+id/ErrorLogFragment"
 		android:name="jp.ceed.android.mylapslogger.ErrorLogFragment"
 		android:label="@string/label_error_log"/>
+
+	<fragment
+		android:id="@+id/FuelConsumptionListFragment"
+		android:name="jp.ceed.android.mylapslogger.FuelConsumptionListFragment"
+		android:label="@string/label_fuel_consumption_ist"/>
 </navigation>

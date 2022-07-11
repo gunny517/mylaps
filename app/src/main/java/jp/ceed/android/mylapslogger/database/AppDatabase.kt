@@ -29,6 +29,8 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun errorLogDao(): ErrorLogDao
 
+    abstract fun activityInfoTrack(): ActivityInfoTrackDao
+
     companion object {
 
         private const val DATABASE_NAME = "MY_LAPS_LOGGER_DB"
