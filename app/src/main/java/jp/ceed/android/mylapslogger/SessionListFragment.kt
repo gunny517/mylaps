@@ -56,6 +56,7 @@ class SessionListFragment: Fragment() {
             SessionListFragmentDirections.actionSessionListFragmentToPracticeResultFragment(
                 args.activityId,
                 args.sessionDate,
+                args.trackId,
                 args.trackLength,
                 sessionNo
             )

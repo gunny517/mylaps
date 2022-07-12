@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 8,
-    "identityHash": "f20a75c4707912f9a7907f4837c71738",
+    "identityHash": "1ad841b605f96c4df0fa4fbeeadaeeb6",
     "entities": [
       {
         "tableName": "ActivityInfo",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`activity_id` INTEGER NOT NULL, `description` TEXT NOT NULL, `fuel_consumption` REAL, PRIMARY KEY(`activity_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`activity_id` INTEGER NOT NULL, `description` TEXT NOT NULL, `fuel_consumption` REAL, `track_id` INTEGER NOT NULL, `date_time` TEXT NOT NULL, PRIMARY KEY(`activity_id`))",
         "fields": [
           {
             "fieldPath": "activityId",
@@ -25,6 +25,18 @@
             "columnName": "fuel_consumption",
             "affinity": "REAL",
             "notNull": false
+          },
+          {
+            "fieldPath": "trackId",
+            "columnName": "track_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateTime",
+            "columnName": "date_time",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -228,7 +240,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f20a75c4707912f9a7907f4837c71738')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1ad841b605f96c4df0fa4fbeeadaeeb6')"
     ]
   }
 }

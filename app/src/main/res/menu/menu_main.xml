@@ -41,4 +41,11 @@
 		android:title="@string/action_total_distance"
 		app:showAsAction="never"
 		android:visible="false"/>
+
+	<item
+		android:id="@+id/fuel_consumption_list"
+		android:orderInCategory="100"
+		android:title="@string/label_fuel_consumption_ist"
+		app:showAsAction="never"
+		android:visible="false"/>
 </menu>

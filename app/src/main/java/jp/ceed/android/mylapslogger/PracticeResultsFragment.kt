@@ -94,12 +94,14 @@ class PracticeResultsFragment : Fragment() {
         viewModel.practiceResult.value?.let {
             findNavController().navigate(
                 PracticeResultsFragmentDirections.actionPracticeResultsFragmentToActivityInfoFragment(
-                        args.activityId,
-                        it.bestLap,
-                        it.totalLap,
-                        it.totalTime,
-                        it.totalDistance
-                    )
+                    args.activityId,
+                    args.trackId,
+                    args.sessionDate,
+                    it.bestLap,
+                    it.totalLap,
+                    it.totalTime,
+                    it.totalDistance
+                )
             )
         }
     }

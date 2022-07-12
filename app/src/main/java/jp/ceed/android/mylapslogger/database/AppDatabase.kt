@@ -14,7 +14,8 @@ import jp.ceed.android.mylapslogger.entity.*
     SessionInfo::class,
     Track::class,
     Practice::class,
-    ErrorLog::class ], version = 8)
+    ErrorLog::class ],
+    version = 9)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun activityInfoDao(): ActivityInfoDao
@@ -28,6 +29,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun practiceTrackDao(): PracticeTrackDao
 
     abstract fun errorLogDao(): ErrorLogDao
+
+    abstract fun activityInfoTrack(): ActivityInfoTrackDao
 
     companion object {
 
@@ -50,6 +53,7 @@ abstract class AppDatabase : RoomDatabase() {
                     addMigrations(MIGRATION_5_6)
                     addMigrations(MIGRATION_6_7)
                     addMigrations(MIGRATION_7_8)
+                    addMigrations(MIGRATION_8_9)
                 }.build()
                 INSTANCE = instance
                 instance
@@ -63,12 +67,6 @@ abstract class AppDatabase : RoomDatabase() {
                 "humidity TEXT, " +
                 "description TEXT, " +
                 "PRIMARY KEY(session_id))"
-
-        private val MIGRATION_1_2 = object : Migration(1, 2){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(CREATE_SESSION_INFO)
-            }
-        }
         
         const val CREATE_TRACK = "CREATE TABLE IF NOT EXISTS Track " +
                 "(id INTEGER NOT NULL, " +
@@ -97,6 +95,14 @@ abstract class AppDatabase : RoomDatabase() {
         const val ALTER_ACTIVITY_INFO_ADD_FUEL_CONSUMPTION = "ALTER TABLE ActivityInfo " +
                 "ADD COLUMN fuel_consumption REAL "
 
+        const val ALTER_ACTIVITY_INFO_ADD_TRACK_ID = "ALTER TABLE ActivityInfo " +
+                "ADD COLUMN " +
+                "track_id INTEGER NOT NULL DEFAULT 0"
+
+        const val ALTER_ACTIVITY_INFO_ADD_DATETIME = "ALTER TABLE ActivityInfo " +
+                "ADD COLUMN " +
+                "date_time TEXT NOT NULL DEFAULT ''"
+
         private val MIGRATION_2_3 = object : Migration(2, 3){
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(CREATE_TRACK)
@@ -105,6 +111,12 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         const val DROP_PRACTICE = "DROP TABLE Practice"
+
+        private val MIGRATION_1_2 = object : Migration(1, 2){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(CREATE_SESSION_INFO)
+            }
+        }
 
         private val MIGRATION_3_4 = object : Migration(3, 4){
             override fun migrate(database: SupportSQLiteDatabase) {
@@ -136,6 +148,13 @@ abstract class AppDatabase : RoomDatabase() {
         private val MIGRATION_7_8 = object : Migration(7, 8){
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(ALTER_ACTIVITY_INFO_ADD_FUEL_CONSUMPTION)
+            }
+        }
+
+        private val MIGRATION_8_9 = object : Migration(8, 9){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(ALTER_ACTIVITY_INFO_ADD_TRACK_ID)
+                database.execSQL(ALTER_ACTIVITY_INFO_ADD_DATETIME)
             }
         }
     }
