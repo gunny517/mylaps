@@ -34,7 +34,8 @@ interface PracticeTrackDao {
                 "count(p.id) AS training_count " +
                 "FROM Practice p, Track t " +
                 "WHERE p.track_id = t.id " +
-                "GROUP BY track_id"
+                "GROUP BY track_id " +
+                "ORDER BY total_lap_count DESC "
 
     )
     fun getTotalDistance(): List<TotalDistance>
@@ -51,7 +52,8 @@ interface PracticeTrackDao {
                 "p.total_training_time, " +
                 "t.length as track_length " +
                 "FROM Practice p, Track t WHERE p.track_id = t.id " +
-                "AND p.track_id = (:trackId) "
+                "AND p.track_id = (:trackId) " +
+                "ORDER BY p.id DESC"
     )
     fun getPracticeListByTrack(trackId: Int): List<PracticeTrack>
 
