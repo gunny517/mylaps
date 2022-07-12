@@ -53,6 +53,7 @@ class TrackBestFragment: Fragment() {
             TrackBestFragmentDirections.actionTrackBestFragmentToPracticeResultFragment(
                 item.id,
                 item.displayTime,
+                item.trackId,
                 item.trackLength,
                 0
             )

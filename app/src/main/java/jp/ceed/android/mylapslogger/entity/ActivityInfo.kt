@@ -18,6 +18,4 @@ data class ActivityInfo(
 
 	@ColumnInfo(name = "date_time")
 	var dateTime: String,
-
-
 )

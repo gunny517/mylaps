@@ -58,12 +58,14 @@ class PracticeByTrackFragment: Fragment() {
                 PracticeByTrackFragmentDirections.actionPracticeByTrackFragmentToSessionListFragment(
                     practiceTrack.id,
                     practiceTrack.displayTime,
+                    practiceTrack.trackId,
                     practiceTrack.trackLength
                 )
             }else{
                 PracticeByTrackFragmentDirections.actionPracticeByTrackFragmentToPracticeResultFragment(
                     practiceTrack.id,
                     practiceTrack.displayTime,
+                    practiceTrack.trackId,
                     practiceTrack.trackLength,
                     0
                 )

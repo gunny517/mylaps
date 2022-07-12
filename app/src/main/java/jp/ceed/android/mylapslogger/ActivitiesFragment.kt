@@ -139,12 +139,14 @@ class ActivitiesFragment : Fragment() {
                 ActivitiesFragmentDirections.actionActivitiesFragmentToSessionListFragment(
                     activitiesItem.id,
                     activitiesItem.displayTime,
+                    activitiesItem.locationId,
                     activitiesItem.trackLength
                 )
             }else{
                 ActivitiesFragmentDirections.actionActivitiesFragmentToPracticeResultsFragment(
                     activitiesItem.id,
                     activitiesItem.displayTime,
+                    activitiesItem.locationId,
                     activitiesItem.trackLength,
                     0
                 )

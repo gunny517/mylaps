@@ -8,7 +8,7 @@ data class FuelConsumptionListItem (
     val fuelConsumption: String,
 ) {
     constructor(activityInfoTrack: ActivityInfoTrack) : this(
-        dateTime = activityInfoTrack.trackName,
+        dateTime = activityInfoTrack.dateTime,
         trackName = activityInfoTrack.trackName,
         fuelConsumption = activityInfoTrack.fuelConsumption?.toString() ?: ""
     )

@@ -15,22 +15,33 @@
 
         <TextView
             android:id="@+id/dateTextView"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@{item.dateTime}"
             android:textColor="@color/text_default"
-            android:textSize="@dimen/text_size_m"
+            android:textSize="@dimen/text_size_s"
             tools:text="2022-07-01"/>
 
         <TextView
-            android:id="@+id/fuelConsumptionTextView"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/dateTextView"
-            app:layout_constraintTop_toTopOf="@id/dateTextView"
-            app:layout_constraintBottom_toBottomOf="@id/dateTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateTextView"
+            android:paddingTop="@dimen/padding_m"
+            android:textSize="@dimen/text_size_xs"
+            android:textColor="@color/text_default"
+            android:text="@{item.trackName}"
+            tools:text="オートパラダイス御殿場小山町大御神サーキット"/>
+
+        <TextView
+            android:id="@+id/fuelConsumptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/text_default"
             android:textSize="@dimen/text_size_m"
             android:text="@{item.fuelConsumption}"

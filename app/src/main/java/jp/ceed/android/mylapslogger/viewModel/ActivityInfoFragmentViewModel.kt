@@ -33,6 +33,10 @@ class ActivityInfoFragmentViewModel @Inject constructor(
 
     var totalDistance: MutableLiveData<String> = MutableLiveData(savedStateHandle.get("totalDistance"))
 
+    val trackId: Int = savedStateHandle.get<Int>("trackId") ?: throw IllegalStateException("Should have trackId")
+
+    val dateTime: String = savedStateHandle.get<String>("dateTime") ?: throw IllegalStateException("Should have dateTime")
+
     var spendFuel: MutableLiveData<String> = MutableLiveData()
 
     var onSaved: MutableLiveData<Event<EventState>> = MutableLiveData()
@@ -60,9 +64,11 @@ class ActivityInfoFragmentViewModel @Inject constructor(
 
     fun saveSessionInfo() {
         val dto = ActivityInfo(
-            activityId,
-            description.value ?: "",
-            fuelConsumption.value?.toFloat()
+            activityId = activityId,
+            description = description.value ?: "",
+            fuelConsumption = fuelConsumption.value?.toFloat(),
+            trackId = trackId,
+            dateTime = dateTime,
         )
         viewModelScope.launch {
             if(isUpdate){

@@ -72,6 +72,11 @@
 			app:nullable="true"/>
 
 		<argument
+			android:name="trackId"
+			app:argType="integer"
+			app:nullable="false"/>
+
+		<argument
 			android:name="trackLength"
 			app:argType="integer"
 			app:nullable="false"/>
@@ -117,6 +122,15 @@
 		<argument
 			android:name="activityId"
 			app:argType="integer"/>
+
+		<argument
+			android:name="trackId"
+			app:argType="integer"/>
+
+		<argument
+			android:name="dateTime"
+			app:argType="string"
+			app:nullable="true"/>
 
 		<argument
 			android:name="bestLap"
@@ -171,6 +185,11 @@
 			android:name="sessionDate"
 			app:argType="string"
 			app:nullable="true"/>
+
+		<argument
+			android:name="trackId"
+			app:argType="integer"
+			app:nullable="false"/>
 
 		<argument
 			android:name="trackLength"
