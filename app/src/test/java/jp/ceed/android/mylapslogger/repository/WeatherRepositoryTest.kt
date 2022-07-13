@@ -1,22 +1,17 @@
 package jp.ceed.android.mylapslogger.repository
 
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
-
 import org.junit.Assert.fail
+import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class WeatherRepositoryTest {
 
-    private val context = ApplicationProvider.getApplicationContext<Context>()
+    private lateinit var weatherRepository: WeatherRepository
 
-    private val weatherRepository = WeatherRepository()
-
-    private val locationRepository = LocationRepository(context)
+    private lateinit var locationRepository: LocationRepository
 
     @Test
     fun getWeatherDataByLocation() {

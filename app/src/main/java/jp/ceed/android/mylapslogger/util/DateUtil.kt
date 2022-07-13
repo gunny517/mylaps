@@ -4,7 +4,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DateUtil() {
+class DateUtil {
 
     companion object {
 

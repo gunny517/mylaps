@@ -1,14 +1,12 @@
 package jp.ceed.android.mylapslogger.repository
 
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.util.DateUtil
-import kotlinx.coroutines.*
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -18,9 +16,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class SessionInfoRepositoryTest {
 
-    private val context = ApplicationProvider.getApplicationContext() as Context
-
-    private val sessionInfoRepository = SessionInfoRepository(context, Dispatchers.Main)
+    private lateinit var sessionInfoRepository: SessionInfoRepository
 
 
     @Before

@@ -1,27 +1,21 @@
 package jp.ceed.android.mylapslogger.repository
 
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import jp.ceed.android.mylapslogger.entity.Practice
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-
 import org.junit.runner.RunWith
 
 @DelicateCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class PracticeRepositoryTest {
 
-    private val context = ApplicationProvider.getApplicationContext<Context>()
-
-    private val practiceRepository = PracticeRepository(context, Dispatchers.Main)
+    private lateinit var practiceRepository: PracticeRepository
 
     @Before
     fun setUp() {
