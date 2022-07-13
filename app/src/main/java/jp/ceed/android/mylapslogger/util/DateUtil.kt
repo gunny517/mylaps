@@ -1,7 +1,5 @@
 package jp.ceed.android.mylapslogger.util
 
-import jp.ceed.android.mylapslogger.dto.LapDto
-import jp.ceed.android.mylapslogger.model.Sys
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*

@@ -16,13 +16,10 @@ class PracticeTrackRepository @Inject constructor (
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    suspend fun getTotalDistanceList(): List<TotalDistance> {
-        val list: List<TotalDistance>
+    suspend fun getTotalDistanceList(): List<TotalDistance> =
         withContext(dispatcher){
-            list = practiceTrackDao.getTotalDistance()
+            practiceTrackDao.getTotalDistance()
         }
-        return list
-    }
 
     suspend fun findBestLapList(): List<PracticeTrack> {
         val list: MutableList<PracticeTrack> = mutableListOf()
@@ -38,21 +35,13 @@ class PracticeTrackRepository @Inject constructor (
         return list
     }
 
-
-    private suspend fun getBestLapByTrackId(trackId: Int): PracticeTrack? {
-        var entity: PracticeTrack?
+    private suspend fun getBestLapByTrackId(trackId: Int): PracticeTrack? =
         withContext(dispatcher){
-            entity = practiceTrackDao.findBestLapByTrackId(trackId)
+            practiceTrackDao.findBestLapByTrackId(trackId)
         }
-        return entity
-    }
 
-    suspend fun getPracticeListByTrack(trackId: Int): List<PracticeTrack> {
-        var list: List<PracticeTrack>
+    suspend fun getPracticeListByTrack(trackId: Int): List<PracticeTrack> =
         withContext(dispatcher){
-            list = practiceTrackDao.getPracticeListByTrack(trackId)
+            practiceTrackDao.getPracticeListByTrack(trackId)
         }
-        return list
-    }
-
 }

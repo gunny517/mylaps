@@ -12,13 +12,10 @@ class PracticeRepository @Inject constructor (
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
-    suspend fun findById(id: Int): Practice {
-        val result: Practice
+    suspend fun findById(id: Int): Practice =
         withContext(dispatcher){
-            result = practiceDao.findById(id)
+            practiceDao.findById(id)
         }
-        return result
-    }
 
     suspend fun savePractice(practice: Practice){
         withContext(dispatcher){

@@ -13,21 +13,15 @@ class SessionInfoRepository @Inject constructor (
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    suspend fun findBySessionId(sessionId: Long): SessionInfo? {
-        var sessionInfo: SessionInfo? = null
+    suspend fun findBySessionId(sessionId: Long): SessionInfo =
         withContext(dispatcher) {
-            sessionInfo = dao.findById(sessionId)
+            dao.findById(sessionId)
         }
-        return sessionInfo
-    }
 
-    suspend fun findAll(): List<SessionInfo> {
-        var list: List<SessionInfo> = mutableListOf<SessionInfo>()
+    suspend fun findAll(): List<SessionInfo> =
         withContext(dispatcher){
-            list = dao.findAll()
+            dao.findAll()
         }
-        return list
-    }
 
     suspend fun insert(sessionInfo: SessionInfo) {
         withContext(dispatcher) {

@@ -54,12 +54,10 @@ class ActivityInfoFragmentViewModel @Inject constructor(
         }
     }
 
-    private fun onLoadActivityInfo(activityInfo: ActivityInfo?){
-        activityInfo?.let {
-            description.value = activityInfo.description
-            fuelConsumption.value = activityInfo.fuelConsumption.toString()
-            isUpdate = true
-        }
+    private fun onLoadActivityInfo(activityInfo: ActivityInfo){
+        description.value = activityInfo.description
+        fuelConsumption.value = activityInfo.fuelConsumption.toString()
+        isUpdate = true
     }
 
     fun saveSessionInfo() {
