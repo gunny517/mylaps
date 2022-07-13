@@ -16,6 +16,7 @@ import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.viewModel.ActivitiesFragmentViewModel
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ActivitiesFragment : Fragment() {
@@ -26,8 +27,7 @@ class ActivitiesFragment : Fragment() {
 
     private val viewModel: ActivitiesFragmentViewModel by viewModels()
 
-    lateinit var userAccountRepository: UserAccountRepository
-
+    @Inject lateinit var userAccountRepository: UserAccountRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +43,6 @@ class ActivitiesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userAccountRepository = UserAccountRepository(view.context)
         initLayout()
     }
 

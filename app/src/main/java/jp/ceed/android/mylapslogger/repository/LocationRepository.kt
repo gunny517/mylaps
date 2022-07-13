@@ -55,7 +55,5 @@ class LocationRepository @Inject constructor (
         override fun isCancellationRequested(): Boolean {
             return false
         }
-
     }
-
 }

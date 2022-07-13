@@ -27,7 +27,6 @@ class PracticeDataService @Inject constructor (): Service() {
 
     @Inject lateinit var exceptionUtil: ExceptionUtil
 
-
     override fun onCreate() {
         super.onCreate()
         if(android.os.Debug.isDebuggerConnected()){
@@ -36,8 +35,7 @@ class PracticeDataService @Inject constructor (): Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        trackRepository = TrackRepository(applicationContext)
-        apiRepository = ApiRepository(applicationContext)
+        (applicationContext)
         val activities: List<ActivitiesItem>? = intent?.getParcelableArrayListExtra(PARAM_ACTIVITIES)
         activities?.let {
             updateTrackList(it)

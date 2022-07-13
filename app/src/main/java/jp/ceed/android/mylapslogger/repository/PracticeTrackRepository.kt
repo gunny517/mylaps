@@ -1,8 +1,7 @@
 package jp.ceed.android.mylapslogger.repository
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
-import jp.ceed.android.mylapslogger.database.AppDatabase
+import jp.ceed.android.mylapslogger.dao.PracticeTrackDao
+import jp.ceed.android.mylapslogger.dao.TrackDao
 import jp.ceed.android.mylapslogger.di.IoDispatcher
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
 import jp.ceed.android.mylapslogger.entity.TotalDistance
@@ -12,14 +11,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PracticeTrackRepository @Inject constructor (
-    @ApplicationContext context: Context,
+    private val practiceTrackDao: PracticeTrackDao,
+    private val trackDao: TrackDao,
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-
-    private val practiceTrackDao = AppDatabase.getInstance(context).practiceTrackDao()
-
-    private val trackDao = AppDatabase.getInstance(context).trackDao()
-
 
     suspend fun getTotalDistanceList(): List<TotalDistance> {
         val list: List<TotalDistance>

@@ -1,8 +1,6 @@
 package jp.ceed.android.mylapslogger.repository
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
-import jp.ceed.android.mylapslogger.database.AppDatabase
+import jp.ceed.android.mylapslogger.dao.PracticeDao
 import jp.ceed.android.mylapslogger.entity.Practice
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -10,12 +8,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PracticeRepository @Inject constructor (
-    @ApplicationContext context: Context,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val practiceDao: PracticeDao,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
-
-    private val practiceDao = AppDatabase.getInstance(context).practiceDao()
-
 
     suspend fun findById(id: Int): Practice {
         val result: Practice

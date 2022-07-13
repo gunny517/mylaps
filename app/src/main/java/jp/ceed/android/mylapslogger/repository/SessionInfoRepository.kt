@@ -1,8 +1,6 @@
 package jp.ceed.android.mylapslogger.repository
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
-import jp.ceed.android.mylapslogger.database.AppDatabase
+import jp.ceed.android.mylapslogger.dao.SessionInfoDao
 import jp.ceed.android.mylapslogger.di.IoDispatcher
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import kotlinx.coroutines.CoroutineDispatcher
@@ -11,12 +9,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SessionInfoRepository @Inject constructor (
-    @ApplicationContext context: Context,
+    private val dao: SessionInfoDao,
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-
-    private val dao = AppDatabase.getInstance(context).sessionInfoDao()
-
 
     suspend fun findBySessionId(sessionId: Long): SessionInfo? {
         var sessionInfo: SessionInfo? = null

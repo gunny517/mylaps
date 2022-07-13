@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import jp.ceed.android.mylapslogger.dao.ErrorLogDao
 import jp.ceed.android.mylapslogger.repository.AppInfoRepository
 import jp.ceed.android.mylapslogger.repository.ErrorLogRepository
 import jp.ceed.android.mylapslogger.util.AppSettings
@@ -16,13 +17,15 @@ import jp.ceed.android.mylapslogger.util.ExceptionUtil
 object UtilModule {
 
     @Provides
-    fun bindsErrorLogRepository(@ApplicationContext context: Context): ErrorLogRepository {
-        return ErrorLogRepository(context)
+    fun bindsErrorLogRepository(
+        errorLogDao: ErrorLogDao,
+    ): ErrorLogRepository {
+        return ErrorLogRepository(errorLogDao)
     }
 
     @Provides
-    fun bindsExceptionUtil(): ExceptionUtil {
-        return ExceptionUtil()
+    fun bindsExceptionUtil(errorLogRepository: ErrorLogRepository): ExceptionUtil {
+        return ExceptionUtil(errorLogRepository)
     }
 
     @Provides

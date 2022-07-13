@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
+import jp.ceed.android.mylapslogger.dao.*
 import jp.ceed.android.mylapslogger.repository.*
 
 
@@ -15,18 +16,27 @@ import jp.ceed.android.mylapslogger.repository.*
 object RepositoryForActivityModule {
 
     @Provides
-    fun bindsApiRepository(@ApplicationContext context: Context): ApiRepository {
-        return ApiRepository(context)
+    fun bindsApiRepository(
+        @ApplicationContext context: Context,
+        preferenceDao: PreferenceDao,
+        userAccountRepository: UserAccountRepository,
+    ): ApiRepository {
+        return ApiRepository(context, preferenceDao, userAccountRepository)
     }
 
     @Provides
-    fun bindsUserAccountRepository(@ApplicationContext context: Context): UserAccountRepository {
-        return UserAccountRepository(context)
+    fun bindsUserAccountRepository(
+        @ApplicationContext context: Context,
+        preferenceDao: PreferenceDao,
+    ): UserAccountRepository {
+        return UserAccountRepository(context, preferenceDao)
     }
 
     @Provides
-    fun bindsActivityInfoRepository(@ApplicationContext context: Context): ActivityInfoRepository {
-        return ActivityInfoRepository(context)
+    fun bindsActivityInfoRepository(
+        activityInfoDao: ActivityInfoDao,
+    ): ActivityInfoRepository {
+        return ActivityInfoRepository(activityInfoDao)
     }
 
     @Provides
@@ -40,23 +50,28 @@ object RepositoryForActivityModule {
     }
 
     @Provides
-    fun bindsPracticeRepository(@ApplicationContext context: Context): PracticeRepository {
-        return PracticeRepository(context)
+    fun bindsPracticeRepository(
+        practiceDao: PracticeDao
+    ): PracticeRepository {
+        return PracticeRepository(practiceDao)
     }
 
     @Provides
-    fun bindsSessionInfoRepository(@ApplicationContext context: Context): SessionInfoRepository {
-        return SessionInfoRepository(context)
+    fun bindsSessionInfoRepository(sessionInfoDao: SessionInfoDao): SessionInfoRepository {
+        return SessionInfoRepository(sessionInfoDao)
     }
 
     @Provides
-    fun bindsPracticeTrackRepository(@ApplicationContext context: Context): PracticeTrackRepository {
-        return PracticeTrackRepository(context)
+    fun bindsPracticeTrackRepository(
+        practiceTrackDao: PracticeTrackDao,
+        trackDao: TrackDao,
+    ): PracticeTrackRepository {
+        return PracticeTrackRepository(practiceTrackDao, trackDao)
     }
 
     @Provides
-    fun bindsTrackRepository(@ApplicationContext context: Context): TrackRepository {
-        return TrackRepository(context)
+    fun bindsTrackRepository(trackDao: TrackDao): TrackRepository {
+        return TrackRepository(trackDao)
     }
 
     @Provides
@@ -65,7 +80,9 @@ object RepositoryForActivityModule {
     }
 
     @Provides
-    fun bindsActivityInfoTrackRepository(@ActivityContext context: Context): ActivityInfoTrackRepository {
-        return ActivityInfoTrackRepository(context)
+    fun bindsActivityInfoTrackRepository(
+        activityInfoTrackDao: ActivityInfoTrackDao
+    ): ActivityInfoTrackRepository {
+        return ActivityInfoTrackRepository(activityInfoTrackDao)
     }
 }

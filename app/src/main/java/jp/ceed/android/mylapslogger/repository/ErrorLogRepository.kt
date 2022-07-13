@@ -1,9 +1,6 @@
 package jp.ceed.android.mylapslogger.repository
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.dao.ErrorLogDao
-import jp.ceed.android.mylapslogger.database.AppDatabase
 import jp.ceed.android.mylapslogger.di.IoDispatcher
 import jp.ceed.android.mylapslogger.dto.ErrorLogItem
 import jp.ceed.android.mylapslogger.entity.ErrorLog
@@ -13,11 +10,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ErrorLogRepository @Inject constructor (
-    @ApplicationContext val context: Context,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dao: ErrorLogDao,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
-
-    private val dao: ErrorLogDao = AppDatabase.getInstance(context).errorLogDao()
 
     suspend fun findAll(): List<ErrorLogItem> {
         val results: ArrayList<ErrorLogItem> = ArrayList()

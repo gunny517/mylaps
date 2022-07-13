@@ -7,9 +7,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class ExceptionUtil @Inject constructor () {
-
-    @Inject lateinit var errorLogRepository: ErrorLogRepository
+class ExceptionUtil @Inject constructor (
+    var errorLogRepository: ErrorLogRepository
+) {
 
     fun save(t: Throwable?, scope: CoroutineScope){
         val errorLog = ErrorLog(t?.stackTraceToString())

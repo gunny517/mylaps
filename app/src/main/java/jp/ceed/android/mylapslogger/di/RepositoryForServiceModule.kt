@@ -6,9 +6,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import jp.ceed.android.mylapslogger.dao.PracticeDao
+import jp.ceed.android.mylapslogger.dao.PreferenceDao
+import jp.ceed.android.mylapslogger.dao.TrackDao
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.PracticeRepository
 import jp.ceed.android.mylapslogger.repository.TrackRepository
+import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 
 
 @Module
@@ -16,18 +20,22 @@ import jp.ceed.android.mylapslogger.repository.TrackRepository
 object RepositoryForServiceModule {
 
     @Provides
-    fun bindsApiRepository(@ApplicationContext context: Context): ApiRepository {
-        return ApiRepository(context)
+    fun bindsApiRepository(
+        @ApplicationContext context: Context,
+        preferenceDao: PreferenceDao,
+        userAccountRepository: UserAccountRepository,
+    ): ApiRepository {
+        return ApiRepository(context, preferenceDao, userAccountRepository)
     }
 
     @Provides
-    fun bindsPracticeRepository(@ApplicationContext context: Context): PracticeRepository {
-        return PracticeRepository(context)
+    fun bindsPracticeRepository(practiceDao: PracticeDao): PracticeRepository {
+        return PracticeRepository(practiceDao)
     }
 
     @Provides
-    fun bindTrackRepository(@ApplicationContext context: Context): TrackRepository {
-        return TrackRepository(context)
+    fun bindTrackRepository(trackDao: TrackDao): TrackRepository {
+        return TrackRepository(trackDao)
     }
 
 }

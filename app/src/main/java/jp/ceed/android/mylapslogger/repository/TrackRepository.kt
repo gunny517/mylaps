@@ -1,8 +1,6 @@
 package jp.ceed.android.mylapslogger.repository
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
-import jp.ceed.android.mylapslogger.database.AppDatabase
+import jp.ceed.android.mylapslogger.dao.TrackDao
 import jp.ceed.android.mylapslogger.entity.Track
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import kotlinx.coroutines.CoroutineDispatcher
@@ -11,11 +9,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class TrackRepository @Inject constructor(
-    @ApplicationContext context: Context,
+    private val trackDao: TrackDao,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-
-    private val trackDao = AppDatabase.getInstance(context).trackDao()
 
     suspend fun saveAll(activities: List<ActivitiesItem>){
         val trackIdList = getTrackIdList()
