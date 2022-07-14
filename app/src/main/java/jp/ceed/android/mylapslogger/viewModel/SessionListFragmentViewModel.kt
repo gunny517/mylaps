@@ -23,7 +23,6 @@ class SessionListFragmentViewModel @Inject constructor (
 
     val activityId: Int = savedStateHandle.get<Int>("activityId") ?: throw IllegalStateException("Should have activityId")
 
-
     init {
         loadSessionInfo()
     }

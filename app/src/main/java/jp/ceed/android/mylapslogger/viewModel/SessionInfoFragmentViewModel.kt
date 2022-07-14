@@ -1,6 +1,7 @@
 package jp.ceed.android.mylapslogger.viewModel
 
 import android.location.Location
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -49,7 +50,8 @@ class SessionInfoFragmentViewModel @Inject constructor (
         loadSessionInfo(params.sessionId)
     }
 
-    private fun loadSessionInfo(_sessionId: Long) {
+    @VisibleForTesting
+    fun loadSessionInfo(_sessionId: Long) {
         sessionId = _sessionId
         viewModelScope.launch {
             val _sessionInfo: SessionInfo? = sessionInfoRepository.findBySessionId(_sessionId)

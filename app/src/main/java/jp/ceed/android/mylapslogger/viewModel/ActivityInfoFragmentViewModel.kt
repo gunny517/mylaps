@@ -47,7 +47,6 @@ class ActivityInfoFragmentViewModel @Inject constructor(
     	loadActivityInfo()
     }
 
-
     private fun loadActivityInfo() {
         viewModelScope.launch {
             onLoadActivityInfo(activityInfoRepository.findById(activityId))

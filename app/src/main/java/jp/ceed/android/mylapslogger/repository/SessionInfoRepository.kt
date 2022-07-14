@@ -13,7 +13,7 @@ class SessionInfoRepository @Inject constructor (
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    suspend fun findBySessionId(sessionId: Long): SessionInfo =
+    suspend fun findBySessionId(sessionId: Long): SessionInfo? =
         withContext(dispatcher) {
             dao.findById(sessionId)
         }
@@ -35,22 +35,9 @@ class SessionInfoRepository @Inject constructor (
         }
     }
 
-    suspend fun loadWeatherAndSave(sessionId: Long){
-        withContext(dispatcher){
-
-        }
-    }
-
-    suspend fun saveSessionInfo(sessionInfo: SessionInfo){
-        withContext(dispatcher){
-            insert(sessionInfo)
-        }
-    }
-
     suspend fun deleteAll(){
         withContext(dispatcher){
             dao.deleteAll()
         }
     }
-
 }

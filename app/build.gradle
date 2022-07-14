@@ -134,4 +134,6 @@ dependencies {
     testImplementation "org.spekframework.spek2:spek-runner-junit5:$spek_version"
     testImplementation "org.junit.platform:junit-platform-runner:1.0.0"
 
+    testImplementation "io.mockk:mockk:1.12.4"
+
 }

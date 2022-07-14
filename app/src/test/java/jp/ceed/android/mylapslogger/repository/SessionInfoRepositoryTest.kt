@@ -18,7 +18,6 @@ class SessionInfoRepositoryTest {
 
     private lateinit var sessionInfoRepository: SessionInfoRepository
 
-
     @Before
     fun setUp() {
         GlobalScope.launch {
