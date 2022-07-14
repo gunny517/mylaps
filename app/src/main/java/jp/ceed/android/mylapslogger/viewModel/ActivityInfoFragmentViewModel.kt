@@ -1,5 +1,6 @@
 package jp.ceed.android.mylapslogger.viewModel
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -41,14 +42,15 @@ class ActivityInfoFragmentViewModel @Inject constructor(
 
     var onSaved: MutableLiveData<Event<EventState>> = MutableLiveData()
 
-    private var isUpdate = false
+    @VisibleForTesting
+    var isUpdate = false
 
     init {
     	loadActivityInfo()
     }
 
-
-    private fun loadActivityInfo() {
+    @VisibleForTesting
+    fun loadActivityInfo() {
         viewModelScope.launch {
             onLoadActivityInfo(activityInfoRepository.findById(activityId))
         }

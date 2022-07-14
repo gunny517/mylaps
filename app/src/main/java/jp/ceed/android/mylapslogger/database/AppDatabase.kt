@@ -30,7 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun errorLogDao(): ErrorLogDao
 
-    abstract fun activityInfoTrack(): ActivityInfoTrackDao
+    abstract fun activityInfoTrackDao(): ActivityInfoTrackDao
 
     companion object {
 

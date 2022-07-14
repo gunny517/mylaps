@@ -1,6 +1,7 @@
 package jp.ceed.android.mylapslogger.viewModel
 
 import android.location.Location
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -36,7 +37,8 @@ class SessionInfoFragmentViewModel @Inject constructor (
 
     val progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    private var isInsert: Boolean = false
+    @VisibleForTesting
+    var isInsert: Boolean = false
 
     var onSaved: MutableLiveData<Event<EventState>> = MutableLiveData()
 
@@ -49,12 +51,13 @@ class SessionInfoFragmentViewModel @Inject constructor (
         loadSessionInfo(params.sessionId)
     }
 
-    private fun loadSessionInfo(_sessionId: Long) {
-        sessionId = _sessionId
+    @VisibleForTesting
+    fun loadSessionInfo(id: Long) {
+        sessionId = id
         viewModelScope.launch {
-            val _sessionInfo: SessionInfo? = sessionInfoRepository.findBySessionId(_sessionId)
-            sessionInfo.value = _sessionInfo ?: SessionInfo(sessionId = _sessionId)
-            isInsert = _sessionInfo == null
+            val entity: SessionInfo? = sessionInfoRepository.findBySessionId(id)
+            sessionInfo.value = entity ?: SessionInfo(sessionId = id)
+            isInsert = entity == null
             weatherButtonEnable.value = isInsert
         }
     }

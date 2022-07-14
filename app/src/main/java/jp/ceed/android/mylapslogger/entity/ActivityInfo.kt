@@ -7,7 +7,9 @@ import androidx.room.PrimaryKey
 @Entity
 data class ActivityInfo(
 
-	@PrimaryKey @ColumnInfo(name = "activity_id") val activityId: Int,
+	@PrimaryKey @ColumnInfo(name = "activity_id")
+	val activityId: Int,
+
 	var description: String,
 
 	@ColumnInfo(name = "fuel_consumption")

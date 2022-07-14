@@ -12,11 +12,9 @@ import java.io.IOException
 import javax.inject.Inject
 
 class UserAccountRepository @Inject constructor (
-    @ApplicationContext val context: Context
+    @ApplicationContext val context: Context,
+    private val preferenceDao: PreferenceDao
 ) {
-
-    private val preferenceDao: PreferenceDao = PreferenceDao(context)
-
 
     fun getAccessToken(): String? {
         return preferenceDao.read().accessToken

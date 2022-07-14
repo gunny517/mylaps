@@ -1,13 +1,16 @@
 package jp.ceed.android.mylapslogger.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 
 @Dao
 interface SessionInfoDao {
 
 	@Query("SELECT * FROM SessionInfo WHERE session_id = (:sessionId)")
-	fun findById(sessionId: Long) : SessionInfo
+	fun findById(sessionId: Long) : SessionInfo?
 
 	@Query("SELECT * FROM SessionInfo")
 	fun findAll(): List<SessionInfo>

@@ -1,8 +1,7 @@
 package jp.ceed.android.mylapslogger.repository
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
-import jp.ceed.android.mylapslogger.database.AppDatabase
+import jp.ceed.android.mylapslogger.dao.PracticeTrackDao
+import jp.ceed.android.mylapslogger.dao.TrackDao
 import jp.ceed.android.mylapslogger.di.IoDispatcher
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
 import jp.ceed.android.mylapslogger.entity.TotalDistance
@@ -12,22 +11,15 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PracticeTrackRepository @Inject constructor (
-    @ApplicationContext context: Context,
+    private val practiceTrackDao: PracticeTrackDao,
+    private val trackDao: TrackDao,
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    private val practiceTrackDao = AppDatabase.getInstance(context).practiceTrackDao()
-
-    private val trackDao = AppDatabase.getInstance(context).trackDao()
-
-
-    suspend fun getTotalDistanceList(): List<TotalDistance> {
-        val list: List<TotalDistance>
+    suspend fun getTotalDistanceList(): List<TotalDistance> =
         withContext(dispatcher){
-            list = practiceTrackDao.getTotalDistance()
+            practiceTrackDao.getTotalDistance()
         }
-        return list
-    }
 
     suspend fun findBestLapList(): List<PracticeTrack> {
         val list: MutableList<PracticeTrack> = mutableListOf()
@@ -43,21 +35,13 @@ class PracticeTrackRepository @Inject constructor (
         return list
     }
 
-
-    private suspend fun getBestLapByTrackId(trackId: Int): PracticeTrack? {
-        var entity: PracticeTrack?
+    private suspend fun getBestLapByTrackId(trackId: Int): PracticeTrack? =
         withContext(dispatcher){
-            entity = practiceTrackDao.findBestLapByTrackId(trackId)
+            practiceTrackDao.findBestLapByTrackId(trackId)
         }
-        return entity
-    }
 
-    suspend fun getPracticeListByTrack(trackId: Int): List<PracticeTrack> {
-        var list: List<PracticeTrack>
+    suspend fun getPracticeListByTrack(trackId: Int): List<PracticeTrack> =
         withContext(dispatcher){
-            list = practiceTrackDao.getPracticeListByTrack(trackId)
+            practiceTrackDao.getPracticeListByTrack(trackId)
         }
-        return list
-    }
-
 }

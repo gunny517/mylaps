@@ -1,8 +1,6 @@
 package jp.ceed.android.mylapslogger.repository
 
 
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import org.junit.Assert.fail
@@ -10,13 +8,12 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import javax.inject.Inject
 
 @RunWith(RobolectricTestRunner::class)
 class ApiRepositoryTest {
 
-    private val context = ApplicationProvider.getApplicationContext() as Context
-
-    private val apiRepository = ApiRepository(context)
+    @Inject private lateinit var apiRepository: ApiRepository
 
     @Before
     fun setUp() {
