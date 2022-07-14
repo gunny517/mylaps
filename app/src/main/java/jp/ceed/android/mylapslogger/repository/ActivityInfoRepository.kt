@@ -13,20 +13,20 @@ class ActivityInfoRepository @Inject constructor (
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    suspend fun findById(sessionId: Int): ActivityInfo =
+    suspend fun findById(id: Int): ActivityInfo? =
         withContext(dispatcher) {
-            dao.findById(sessionId)
+            dao.findById(id)
         }
 
-    suspend fun update(sessionInfo: ActivityInfo) {
+    suspend fun update(activityInfo: ActivityInfo) {
         withContext(dispatcher) {
-            dao.updateId(sessionInfo)
+            dao.updateId(activityInfo)
         }
     }
 
-    suspend fun insert(sessionInfo: ActivityInfo) {
+    suspend fun insert(activityInfo: ActivityInfo) {
         withContext(dispatcher) {
-            dao.insert(sessionInfo)
+            dao.insert(activityInfo)
         }
     }
 }
