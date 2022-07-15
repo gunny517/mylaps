@@ -11,8 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AppInfoFragmentViewModel @Inject constructor (
-    private var appSettings: AppSettings,
-    private var appInfoRepository: AppInfoRepository,
+    var appSettings: AppSettings,
+    var appInfoRepository: AppInfoRepository,
 ): ViewModel() {
 
     var appVersionName: MutableLiveData<String> = MutableLiveData()

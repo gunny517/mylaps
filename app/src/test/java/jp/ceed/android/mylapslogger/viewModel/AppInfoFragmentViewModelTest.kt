@@ -23,7 +23,7 @@ object AppInfoFragmentViewModelTest : Spek({
     }
     every { Looper.getMainLooper() } returns looper
 
-    val appSettings: AppSettings = mockk {
+    val appSettings: AppSettings = mockk(relaxed = true) {
         every {
             isShowPracticeResultsAsSeparate()
         } returns true
@@ -38,22 +38,36 @@ object AppInfoFragmentViewModelTest : Spek({
         } returns "1.2.3"
     }
 
-    val viewModel: AppInfoFragmentViewModel = AppInfoFragmentViewModel(
+    val viewModel = AppInfoFragmentViewModel(
         appSettings = appSettings,
         appInfoRepository = appInfoRepository,
     )
 
     describe("初期状態の確認"){
-        assertThat(viewModel.appVersionName.value).isEqualTo("1.2.3")
-        assertThat(viewModel.showPracticeResultAsSeparate.value).isEqualTo(true)
-        assertThat(viewModel.showSpeedBar.value).isEqualTo(true)
+        it("正しい値がセットされている"){
+            assertThat(viewModel.appVersionName.value).isEqualTo("1.2.3")
+            assertThat(viewModel.showPracticeResultAsSeparate.value).isEqualTo(true)
+            assertThat(viewModel.showSpeedBar.value).isEqualTo(true)
+        }
     }
 
     describe("saveShowPracticeResultsAsSeparateが呼ばれたとき"){
-        viewModel.showPracticeResultAsSeparate.value = false
-        viewModel.saveShowPracticeResultsAsSeparate()
-        verify {
-            appSettings.saveShowPracticeResultsAsSeparate(false)
+        it("保存の処理が呼ばれている"){
+            viewModel.showPracticeResultAsSeparate.value = false
+            viewModel.saveShowPracticeResultsAsSeparate()
+            verify {
+                viewModel.appSettings.saveShowPracticeResultsAsSeparate(false)
+            }
+        }
+    }
+
+    describe("saveShowSpeedBarが呼ばれえた時"){
+        it("保存の処理が呼ばれている"){
+            viewModel.showSpeedBar.value = false
+            viewModel.saveShowSpeedBar()
+            verify {
+                viewModel.appSettings.saveSpeedBar(false)
+            }
         }
     }
 })
