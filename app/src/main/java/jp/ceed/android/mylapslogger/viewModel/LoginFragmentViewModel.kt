@@ -30,10 +30,10 @@ class LoginFragmentViewModel @Inject constructor(
             password.value.toString()
         ) {
             it.onSuccess {
-                loginResult.postValue(LoginResult.Success)
+                loginResult.value = LoginResult.Success
             }.onFailure { t ->
                 exceptionUtil.save(t, viewModelScope)
-                loginResult.postValue(LoginResult.Failed)
+                loginResult.value = LoginResult.Failed
             }
         }
     }
