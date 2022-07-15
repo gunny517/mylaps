@@ -5,19 +5,21 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.adatpter.ActivitiesAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentActivitiesBinding
+import jp.ceed.android.mylapslogger.entity.EventObserver
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.viewModel.ActivitiesFragmentViewModel
+import kotlinx.coroutines.DelicateCoroutinesApi
 import javax.inject.Inject
 
+@OptIn(DelicateCoroutinesApi::class)
 @AndroidEntryPoint
 class ActivitiesFragment : Fragment() {
 
@@ -32,7 +34,7 @@ class ActivitiesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_activities, container, false)
         binding.viewModel = viewModel
@@ -40,18 +42,20 @@ class ActivitiesFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
     }
 
-
     override fun onResume() {
         super.onResume()
-        checkAccount()
+        viewModel.checkAccount()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         menu.findItem(R.id.action_session_info).isVisible = false
@@ -90,11 +94,9 @@ class ActivitiesFragment : Fragment() {
         }
     }
 
-
     private fun navigateToUserInfo() {
         findNavController().navigate(R.id.action_ActivitiesFragment_to_UserInfoFragment)
     }
-
 
     private fun navigateToAppInfo(){
         findNavController().navigate(R.id.action_ActivitiesFragment_to_AppInfoFragment)
@@ -102,17 +104,6 @@ class ActivitiesFragment : Fragment() {
 
     private fun navigateToFuelConsumptionList(){
         findNavController().navigate(R.id.action_ActivitiesFragment_to_FuelConsumptionListFragment)
-    }
-
-
-    private fun checkAccount() {
-        val token: String? = userAccountRepository.getAccessToken();
-        val userId: String? = userAccountRepository.getUserId()
-        if (token == null || userId == null) {
-            findNavController().navigate(R.id.action_ActivitiesFragment_to_LoginFragment)
-        } else {
-            viewModel.callActivitiesRequest()
-        }
     }
 
     private fun initLayout() {
@@ -125,9 +116,16 @@ class ActivitiesFragment : Fragment() {
             binding.recyclerView.adapter = adapter
             binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            viewModel.activities.observe(viewLifecycleOwner, Observer {
+            viewModel.activities.observe(viewLifecycleOwner) {
                 adapter.setItems(it)
                 adapter.notifyDataSetChanged()
+            }
+            viewModel.event.observe(viewLifecycleOwner, EventObserver { eventState ->
+                when(eventState){
+                    ActivitiesFragmentViewModel.EventState.GO_TO_LOGIN ->
+                        navigateToLogin()
+                    else -> {}
+                }
             })
         }
     }
@@ -161,9 +159,7 @@ class ActivitiesFragment : Fragment() {
         findNavController().navigate(R.id.action_ActivitiesFragment_to_TotalDistanceFragment)
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun navigateToLogin(){
+        findNavController().navigate(R.id.action_ActivitiesFragment_to_LoginFragment)
     }
 }
