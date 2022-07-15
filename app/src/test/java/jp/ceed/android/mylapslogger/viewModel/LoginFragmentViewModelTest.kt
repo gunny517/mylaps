@@ -1,11 +1,10 @@
 package jp.ceed.android.mylapslogger.viewModel
 
-import android.os.Looper
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.mockkStatic
 import io.mockk.verify
+import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.model.LoginResult
 import jp.ceed.android.mylapslogger.network.response.OAuthResponse
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
@@ -18,12 +17,7 @@ import java.io.IOException
 @RunWith(JUnitPlatform::class)
 object LoginFragmentViewModelTest : Spek({
 
-    // テスト実行用のMainLooperの準備
-    mockkStatic(Looper::class)
-    val looper = mockk<Looper> {
-        every { thread } returns Thread.currentThread()
-    }
-    every { Looper.getMainLooper() } returns looper
+    initMainLooper()
 
     // repositoryのモック（失敗時）
     val repositoryForFail: UserAccountRepository = mockk{

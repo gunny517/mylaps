@@ -1,10 +1,13 @@
 package jp.ceed.android.mylapslogger.viewModel
 
-import android.os.Looper
 import androidx.lifecycle.SavedStateHandle
 import com.google.common.truth.Truth.assertThat
-import io.mockk.*
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
+import io.mockk.mockk
 import jp.ceed.android.mylapslogger.entity.ActivityInfo
+import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
@@ -14,12 +17,7 @@ import org.spekframework.spek2.style.specification.describe
 @RunWith(JUnitPlatform::class)
 object ActivityInfoFragmentViewModelTest : Spek({
 
-    // テスト実行用のMainLooperの準備
-    mockkStatic(Looper::class)
-    val looper = mockk<Looper> {
-        every { thread } returns Thread.currentThread()
-    }
-    every { Looper.getMainLooper() } returns looper
+    initMainLooper()
 
     val savedStateHandle: SavedStateHandle = mockk(relaxed = true) {
         every {
@@ -31,23 +29,35 @@ object ActivityInfoFragmentViewModelTest : Spek({
         every {
             get<String>("dateTime")
         } returns "2022-01-01"
+        every {
+            get<String>("bestLap")
+        } returns "42.85"
+        every {
+            get<String>("totalTime")
+        } returns "1:23:45.678"
+        every {
+            get<String>("totalDistance")
+        } returns "123.45"
+        every {
+            get<String>("totalLap")
+        } returns "12"
     }
 
     val hasRecord: ActivityInfoRepository = mockk {
         coEvery {
-            findById(123)
+            findById(any())
         } returns ActivityInfo(
-            activityId = 123,
+            activityId = (savedStateHandle.get<Int>("activityId") ?: 0),
             description = "This is description",
             fuelConsumption = 1.2F,
-            trackId = 555,
-            dateTime = "2022-05-05",
+            trackId = (savedStateHandle.get<Int>("trackId") ?: 0),
+            dateTime = (savedStateHandle.get<String>("dateTime") ?: ""),
         )
     }
 
     val hasNotRecord: ActivityInfoRepository = mockk {
         coEvery {
-            findById(123)
+            findById(any())
         } returns null
     }
 
@@ -58,19 +68,30 @@ object ActivityInfoFragmentViewModelTest : Spek({
                 savedStateHandle = savedStateHandle,
                 activityInfoRepository = hasRecord,
             )
+
             it("activityInfoの値がフィールドにセットされる") {
                 assertThat(viewModel.description.value).isEqualTo("This is description")
                 assertThat(viewModel.fuelConsumption.value).isEqualTo("1.2")
+                assertThat(viewModel.activityId).isEqualTo(123)
+                assertThat(viewModel.bestLap.value).isEqualTo("42.85")
+                assertThat(viewModel.totalLap.value).isEqualTo("12")
+                assertThat(viewModel.totalTime.value).isEqualTo("1:23:45.678")
+                assertThat(viewModel.totalDistance.value).isEqualTo("123.45")
+                assertThat(viewModel.trackId).isEqualTo(111)
+                assertThat(viewModel.dateTime).isEqualTo("2022-01-01")
                 assertThat(viewModel.isUpdate).isEqualTo(true)
             }
+
             it("saveSessionInfoが呼ばれるとupdateが実行される"){
+                viewModel.description.value = "This is Updated value."
+                viewModel.fuelConsumption.value = "1.5"
                 viewModel.saveSessionInfo()
                 coVerify {
                     viewModel.activityInfoRepository.update(
                         ActivityInfo(
                             activityId = 123,
-                            description = "This is description",
-                            fuelConsumption = 1.2F,
+                            description = "This is Updated value.",
+                            fuelConsumption = 1.5F,
                             trackId = 111,
                             dateTime = "2022-01-01",
                         )
@@ -80,23 +101,35 @@ object ActivityInfoFragmentViewModelTest : Spek({
         }
 
         context("保存されていなかった場合"){
+
             val viewModel = ActivityInfoFragmentViewModel(
                 savedStateHandle = savedStateHandle,
                 activityInfoRepository = hasNotRecord,
             )
+
             it("値がセットされていない"){
                 assertThat(viewModel.description.value).isNull()
                 assertThat(viewModel.fuelConsumption.value).isNull()
+                assertThat(viewModel.activityId).isEqualTo(123)
+                assertThat(viewModel.bestLap.value).isEqualTo("42.85")
+                assertThat(viewModel.totalLap.value).isEqualTo("12")
+                assertThat(viewModel.totalTime.value).isEqualTo("1:23:45.678")
+                assertThat(viewModel.totalDistance.value).isEqualTo("123.45")
+                assertThat(viewModel.trackId).isEqualTo(111)
+                assertThat(viewModel.dateTime).isEqualTo("2022-01-01")
                 assertThat(viewModel.isUpdate).isEqualTo(false)
             }
+
             it("saveSessionInfoが呼ばれるとinsertが実効される"){
+                viewModel.description.value = "This is input value"
+                viewModel.fuelConsumption.value = "1.4"
                 viewModel.saveSessionInfo()
                 coVerify {
                     viewModel.activityInfoRepository.insert(
                         ActivityInfo(
                             activityId = 123,
-                            description = "",
-                            fuelConsumption = null,
+                            description = "This is input value",
+                            fuelConsumption = 1.4F,
                             trackId = 111,
                             dateTime = "2022-01-01"
                         )
@@ -105,6 +138,4 @@ object ActivityInfoFragmentViewModelTest : Spek({
             }
         }
     }
-
-    unmockkAll()
 })

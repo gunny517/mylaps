@@ -1,11 +1,10 @@
 package jp.ceed.android.mylapslogger.viewModel
 
-import android.os.Looper
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.mockkStatic
 import io.mockk.verify
+import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.repository.AppInfoRepository
 import jp.ceed.android.mylapslogger.util.AppSettings
 import org.junit.platform.runner.JUnitPlatform
@@ -16,12 +15,7 @@ import org.spekframework.spek2.style.specification.describe
 @RunWith(JUnitPlatform::class)
 object AppInfoFragmentViewModelTest : Spek({
 
-    // テスト実行用のMainLooperの準備
-    mockkStatic(Looper::class)
-    val looper = mockk<Looper> {
-        every { thread } returns Thread.currentThread()
-    }
-    every { Looper.getMainLooper() } returns looper
+    initMainLooper()
 
     val appSettings: AppSettings = mockk(relaxed = true) {
         every {
