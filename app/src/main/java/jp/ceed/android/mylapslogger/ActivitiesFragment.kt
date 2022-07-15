@@ -1,5 +1,7 @@
 package jp.ceed.android.mylapslogger
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -13,11 +15,10 @@ import jp.ceed.android.mylapslogger.adatpter.ActivitiesAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentActivitiesBinding
 import jp.ceed.android.mylapslogger.entity.EventObserver
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
-import jp.ceed.android.mylapslogger.repository.UserAccountRepository
+import jp.ceed.android.mylapslogger.service.PracticeDataService
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.viewModel.ActivitiesFragmentViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
-import javax.inject.Inject
 
 @OptIn(DelicateCoroutinesApi::class)
 @AndroidEntryPoint
@@ -28,8 +29,6 @@ class ActivitiesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ActivitiesFragmentViewModel by viewModels()
-
-    @Inject lateinit var userAccountRepository: UserAccountRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -124,7 +123,9 @@ class ActivitiesFragment : Fragment() {
                 when(eventState){
                     ActivitiesFragmentViewModel.EventState.GO_TO_LOGIN ->
                         navigateToLogin()
-                    else -> {}
+                    ActivitiesFragmentViewModel.EventState.START_PRACTICE_SERVICE ->
+                        startPracticeService(viewModel.activities.value)
+                    ActivitiesFragmentViewModel.EventState.NONE -> {}
                 }
             })
         }
@@ -161,5 +162,15 @@ class ActivitiesFragment : Fragment() {
 
     private fun navigateToLogin(){
         findNavController().navigate(R.id.action_ActivitiesFragment_to_LoginFragment)
+    }
+
+    private fun startPracticeService(activities: List<ActivitiesItem>?){
+        activities?.let {
+            val list = ArrayList(it)
+            val context: Context = requireContext()
+            val intent = Intent(context, PracticeDataService::class.java)
+            intent.putParcelableArrayListExtra(PracticeDataService.PARAM_ACTIVITIES, list)
+            context.startService(intent)
+        }
     }
 }
