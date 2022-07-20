@@ -69,9 +69,7 @@ object ActivityInfoFragmentViewModelTest : Spek({
                 activityInfoRepository = hasRecord,
             )
 
-            it("activityInfoの値がフィールドにセットされる") {
-                assertThat(viewModel.description.value).isEqualTo("This is description")
-                assertThat(viewModel.fuelConsumption.value).isEqualTo("1.2")
+            it("パラメータの値がフィールドにセットされる") {
                 assertThat(viewModel.activityId).isEqualTo(123)
                 assertThat(viewModel.bestLap.value).isEqualTo("42.85")
                 assertThat(viewModel.totalLap.value).isEqualTo("12")
@@ -79,10 +77,18 @@ object ActivityInfoFragmentViewModelTest : Spek({
                 assertThat(viewModel.totalDistance.value).isEqualTo("123.45")
                 assertThat(viewModel.trackId).isEqualTo(111)
                 assertThat(viewModel.dateTime).isEqualTo("2022-01-01")
+            }
+
+            it("DataBaseから取得した値がフィールドにセットされる") {
+                assertThat(viewModel.description.value).isEqualTo("This is description")
+                assertThat(viewModel.fuelConsumption.value).isEqualTo("1.2")
+            }
+
+            it("更新モードになっている") {
                 assertThat(viewModel.isUpdate).isEqualTo(true)
             }
 
-            it("saveSessionInfoが呼ばれるとupdateが実行される"){
+            it("保存が実行されると更新処理が実行される"){
                 viewModel.description.value = "This is Updated value."
                 viewModel.fuelConsumption.value = "1.5"
                 viewModel.saveSessionInfo()
@@ -107,9 +113,7 @@ object ActivityInfoFragmentViewModelTest : Spek({
                 activityInfoRepository = hasNotRecord,
             )
 
-            it("値がセットされていない"){
-                assertThat(viewModel.description.value).isNull()
-                assertThat(viewModel.fuelConsumption.value).isNull()
+            it("パラメータの値がフィールドにセットされる") {
                 assertThat(viewModel.activityId).isEqualTo(123)
                 assertThat(viewModel.bestLap.value).isEqualTo("42.85")
                 assertThat(viewModel.totalLap.value).isEqualTo("12")
@@ -117,10 +121,18 @@ object ActivityInfoFragmentViewModelTest : Spek({
                 assertThat(viewModel.totalDistance.value).isEqualTo("123.45")
                 assertThat(viewModel.trackId).isEqualTo(111)
                 assertThat(viewModel.dateTime).isEqualTo("2022-01-01")
+            }
+
+            it("データベースの値がセットされていない"){
+                assertThat(viewModel.description.value).isNull()
+                assertThat(viewModel.fuelConsumption.value).isNull()
+            }
+
+            it("入力モードになっている") {
                 assertThat(viewModel.isUpdate).isEqualTo(false)
             }
 
-            it("saveSessionInfoが呼ばれるとinsertが実効される"){
+            it("保存が実行されると挿入が実行される"){
                 viewModel.description.value = "This is input value"
                 viewModel.fuelConsumption.value = "1.4"
                 viewModel.saveSessionInfo()
