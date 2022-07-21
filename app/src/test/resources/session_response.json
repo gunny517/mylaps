@@ -1,0 +1,2089 @@
+{
+	"bestLap": {
+		"sessionId": 3,
+		"lapNr": 3,
+		"duration": "42.873",
+		"speed": {
+			"kph": 84.22083828983277,
+			"mps": 23.394677302731324
+		}
+	},
+	"stats": {
+		"lapCount": 93,
+		"fastestTime": "42.873",
+		"averageTime": "49.477",
+		"medianTime": "43.513",
+		"totalTrainingTime": "6:49:14.770",
+		"activeTrainingTime": "1:16:41.376",
+		"averageSpeed": {
+			"kph": 72.979126243975713,
+			"mps": 20.271979512215477
+		},
+		"fastestSpeed": {
+			"kph": 84.22083828983277,
+			"mps": 23.394677302731324
+		},
+		"chip": {
+			"code": "8761992",
+			"codeNr": 8761992,
+			"carId": 0,
+			"id": 87619920
+		}
+	},
+	"sessions": [{
+		"id": 1,
+		"chipId": 87619920,
+		"dateTimeStart": "2022-06-26T09:15:54.982+09:00",
+		"bestLap": {
+			"nr": 12,
+			"duration": "42.984",
+			"speed": {
+				"kph": 84.0033500837521,
+				"mps": 23.334263912153361
+			}
+		},
+		"aveLapDuration": "50.372",
+		"medianLapDuration": "43.546",
+		"duration": "14:16.327",
+		"laps": [{
+			"nr": 1,
+			"dateTimeStart": "2022-06-26T09:15:54.982+09:00",
+			"duration": "44.748",
+			"speed": {
+				"kph": 80.69187449718423,
+				"mps": 22.414409582551176
+			},
+			"diffPrevLap": null,
+			"sessionDuration": "44.748",
+			"status": "NONE",
+			"sections": [{
+				"name": "SF",
+				"duration": "44.748",
+				"diffPrevLap": null,
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 2,
+			"dateTimeStart": "2022-06-26T09:16:39.73+09:00",
+			"duration": "47.714",
+			"speed": {
+				"kph": 75.67590225091169,
+				"mps": 21.02108395858658
+			},
+			"diffPrevLap": "2.966",
+			"sessionDuration": "1:32.462",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "47.714",
+				"diffPrevLap": "2.966",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 3,
+			"dateTimeStart": "2022-06-26T09:17:27.444+09:00",
+			"duration": "1:16.316",
+			"speed": {
+				"kph": 47.313800513653753,
+				"mps": 13.14272236490382
+			},
+			"diffPrevLap": "28.602",
+			"sessionDuration": "2:48.778",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "1:16.316",
+				"diffPrevLap": "28.602",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 4,
+			"dateTimeStart": "2022-06-26T09:18:43.76+09:00",
+			"duration": "43.121",
+			"speed": {
+				"kph": 83.736462512464925,
+				"mps": 23.260128475684702
+			},
+			"diffPrevLap": "-33.195",
+			"sessionDuration": "3:31.899",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.121",
+				"diffPrevLap": "-33.195",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 5,
+			"dateTimeStart": "2022-06-26T09:19:26.881+09:00",
+			"duration": "43.546",
+			"speed": {
+				"kph": 82.9192118679098,
+				"mps": 23.03311440775272
+			},
+			"diffPrevLap": "0.425",
+			"sessionDuration": "4:15.445",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.546",
+				"diffPrevLap": "0.425",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 6,
+			"dateTimeStart": "2022-06-26T09:20:10.427+09:00",
+			"duration": "43.448",
+			"speed": {
+				"kph": 83.10624194439329,
+				"mps": 23.085067206775914
+			},
+			"diffPrevLap": "-0.098",
+			"sessionDuration": "4:58.893",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.448",
+				"diffPrevLap": "-0.098",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 7,
+			"dateTimeStart": "2022-06-26T09:20:53.875+09:00",
+			"duration": "43.043",
+			"speed": {
+				"kph": 83.888204818437373,
+				"mps": 23.302279116232604
+			},
+			"diffPrevLap": "-0.405",
+			"sessionDuration": "5:41.936",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.043",
+				"diffPrevLap": "-0.405",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 8,
+			"dateTimeStart": "2022-06-26T09:21:36.918+09:00",
+			"duration": "43.148",
+			"speed": {
+				"kph": 83.684064151293242,
+				"mps": 23.245573375359232
+			},
+			"diffPrevLap": "0.105",
+			"sessionDuration": "6:25.084",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.148",
+				"diffPrevLap": "0.105",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 9,
+			"dateTimeStart": "2022-06-26T09:22:20.066+09:00",
+			"duration": "46.975",
+			"speed": {
+				"kph": 76.866418307610431,
+				"mps": 21.351782863225118
+			},
+			"diffPrevLap": "3.827",
+			"sessionDuration": "7:12.059",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "46.975",
+				"diffPrevLap": "3.827",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 10,
+			"dateTimeStart": "2022-06-26T09:23:07.041+09:00",
+			"duration": "1:48.916",
+			"speed": {
+				"kph": 33.152153953505454,
+				"mps": 9.2089316537515149
+			},
+			"diffPrevLap": "1:01.941",
+			"sessionDuration": "9:00.975",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "1:48.916",
+				"diffPrevLap": "1:01.941",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 11,
+			"dateTimeStart": "2022-06-26T09:24:55.957+09:00",
+			"duration": "43.034",
+			"speed": {
+				"kph": 83.905748942696476,
+				"mps": 23.307152484082355
+			},
+			"diffPrevLap": "-1:05.882",
+			"sessionDuration": "9:44.009",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.034",
+				"diffPrevLap": "-1:05.882",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 12,
+			"dateTimeStart": "2022-06-26T09:25:38.991+09:00",
+			"duration": "42.984",
+			"speed": {
+				"kph": 84.0033500837521,
+				"mps": 23.334263912153361
+			},
+			"diffPrevLap": "-0.050",
+			"sessionDuration": "10:26.993",
+			"status": "SESSIONBEST",
+			"sections": [{
+				"name": "SF",
+				"duration": "42.984",
+				"diffPrevLap": "-0.050",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 13,
+			"dateTimeStart": "2022-06-26T09:26:21.975+09:00",
+			"duration": "47.843",
+			"speed": {
+				"kph": 75.471855861881579,
+				"mps": 20.964404406078216
+			},
+			"diffPrevLap": "4.859",
+			"sessionDuration": "11:14.836",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "47.843",
+				"diffPrevLap": "4.859",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 14,
+			"dateTimeStart": "2022-06-26T09:27:09.818+09:00",
+			"duration": "43.902",
+			"speed": {
+				"kph": 82.246822468224693,
+				"mps": 22.846339574506857
+			},
+			"diffPrevLap": "-3.941",
+			"sessionDuration": "11:58.738",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.902",
+				"diffPrevLap": "-3.941",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 15,
+			"dateTimeStart": "2022-06-26T09:27:53.72+09:00",
+			"duration": "42.984",
+			"speed": {
+				"kph": 84.0033500837521,
+				"mps": 23.334263912153361
+			},
+			"diffPrevLap": "-0.918",
+			"sessionDuration": "12:41.722",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "42.984",
+				"diffPrevLap": "-0.918",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 16,
+			"dateTimeStart": "2022-06-26T09:28:36.704+09:00",
+			"duration": "43.168",
+			"speed": {
+				"kph": 83.64529280948851,
+				"mps": 23.234803558191253
+			},
+			"diffPrevLap": "0.184",
+			"sessionDuration": "13:24.890",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.168",
+				"diffPrevLap": "0.184",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 17,
+			"dateTimeStart": "2022-06-26T09:29:19.872+09:00",
+			"duration": "51.437",
+			"speed": {
+				"kph": 70.198495246612367,
+				"mps": 19.499582012947879
+			},
+			"diffPrevLap": "8.269",
+			"sessionDuration": "14:16.327",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "51.437",
+				"diffPrevLap": "8.269",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}]
+	}, {
+		"id": 2,
+		"chipId": 87619920,
+		"dateTimeStart": "2022-06-26T10:30:23.969+09:00",
+		"bestLap": {
+			"nr": 13,
+			"duration": "42.936",
+			"speed": {
+				"kph": 84.097261039686984,
+				"mps": 23.360350288801939
+			}
+		},
+		"aveLapDuration": "48.367",
+		"medianLapDuration": "43.210",
+		"duration": "14:30.612",
+		"laps": [{
+			"nr": 1,
+			"dateTimeStart": "2022-06-26T10:30:23.969+09:00",
+			"duration": "43.209",
+			"speed": {
+				"kph": 83.565923765882118,
+				"mps": 23.21275660163392
+			},
+			"diffPrevLap": null,
+			"sessionDuration": "43.209",
+			"status": "NONE",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.209",
+				"diffPrevLap": null,
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 2,
+			"dateTimeStart": "2022-06-26T10:31:07.178+09:00",
+			"duration": "43.054",
+			"speed": {
+				"kph": 83.866771960793429,
+				"mps": 23.296325544664843
+			},
+			"diffPrevLap": "-0.155",
+			"sessionDuration": "1:26.263",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.054",
+				"diffPrevLap": "-0.155",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 3,
+			"dateTimeStart": "2022-06-26T10:31:50.232+09:00",
+			"duration": "42.947",
+			"speed": {
+				"kph": 84.075721237804743,
+				"mps": 23.354367010501317
+			},
+			"diffPrevLap": "-0.107",
+			"sessionDuration": "2:09.210",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "42.947",
+				"diffPrevLap": "-0.107",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 4,
+			"dateTimeStart": "2022-06-26T10:32:33.179+09:00",
+			"duration": "43.176",
+			"speed": {
+				"kph": 83.629794330183444,
+				"mps": 23.230498425050957
+			},
+			"diffPrevLap": "0.229",
+			"sessionDuration": "2:52.386",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.176",
+				"diffPrevLap": "0.229",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 5,
+			"dateTimeStart": "2022-06-26T10:33:16.355+09:00",
+			"duration": "43.235",
+			"speed": {
+				"kph": 83.515670174627047,
+				"mps": 23.198797270729735
+			},
+			"diffPrevLap": "0.059",
+			"sessionDuration": "3:35.621",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.235",
+				"diffPrevLap": "0.059",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 6,
+			"dateTimeStart": "2022-06-26T10:33:59.59+09:00",
+			"duration": "46.923",
+			"speed": {
+				"kph": 76.951601560002572,
+				"mps": 21.375444877778492
+			},
+			"diffPrevLap": "3.688",
+			"sessionDuration": "4:22.544",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "46.923",
+				"diffPrevLap": "3.688",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 7,
+			"dateTimeStart": "2022-06-26T10:34:46.513+09:00",
+			"duration": "2:07.835",
+			"speed": {
+				"kph": 28.245785582978062,
+				"mps": 7.846051550827239
+			},
+			"diffPrevLap": "1:20.912",
+			"sessionDuration": "6:30.379",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "2:07.835",
+				"diffPrevLap": "1:20.912",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 8,
+			"dateTimeStart": "2022-06-26T10:36:54.348+09:00",
+			"duration": "43.223",
+			"speed": {
+				"kph": 83.538856627258639,
+				"mps": 23.205237952016287
+			},
+			"diffPrevLap": "-1:24.612",
+			"sessionDuration": "7:13.602",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.223",
+				"diffPrevLap": "-1:24.612",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 9,
+			"dateTimeStart": "2022-06-26T10:37:37.571+09:00",
+			"duration": "42.979",
+			"speed": {
+				"kph": 84.013122687824293,
+				"mps": 23.336978524395636
+			},
+			"diffPrevLap": "-0.244",
+			"sessionDuration": "7:56.581",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "42.979",
+				"diffPrevLap": "-0.244",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 10,
+			"dateTimeStart": "2022-06-26T10:38:20.55+09:00",
+			"duration": "43.210",
+			"speed": {
+				"kph": 83.563989817171944,
+				"mps": 23.212219393658874
+			},
+			"diffPrevLap": "0.231",
+			"sessionDuration": "8:39.791",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.210",
+				"diffPrevLap": "0.231",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 11,
+			"dateTimeStart": "2022-06-26T10:39:03.76+09:00",
+			"duration": "43.079",
+			"speed": {
+				"kph": 83.818101627242967,
+				"mps": 23.282806007567491
+			},
+			"diffPrevLap": "-0.131",
+			"sessionDuration": "9:22.870",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.079",
+				"diffPrevLap": "-0.131",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 12,
+			"dateTimeStart": "2022-06-26T10:39:46.839+09:00",
+			"duration": "43.232",
+			"speed": {
+				"kph": 83.521465581051075,
+				"mps": 23.200407105847521
+			},
+			"diffPrevLap": "0.153",
+			"sessionDuration": "10:06.102",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.232",
+				"diffPrevLap": "0.153",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 13,
+			"dateTimeStart": "2022-06-26T10:40:30.071+09:00",
+			"duration": "42.936",
+			"speed": {
+				"kph": 84.097261039686984,
+				"mps": 23.360350288801939
+			},
+			"diffPrevLap": "-0.296",
+			"sessionDuration": "10:49.038",
+			"status": "SESSIONBEST",
+			"sections": [{
+				"name": "SF",
+				"duration": "42.936",
+				"diffPrevLap": "-0.296",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 14,
+			"dateTimeStart": "2022-06-26T10:41:13.007+09:00",
+			"duration": "42.940",
+			"speed": {
+				"kph": 84.089427107592,
+				"mps": 23.358174196553332
+			},
+			"diffPrevLap": "0.004",
+			"sessionDuration": "11:31.978",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "42.940",
+				"diffPrevLap": "0.004",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 15,
+			"dateTimeStart": "2022-06-26T10:41:55.947+09:00",
+			"duration": "43.263",
+			"speed": {
+				"kph": 83.461618473060128,
+				"mps": 23.183782909183368
+			},
+			"diffPrevLap": "0.323",
+			"sessionDuration": "12:15.241",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.263",
+				"diffPrevLap": "0.323",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 16,
+			"dateTimeStart": "2022-06-26T10:42:39.21+09:00",
+			"duration": "43.442",
+			"speed": {
+				"kph": 83.117720178628986,
+				"mps": 23.088255605174716
+			},
+			"diffPrevLap": "0.179",
+			"sessionDuration": "12:58.683",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.442",
+				"diffPrevLap": "0.179",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 17,
+			"dateTimeStart": "2022-06-26T10:43:22.652+09:00",
+			"duration": "43.381",
+			"speed": {
+				"kph": 83.234595790783985,
+				"mps": 23.120721052995552
+			},
+			"diffPrevLap": "-0.061",
+			"sessionDuration": "13:42.064",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.381",
+				"diffPrevLap": "-0.061",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 18,
+			"dateTimeStart": "2022-06-26T10:44:06.033+09:00",
+			"duration": "48.548",
+			"speed": {
+				"kph": 74.37587542226251,
+				"mps": 20.65996539507292
+			},
+			"diffPrevLap": "5.167",
+			"sessionDuration": "14:30.612",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "48.548",
+				"diffPrevLap": "5.167",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}]
+	}, {
+		"id": 3,
+		"chipId": 87619920,
+		"dateTimeStart": "2022-06-26T11:45:41.722+09:00",
+		"bestLap": {
+			"nr": 3,
+			"duration": "42.873",
+			"speed": {
+				"kph": 84.22083828983277,
+				"mps": 23.394677302731324
+			}
+		},
+		"aveLapDuration": "50.784",
+		"medianLapDuration": "43.241",
+		"duration": "14:23.332",
+		"laps": [{
+			"nr": 1,
+			"dateTimeStart": "2022-06-26T11:45:41.722+09:00",
+			"duration": "43.473",
+			"speed": {
+				"kph": 83.058450072458768,
+				"mps": 23.071791686794104
+			},
+			"diffPrevLap": null,
+			"sessionDuration": "43.473",
+			"status": "NONE",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.473",
+				"diffPrevLap": null,
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 2,
+			"dateTimeStart": "2022-06-26T11:46:25.195+09:00",
+			"duration": "43.110",
+			"speed": {
+				"kph": 83.757828810020882,
+				"mps": 23.266063558339134
+			},
+			"diffPrevLap": "-0.363",
+			"sessionDuration": "1:26.583",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.110",
+				"diffPrevLap": "-0.363",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 3,
+			"dateTimeStart": "2022-06-26T11:47:08.305+09:00",
+			"duration": "42.873",
+			"speed": {
+				"kph": 84.22083828983277,
+				"mps": 23.394677302731324
+			},
+			"diffPrevLap": "-0.237",
+			"sessionDuration": "2:09.456",
+			"status": "REPORTBEST",
+			"sections": [{
+				"name": "SF",
+				"duration": "42.873",
+				"diffPrevLap": "-0.237",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 4,
+			"dateTimeStart": "2022-06-26T11:47:51.178+09:00",
+			"duration": "43.128",
+			"speed": {
+				"kph": 83.7228714524207,
+				"mps": 23.256353181227972
+			},
+			"diffPrevLap": "0.255",
+			"sessionDuration": "2:52.584",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.128",
+				"diffPrevLap": "0.255",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 5,
+			"dateTimeStart": "2022-06-26T11:48:34.306+09:00",
+			"duration": "43.059",
+			"speed": {
+				"kph": 83.857033372814058,
+				"mps": 23.293620381337238
+			},
+			"diffPrevLap": "-0.069",
+			"sessionDuration": "3:35.643",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.059",
+				"diffPrevLap": "-0.069",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 6,
+			"dateTimeStart": "2022-06-26T11:49:17.365+09:00",
+			"duration": "43.241",
+			"speed": {
+				"kph": 83.504081774242039,
+				"mps": 23.195578270622789
+			},
+			"diffPrevLap": "0.182",
+			"sessionDuration": "4:18.884",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.241",
+				"diffPrevLap": "0.182",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 7,
+			"dateTimeStart": "2022-06-26T11:50:00.606+09:00",
+			"duration": "49.016",
+			"speed": {
+				"kph": 73.665741798596386,
+				"mps": 20.462706055165661
+			},
+			"diffPrevLap": "5.775",
+			"sessionDuration": "5:07.900",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "49.016",
+				"diffPrevLap": "5.775",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 8,
+			"dateTimeStart": "2022-06-26T11:50:49.622+09:00",
+			"duration": "1:39.327",
+			"speed": {
+				"kph": 36.352653357093239,
+				"mps": 10.097959265859233
+			},
+			"diffPrevLap": "50.311",
+			"sessionDuration": "6:47.227",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "1:39.327",
+				"diffPrevLap": "50.311",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 9,
+			"dateTimeStart": "2022-06-26T11:52:28.949+09:00",
+			"duration": "43.489",
+			"speed": {
+				"kph": 83.027892110648665,
+				"mps": 23.063303364069075
+			},
+			"diffPrevLap": "-55.838",
+			"sessionDuration": "7:30.716",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.489",
+				"diffPrevLap": "-55.838",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 10,
+			"dateTimeStart": "2022-06-26T11:53:12.438+09:00",
+			"duration": "43.334",
+			"speed": {
+				"kph": 83.324871925047319,
+				"mps": 23.145797756957588
+			},
+			"diffPrevLap": "-0.155",
+			"sessionDuration": "8:14.050",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.334",
+				"diffPrevLap": "-0.155",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 11,
+			"dateTimeStart": "2022-06-26T11:53:55.772+09:00",
+			"duration": "48.047",
+			"speed": {
+				"kph": 75.151414240223119,
+				"mps": 20.875392844506422
+			},
+			"diffPrevLap": "4.713",
+			"sessionDuration": "9:02.097",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "48.047",
+				"diffPrevLap": "4.713",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 12,
+			"dateTimeStart": "2022-06-26T11:54:43.819+09:00",
+			"duration": "1:38.173",
+			"speed": {
+				"kph": 36.779970052865856,
+				"mps": 10.216658348018294
+			},
+			"diffPrevLap": "50.126",
+			"sessionDuration": "10:40.270",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "1:38.173",
+				"diffPrevLap": "50.126",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 13,
+			"dateTimeStart": "2022-06-26T11:56:21.992+09:00",
+			"duration": "43.171",
+			"speed": {
+				"kph": 83.639480206620192,
+				"mps": 23.233188946283384
+			},
+			"diffPrevLap": "-55.002",
+			"sessionDuration": "11:23.441",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.171",
+				"diffPrevLap": "-55.002",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 14,
+			"dateTimeStart": "2022-06-26T11:57:05.163+09:00",
+			"duration": "43.181",
+			"speed": {
+				"kph": 83.620110696834274,
+				"mps": 23.227808526898407
+			},
+			"diffPrevLap": "0.010",
+			"sessionDuration": "12:06.622",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.181",
+				"diffPrevLap": "0.010",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 15,
+			"dateTimeStart": "2022-06-26T11:57:48.344+09:00",
+			"duration": "42.911",
+			"speed": {
+				"kph": 84.146256204702752,
+				"mps": 23.373960056861876
+			},
+			"diffPrevLap": "-0.270",
+			"sessionDuration": "12:49.533",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "42.911",
+				"diffPrevLap": "-0.270",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 16,
+			"dateTimeStart": "2022-06-26T11:58:31.255+09:00",
+			"duration": "43.127",
+			"speed": {
+				"kph": 83.7248127623067,
+				"mps": 23.25689243397408
+			},
+			"diffPrevLap": "0.216",
+			"sessionDuration": "13:32.660",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.127",
+				"diffPrevLap": "0.216",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 17,
+			"dateTimeStart": "2022-06-26T11:59:14.382+09:00",
+			"duration": "50.672",
+			"speed": {
+				"kph": 71.25828860119988,
+				"mps": 19.793969055888855
+			},
+			"diffPrevLap": "7.545",
+			"sessionDuration": "14:23.332",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "50.672",
+				"diffPrevLap": "7.545",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}]
+	}, {
+		"id": 4,
+		"chipId": 87619920,
+		"dateTimeStart": "2022-06-26T13:30:29.79+09:00",
+		"bestLap": {
+			"nr": 3,
+			"duration": "43.112",
+			"speed": {
+				"kph": 83.753943217665622,
+				"mps": 23.264984227129339
+			}
+		},
+		"aveLapDuration": "55.145",
+		"medianLapDuration": "43.584",
+		"duration": "14:42.326",
+		"laps": [{
+			"nr": 1,
+			"dateTimeStart": "2022-06-26T13:30:29.79+09:00",
+			"duration": "43.735",
+			"speed": {
+				"kph": 82.560878015319531,
+				"mps": 22.933577226477649
+			},
+			"diffPrevLap": null,
+			"sessionDuration": "43.735",
+			"status": "NONE",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.735",
+				"diffPrevLap": null,
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 2,
+			"dateTimeStart": "2022-06-26T13:31:13.525+09:00",
+			"duration": "43.426",
+			"speed": {
+				"kph": 83.148344309860462,
+				"mps": 23.096762308294572
+			},
+			"diffPrevLap": "-0.309",
+			"sessionDuration": "1:27.161",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.426",
+				"diffPrevLap": "-0.309",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 3,
+			"dateTimeStart": "2022-06-26T13:31:56.951+09:00",
+			"duration": "43.112",
+			"speed": {
+				"kph": 83.753943217665622,
+				"mps": 23.264984227129339
+			},
+			"diffPrevLap": "-0.314",
+			"sessionDuration": "2:10.273",
+			"status": "SESSIONBEST",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.112",
+				"diffPrevLap": "-0.314",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 4,
+			"dateTimeStart": "2022-06-26T13:32:40.063+09:00",
+			"duration": "43.379",
+			"speed": {
+				"kph": 83.238433343322811,
+				"mps": 23.121787039811892
+			},
+			"diffPrevLap": "0.267",
+			"sessionDuration": "2:53.652",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.379",
+				"diffPrevLap": "0.267",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 5,
+			"dateTimeStart": "2022-06-26T13:33:23.442+09:00",
+			"duration": "43.584",
+			"speed": {
+				"kph": 82.846916299559481,
+				"mps": 23.013032305433189
+			},
+			"diffPrevLap": "0.205",
+			"sessionDuration": "3:37.236",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.584",
+				"diffPrevLap": "0.205",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 6,
+			"dateTimeStart": "2022-06-26T13:34:07.026+09:00",
+			"duration": "48.846",
+			"speed": {
+				"kph": 73.9221225893625,
+				"mps": 20.533922941489582
+			},
+			"diffPrevLap": "5.262",
+			"sessionDuration": "4:26.082",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "48.846",
+				"diffPrevLap": "5.262",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 7,
+			"dateTimeStart": "2022-06-26T13:34:55.872+09:00",
+			"duration": "3:37.968",
+			"speed": {
+				"kph": 16.565734419731339,
+				"mps": 4.6015928943698157
+			},
+			"diffPrevLap": "2:49.122",
+			"sessionDuration": "8:04.050",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "3:37.968",
+				"diffPrevLap": "2:49.122",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 8,
+			"dateTimeStart": "2022-06-26T13:38:33.84+09:00",
+			"duration": "44.693",
+			"speed": {
+				"kph": 80.791175351844814,
+				"mps": 22.441993153290227
+			},
+			"diffPrevLap": "-2:53.275",
+			"sessionDuration": "8:48.743",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "44.693",
+				"diffPrevLap": "-2:53.275",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 9,
+			"dateTimeStart": "2022-06-26T13:39:18.533+09:00",
+			"duration": "43.826",
+			"speed": {
+				"kph": 82.389449185415046,
+				"mps": 22.885958107059736
+			},
+			"diffPrevLap": "-0.867",
+			"sessionDuration": "9:32.569",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.826",
+				"diffPrevLap": "-0.867",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 10,
+			"dateTimeStart": "2022-06-26T13:40:02.359+09:00",
+			"duration": "43.609",
+			"speed": {
+				"kph": 82.799422137632149,
+				"mps": 22.999839482675597
+			},
+			"diffPrevLap": "-0.217",
+			"sessionDuration": "10:16.178",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.609",
+				"diffPrevLap": "-0.217",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 11,
+			"dateTimeStart": "2022-06-26T13:40:45.968+09:00",
+			"duration": "43.337",
+			"speed": {
+				"kph": 83.3191037681427,
+				"mps": 23.14419549115075
+			},
+			"diffPrevLap": "-0.272",
+			"sessionDuration": "10:59.515",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.337",
+				"diffPrevLap": "-0.272",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 12,
+			"dateTimeStart": "2022-06-26T13:41:29.305+09:00",
+			"duration": "43.472",
+			"speed": {
+				"kph": 83.060360691939636,
+				"mps": 23.072322414427678
+			},
+			"diffPrevLap": "0.135",
+			"sessionDuration": "11:42.987",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.472",
+				"diffPrevLap": "0.135",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 13,
+			"dateTimeStart": "2022-06-26T13:42:12.777+09:00",
+			"duration": "43.825",
+			"speed": {
+				"kph": 82.39132915002854,
+				"mps": 22.886480319452371
+			},
+			"diffPrevLap": "0.353",
+			"sessionDuration": "12:26.812",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.825",
+				"diffPrevLap": "0.353",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 14,
+			"dateTimeStart": "2022-06-26T13:42:56.602+09:00",
+			"duration": "43.303",
+			"speed": {
+				"kph": 83.384523012262449,
+				"mps": 23.162367503406234
+			},
+			"diffPrevLap": "-0.522",
+			"sessionDuration": "13:10.115",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.303",
+				"diffPrevLap": "-0.522",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 15,
+			"dateTimeStart": "2022-06-26T13:43:39.905+09:00",
+			"duration": "43.352",
+			"speed": {
+				"kph": 83.290274958479429,
+				"mps": 23.136187488466508
+			},
+			"diffPrevLap": "0.049",
+			"sessionDuration": "13:53.467",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.352",
+				"diffPrevLap": "0.049",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 16,
+			"dateTimeStart": "2022-06-26T13:44:23.257+09:00",
+			"duration": "48.859",
+			"speed": {
+				"kph": 73.902454000286554,
+				"mps": 20.528459444524042
+			},
+			"diffPrevLap": "5.507",
+			"sessionDuration": "14:42.326",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "48.859",
+				"diffPrevLap": "5.507",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}]
+	}, {
+		"id": 5,
+		"chipId": 87619920,
+		"dateTimeStart": "2022-06-26T14:49:59.811+09:00",
+		"bestLap": {
+			"nr": 4,
+			"duration": "43.263",
+			"speed": {
+				"kph": 83.461618473060128,
+				"mps": 23.183782909183368
+			}
+		},
+		"aveLapDuration": "45.348",
+		"medianLapDuration": "43.890",
+		"duration": "9:49.518",
+		"laps": [{
+			"nr": 1,
+			"dateTimeStart": "2022-06-26T14:49:59.811+09:00",
+			"duration": "43.721",
+			"speed": {
+				"kph": 82.587315020242,
+				"mps": 22.94092083895611
+			},
+			"diffPrevLap": null,
+			"sessionDuration": "43.721",
+			"status": "NONE",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.721",
+				"diffPrevLap": null,
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 2,
+			"dateTimeStart": "2022-06-26T14:50:43.532+09:00",
+			"duration": "43.903",
+			"speed": {
+				"kph": 82.244949092317171,
+				"mps": 22.845819192310323
+			},
+			"diffPrevLap": "0.182",
+			"sessionDuration": "1:27.624",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.903",
+				"diffPrevLap": "0.182",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 3,
+			"dateTimeStart": "2022-06-26T14:51:27.435+09:00",
+			"duration": "43.499",
+			"speed": {
+				"kph": 83.008804800110354,
+				"mps": 23.058001333363986
+			},
+			"diffPrevLap": "-0.404",
+			"sessionDuration": "2:11.123",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.499",
+				"diffPrevLap": "-0.404",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 4,
+			"dateTimeStart": "2022-06-26T14:52:10.934+09:00",
+			"duration": "43.263",
+			"speed": {
+				"kph": 83.461618473060128,
+				"mps": 23.183782909183368
+			},
+			"diffPrevLap": "-0.236",
+			"sessionDuration": "2:54.386",
+			"status": "SESSIONBEST",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.263",
+				"diffPrevLap": "-0.236",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 5,
+			"dateTimeStart": "2022-06-26T14:52:54.197+09:00",
+			"duration": "43.918",
+			"speed": {
+				"kph": 82.216858691197245,
+				"mps": 22.838016303110344
+			},
+			"diffPrevLap": "0.655",
+			"sessionDuration": "3:38.304",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.918",
+				"diffPrevLap": "0.655",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 6,
+			"dateTimeStart": "2022-06-26T14:53:38.115+09:00",
+			"duration": "43.476",
+			"speed": {
+				"kph": 83.052718741374548,
+				"mps": 23.07019965038182
+			},
+			"diffPrevLap": "-0.442",
+			"sessionDuration": "4:21.780",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.476",
+				"diffPrevLap": "-0.442",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 7,
+			"dateTimeStart": "2022-06-26T14:54:21.591+09:00",
+			"duration": "43.575",
+			"speed": {
+				"kph": 82.864027538726347,
+				"mps": 23.017785427423984
+			},
+			"diffPrevLap": "0.099",
+			"sessionDuration": "5:05.355",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.575",
+				"diffPrevLap": "0.099",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 8,
+			"dateTimeStart": "2022-06-26T14:55:05.166+09:00",
+			"duration": "43.513",
+			"speed": {
+				"kph": 82.982097304253912,
+				"mps": 23.050582584514974
+			},
+			"diffPrevLap": "-0.062",
+			"sessionDuration": "5:48.868",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.513",
+				"diffPrevLap": "-0.062",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 9,
+			"dateTimeStart": "2022-06-26T14:55:48.679+09:00",
+			"duration": "48.221",
+			"speed": {
+				"kph": 74.8802389000643,
+				"mps": 20.80006636112897
+			},
+			"diffPrevLap": "4.708",
+			"sessionDuration": "6:37.089",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "48.221",
+				"diffPrevLap": "4.708",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 10,
+			"dateTimeStart": "2022-06-26T14:56:36.9+09:00",
+			"duration": "52.432",
+			"speed": {
+				"kph": 68.866341165700348,
+				"mps": 19.129539212694539
+			},
+			"diffPrevLap": "4.211",
+			"sessionDuration": "7:29.521",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "52.432",
+				"diffPrevLap": "4.211",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 11,
+			"dateTimeStart": "2022-06-26T14:57:29.332+09:00",
+			"duration": "44.182",
+			"speed": {
+				"kph": 81.725589606627139,
+				"mps": 22.701552668507539
+			},
+			"diffPrevLap": "-8.250",
+			"sessionDuration": "8:13.703",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "44.182",
+				"diffPrevLap": "-8.250",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 12,
+			"dateTimeStart": "2022-06-26T14:58:13.514+09:00",
+			"duration": "43.890",
+			"speed": {
+				"kph": 82.269309637730686,
+				"mps": 22.852586010480746
+			},
+			"diffPrevLap": "-0.292",
+			"sessionDuration": "8:57.593",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.890",
+				"diffPrevLap": "-0.292",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 13,
+			"dateTimeStart": "2022-06-26T14:58:57.404+09:00",
+			"duration": "51.925",
+			"speed": {
+				"kph": 69.538757823784309,
+				"mps": 19.316321617717865
+			},
+			"diffPrevLap": "8.035",
+			"sessionDuration": "9:49.518",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "51.925",
+				"diffPrevLap": "8.035",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}]
+	}, {
+		"id": 6,
+		"chipId": 87619920,
+		"dateTimeStart": "2022-06-26T15:56:10.491+09:00",
+		"bestLap": {
+			"nr": 11,
+			"duration": "43.435",
+			"speed": {
+				"kph": 83.1311154598826,
+				"mps": 23.091976516634052
+			}
+		},
+		"aveLapDuration": "44.938",
+		"medianLapDuration": "43.990",
+		"duration": "8:59.261",
+		"laps": [{
+			"nr": 1,
+			"dateTimeStart": "2022-06-26T15:56:10.491+09:00",
+			"duration": "44.507",
+			"speed": {
+				"kph": 81.128811198238481,
+				"mps": 22.535780888399579
+			},
+			"diffPrevLap": null,
+			"sessionDuration": "44.507",
+			"status": "NONE",
+			"sections": [{
+				"name": "SF",
+				"duration": "44.507",
+				"diffPrevLap": null,
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 2,
+			"dateTimeStart": "2022-06-26T15:56:54.998+09:00",
+			"duration": "43.795",
+			"speed": {
+				"kph": 82.447768010046829,
+				"mps": 22.902157780568562
+			},
+			"diffPrevLap": "-0.712",
+			"sessionDuration": "1:28.302",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.795",
+				"diffPrevLap": "-0.712",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 3,
+			"dateTimeStart": "2022-06-26T15:57:38.793+09:00",
+			"duration": "43.990",
+			"speed": {
+				"kph": 82.082291429870438,
+				"mps": 22.800636508297345
+			},
+			"diffPrevLap": "0.195",
+			"sessionDuration": "2:12.292",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.990",
+				"diffPrevLap": "0.195",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 4,
+			"dateTimeStart": "2022-06-26T15:58:22.783+09:00",
+			"duration": "48.474",
+			"speed": {
+				"kph": 74.489417007055337,
+				"mps": 20.691504724182039
+			},
+			"diffPrevLap": "4.484",
+			"sessionDuration": "3:00.766",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "48.474",
+				"diffPrevLap": "4.484",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 5,
+			"dateTimeStart": "2022-06-26T15:59:11.257+09:00",
+			"duration": "44.422",
+			"speed": {
+				"kph": 81.28404844446446,
+				"mps": 22.578902345684572
+			},
+			"diffPrevLap": "-4.052",
+			"sessionDuration": "3:45.188",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "44.422",
+				"diffPrevLap": "-4.052",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 6,
+			"dateTimeStart": "2022-06-26T15:59:55.679+09:00",
+			"duration": "43.603",
+			"speed": {
+				"kph": 82.810815769557138,
+				"mps": 23.003004380432539
+			},
+			"diffPrevLap": "-0.819",
+			"sessionDuration": "4:28.791",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.603",
+				"diffPrevLap": "-0.819",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 7,
+			"dateTimeStart": "2022-06-26T16:00:39.282+09:00",
+			"duration": "44.167",
+			"speed": {
+				"kph": 81.753345257771656,
+				"mps": 22.709262571603237
+			},
+			"diffPrevLap": "0.564",
+			"sessionDuration": "5:12.958",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "44.167",
+				"diffPrevLap": "0.564",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 8,
+			"dateTimeStart": "2022-06-26T16:01:23.449+09:00",
+			"duration": "43.834",
+			"speed": {
+				"kph": 82.374412556463028,
+				"mps": 22.881781265684175
+			},
+			"diffPrevLap": "-0.333",
+			"sessionDuration": "5:56.792",
+			"status": "FASTER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.834",
+				"diffPrevLap": "-0.333",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 9,
+			"dateTimeStart": "2022-06-26T16:02:07.283+09:00",
+			"duration": "43.954",
+			"speed": {
+				"kph": 82.149519952677792,
+				"mps": 22.819311097966054
+			},
+			"diffPrevLap": "0.120",
+			"sessionDuration": "6:40.746",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.954",
+				"diffPrevLap": "0.120",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 10,
+			"dateTimeStart": "2022-06-26T16:02:51.237+09:00",
+			"duration": "44.086",
+			"speed": {
+				"kph": 81.903552148074212,
+				"mps": 22.750986707798393
+			},
+			"diffPrevLap": "0.132",
+			"sessionDuration": "7:24.832",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "44.086",
+				"diffPrevLap": "0.132",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 11,
+			"dateTimeStart": "2022-06-26T16:03:35.323+09:00",
+			"duration": "43.435",
+			"speed": {
+				"kph": 83.1311154598826,
+				"mps": 23.091976516634052
+			},
+			"diffPrevLap": "-0.651",
+			"sessionDuration": "8:08.267",
+			"status": "SESSIONBEST",
+			"sections": [{
+				"name": "SF",
+				"duration": "43.435",
+				"diffPrevLap": "-0.651",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}, {
+			"nr": 12,
+			"dateTimeStart": "2022-06-26T16:04:18.758+09:00",
+			"duration": "50.994",
+			"speed": {
+				"kph": 70.8083303918108,
+				"mps": 19.668980664391889
+			},
+			"diffPrevLap": "7.559",
+			"sessionDuration": "8:59.261",
+			"status": "SLOWER",
+			"sections": [{
+				"name": "SF",
+				"duration": "50.994",
+				"diffPrevLap": "7.559",
+				"speed": {
+					"kph": 0.0,
+					"mps": 0.0
+				}
+			}],
+			"dataAttributes": []
+		}]
+	}],
+	"sections": [{
+		"name": "SF",
+		"length": 0,
+		"speedTrap": false
+	}],
+	"onlyNewSince": null
+}

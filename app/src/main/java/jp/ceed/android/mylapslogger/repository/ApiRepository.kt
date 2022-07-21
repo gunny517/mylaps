@@ -1,6 +1,7 @@
 package jp.ceed.android.mylapslogger.repository
 
 import android.content.Context
+import androidx.annotation.VisibleForTesting
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.dao.PreferenceDao
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
@@ -60,14 +61,14 @@ class ApiRepository @Inject constructor (
         })
     }
 
-    private fun createSessionItemList(sessionsResponse: SessionsResponse): List<SessionListItem>{
+    @VisibleForTesting
+    fun createSessionItemList(sessionsResponse: SessionsResponse): List<SessionListItem>{
         val list = mutableListOf<SessionListItem>()
         for(entry in sessionsResponse.sessions){
             list.add(SessionListItem(entry, sessionsResponse.bestLap.duration))
         }
         return list
     }
-
 
     fun sessionRequest(activityId: Int, trackLength: Int, sessionNo: Int?, callback: (Result<PracticeResult>) -> Unit) {
         val request = SessionRequest()
@@ -88,14 +89,14 @@ class ApiRepository @Inject constructor (
                     callback(Result.success(practiceResult))
                 }
             }
-
             override fun failure(error: RetrofitError?) {
                 callback(Result.failure(error ?: IOException("unKnown")))
             }
         })
     }
 
-    private fun createLapList(sessionsResponse: SessionsResponse, sessionNo: Int?): List<PracticeResultsItem> {
+    @VisibleForTesting
+    fun createLapList(sessionsResponse: SessionsResponse, sessionNo: Int?): List<PracticeResultsItem> {
         val showSpeedBar = AppSettings(context).isShowSpeedBar()
         val lapList = ArrayList<PracticeResultsItem>()
         for (session in sessionsResponse.sessions) {
@@ -115,7 +116,8 @@ class ApiRepository @Inject constructor (
         return lapList
     }
 
-    private fun createSessionData(sessionsResponse: SessionsResponse): List<PracticeResultsItem> {
+    @VisibleForTesting
+    fun createSessionData(sessionsResponse: SessionsResponse): List<PracticeResultsItem> {
         val list: ArrayList<PracticeResultsItem> = ArrayList<PracticeResultsItem>()
         for (session in sessionsResponse.sessions) {
             list.add(PracticeResultsItem.Section(session))
@@ -123,7 +125,6 @@ class ApiRepository @Inject constructor (
         }
         return list
     }
-
 
     fun getActivities(callback: (Result<ArrayList<ActivitiesItem>>) -> Unit) {
         val request = ActivitiesRequest()

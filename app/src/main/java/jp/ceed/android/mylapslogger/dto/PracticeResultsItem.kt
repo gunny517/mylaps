@@ -19,11 +19,11 @@ sealed class PracticeResultsItem {
         constructor(laps: SessionsResponse.Sessions.Laps, sessions: SessionsResponse.Sessions): this(
             sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart),
             number = laps.nr.toString(),
-            duration = laps . duration,
+            duration = laps.duration,
             status = Status.statusOf(laps.status),
+            diffPrevLap = laps.diffPrevLap,
             cellBgColor = getCellBgColor(laps.status),
-            diffTextColor = getDiffTextColor(laps.status),
-            diffPrevLap = laps.diffPrevLap
+            diffTextColor = getDiffTextColor(laps.status)
         )
     }
 
@@ -61,29 +61,26 @@ sealed class PracticeResultsItem {
     companion object {
 
         fun getCellBgColor(status: String?): Int {
-            return when {
-                Status.REPORTBEST.name == status -> {
+            return when(status) {
+                Status.REPORTBEST.name ->
                     R.color.bg_lap_list_report_best
-                }
-                Status.SESSIONBEST.name == status -> {
+                Status.SESSIONBEST.name ->
                     R.color.bg_lap_list_session_best
-                }
-                else -> {
+                else ->
                     R.color.window_back_ground
-                }
             }
         }
 
         fun getDiffTextColor(status: String?): Int {
-            return if (Status.REPORTBEST.name == status
-                || Status.SESSIONBEST.name == status
-                || Status.FASTER.name == status
-            ) {
-                R.color.text_faster
-            } else if (Status.SLOWER.name == status) {
-                R.color.text_slower
-            } else {
-                R.color.text_default
+            return when(status) {
+                Status.REPORTBEST.name,
+                Status.SESSIONBEST.name,
+                Status.FASTER.name ->
+                    R.color.text_faster
+                Status.SLOWER.name ->
+                    R.color.text_slower
+                else ->
+                    R.color.text_default
             }
         }
     }
@@ -98,12 +95,12 @@ enum class Status() {
 
     companion object {
         fun statusOf(status: String): Status{
-            for(entry in Status.values()){
+            for(entry in values()){
                 if(entry.name == status){
                     return entry
                 }
             }
-            return Status.NONE
+            return NONE
         }
     }
 
