@@ -126,14 +126,17 @@ class ApiRepository @Inject constructor (
         return list
     }
 
-    fun getActivities(callback: (Result<ArrayList<ActivitiesItem>>) -> Unit) {
+    fun getActivities(callback: (Result<List<ActivitiesItem>>) -> Unit) {
         val request = ActivitiesRequest()
         request.userId = userAccountRepository.getUserId()
         request.executeRequest(context, object : Callback<ActivitiesResponse> {
             override fun success(activitiesResponse: ActivitiesResponse?, response: Response?) {
                 activitiesResponse?.let {
-                    val list = Util.convertToActivitiesItem(activitiesResponse.activities)
-                    callback(Result.success(list))
+                    callback(Result.success(
+                        activitiesResponse.activities.map {
+                            ActivitiesItem(it)
+                        }
+                    ))
                 }
             }
 
