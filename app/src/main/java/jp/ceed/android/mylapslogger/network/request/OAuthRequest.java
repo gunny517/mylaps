@@ -3,6 +3,7 @@ package jp.ceed.android.mylapslogger.network.request;
 import android.content.Context;
 import android.util.Base64;
 
+import jp.ceed.android.mylapslogger.R;
 import jp.ceed.android.mylapslogger.network.AbstractRetrofitGsonRequest;
 import jp.ceed.android.mylapslogger.network.response.OAuthResponse;
 import retrofit.Callback;
@@ -18,13 +19,7 @@ import retrofit.http.POST;
 
 public class OAuthRequest extends AbstractRetrofitGsonRequest<OAuthResponse> {
 
-    private static final String END_POINT = "https://usersandproducts-api.speedhive.com";
-
-    private static final String BASEIC_AUTH_USER = "SpeedhiveAndroidApp";
-
-    private static final String BASIC_AUTH_PASSWORD = "zKE02G4H5Af_I2smydLTUi6BWKz7sxAIjR51zDPc";
-
-    public String grantType = "password";
+    private static final String GRANT_TYPE = "password";
 
     public String userName;
 
@@ -32,9 +27,13 @@ public class OAuthRequest extends AbstractRetrofitGsonRequest<OAuthResponse> {
 
     @Override
     public void executeRequest(Context context, Callback<OAuthResponse> callback) {
-        BasicAuthInterceptor interceptor = new BasicAuthInterceptor(BASEIC_AUTH_USER, BASIC_AUTH_PASSWORD);
-        RestAdapter restAdapter = getRestAdapter(context, END_POINT, null, interceptor);
-        restAdapter.create(OAuthService.class).getToken(grantType, userName, password, callback);
+        BasicAuthInterceptor interceptor = new BasicAuthInterceptor(
+                context.getString(R.string.oauth_basic_auth_user),
+                context.getString(R.string.oauth_basic_auth_pass)
+        );
+        RestAdapter restAdapter = getRestAdapter(context,
+                context.getString(R.string.oauth_end_point), null, interceptor);
+        restAdapter.create(OAuthService.class).getToken(GRANT_TYPE, userName, password, callback);
     }
 
     private interface OAuthService {
