@@ -28,7 +28,6 @@ class UserAccountRepository @Inject constructor (
         return preferenceDao.read()
     }
 
-
     fun requestLogin(userName: String, password: String, callback: (Result<OAuthResponse>) -> Unit) {
         val request = OAuthRequest()
         request.userName = userName
@@ -45,5 +44,4 @@ class UserAccountRepository @Inject constructor (
             }
         })
     }
-
 }
