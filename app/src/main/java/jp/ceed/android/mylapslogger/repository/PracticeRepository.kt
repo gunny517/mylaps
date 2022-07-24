@@ -17,27 +17,18 @@ class PracticeRepository @Inject constructor (
             practiceDao.findById(id)
         }
 
-    suspend fun savePractice(practice: Practice){
+    suspend fun savePractice(practice: Practice) =
         withContext(dispatcher){
             practiceDao.save(practice)
         }
-    }
 
-    suspend fun getPracticeIdList(): List<Int> {
-        val list: ArrayList<Int> = ArrayList()
+    suspend fun getPracticeIdList(): List<Int> =
         withContext(dispatcher){
+            val list: ArrayList<Int> = ArrayList()
             val practiceList = practiceDao.findAll()
             for(entry in practiceList){
                 list.add(entry.id)
             }
+            list
         }
-        return list
-    }
-
-    suspend fun deleteAll(){
-        withContext(dispatcher){
-            practiceDao.deleteAll()
-        }
-    }
-
 }

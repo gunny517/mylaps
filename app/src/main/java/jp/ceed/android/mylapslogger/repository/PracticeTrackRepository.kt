@@ -21,9 +21,9 @@ class PracticeTrackRepository @Inject constructor (
             practiceTrackDao.getTotalDistance()
         }
 
-    suspend fun findBestLapList(): List<PracticeTrack> {
-        val list: MutableList<PracticeTrack> = mutableListOf()
+    suspend fun findBestLapList(): List<PracticeTrack> =
         withContext(dispatcher){
+            val list: MutableList<PracticeTrack> = mutableListOf()
             val trackList = trackDao.findAll()
             for(track in trackList){
                 val record = getBestLapByTrackId(track.id)
@@ -31,9 +31,8 @@ class PracticeTrackRepository @Inject constructor (
                     list.add(record)
                 }
             }
+            list
         }
-        return list
-    }
 
     private suspend fun getBestLapByTrackId(trackId: Int): PracticeTrack? =
         withContext(dispatcher){

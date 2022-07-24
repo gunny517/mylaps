@@ -18,15 +18,13 @@ class ActivityInfoRepository @Inject constructor (
             dao.findById(id)
         }
 
-    suspend fun update(activityInfo: ActivityInfo) {
+    suspend fun update(activityInfo: ActivityInfo) =
         withContext(dispatcher) {
             dao.updateId(activityInfo)
         }
-    }
 
-    suspend fun insert(activityInfo: ActivityInfo) {
+    suspend fun insert(activityInfo: ActivityInfo) =
         withContext(dispatcher) {
             dao.insert(activityInfo)
         }
-    }
 }

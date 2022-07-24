@@ -23,21 +23,14 @@ class SessionInfoRepository @Inject constructor (
             dao.findAll()
         }
 
-    suspend fun insert(sessionInfo: SessionInfo) {
+    suspend fun insert(sessionInfo: SessionInfo) =
         withContext(dispatcher) {
             dao.insert(sessionInfo)
         }
-    }
 
-    suspend fun update(sessionInfo: SessionInfo) {
+    suspend fun update(sessionInfo: SessionInfo) =
         withContext(dispatcher) {
             dao.update(sessionInfo)
         }
-    }
 
-    suspend fun deleteAll(){
-        withContext(dispatcher){
-            dao.deleteAll()
-        }
-    }
 }
