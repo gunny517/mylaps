@@ -23,16 +23,14 @@ class WeatherRepository @Inject constructor() {
             }
         }
         return try {
-            val result = httpClient.get<OpenWeatherResult>(BASE_URL){
-                parameter(LAT, lat).apply {
-                    parameter(LON, lon).apply {
-                        parameter(APPID, API_KEY)
-                    }
-                }
+            val result = httpClient.get<OpenWeatherResult>(BASE_URL) {
+                parameter(LAT, lat)
+                parameter(LON, lon)
+                parameter(APPID, API_KEY)
             }
             val main = WeatherResultConverter().createWeatherDataDto(result.main)
             WeatherDataDto(main)
-        }catch (e: Exception){
+        } catch (e: Exception) {
             null
         }
     }
