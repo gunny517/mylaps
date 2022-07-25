@@ -1,17 +1,19 @@
 package jp.ceed.android.mylapslogger.model
 
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Sys(
-    @Json(name = "country")
+    @SerialName("country")
     val country: String,
-    @Json(name = "id")
+    @SerialName("id")
     val id: Int,
-    @Json(name = "sunrise")
+    @SerialName("sunrise")
     val sunrise: Int,
-    @Json(name = "sunset")
+    @SerialName("sunset")
     val sunset: Int,
-    @Json(name = "type")
+    @SerialName("type")
     val type: Int
 )

@@ -1,35 +1,40 @@
 package jp.ceed.android.mylapslogger.repository
 
-import com.github.kittinunf.fuel.httpGet
-import com.github.kittinunf.result.Result
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import io.ktor.client.*
+import io.ktor.client.engine.android.*
+import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
+import io.ktor.client.request.*
 import jp.ceed.android.mylapslogger.model.OpenWeatherResult
 import jp.ceed.android.mylapslogger.model.WeatherDataDto
 import jp.ceed.android.mylapslogger.util.WeatherResultConverter
-import java.io.IOException
 import javax.inject.Inject
 
 class WeatherRepository @Inject constructor() {
 
-    private val moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-
-    fun getWeatherDataByLocation(lat: Double, lon: Double, callback: (kotlin.Result<WeatherDataDto>) -> Unit) {
-        val param = listOf(Pair(LAT, lat), Pair(LON, lon), Pair(APPID, API_KEY))
-        BASE_URL.httpGet(param).responseString { request, response, result ->
-            when (result) {
-                is Result.Success -> {
-                    val openWeatherResult = moshi.adapter(OpenWeatherResult::class.java).fromJson(result.get())
-                    openWeatherResult?.let {
-                        val main = WeatherResultConverter().createWeatherDataDto(it.main)
-                        callback(kotlin.Result.success(WeatherDataDto(main)))
+    suspend fun getWeatherDataByLocationWithKtor(lat: Double, lon: Double): WeatherDataDto? {
+        val httpClient = HttpClient(Android){
+            install(JsonFeature) {
+                serializer = KotlinxSerializer(
+                    kotlinx.serialization.json.Json {
+                        isLenient = true
+                    }
+                )
+            }
+        }
+        return try {
+            val result = httpClient.get<OpenWeatherResult>(BASE_URL){
+                parameter(LAT, lat).apply {
+                    parameter(LON, lon).apply {
+                        parameter(APPID, API_KEY)
                     }
                 }
-                is Result.Failure -> {
-                    callback(kotlin.Result.failure(IOException("unKnown")))
-                }
             }
-        }.join()
+            val main = WeatherResultConverter().createWeatherDataDto(result.main)
+            WeatherDataDto(main)
+        }catch (e: Exception){
+            null
+        }
     }
 
     companion object {

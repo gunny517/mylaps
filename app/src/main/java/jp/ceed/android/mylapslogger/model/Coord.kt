@@ -1,11 +1,13 @@
 package jp.ceed.android.mylapslogger.model
 
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Coord(
-    @Json(name = "lat")
+    @SerialName("lat")
     val lat: Double,
-    @Json(name = "lon")
+    @SerialName("lon")
     val lon: Double
 )

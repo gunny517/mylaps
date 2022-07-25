@@ -1,35 +1,35 @@
 package jp.ceed.android.mylapslogger.model
 
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class OpenWeatherResult(
-    @Json(name = "base")
+    @SerialName("base")
     val base: String,
-    @Json(name = "clouds")
+    @SerialName("clouds")
     val clouds: Clouds,
-    @Json(name = "cod")
+    @SerialName("cod")
     val cod: Int,
-    @Json(name = "coord")
+    @SerialName("coord")
     val coord: Coord,
-    @Json(name = "dt")
+    @SerialName("dt")
     val dt: Int,
-    @Json(name = "id")
+    @SerialName("id")
     val id: Int,
-    @Json(name = "main")
+    @SerialName("main")
     val main: Main,
-    @Json(name = "name")
+    @SerialName("name")
     val name: String,
-    @Json(name = "rain")
-    val rain: Rain?,
-    @Json(name = "sys")
+    @SerialName("sys")
     val sys: Sys,
-    @Json(name = "timezone")
+    @SerialName("timezone")
     val timezone: Int,
-    @Json(name = "visibility")
+    @SerialName("visibility")
     val visibility: Int,
-    @Json(name = "weather")
+    @SerialName("weather")
     val weather: List<Weather>,
-    @Json(name = "wind")
+    @SerialName("wind")
     val wind: Wind
 )
