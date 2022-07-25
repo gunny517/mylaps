@@ -1,9 +1,11 @@
 package jp.ceed.android.mylapslogger.model
 
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Clouds(
-    @Json(name = "all")
+    @SerialName("all")
     val all: Int
 )

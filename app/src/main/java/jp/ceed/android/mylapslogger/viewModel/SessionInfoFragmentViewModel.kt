@@ -92,9 +92,11 @@ class SessionInfoFragmentViewModel @Inject constructor (
                 if (sessionInfo == null) {
                     locationRepository.getLocation {
                         it.onSuccess { location ->
-                            loadWeatherData(location, _sessionId)
+                            loadWeatherDataByKtor(location, _sessionId)
                         }.onFailure { t ->
                             exceptionUtil.save(t, viewModelScope)
+                            progressVisibility.value = false
+                            weatherButtonEnable.value = true
                         }
                     }
                 }
@@ -102,22 +104,22 @@ class SessionInfoFragmentViewModel @Inject constructor (
         }
     }
 
-    private fun loadWeatherData(location: Location, sessionId: Long) {
-        weatherRepository.getWeatherDataByLocation(location.latitude, location.longitude) { result ->
-            result.onSuccess { weatherDto ->
+    private fun loadWeatherDataByKtor(location: Location, sessionId: Long) {
+        viewModelScope.launch {
+            val weatherDto = weatherRepository.getWeatherDataByLocationWithKtor(
+                lat = location.latitude,
+                lon = location.longitude
+            )
+            weatherDto?.let {
                 sessionInfo.value = SessionInfo(
-                        sessionId = sessionId,
-                        temperature = weatherDto.temperature,
-                        humidity = weatherDto.humidity,
-                        pressure = weatherDto.pressure
-                    )
-                progressVisibility.value = false
-                weatherButtonEnable.value = true
-            }.onFailure { t ->
-                exceptionUtil.save(t, viewModelScope)
-                progressVisibility.value = false
-                weatherButtonEnable.value = true
+                    sessionId = sessionId,
+                    temperature = weatherDto.temperature,
+                    humidity = weatherDto.humidity,
+                    pressure = weatherDto.pressure
+                )
             }
+            progressVisibility.value = false
+            weatherButtonEnable.value = true
         }
     }
 }

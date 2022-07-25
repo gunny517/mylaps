@@ -11,7 +11,9 @@ class WeatherResultConverter {
             tempMax = org.tempMax - TEMP_DELTA,
             humidity = org.humidity,
             pressure = org.pressure,
-            feelsLike = org.feelsLike
+            feelsLike = org.feelsLike,
+            seaLevel = org.seaLevel,
+            grandLevel = org.grandLevel,
         )
     }
 

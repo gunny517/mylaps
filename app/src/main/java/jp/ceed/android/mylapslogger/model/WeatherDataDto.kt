@@ -1,7 +1,8 @@
 package jp.ceed.android.mylapslogger.model
 
-import jp.ceed.android.mylapslogger.entity.SessionInfo
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class WeatherDataDto(
     var temperature: String,
     var pressure: String,

@@ -1,13 +1,15 @@
 package jp.ceed.android.mylapslogger.model
 
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Wind(
-    @Json(name = "deg")
+    @SerialName("deg")
     val deg: Int,
-    @Json(name = "gust")
+    @SerialName("gust")
     val gust: Double,
-    @Json(name = "speed")
+    @SerialName("speed")
     val speed: Double
 )

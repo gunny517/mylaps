@@ -7,7 +7,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'dagger.hilt.android.plugin'
-
+apply plugin: 'kotlinx-serialization'
 
 android {
     dataBinding {
@@ -80,15 +80,6 @@ dependencies {
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:${dagger_hilt_view_model_version}"
     kapt "androidx.hilt:hilt-compiler:${dagger_hilt_view_model_version}"
 
-    def fuel_version = '2.2.0'
-    implementation "com.github.kittinunf.fuel:fuel:$fuel_version"
-    implementation "com.github.kittinunf.fuel:fuel-json:$fuel_version"
-    implementation "com.github.kittinunf.fuel:fuel-android:$fuel_version"
-
-    def moshi_version = '1.7.0'
-    implementation "com.squareup.moshi:moshi:$moshi_version"
-    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
-
     def room_version = "2.4.2"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
@@ -111,6 +102,11 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    def ktor_version = "1.6.4"
+    implementation "io.ktor:ktor-client-core:$ktor_version"
+    implementation "io.ktor:ktor-client-android:$ktor_version"
+    implementation "io.ktor:ktor-client-serialization-jvm:$ktor_version"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

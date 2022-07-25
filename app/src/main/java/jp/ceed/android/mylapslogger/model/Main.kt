@@ -1,19 +1,25 @@
 package jp.ceed.android.mylapslogger.model
 
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Main(
-    @Json(name = "feels_like")
+    @SerialName("feels_like")
     val feelsLike: Double,
-    @Json(name = "humidity")
+    @SerialName("humidity")
     val humidity: Int,
-    @Json(name = "pressure")
+    @SerialName("pressure")
     val pressure: Int,
-    @Json(name = "temp")
+    @SerialName("sea_level")
+    val seaLevel: Int,
+    @SerialName("grnd_level")
+    val grandLevel: Int,
+    @SerialName("temp")
     val temp: Double,
-    @Json(name = "temp_max")
+    @SerialName("temp_max")
     val tempMax: Double,
-    @Json(name = "temp_min")
+    @SerialName("temp_min")
     val tempMin: Double
 )

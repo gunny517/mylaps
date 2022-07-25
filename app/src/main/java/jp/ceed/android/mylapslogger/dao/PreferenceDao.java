@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
+
 import jp.ceed.android.mylapslogger.network.response.OAuthResponse;
 
 /**
