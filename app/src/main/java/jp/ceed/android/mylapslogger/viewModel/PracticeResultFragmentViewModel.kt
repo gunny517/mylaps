@@ -92,7 +92,7 @@ class PracticeResultFragmentViewModel @Inject constructor (
                 if (sessionInfo == null) {
                     locationRepository.getLocation { result ->
                         result.onSuccess { location ->
-                            loadWeatherData(location, sessionId)
+                            loadAndSaveWeatherData(location, sessionId)
                         }.onFailure { t ->
                             exceptionUtil.save(t, viewModelScope)
                         }
@@ -102,7 +102,7 @@ class PracticeResultFragmentViewModel @Inject constructor (
         }
     }
 
-    private fun loadWeatherData(location: Location, sessionId: Long) {
+    private fun loadAndSaveWeatherData(location: Location, sessionId: Long) {
         viewModelScope.launch {
             val weatherDto = weatherRepository.getWeatherDataByLocationWithKtor(location.latitude, location.longitude)
             weatherDto?.let {

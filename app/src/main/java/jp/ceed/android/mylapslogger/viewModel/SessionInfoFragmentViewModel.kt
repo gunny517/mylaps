@@ -95,6 +95,8 @@ class SessionInfoFragmentViewModel @Inject constructor (
                             loadWeatherDataByKtor(location, _sessionId)
                         }.onFailure { t ->
                             exceptionUtil.save(t, viewModelScope)
+                            progressVisibility.value = false
+                            weatherButtonEnable.value = true
                         }
                     }
                 }
