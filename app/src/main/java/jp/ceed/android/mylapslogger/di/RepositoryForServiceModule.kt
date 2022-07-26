@@ -9,10 +9,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.dao.PracticeDao
 import jp.ceed.android.mylapslogger.dao.PreferenceDao
 import jp.ceed.android.mylapslogger.dao.TrackDao
+import jp.ceed.android.mylapslogger.datasource.ActivitiesApiDataSource
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.PracticeRepository
 import jp.ceed.android.mylapslogger.repository.TrackRepository
-import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 
 
 @Module
@@ -23,9 +23,9 @@ object RepositoryForServiceModule {
     fun bindsApiRepository(
         @ApplicationContext context: Context,
         preferenceDao: PreferenceDao,
-        userAccountRepository: UserAccountRepository,
+        activitiesApiDataSource: ActivitiesApiDataSource
     ): ApiRepository {
-        return ApiRepository(context, preferenceDao, userAccountRepository)
+        return ApiRepository(context, preferenceDao, activitiesApiDataSource)
     }
 
     @Provides

@@ -26,6 +26,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import jp.ceed.android.mylapslogger.BuildConfig;
+import jp.ceed.android.mylapslogger.constants.AppConstants;
 import jp.ceed.android.mylapslogger.util.LogUtil;
 import retrofit.Callback;
 import retrofit.RequestInterceptor;
@@ -44,7 +45,7 @@ public abstract class AbstractRetrofitGsonRequest<R> implements Serializable {
     /**
      * The constant API_KEY.
      */
-    public static final String API_KEY = "SpeedhiveAndroidApp-f3deaaed-2dbb-41be-a469-bb33be4de434";
+    public static final String API_KEY = AppConstants.API_KEY;
 
     private static final int DEFAULT_CACHE_TIME_IN_SEC = 5;
 

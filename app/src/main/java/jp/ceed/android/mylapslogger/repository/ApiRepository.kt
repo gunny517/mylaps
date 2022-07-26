@@ -4,14 +4,13 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.dao.PreferenceDao
+import jp.ceed.android.mylapslogger.datasource.ActivitiesApiDataSource
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.entity.Practice
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.model.PracticeResult
 import jp.ceed.android.mylapslogger.model.SessionListItem
-import jp.ceed.android.mylapslogger.network.request.ActivitiesRequest
 import jp.ceed.android.mylapslogger.network.request.SessionRequest
-import jp.ceed.android.mylapslogger.network.response.ActivitiesResponse
 import jp.ceed.android.mylapslogger.network.response.SessionsResponse
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.util.Util
@@ -24,7 +23,7 @@ import javax.inject.Inject
 class ApiRepository @Inject constructor (
     @ApplicationContext val context: Context,
     private val preferenceDao: PreferenceDao,
-    private val userAccountRepository: UserAccountRepository,
+    private val activitiesApiDataSource: ActivitiesApiDataSource,
 ) {
 
     fun loadPracticeResultForPracticeTable(activitiesItem: ActivitiesItem, callback: (Result<Practice>) -> Unit){
@@ -126,25 +125,12 @@ class ApiRepository @Inject constructor (
         return list
     }
 
-    fun getActivities(callback: (Result<List<ActivitiesItem>>) -> Unit) {
-        val request = ActivitiesRequest()
-        request.userId = userAccountRepository.getUserId()
-        request.executeRequest(context, object : Callback<ActivitiesResponse> {
-            override fun success(activitiesResponse: ActivitiesResponse?, response: Response?) {
-                activitiesResponse?.let {
-                    callback(Result.success(
-                        activitiesResponse.activities.map {
-                            ActivitiesItem(it)
-                        }
-                    ))
-                }
-            }
-
-            override fun failure(error: RetrofitError?) {
-                callback(Result.failure(error ?: IOException("unKnown")))
-            }
-        })
-    }
+    suspend fun getActivities(userId: String): List<ActivitiesItem> =
+        activitiesApiDataSource.getActivities(
+            userId = userId
+        ).activities.map { dto ->
+            ActivitiesItem(dto)
+        }
 
     private fun applySpeedLevel(item: PracticeResultsItem.Lap, sessionBest: Float) {
         try {

@@ -1,29 +1,20 @@
 package jp.ceed.android.mylapslogger.repository
 
-import io.ktor.client.*
-import io.ktor.client.engine.android.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 import jp.ceed.android.mylapslogger.model.OpenWeatherResult
 import jp.ceed.android.mylapslogger.model.WeatherDataDto
+import jp.ceed.android.mylapslogger.network.JsonApiKtorClientCreator
 import jp.ceed.android.mylapslogger.util.WeatherResultConverter
 import javax.inject.Inject
 
-class WeatherRepository @Inject constructor() {
+class WeatherRepository @Inject constructor(
+    private val jsonApiKtorClientCreator: JsonApiKtorClientCreator
+) {
 
     suspend fun getWeatherDataByLocationWithKtor(lat: Double, lon: Double): WeatherDataDto? {
-        val httpClient = HttpClient(Android){
-            install(JsonFeature) {
-                serializer = KotlinxSerializer(
-                    kotlinx.serialization.json.Json {
-                        isLenient = true
-                    }
-                )
-            }
-        }
         return try {
-            val result = httpClient.get<OpenWeatherResult>(BASE_URL) {
+            val jsonApiClient = jsonApiKtorClientCreator.get()
+            val result = jsonApiClient.get<OpenWeatherResult>(BASE_URL) {
                 parameter(LAT, lat)
                 parameter(LON, lon)
                 parameter(APPID, API_KEY)
