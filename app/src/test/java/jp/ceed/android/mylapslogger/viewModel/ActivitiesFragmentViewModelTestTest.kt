@@ -1,9 +1,9 @@
 package jp.ceed.android.mylapslogger.viewModel
 
 import com.google.common.truth.Truth.assertThat
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
@@ -56,7 +56,7 @@ object ActivitiesFragmentViewModelTestTest : Spek({
                     exceptionUtil = mockk(),
                 )
                 viewModel.checkAccount()
-                verify {
+                coVerify {
                     viewModel.apiRepository.getActivities(any())
                 }
             }

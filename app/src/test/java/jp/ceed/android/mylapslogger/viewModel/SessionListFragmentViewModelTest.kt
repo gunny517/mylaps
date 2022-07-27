@@ -2,11 +2,13 @@ package jp.ceed.android.mylapslogger.viewModel
 
 import androidx.lifecycle.SavedStateHandle
 import com.google.common.truth.Truth.assertThat
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.model.SessionListItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
+import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 import org.spekframework.spek2.Spek
@@ -30,18 +32,21 @@ object SessionListFragmentViewModelTest : Spek({
     }
 
     val apiRepository: ApiRepository = mockk {
+        coEvery {
+            loadPracticeResultsForSessionList(any(), any())
+        } returns firstItem
+    }
+
+    val userAccountRepository: UserAccountRepository = mockk {
         every {
-            loadPracticeResultsForSessionList(any(), captureLambda())
-        } answers {
-            lambda<(Result<List<SessionListItem>>) -> Unit>().captured.invoke(
-                Result.success(firstItem)
-            )
-        }
+            getAccessToken()
+        } returns "user token."
     }
 
     val viewModel = SessionListFragmentViewModel(
         savedStateHandle = savedStateHandle,
         apiRepository = apiRepository,
+        userAccountRepository = userAccountRepository,
         exceptionUtil = mockk(),
     )
 

@@ -9,6 +9,7 @@ import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.dto.Status
 import jp.ceed.android.mylapslogger.loadJsonAsEntity
 import jp.ceed.android.mylapslogger.model.SessionListItem
+import jp.ceed.android.mylapslogger.network.response.Sessions
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 import org.spekframework.spek2.Spek
@@ -17,15 +18,15 @@ import org.spekframework.spek2.style.specification.describe
 @RunWith(JUnitPlatform::class)
 object ApiRepositoryTest : Spek({
 
-    val sessionResponse: SessionsResponse = loadJsonAsEntity(
+    val sessionResponse: Sessions = loadJsonAsEntity(
         fileName = "session_response.json",
-        cls = SessionsResponse::class.java
+        cls = Sessions::class.java
     )
 
     val apiRepository = ApiRepository(
         context = mockk<Context>(relaxed = true),
-        preferenceDao = mockk(relaxed = true),
-        userAccountRepository = mockk(relaxed = true),
+        activitiesApiDataSource = mockk(),
+        sessionsApiDataSource = mockk(),
     )
 
     describe("セッションアイテムリストの生成") {
