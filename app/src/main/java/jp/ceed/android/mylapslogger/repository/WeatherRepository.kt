@@ -13,7 +13,7 @@ class WeatherRepository @Inject constructor(
 
     suspend fun getWeatherDataByLocationWithKtor(lat: Double, lon: Double): WeatherDataDto? {
         return try {
-            val jsonApiClient = jsonApiKtorClientCreator.get()
+            val jsonApiClient = jsonApiKtorClientCreator.getDefaultClient()
             val result = jsonApiClient.get<OpenWeatherResult>(BASE_URL) {
                 parameter(LAT, lat)
                 parameter(LON, lon)

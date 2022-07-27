@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class JsonApiKtorClientCreator @Inject constructor() {
 
-    private val client: HttpClient = HttpClient(Android){
+    private val defaultClient: HttpClient = HttpClient(Android){
         install(JsonFeature) {
             serializer = KotlinxSerializer(
                 kotlinx.serialization.json.Json {
@@ -19,6 +19,5 @@ class JsonApiKtorClientCreator @Inject constructor() {
         }
     }
 
-    fun get() = client
-
+    fun getDefaultClient() = defaultClient
 }

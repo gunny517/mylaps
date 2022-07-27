@@ -4,7 +4,6 @@ import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
 import jp.ceed.android.mylapslogger.initMainLooper
-import jp.ceed.android.mylapslogger.network.response.OAuthResponse
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith

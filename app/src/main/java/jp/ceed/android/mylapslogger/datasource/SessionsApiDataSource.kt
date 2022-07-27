@@ -15,7 +15,7 @@ class SessionsApiDataSource @Inject constructor(
 
     suspend fun getSession(activityId: Int, token: String): Sessions =
         try {
-            jsonApiKtorClientCreator.get().get<Sessions>(
+            jsonApiKtorClientCreator.getDefaultClient().get<Sessions>(
                 urlString = apiPathCreator.createSessionRequestPath(activityId)
             ) {
                 header("apiKey", AppConstants.API_KEY)

@@ -14,7 +14,7 @@ class ActivitiesApiDataSource @Inject constructor(
 
     suspend fun getActivities(userId: String): Activities =
         try {
-            val jsonApiClient = jsonApiKtorClientCreator.get()
+            val jsonApiClient = jsonApiKtorClientCreator.getDefaultClient()
             jsonApiClient.get(
                 urlString = apiPathCreator.createActivitiesRequestPath(
                     uerId = userId

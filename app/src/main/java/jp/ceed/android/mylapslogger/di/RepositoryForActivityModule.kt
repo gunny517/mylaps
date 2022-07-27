@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.dao.*
 import jp.ceed.android.mylapslogger.datasource.ActivitiesApiDataSource
+import jp.ceed.android.mylapslogger.datasource.LoginDataSource
 import jp.ceed.android.mylapslogger.datasource.SessionsApiDataSource
 import jp.ceed.android.mylapslogger.network.JsonApiKtorClientCreator
 import jp.ceed.android.mylapslogger.repository.*
@@ -35,8 +36,9 @@ object RepositoryForActivityModule {
     fun bindsUserAccountRepository(
         @ApplicationContext context: Context,
         preferenceDao: PreferenceDao,
+        loginDataSource: LoginDataSource,
     ): UserAccountRepository {
-        return UserAccountRepository(context, preferenceDao)
+        return UserAccountRepository(context, preferenceDao, loginDataSource)
     }
 
     @Provides

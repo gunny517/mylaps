@@ -6,7 +6,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.model.LoginResult
-import jp.ceed.android.mylapslogger.network.response.OAuthResponse
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
