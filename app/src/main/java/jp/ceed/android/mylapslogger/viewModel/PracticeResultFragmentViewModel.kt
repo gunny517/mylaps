@@ -21,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PracticeResultFragmentViewModel @Inject constructor (
     state: SavedStateHandle,
+    var userAccountRepository: UserAccountRepository,
     var apiRepository: ApiRepository,
     var weatherRepository: WeatherRepository,
     var locationRepository: LocationRepository,
@@ -44,14 +45,23 @@ class PracticeResultFragmentViewModel @Inject constructor (
     }
 
     fun loadPracticeResult() {
-        progressVisibility.value = true
-        apiRepository.sessionRequest(activityId, trackLength, sessionNo) {
-            it.onSuccess { practiceResult ->
-                applySessionInfoLabel(practiceResult)
-            }.onFailure { t ->
-                exceptionUtil.save(t, viewModelScope)
+        userAccountRepository.getAccessToken()?.let { token ->
+            viewModelScope.launch {
+                try {
+                    progressVisibility.value = true
+                    applySessionInfoLabel(
+                        apiRepository.getPracticeResult(
+                            token = token,
+                            activityId = activityId,
+                            trackLength = trackLength,
+                            sessionNo = sessionNo,
+                        )
+                    )
+                    progressVisibility.value = false
+                } catch (e: Exception) {
+                    exceptionUtil.save(e, viewModelScope)
+                }
             }
-            progressVisibility.value = false
         }
     }
 

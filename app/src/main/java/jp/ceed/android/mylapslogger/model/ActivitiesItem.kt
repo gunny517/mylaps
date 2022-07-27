@@ -1,7 +1,7 @@
 package jp.ceed.android.mylapslogger.model
 
 import android.os.Parcelable
-import jp.ceed.android.mylapslogger.network.response.ActivitiesResponse
+import jp.ceed.android.mylapslogger.network.response.Activities
 import jp.ceed.android.mylapslogger.util.DateUtil
 import kotlinx.parcelize.Parcelize
 
@@ -15,8 +15,7 @@ data class ActivitiesItem(
     val place: String,
     val trackLength: Int
 ): Parcelable {
-
-    constructor(dto: ActivitiesResponse.ActivityDto): this(
+    constructor(dto: Activities.ActivityDto): this (
         id = dto.id,
         locationId = dto.location.id,
         displayTime = DateUtil.toYmdFormatFromDateTime(dto.startTime),
@@ -25,5 +24,4 @@ data class ActivitiesItem(
         place = dto.location.name,
         trackLength = dto.location.trackLength
     )
-
 }

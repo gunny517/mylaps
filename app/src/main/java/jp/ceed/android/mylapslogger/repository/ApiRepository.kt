@@ -3,103 +3,68 @@ package jp.ceed.android.mylapslogger.repository
 import android.content.Context
 import androidx.annotation.VisibleForTesting
 import dagger.hilt.android.qualifiers.ApplicationContext
-import jp.ceed.android.mylapslogger.dao.PreferenceDao
+import jp.ceed.android.mylapslogger.datasource.ActivitiesApiDataSource
+import jp.ceed.android.mylapslogger.datasource.SessionsApiDataSource
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.entity.Practice
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.model.PracticeResult
 import jp.ceed.android.mylapslogger.model.SessionListItem
-import jp.ceed.android.mylapslogger.network.request.ActivitiesRequest
-import jp.ceed.android.mylapslogger.network.request.SessionRequest
-import jp.ceed.android.mylapslogger.network.response.ActivitiesResponse
-import jp.ceed.android.mylapslogger.network.response.SessionsResponse
+import jp.ceed.android.mylapslogger.network.response.Sessions
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.util.Util
-import retrofit.Callback
-import retrofit.RetrofitError
-import retrofit.client.Response
-import java.io.IOException
 import javax.inject.Inject
 
 class ApiRepository @Inject constructor (
     @ApplicationContext val context: Context,
-    private val preferenceDao: PreferenceDao,
-    private val userAccountRepository: UserAccountRepository,
+    private val activitiesApiDataSource: ActivitiesApiDataSource,
+    private val sessionsApiDataSource: SessionsApiDataSource,
 ) {
 
-    fun loadPracticeResultForPracticeTable(activitiesItem: ActivitiesItem, callback: (Result<Practice>) -> Unit){
-        val request = SessionRequest()
-        request.activityId = activitiesItem.id.toString()
-        request.authorization = preferenceDao.read().accessToken
-        request.executeRequest(context, object : Callback<SessionsResponse>{
-            override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
-                sessionsResponse?.let {
-                    sessionsResponse.bestLap?.let {
-                        callback(Result.success(Practice(activitiesItem, sessionsResponse)))
-                    }
-                }
-            }
-            override fun failure(error: RetrofitError?) {
-                callback(Result.failure(error ?: IOException("UnKnown")))
-            }
-        })
-    }
+    suspend fun loadPracticeResultForPracticeTable(token: String, activitiesItem: ActivitiesItem): Practice =
+        Practice(
+            activitiesItem = activitiesItem,
+            sessions = sessionsApiDataSource.getSession(
+                activityId = activitiesItem.id,
+                token = token
+            )
+        )
 
-    fun loadPracticeResultsForSessionList(activityId: Int, callback: (Result<List<SessionListItem>>) -> Unit) {
-        val request = SessionRequest()
-        request.activityId = activityId.toString()
-        request.authorization = preferenceDao.read().accessToken
-        request.executeRequest(context, object : Callback<SessionsResponse>{
-            override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
-                sessionsResponse?.let {
-                    callback(Result.success(createSessionItemList(sessionsResponse)))
-                }
-            }
-            override fun failure(error: RetrofitError?) {
-                callback(Result.failure(error ?: IOException("UnKnown")))
-            }
-        })
-    }
+    suspend fun loadPracticeResultsForSessionList(token: String, activityId: Int) =
+        createSessionItemList(
+            sessions = sessionsApiDataSource.getSession(
+                activityId = activityId,
+                token = token
+            )
+        )
 
     @VisibleForTesting
-    fun createSessionItemList(sessionsResponse: SessionsResponse): List<SessionListItem>{
-        val list = mutableListOf<SessionListItem>()
-        for(entry in sessionsResponse.sessions){
-            list.add(SessionListItem(entry, sessionsResponse.bestLap.duration))
+    fun createSessionItemList(sessions: Sessions): List<SessionListItem> =
+        sessions.sessions.map {
+            SessionListItem(it, sessions.bestLap.duration)
         }
-        return list
-    }
 
-    fun sessionRequest(activityId: Int, trackLength: Int, sessionNo: Int?, callback: (Result<PracticeResult>) -> Unit) {
-        val request = SessionRequest()
-        request.activityId = activityId.toString()
-        request.authorization = preferenceDao.read().accessToken
-        request.executeRequest(context, object : Callback<SessionsResponse> {
-            override fun success(sessionsResponse: SessionsResponse?, response: Response?) {
-                sessionsResponse?.let {
-                    val practiceResult = PracticeResult(
-                        sessionData = createLapList(it, sessionNo),
-                        sessionSummary =  createSessionData(it),
-                        dateStartTime = it.sessions.get(it.sessions.size - 1).dateTimeStart,
-                        bestLap = it.bestLap.duration,
-                        totalLap = it.stats.lapCount.toString(),
-                        totalTime = it.stats.activeTrainingTime,
-                        totalDistance = Util.createTrainingTimeString(it.stats.lapCount, trackLength)
-                    )
-                    callback(Result.success(practiceResult))
-                }
-            }
-            override fun failure(error: RetrofitError?) {
-                callback(Result.failure(error ?: IOException("unKnown")))
-            }
-        })
+    suspend fun getPracticeResult(token: String, activityId: Int, trackLength: Int, sessionNo: Int?): PracticeResult {
+        val sessions = sessionsApiDataSource.getSession(
+            activityId = activityId,
+            token = token
+        )
+        return PracticeResult(
+            sessionData = createLapList(sessions, sessionNo),
+            sessionSummary =  createSessionData(sessions),
+            dateStartTime = sessions.sessions[sessions.sessions.size - 1].dateTimeStart,
+            bestLap = sessions.bestLap.duration,
+            totalLap = sessions.stats.lapCount.toString(),
+            totalTime = sessions.stats.activeTrainingTime,
+            totalDistance = Util.createTrainingTimeString(sessions.stats.lapCount, trackLength)
+        )
     }
 
     @VisibleForTesting
-    fun createLapList(sessionsResponse: SessionsResponse, sessionNo: Int?): List<PracticeResultsItem> {
+    fun createLapList(sessions: Sessions, sessionNo: Int?): List<PracticeResultsItem> {
         val showSpeedBar = AppSettings(context).isShowSpeedBar()
         val lapList = ArrayList<PracticeResultsItem>()
-        for (session in sessionsResponse.sessions) {
+        for (session in sessions.sessions) {
             if(sessionNo != 0 && sessionNo != session.id){
                 continue
             }
@@ -117,34 +82,21 @@ class ApiRepository @Inject constructor (
     }
 
     @VisibleForTesting
-    fun createSessionData(sessionsResponse: SessionsResponse): List<PracticeResultsItem> {
-        val list: ArrayList<PracticeResultsItem> = ArrayList<PracticeResultsItem>()
-        for (session in sessionsResponse.sessions) {
+    fun createSessionData(sessions: Sessions): List<PracticeResultsItem> {
+        val list: ArrayList<PracticeResultsItem> = ArrayList()
+        for (session in sessions.sessions) {
             list.add(PracticeResultsItem.Section(session))
             list.add(PracticeResultsItem.Summary(session))
         }
         return list
     }
 
-    fun getActivities(callback: (Result<List<ActivitiesItem>>) -> Unit) {
-        val request = ActivitiesRequest()
-        request.userId = userAccountRepository.getUserId()
-        request.executeRequest(context, object : Callback<ActivitiesResponse> {
-            override fun success(activitiesResponse: ActivitiesResponse?, response: Response?) {
-                activitiesResponse?.let {
-                    callback(Result.success(
-                        activitiesResponse.activities.map {
-                            ActivitiesItem(it)
-                        }
-                    ))
-                }
-            }
-
-            override fun failure(error: RetrofitError?) {
-                callback(Result.failure(error ?: IOException("unKnown")))
-            }
-        })
-    }
+    suspend fun getActivities(userId: String): List<ActivitiesItem> =
+        activitiesApiDataSource.getActivities(
+            userId = userId
+        ).activities.map { dto ->
+            ActivitiesItem(dto)
+        }
 
     private fun applySpeedLevel(item: PracticeResultsItem.Lap, sessionBest: Float) {
         try {

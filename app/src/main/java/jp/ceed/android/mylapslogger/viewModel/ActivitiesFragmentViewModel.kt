@@ -9,6 +9,7 @@ import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,23 +38,24 @@ class ActivitiesFragmentViewModel @Inject constructor (
             event.value = Event(EventState.GO_TO_LOGIN)
         } else {
             event.value = Event(EventState.NONE)
-            callActivitiesRequest()
+            callActivitiesRequest(userId)
         }
     }
 
-    private fun callActivitiesRequest() {
+    private fun callActivitiesRequest(userId: String) {
         if (activities.value?.isNotEmpty() == true) {
             return
         }
         progressVisibility.value = true
-        apiRepository.getActivities {
-            it.onFailure { t ->
-                exceptionUtil.save(t, viewModelScope)
-            }.onSuccess { activities ->
-                this.activities.postValue(activities)
+        viewModelScope.launch {
+            try {
+                activities.value = apiRepository.getActivities(userId)
                 event.value = Event(EventState.START_PRACTICE_SERVICE)
+            } catch (e: Exception) {
+                exceptionUtil.save(e, viewModelScope)
             }
-            progressVisibility.value = false
         }
+        progressVisibility.value = false
     }
+
 }

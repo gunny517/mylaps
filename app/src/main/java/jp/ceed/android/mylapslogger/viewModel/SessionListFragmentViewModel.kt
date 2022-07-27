@@ -7,13 +7,16 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.model.SessionListItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
+import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SessionListFragmentViewModel @Inject constructor (
     var savedStateHandle: SavedStateHandle,
     var apiRepository: ApiRepository,
+    var userAccountRepository: UserAccountRepository,
     var exceptionUtil: ExceptionUtil,
 ): ViewModel() {
 
@@ -28,14 +31,19 @@ class SessionListFragmentViewModel @Inject constructor (
     }
 
     fun loadSessionInfo(){
-        isLoading.value = true
-        apiRepository.loadPracticeResultsForSessionList(activityId){
-            it.onSuccess { result ->
-                sessionItemList.value = result
-            }.onFailure { t ->
-                exceptionUtil.save(t, viewModelScope)
+        userAccountRepository.getAccessToken()?.let { token ->
+            viewModelScope.launch {
+                isLoading.value = true
+                try {
+                    sessionItemList.value = apiRepository.loadPracticeResultsForSessionList(
+                        activityId = activityId,
+                        token = token,
+                    )
+                } catch (e: Exception) {
+                    exceptionUtil.save(e, viewModelScope)
+                }
+                isLoading.value = false
             }
-            isLoading.value = false
         }
     }
 }

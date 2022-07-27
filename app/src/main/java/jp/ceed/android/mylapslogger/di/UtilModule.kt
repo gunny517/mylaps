@@ -7,6 +7,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import jp.ceed.android.mylapslogger.dao.ErrorLogDao
+import jp.ceed.android.mylapslogger.datasource.MylapsApiPathCreator
+import jp.ceed.android.mylapslogger.network.JsonApiKtorClientCreator
 import jp.ceed.android.mylapslogger.repository.AppInfoRepository
 import jp.ceed.android.mylapslogger.repository.ErrorLogRepository
 import jp.ceed.android.mylapslogger.util.AppSettings
@@ -36,5 +38,15 @@ object UtilModule {
     @Provides
     fun bindsAppInfoRepository(@ApplicationContext context: Context): AppInfoRepository {
         return AppInfoRepository(context)
+    }
+
+    @Provides
+    fun bindsMyLapsApiPathCreator(@ApplicationContext context: Context): MylapsApiPathCreator {
+        return MylapsApiPathCreator(context)
+    }
+
+    @Provides
+    fun bindsJsonApiKtorClientCreator(): JsonApiKtorClientCreator {
+        return JsonApiKtorClientCreator()
     }
 }

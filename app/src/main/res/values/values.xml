@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="oauth_end_point">https://usersandproducts-api.speedhive.com</string>
+    <string name="oauth_url">https://usersandproducts-api.speedhive.com/oauth/token</string>
     <string name="oauth_basic_auth_user">SpeedhiveAndroidApp</string>
     <string name="oauth_basic_auth_pass">zKE02G4H5Af_I2smydLTUi6BWKz7sxAIjR51zDPc</string>
     <string name="practice_api_end_point">https://practice-api.speedhive.com</string>
-    <string name="session_request_path">api/v1/training/activities/%s/sessions</string>
+    <string name="session_request_path">api/v1/training/activities/%d/sessions</string>
     <string name="activities_request_path">api/v1/accounts/%s/training/activities</string>
 </resources>

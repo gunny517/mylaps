@@ -4,7 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
 import jp.ceed.android.mylapslogger.initMainLooper
-import jp.ceed.android.mylapslogger.network.response.OAuthResponse
+import jp.ceed.android.mylapslogger.network.response.LoginResponse
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
@@ -16,8 +16,11 @@ object UserInfoFragmentViewModelTest : Spek({
 
     initMainLooper()
 
-    val oAuthResponse: OAuthResponse = OAuthResponse()
-    oAuthResponse.userId = "user id for test."
+    val oAuthResponse: LoginResponse = mockk(relaxed = true) {
+        every {
+            userId
+        } returns "user id for test."
+    }
 
     val userAccountRepository: UserAccountRepository = mockk {
         every {

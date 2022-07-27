@@ -9,6 +9,7 @@ import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.PracticeRepository
 import jp.ceed.android.mylapslogger.repository.TrackRepository
+import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -26,6 +27,8 @@ class PracticeDataService @Inject constructor (): Service() {
     @Inject lateinit var trackRepository: TrackRepository
 
     @Inject lateinit var exceptionUtil: ExceptionUtil
+
+    @Inject lateinit var userAccountRepository: UserAccountRepository
 
     override fun onCreate() {
         super.onCreate()
@@ -56,22 +59,22 @@ class PracticeDataService @Inject constructor (): Service() {
     }
 
     private fun updatePracticeList(activities: List<ActivitiesItem>){
-        GlobalScope.launch {
-            val practiceIdList = practiceRepository.getPracticeIdList()
-            loadAndSavePracticeList(activities, practiceIdList)
-        }
-    }
-
-    private fun loadAndSavePracticeList(activities: List<ActivitiesItem>, practiceIdList: List<Int>){
-        for(entry in activities){
-            if(practiceIdList.contains(entry.id)){
-                continue
-            }
-            apiRepository.loadPracticeResultForPracticeTable(entry){
-                it.onFailure { t ->
-                    exceptionUtil.save(t, GlobalScope)
-                }.onSuccess { practice ->
-                    savePractice(practice)
+        userAccountRepository.getAccessToken()?.let { token ->
+            GlobalScope.launch {
+                val practiceIdList = practiceRepository.getPracticeIdList()
+                for(entry in activities){
+                    if(practiceIdList.contains(entry.id)){
+                        continue
+                    }
+                    try {
+                        savePractice(practice = apiRepository.loadPracticeResultForPracticeTable(
+                                token = token,
+                                activitiesItem = entry,
+                            )
+                        )
+                    } catch (e: Exception) {
+                        exceptionUtil.save(e, GlobalScope)
+                    }
                 }
             }
         }
