@@ -1,7 +1,7 @@
 package jp.ceed.android.mylapslogger.model
 
 import jp.ceed.android.mylapslogger.R
-import jp.ceed.android.mylapslogger.network.response.SessionsResponse
+import jp.ceed.android.mylapslogger.network.response.Sessions
 import jp.ceed.android.mylapslogger.util.DateUtil
 import java.io.Serializable
 
@@ -12,7 +12,7 @@ data class SessionListItem(
     val lapCount: String,
     val bestLapTextColor: Int
 ): Serializable {
-    constructor(sessions: SessionsResponse.Sessions, totalBest: String): this(
+    constructor(sessions: Sessions.Sessions, totalBest: String): this(
         no = sessions.id.toString(),
         startTime = DateUtil.toHmFromDateTimeWithMilliSec(sessions.dateTimeStart),
         bestLap = sessions.bestLap.duration,

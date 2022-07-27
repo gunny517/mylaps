@@ -9,7 +9,6 @@ import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.dto.Status
 import jp.ceed.android.mylapslogger.loadJsonAsEntity
 import jp.ceed.android.mylapslogger.model.SessionListItem
-import jp.ceed.android.mylapslogger.network.response.SessionsResponse
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 import org.spekframework.spek2.Spek

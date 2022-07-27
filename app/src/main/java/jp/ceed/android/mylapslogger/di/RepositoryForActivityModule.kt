@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.dao.*
 import jp.ceed.android.mylapslogger.datasource.ActivitiesApiDataSource
+import jp.ceed.android.mylapslogger.datasource.SessionsApiDataSource
 import jp.ceed.android.mylapslogger.network.JsonApiKtorClientCreator
 import jp.ceed.android.mylapslogger.repository.*
 
@@ -20,10 +21,14 @@ object RepositoryForActivityModule {
     @Provides
     fun bindsApiRepository(
         @ApplicationContext context: Context,
-        preferenceDao: PreferenceDao,
-        activitiesApiDataSource: ActivitiesApiDataSource
+        activitiesApiDataSource: ActivitiesApiDataSource,
+        sessionsApiDataSource: SessionsApiDataSource,
     ): ApiRepository {
-        return ApiRepository(context, preferenceDao, activitiesApiDataSource)
+        return ApiRepository(
+            context = context,
+            activitiesApiDataSource = activitiesApiDataSource,
+            sessionsApiDataSource = sessionsApiDataSource,
+        )
     }
 
     @Provides

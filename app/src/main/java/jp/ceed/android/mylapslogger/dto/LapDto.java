@@ -1,18 +1,10 @@
 package jp.ceed.android.mylapslogger.dto;
 
-import android.se.omapi.Session;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Guideline;
+import androidx.databinding.BindingAdapter;
 
 import java.io.Serializable;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.databinding.BindingAdapter;
-import jp.ceed.android.mylapslogger.R;
-import jp.ceed.android.mylapslogger.network.response.SessionsResponse.Sessions;
-import jp.ceed.android.mylapslogger.network.response.SessionsResponse.Sessions.BestLapX;
-import jp.ceed.android.mylapslogger.network.response.SessionsResponse.Sessions.Laps;
-import jp.ceed.android.mylapslogger.util.DateUtil;
-import jp.ceed.android.mylapslogger.util.Util;
-import androidx.constraintlayout.widget.Guideline;
 
 /**
  * Created by ARAKI on 2017/04/28.

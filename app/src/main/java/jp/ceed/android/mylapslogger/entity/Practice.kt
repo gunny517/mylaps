@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
-import jp.ceed.android.mylapslogger.network.response.SessionsResponse
+import jp.ceed.android.mylapslogger.network.response.Sessions
 
 @Entity
 data class Practice(
@@ -18,15 +18,15 @@ data class Practice(
     @ColumnInfo(name = "total_training_time") var totalTrainingTime: String,
     @ColumnInfo(name = "active_training_time") var activeTrainingTime: String
 ){
-    constructor(activitiesItem: ActivitiesItem, sessionsResponse: SessionsResponse): this(
+    constructor(activitiesItem: ActivitiesItem, sessions: Sessions): this(
         id = activitiesItem.id,
         trackId = activitiesItem.locationId,
-        lapCount = sessionsResponse.stats.lapCount,
-        bestLap = sessionsResponse.bestLap.duration,
+        lapCount = sessions.stats.lapCount,
+        bestLap = sessions.bestLap.duration,
         startTime = activitiesItem.startTime,
         endTime = activitiesItem.endTimeRaw,
         displayTime = activitiesItem.displayTime,
-        totalTrainingTime = sessionsResponse.stats.totalTrainingTime,
-        activeTrainingTime = sessionsResponse.stats.activeTrainingTime
+        totalTrainingTime = sessions.stats.totalTrainingTime,
+        activeTrainingTime = sessions.stats.activeTrainingTime
     )
 }

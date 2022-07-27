@@ -13,6 +13,7 @@ class JsonApiKtorClientCreator @Inject constructor() {
             serializer = KotlinxSerializer(
                 kotlinx.serialization.json.Json {
                     isLenient = true
+                    ignoreUnknownKeys = true
                 }
             )
         }

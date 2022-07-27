@@ -1,7 +1,7 @@
 package jp.ceed.android.mylapslogger.dto
 
 import jp.ceed.android.mylapslogger.R
-import jp.ceed.android.mylapslogger.network.response.SessionsResponse
+import jp.ceed.android.mylapslogger.network.response.Sessions
 import jp.ceed.android.mylapslogger.util.DateUtil
 
 sealed class PracticeResultsItem {
@@ -16,7 +16,7 @@ sealed class PracticeResultsItem {
         var diffTextColor: Int,
         var speedLevel: Float = 0F
     ): PracticeResultsItem(){
-        constructor(laps: SessionsResponse.Sessions.Laps, sessions: SessionsResponse.Sessions): this(
+        constructor(laps: Sessions.Sessions.Laps, sessions: Sessions.Sessions): this(
             sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart),
             number = laps.nr.toString(),
             duration = laps.duration,
@@ -35,7 +35,7 @@ sealed class PracticeResultsItem {
         var averageDuration: String,
         var medianDuration: String
     ): PracticeResultsItem(){
-        constructor(sessions: SessionsResponse.Sessions): this(
+        constructor(sessions: Sessions.Sessions): this(
             sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart),
             sectionTitle = sessions.id.toString (),
             averageDuration = sessions.aveLapDuration,
@@ -50,7 +50,7 @@ sealed class PracticeResultsItem {
         var duration: String,
         var lapCount: Int,
     ): PracticeResultsItem(){
-        constructor(sessions: SessionsResponse.Sessions):this(
+        constructor(sessions: Sessions.Sessions):this(
             sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart),
             number = sessions.bestLap.nr.toString(),
             duration = sessions.bestLap.duration,
