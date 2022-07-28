@@ -10,9 +10,9 @@ class DateUtil {
 
         private const val DELTA_FOR_WEATHER_DATA = 30 * 60 * 1000L
 
-        private const val API_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ"
+        private const val API_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssX"
 
-        private const val API_TIME_FORMAT_WITH_MILLI_SEC = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        private const val API_TIME_FORMAT_WITH_MILLI_SEC = "yyyy-MM-dd'T'HH:mm:ss.SSSX"
 
         private const val HMS_FORMAT = "HH:mm:ss"
 

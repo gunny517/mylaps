@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId "jp.ceed.android.mylapslogger"
-        minSdk 21
+        minSdk 24
         targetSdk 31
         versionCode Integer.parseInt(AppVersionCode)
         versionName AppVersionName
