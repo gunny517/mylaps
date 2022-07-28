@@ -9,13 +9,13 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.android.mylapslogger.BR
 import jp.ceed.android.mylapslogger.R
-import jp.ceed.android.mylapslogger.databinding.TrackBestListItemBinding
+import jp.ceed.android.mylapslogger.databinding.PracticeByTrackListItemBinding
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
 
-class TrackBestAdapter(
+class PracticeByTrackAdapter(
     context: Context,
     private val onClick: (PracticeTrack) -> Unit,
-): RecyclerView.Adapter<TrackBestAdapter.ViewHolder>() {
+): RecyclerView.Adapter<PracticeByTrackAdapter.ViewHolder>() {
 
     val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -26,8 +26,8 @@ class TrackBestAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: TrackBestListItemBinding = DataBindingUtil
-            .inflate(inflater, R.layout.track_best_list_item, parent, false)
+        val binding: PracticeByTrackListItemBinding = DataBindingUtil
+            .inflate(inflater, R.layout.practice_by_track_list_item, parent, false)
         return ViewHolder(binding.root)
     }
 

@@ -6,6 +6,8 @@
         <variable
             name="item"
             type="jp.ceed.android.mylapslogger.entity.PracticeTrack" />
+        <import type="android.content.Context"/>
+        <import type="jp.ceed.android.mylapslogger.R"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,31 +17,32 @@
         android:background="?android:attr/selectableItemBackground">
 
         <TextView
-            android:id="@+id/trackNameTextView"
-            android:layout_width="match_parent"
+            android:id="@+id/dateTextView"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textSize="@dimen/text_size_s"
-            android:text="@{item.trackName}"/>
-
-        <TextView
-            android:id="@+id/dateTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_m"
-            app:layout_constraintTop_toBottomOf="@id/trackNameTextView"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="@dimen/text_size_ms"
             android:text="@{item.displayTime}"/>
 
         <TextView
-            android:id="@+id/bestLapTextView"
+            android:id="@+id/lapTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_m"
-            app:layout_constraintTop_toBottomOf="@id/trackNameTextView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/dateTextView"
+            app:layout_constraintEnd_toStartOf="@id/bestLapTextView"
+            android:gravity="end"
+            android:textSize="@dimen/text_size_ms"
+            android:text="@{context.getString(R.string.format_practice_by_track_list_lap_count, item.lapCount)}"/>
+
+        <TextView
+            android:id="@+id/bestLapTextView"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="end"
             android:textSize="@dimen/text_size_m"
             android:text="@{item.bestLap}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

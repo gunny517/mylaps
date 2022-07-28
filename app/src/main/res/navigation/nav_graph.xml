@@ -96,6 +96,10 @@
 		<action
 			android:id="@+id/action_PracticeResultFragment_to_SessionInfoFragment"
 			app:destination="@id/SessionInfoFragment"/>
+
+		<action
+			android:id="@+id/action_PracticeResultFramgent_to_PracticeByTrackFragment"
+			app:destination="@id/PracticeByTrackFragment"/>
 	</fragment>
 
 	<fragment
@@ -229,16 +233,11 @@
 
 	<fragment
 		android:id="@+id/PracticeByTrackFragment"
-		android:name="jp.ceed.android.mylapslogger.PracticeByTrackFragment"
-		android:label="{trackName}">
+		android:name="jp.ceed.android.mylapslogger.PracticeByTrackFragment">
 
 		<argument
 			android:name="trackId"
 			app:argType="integer"/>
-
-		<argument
-			android:name="trackName"
-			app:argType="string"/>
 
 		<action
 			android:id="@+id/action_PracticeByTrackFragment_to_PracticeResultFragment"
