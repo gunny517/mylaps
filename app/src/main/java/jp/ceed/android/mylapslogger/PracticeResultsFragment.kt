@@ -48,6 +48,7 @@ class PracticeResultsFragment : Fragment() {
         menu.findItem(R.id.action_session_info).isVisible = true
         menu.findItem(R.id.action_session_summary).isVisible = true
         menu.findItem(R.id.action_user_info).isVisible = false
+        menu.findItem(R.id.action_track_best).isVisible = true
         super.onPrepareOptionsMenu(menu)
     }
 
@@ -60,6 +61,10 @@ class PracticeResultsFragment : Fragment() {
             }
             R.id.action_session_info -> {
                 navigateToActivityInfo()
+                true
+            }
+            R.id.action_track_best -> {
+                navigateToPracticeByTrackFragment()
                 true
             }
             else -> false
@@ -117,6 +122,13 @@ class PracticeResultsFragment : Fragment() {
         findNavController().navigate(
             PracticeResultsFragmentDirections
                 .actionPracticeResultFragmentToSessionInfoFragment(sessionInfoFragmentParams, args.sessionDate, titleText)
+        )
+    }
+
+    private fun navigateToPracticeByTrackFragment(){
+        findNavController().navigate(
+            PracticeResultsFragmentDirections
+                .actionPracticeResultFramgentToPracticeByTrackFragment(args.trackId)
         )
     }
 }

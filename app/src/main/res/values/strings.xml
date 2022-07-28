@@ -38,6 +38,7 @@
 	<string name="format_activity_info_total_distance">%s km</string>
 	<string name="format_total_distance_training_count">%d 回</string>
 	<string name="format_summary_list_lap_count">%d 周</string>
+	<string name="format_practice_by_track_list_lap_count">%d 周</string>
 
 	<string name="label_session_info_title_description">備考</string>
 	<string name="label_session_info_save_button">保存</string>

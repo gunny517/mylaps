@@ -8,11 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import jp.ceed.android.mylapslogger.adatpter.TrackBestAdapter
+import jp.ceed.android.mylapslogger.adatpter.PracticeByTrackAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentPracticeByTrackBinding
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
 import jp.ceed.android.mylapslogger.util.AppSettings
@@ -24,8 +23,6 @@ class PracticeByTrackFragment: Fragment() {
     var _binding: FragmentPracticeByTrackBinding? = null;
 
     val binding get() = _binding!!
-
-    val args: PracticeByTrackFragmentArgs by navArgs()
 
     val viewModel: PracticeByTrackFragmentViewModel by viewModels()
 
@@ -42,13 +39,20 @@ class PracticeByTrackFragment: Fragment() {
     }
 
     private fun initLayout(){
-        val adapter = TrackBestAdapter(requireContext(), ::navigateToPracticeResults, true)
+        val adapter = PracticeByTrackAdapter(requireContext(), ::navigateToPracticeResults)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
         viewModel.practiceTrackList.observe(viewLifecycleOwner){
             adapter.setListItems(it)
             adapter.notifyDataSetChanged()
+            setActionbarTitle(viewModel.practiceTrackList.value?.get(0))
+        }
+    }
+
+    private fun setActionbarTitle(practiceTrack: PracticeTrack?) {
+        practiceTrack?.let {
+            (requireActivity() as MainActivity).setToolbarTitle(practiceTrack.trackName)
         }
     }
 
