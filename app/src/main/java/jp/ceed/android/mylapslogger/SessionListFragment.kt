@@ -46,8 +46,7 @@ class SessionListFragment: Fragment() {
         val adapter = SessionListAdapter(requireContext(), ::navigateToPracticeResult)
         binding.recyclerView.adapter = adapter
         viewModel.sessionItemList.observe(viewLifecycleOwner){
-            adapter.setItems(it)
-            adapter.notifyDataSetChanged()
+            adapter.submitList(it)
         }
     }
 

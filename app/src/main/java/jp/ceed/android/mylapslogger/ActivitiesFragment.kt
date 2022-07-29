@@ -106,29 +106,26 @@ class ActivitiesFragment : Fragment() {
     }
 
     private fun initLayout() {
-        context?.let { it ->
-            val adapter = ActivitiesAdapter(it, mutableListOf(), object : ActivitiesAdapter.OnClickListener {
-                override fun onClick(activitiesItem: ActivitiesItem) {
-                    navigateToPracticeResults(activitiesItem)
-                }
-            })
-            binding.recyclerView.adapter = adapter
-            binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            viewModel.activities.observe(viewLifecycleOwner) {
-                adapter.setItems(it)
-                adapter.notifyDataSetChanged()
+        val adapter = ActivitiesAdapter(requireContext(), object : ActivitiesAdapter.OnClickListener {
+            override fun onClick(activitiesItem: ActivitiesItem) {
+                navigateToPracticeResults(activitiesItem)
             }
-            viewModel.event.observe(viewLifecycleOwner, EventObserver { eventState ->
-                when(eventState){
-                    ActivitiesFragmentViewModel.EventState.GO_TO_LOGIN ->
-                        navigateToLogin()
-                    ActivitiesFragmentViewModel.EventState.START_PRACTICE_SERVICE ->
-                        startPracticeService(viewModel.activities.value)
-                    ActivitiesFragmentViewModel.EventState.NONE -> {}
-                }
-            })
+        })
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        viewModel.activities.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
         }
+        viewModel.event.observe(viewLifecycleOwner, EventObserver { eventState ->
+            when(eventState){
+                ActivitiesFragmentViewModel.EventState.GO_TO_LOGIN ->
+                    navigateToLogin()
+                ActivitiesFragmentViewModel.EventState.START_PRACTICE_SERVICE ->
+                    startPracticeService(viewModel.activities.value)
+                ActivitiesFragmentViewModel.EventState.NONE -> {}
+            }
+        })
     }
 
     private fun navigateToPracticeResults(activitiesItem: ActivitiesItem) {

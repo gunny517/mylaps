@@ -6,4 +6,6 @@
     <string name="practice_api_end_point">https://practice-api.speedhive.com</string>
     <string name="session_request_path">api/v1/training/activities/%d/sessions</string>
     <string name="activities_request_path">api/v1/accounts/%s/training/activities</string>
+
+    <string name="args_activity_id">activityId</string>
 </resources>

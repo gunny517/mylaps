@@ -44,8 +44,7 @@ class PracticeByTrackFragment: Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
         viewModel.practiceTrackList.observe(viewLifecycleOwner){
-            adapter.setListItems(it)
-            adapter.notifyDataSetChanged()
+            adapter.submitList(it)
             setActionbarTitle(viewModel.practiceTrackList.value?.get(0))
         }
     }

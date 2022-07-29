@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.android.mylapslogger.BR
 import jp.ceed.android.mylapslogger.R
@@ -15,11 +17,9 @@ import jp.ceed.android.mylapslogger.entity.PracticeTrack
 class TrackBestAdapter(
     context: Context,
     private val onClick: (PracticeTrack) -> Unit,
-): RecyclerView.Adapter<TrackBestAdapter.ViewHolder>() {
+): ListAdapter<PracticeTrack, TrackBestAdapter.ViewHolder>(diffCallback) {
 
     val inflater: LayoutInflater = LayoutInflater.from(context)
-
-    var items: List<PracticeTrack> = mutableListOf()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val viewDataBinding: ViewDataBinding? = DataBindingUtil.bind(itemView)
@@ -32,19 +32,26 @@ class TrackBestAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
+        val item = getItem(position)
         holder.viewDataBinding?.setVariable(BR.item, item)
         holder.itemView.setOnClickListener {
             onClick(item)
         }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    companion object {
+        val diffCallback = object : DiffUtil.ItemCallback<PracticeTrack>() {
+            override fun areItemsTheSame(
+                oldItem: PracticeTrack,
+                newItem: PracticeTrack
+            ): Boolean = oldItem == newItem
 
-    fun setListItems(_items: List<PracticeTrack>){
-        items = _items
+            override fun areContentsTheSame(
+                oldItem: PracticeTrack,
+                newItem: PracticeTrack
+            ): Boolean = oldItem == newItem
+
+        }
     }
 
 }

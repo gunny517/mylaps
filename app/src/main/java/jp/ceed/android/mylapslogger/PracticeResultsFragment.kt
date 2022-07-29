@@ -52,7 +52,6 @@ class PracticeResultsFragment : Fragment() {
         super.onPrepareOptionsMenu(menu)
     }
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_session_summary -> {
@@ -75,10 +74,9 @@ class PracticeResultsFragment : Fragment() {
         val adapter = PracticeResultsAdapter(requireContext()) { section: PracticeResultsItem.Section -> navigateToSessionInfo(section) }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         viewModel.practiceResult.observe(viewLifecycleOwner) {
-            adapter.setItems(it.sessionData)
-            adapter.notifyDataSetChanged()
+            adapter.submitList(it.sessionData)
         }
         lifecycleScope.launch {  }
     }
@@ -110,7 +108,6 @@ class PracticeResultsFragment : Fragment() {
             )
         }
     }
-
 
     private fun navigateToSessionInfo(section: PracticeResultsItem.Section) {
         val titleText = getString(R.string.format_session_title, section.sectionTitle)

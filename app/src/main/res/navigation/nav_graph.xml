@@ -105,7 +105,7 @@
 	<fragment
 		android:id="@+id/PracticeSummaryFragment"
 		android:name="jp.ceed.android.mylapslogger.PracticeSummaryFragment"
-		tools:layout="@layout/fragment_prectice_summary">
+		tools:layout="@layout/fragment_practice_summary">
 
 		<argument
 			android:name="params"
