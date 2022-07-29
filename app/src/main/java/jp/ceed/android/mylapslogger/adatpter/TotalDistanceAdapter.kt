@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.android.mylapslogger.BR
 import jp.ceed.android.mylapslogger.R
@@ -14,11 +16,10 @@ import jp.ceed.android.mylapslogger.entity.TotalDistance
 
 class TotalDistanceAdapter(
     context: Context,
-    private val onClickItem: (item: TotalDistance) -> Unit): RecyclerView.Adapter<TotalDistanceAdapter.ViewHolder>() {
+    private val onClickItem: (item: TotalDistance) -> Unit
+): ListAdapter<TotalDistance, TotalDistanceAdapter.ViewHolder>(diffCallback) {
 
     private val inflater = LayoutInflater.from(context)
-
-    private var items: List<TotalDistance> = listOf()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val viewDataBinding: ViewDataBinding? = DataBindingUtil.bind(itemView)
@@ -30,20 +31,26 @@ class TotalDistanceAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
+        val item = getItem(position)
         holder.viewDataBinding?.setVariable(BR.item, item)
         holder.itemView.setOnClickListener {
             onClickItem(item)
         }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    companion object {
+        val diffCallback = object :DiffUtil.ItemCallback<TotalDistance>() {
+            override fun areItemsTheSame(
+                oldItem: TotalDistance,
+                newItem: TotalDistance
+            ): Boolean = oldItem == newItem
 
-    fun setListItem(_items: List<TotalDistance>){
-        items = _items
-    }
+            override fun areContentsTheSame(
+                oldItem: TotalDistance,
+                newItem: TotalDistance
+            ): Boolean = oldItem == newItem
 
+        }
+    }
 
 }

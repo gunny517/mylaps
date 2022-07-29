@@ -39,8 +39,7 @@ class TotalDistanceFragment: Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
         viewModel.totalDistanceList.observe(viewLifecycleOwner){
-            adapter.setListItem(it)
-            adapter.notifyDataSetChanged()
+            adapter.submitList(it)
         }
     }
 

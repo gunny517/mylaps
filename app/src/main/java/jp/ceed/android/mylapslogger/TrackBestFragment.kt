@@ -43,8 +43,7 @@ class TrackBestFragment: Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
         viewModel.trackBestList.observe(viewLifecycleOwner){
-            adapter.setListItems(it)
-            adapter.notifyDataSetChanged()
+            adapter.submitList(it)
         }
     }
 

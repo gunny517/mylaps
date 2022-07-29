@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.android.mylapslogger.BR
 import jp.ceed.android.mylapslogger.R
@@ -13,9 +15,7 @@ import jp.ceed.android.mylapslogger.model.FuelConsumptionListItem
 
 class FuelConsumptionListAdapter(
     context: Context,
-): RecyclerView.Adapter<FuelConsumptionListAdapter.ViewHolder>() {
-
-    var listItem: List<FuelConsumptionListItem> = listOf()
+): ListAdapter<FuelConsumptionListItem, FuelConsumptionListAdapter.ViewHolder>(diffCallback) {
 
     private val inflator: LayoutInflater = LayoutInflater.from(context)
 
@@ -29,10 +29,21 @@ class FuelConsumptionListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.viewDataBinding?.setVariable(BR.item, listItem[position])
+        holder.viewDataBinding?.setVariable(BR.item, getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return listItem.size
+    companion object {
+        val diffCallback = object : DiffUtil.ItemCallback<FuelConsumptionListItem>() {
+            override fun areItemsTheSame(
+                oldItem: FuelConsumptionListItem,
+                newItem: FuelConsumptionListItem
+            ): Boolean = oldItem == newItem
+
+            override fun areContentsTheSame(
+                oldItem: FuelConsumptionListItem,
+                newItem: FuelConsumptionListItem
+            ): Boolean = oldItem == newItem
+
+        }
     }
 }

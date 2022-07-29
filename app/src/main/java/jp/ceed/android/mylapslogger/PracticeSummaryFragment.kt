@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.adatpter.PracticeResultsAdapter
-import jp.ceed.android.mylapslogger.databinding.FragmentPrecticeSummaryBinding
+import jp.ceed.android.mylapslogger.databinding.FragmentPracticeSummaryBinding
 import jp.ceed.android.mylapslogger.viewModel.PracticeSummaryFragmentViewModel
 
 @AndroidEntryPoint
 class PracticeSummaryFragment : Fragment() {
 
-    private var _binding: FragmentPrecticeSummaryBinding? = null
+    private var _binding: FragmentPracticeSummaryBinding? = null
 
     private val binding get() = _binding!!
 
@@ -27,7 +27,7 @@ class PracticeSummaryFragment : Fragment() {
     private val args: PracticeSummaryFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_prectice_summary, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_practice_summary, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
@@ -41,8 +41,7 @@ class PracticeSummaryFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         viewModel.recyclerViewItem.observe(viewLifecycleOwner) {
-            adapter.setItems(it)
-            adapter.notifyDataSetChanged()
+            adapter.submitList(it)
         }
         viewModel.recyclerViewItem.value = args.params.sessionSummary
     }

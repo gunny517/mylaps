@@ -41,8 +41,7 @@ class ErrorLogFragment: Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
         viewModel.listItems.observe(viewLifecycleOwner){
-            adapter.setItems(it)
-            adapter.notifyDataSetChanged()
+            adapter.submitList(it)
         }
     }
 

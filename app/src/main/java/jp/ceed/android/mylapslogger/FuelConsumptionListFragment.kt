@@ -42,8 +42,7 @@ class FuelConsumptionListFragment: Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         viewModel.listItem.observe(viewLifecycleOwner){
-            adapter.listItem = it
-            adapter.notifyDataSetChanged()
+            adapter.submitList(it)
         }
     }
 

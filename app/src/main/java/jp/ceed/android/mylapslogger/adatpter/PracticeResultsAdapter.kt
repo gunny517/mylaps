@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.android.mylapslogger.BR
 import jp.ceed.android.mylapslogger.R
@@ -17,12 +19,9 @@ import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 class PracticeResultsAdapter(
     context: Context,
     private val onClickListener: (PracticeResultsItem.Section) -> Unit
-) : RecyclerView.Adapter<PracticeResultsAdapter.ViewHolder>() {
+) : ListAdapter<PracticeResultsItem, PracticeResultsAdapter.ViewHolder>(diffCallback) {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-
-    private var items: List<PracticeResultsItem> = mutableListOf()
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when(viewType){
@@ -42,7 +41,7 @@ class PracticeResultsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: PracticeResultsItem = items[position]
+        val item: PracticeResultsItem = getItem(position)
         holder.viewDataBinding?.setVariable(BR.item, item)
         holder.itemView.setOnClickListener {
             when(item){
@@ -52,10 +51,6 @@ class PracticeResultsAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
     private fun onClickSection(item: PracticeResultsItem.Section) {
         if (item.sessionId != 0L) {
             onClickListener(item)
@@ -63,15 +58,11 @@ class PracticeResultsAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(items[position]){
+        return when(getItem(position)){
             is PracticeResultsItem.Section -> VIEW_TYPE_SECTION
             is PracticeResultsItem.Lap -> VIEW_TYPE_LAP
             else -> VIEW_TYPE_SUMMARY
         }
-    }
-
-    fun setItems(_items: List<PracticeResultsItem>) {
-        items = _items
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -83,6 +74,22 @@ class PracticeResultsAdapter(
         private const val VIEW_TYPE_SECTION = 0
         private const val VIEW_TYPE_LAP = 1
         private const val VIEW_TYPE_SUMMARY = 2
+
+        val diffCallback = object : DiffUtil.ItemCallback<PracticeResultsItem>() {
+            override fun areItemsTheSame(
+                oldItem: PracticeResultsItem,
+                newItem: PracticeResultsItem
+            ): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(
+                oldItem: PracticeResultsItem,
+                newItem: PracticeResultsItem
+            ): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 
 }
