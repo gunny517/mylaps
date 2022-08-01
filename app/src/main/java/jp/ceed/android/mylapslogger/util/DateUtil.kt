@@ -93,6 +93,20 @@ class DateUtil {
             return YMD_HMS_SIMPLE_DATE_FORMAT.format(Date(time))
         }
 
+        fun isToday(startTimeStr: String): Boolean{
+            val cal = Calendar.getInstance()
+            cal.set(Calendar.HOUR_OF_DAY, 0)
+            cal.set(Calendar.MINUTE, 0)
+            cal.set(Calendar.SECOND, 0)
+            val today = cal.time
+            return try {
+                val startTime = API_SIMPLE_DATE_FORMAT.parse(startTimeStr)
+                startTime > today
+            } catch (e: ParseException){
+                false
+            }
+        }
+
     }
 
 }

@@ -15,7 +15,7 @@ import jp.ceed.android.mylapslogger.entity.*
     Track::class,
     Practice::class,
     ErrorLog::class ],
-    version = 9)
+    version = 10)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun activityInfoDao(): ActivityInfoDao
@@ -54,6 +54,7 @@ abstract class AppDatabase : RoomDatabase() {
                     addMigrations(MIGRATION_6_7)
                     addMigrations(MIGRATION_7_8)
                     addMigrations(MIGRATION_8_9)
+                    addMigrations(MIGRATION_9_10)
                 }.build()
                 INSTANCE = instance
                 instance
@@ -102,6 +103,8 @@ abstract class AppDatabase : RoomDatabase() {
         const val ALTER_ACTIVITY_INFO_ADD_DATETIME = "ALTER TABLE ActivityInfo " +
                 "ADD COLUMN " +
                 "date_time TEXT NOT NULL DEFAULT ''"
+
+        const val TRUNCATE_PRACTICE = "DELETE FROM Practice"
 
         private val MIGRATION_2_3 = object : Migration(2, 3){
             override fun migrate(database: SupportSQLiteDatabase) {
@@ -155,6 +158,12 @@ abstract class AppDatabase : RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(ALTER_ACTIVITY_INFO_ADD_TRACK_ID)
                 database.execSQL(ALTER_ACTIVITY_INFO_ADD_DATETIME)
+            }
+        }
+
+        private val MIGRATION_9_10 = object : Migration(9, 10){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(TRUNCATE_PRACTICE)
             }
         }
     }

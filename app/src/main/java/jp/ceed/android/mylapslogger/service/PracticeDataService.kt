@@ -10,6 +10,7 @@ import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.PracticeRepository
 import jp.ceed.android.mylapslogger.repository.TrackRepository
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
+import jp.ceed.android.mylapslogger.util.DateUtil
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -66,6 +67,9 @@ class PracticeDataService @Inject constructor (): Service() {
                     if(practiceIdList.contains(entry.id)){
                         continue
                     }
+                    if(DateUtil.isToday(entry.startTime)){
+                        continue
+                    }
                     try {
                         savePractice(practice = apiRepository.loadPracticeResultForPracticeTable(
                                 token = token,
@@ -85,6 +89,8 @@ class PracticeDataService @Inject constructor (): Service() {
             practiceRepository.savePractice(practice)
         }
     }
+
+
 
 
     companion object{
