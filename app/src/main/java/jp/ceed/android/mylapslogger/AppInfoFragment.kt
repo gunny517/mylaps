@@ -31,12 +31,6 @@ class AppInfoFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.showPracticeResultAsSeparate.observe(viewLifecycleOwner){
-            viewModel.saveShowPracticeResultsAsSeparate()
-        }
-        viewModel.showSpeedBar.observe(viewLifecycleOwner){
-            viewModel.saveShowSpeedBar()
-        }
         viewModel.clickShowErrorLogEvent.observe(viewLifecycleOwner){
             navigateToErrorLog()
         }

@@ -86,7 +86,7 @@ class DateUtil {
         }
 
         fun convertToTimeMillis(timeString: String): Long {
-            return API_SIMPLE_DATE_FORMAT.parse(timeString).time
+            return API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(timeString)?.time ?: 0L
         }
 
         fun createYmdHmsString(time: Long): String{

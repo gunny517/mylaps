@@ -12,7 +12,7 @@ object DateUtilTest : Spek({
     describe("#toTimeFromDateTimeWithMilliSec"){
         it("正しい形式の日付が渡されたときに正しい値が返却されること"){
             val result = DateUtil.toTimeFromDateTimeWithMilliSec("2022-06-26T09:15:54.982+09:00")
-            assertThat(result).isEqualTo(1654041600000L)
+            assertThat(result).isEqualTo(1656202554982L)
         }
     }
 })

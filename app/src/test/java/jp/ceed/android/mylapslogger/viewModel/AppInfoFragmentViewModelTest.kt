@@ -47,20 +47,27 @@ object AppInfoFragmentViewModelTest : Spek({
 
     describe("saveShowPracticeResultsAsSeparateが呼ばれたとき"){
         it("保存の処理が呼ばれている"){
-            viewModel.showPracticeResultAsSeparate.value = false
-            viewModel.saveShowPracticeResultsAsSeparate()
+            viewModel.saveShowPracticeResultsAsSeparate(true)
             verify {
-                viewModel.appSettings.saveShowPracticeResultsAsSeparate(false)
+                viewModel.appSettings.saveShowPracticeResultsAsSeparate(true)
             }
         }
     }
 
     describe("saveShowSpeedBarが呼ばれえた時"){
         it("保存の処理が呼ばれている"){
-            viewModel.showSpeedBar.value = false
-            viewModel.saveShowSpeedBar()
+            viewModel.saveShowSpeedBar(false)
             verify {
                 viewModel.appSettings.saveSpeedBar(false)
+            }
+        }
+    }
+
+    describe("saveAllowSessionAutoLoadingが呼ばれえた時"){
+        it("保存の処理が呼ばれている"){
+            viewModel.saveAllowSessionAutoLoading(false)
+            verify {
+                viewModel.appSettings.saveAllowSessionAutoLoading(false)
             }
         }
     }

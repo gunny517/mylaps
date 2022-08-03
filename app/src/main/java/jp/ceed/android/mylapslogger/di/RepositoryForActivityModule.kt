@@ -13,6 +13,7 @@ import jp.ceed.android.mylapslogger.datasource.LoginDataSource
 import jp.ceed.android.mylapslogger.datasource.SessionsApiDataSource
 import jp.ceed.android.mylapslogger.network.JsonApiKtorClientCreator
 import jp.ceed.android.mylapslogger.repository.*
+import jp.ceed.android.mylapslogger.util.SessionDataCreator
 
 
 @Module
@@ -24,11 +25,13 @@ object RepositoryForActivityModule {
         @ApplicationContext context: Context,
         activitiesApiDataSource: ActivitiesApiDataSource,
         sessionsApiDataSource: SessionsApiDataSource,
+        sessionDataCreator: SessionDataCreator,
     ): ApiRepository {
         return ApiRepository(
             context = context,
             activitiesApiDataSource = activitiesApiDataSource,
             sessionsApiDataSource = sessionsApiDataSource,
+            sessionDataCreator = sessionDataCreator,
         )
     }
 
@@ -93,5 +96,16 @@ object RepositoryForActivityModule {
         activityInfoTrackDao: ActivityInfoTrackDao
     ): ActivityInfoTrackRepository {
         return ActivityInfoTrackRepository(activityInfoTrackDao)
+    }
+
+    @Provides
+    fun bindsPracticeResultsRepository(
+        sessionsApiDataSource: SessionsApiDataSource,
+        sessionDataCreator: SessionDataCreator
+    ): PracticeResultsRepository {
+        return PracticeResultsRepository(
+            sessionsApiDataSource = sessionsApiDataSource,
+            sessionDataCreator = sessionDataCreator,
+        )
     }
 }
