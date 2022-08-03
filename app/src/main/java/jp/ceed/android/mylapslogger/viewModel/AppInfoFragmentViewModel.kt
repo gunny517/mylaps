@@ -21,6 +21,8 @@ class AppInfoFragmentViewModel @Inject constructor (
 
     var showSpeedBar: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    var allowSessionAutoLoading: MutableLiveData<Boolean> = MutableLiveData(false)
+
     val clickShowErrorLogEvent: MutableLiveData<Event<EventState>> = MutableLiveData()
 
     init {
@@ -35,14 +37,19 @@ class AppInfoFragmentViewModel @Inject constructor (
     private fun initAppSettings(){
         showPracticeResultAsSeparate.value = appSettings.isShowPracticeResultsAsSeparate()
         showSpeedBar.value = appSettings.isShowSpeedBar()
+        allowSessionAutoLoading.value = appSettings.isAllowSessionAutoLoading()
     }
 
-    fun saveShowPracticeResultsAsSeparate(){
-        appSettings.saveShowPracticeResultsAsSeparate(showPracticeResultAsSeparate.value ?: false)
+    fun saveShowPracticeResultsAsSeparate(checked: Boolean){
+        appSettings.saveShowPracticeResultsAsSeparate(checked)
     }
 
-    fun saveShowSpeedBar(){
-        appSettings.saveSpeedBar(showSpeedBar.value ?: false)
+    fun saveShowSpeedBar(checked: Boolean){
+        appSettings.saveSpeedBar(checked)
+    }
+
+    fun saveAllowSessionAutoLoading(checked: Boolean) {
+        appSettings.saveAllowSessionAutoLoading(checked)
     }
 
     fun onClickShowErrorLog(){

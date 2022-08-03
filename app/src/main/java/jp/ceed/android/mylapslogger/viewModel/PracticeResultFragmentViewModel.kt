@@ -11,6 +11,7 @@ import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.model.PracticeResult
 import jp.ceed.android.mylapslogger.repository.*
+import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.util.DateUtil
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PracticeResultFragmentViewModel @Inject constructor (
     state: SavedStateHandle,
+    var appSettings: AppSettings,
     var userAccountRepository: UserAccountRepository,
     var apiRepository: ApiRepository,
     var weatherRepository: WeatherRepository,
@@ -28,6 +30,7 @@ class PracticeResultFragmentViewModel @Inject constructor (
     var sessionInfoRepository: SessionInfoRepository,
     var exceptionUtil: ExceptionUtil,
     var resourceRepository: ResourceRepository,
+    var practiceResultsRepository: PracticeResultsRepository,
 ) : ViewModel() {
 
     val practiceResult: MutableLiveData<PracticeResult> = MutableLiveData()
@@ -41,7 +44,11 @@ class PracticeResultFragmentViewModel @Inject constructor (
     private val sessionNo: Int = state.get<Int>("sessionNo") ?: 0
 
     init {
-        loadPracticeResult()
+        if(appSettings.isAllowSessionAutoLoading()){
+            startAutoLoading()
+        }else{
+            loadPracticeResult()
+        }
     }
 
     fun loadPracticeResult() {
@@ -60,6 +67,22 @@ class PracticeResultFragmentViewModel @Inject constructor (
                     progressVisibility.value = false
                 } catch (e: Exception) {
                     exceptionUtil.save(e, viewModelScope)
+                }
+            }
+        }
+    }
+
+    private fun startAutoLoading(){
+        userAccountRepository.getAccessToken()?.let { token ->
+            viewModelScope.launch {
+                practiceResultsRepository.args = PracticeResultsRepository.Args(
+                    activityId = activityId,
+                    token = token,
+                    trackLength = trackLength,
+                    sessionNo = sessionNo,
+                )
+                practiceResultsRepository.sessionFlow.collect{ practiceResult ->
+                    applySessionInfoLabel(practiceResult)
                 }
             }
         }

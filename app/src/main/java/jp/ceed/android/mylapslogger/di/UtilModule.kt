@@ -13,6 +13,7 @@ import jp.ceed.android.mylapslogger.repository.AppInfoRepository
 import jp.ceed.android.mylapslogger.repository.ErrorLogRepository
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
+import jp.ceed.android.mylapslogger.util.SessionDataCreator
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -48,5 +49,14 @@ object UtilModule {
     @Provides
     fun bindsJsonApiKtorClientCreator(): JsonApiKtorClientCreator {
         return JsonApiKtorClientCreator()
+    }
+
+    @Provides
+    fun bindsSessionDataCreator(
+        @ApplicationContext context: Context
+    ): SessionDataCreator {
+        return SessionDataCreator(
+            context = context
+        )
     }
 }

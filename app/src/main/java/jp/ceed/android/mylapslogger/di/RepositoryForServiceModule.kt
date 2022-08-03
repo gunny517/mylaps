@@ -13,6 +13,7 @@ import jp.ceed.android.mylapslogger.datasource.SessionsApiDataSource
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.PracticeRepository
 import jp.ceed.android.mylapslogger.repository.TrackRepository
+import jp.ceed.android.mylapslogger.util.SessionDataCreator
 
 
 @Module
@@ -24,8 +25,14 @@ object RepositoryForServiceModule {
         @ApplicationContext context: Context,
         activitiesApiDataSource: ActivitiesApiDataSource,
         sessionsApiDataSource: SessionsApiDataSource,
+        sessionDataCreator: SessionDataCreator,
     ): ApiRepository {
-        return ApiRepository(context, activitiesApiDataSource, sessionsApiDataSource)
+        return ApiRepository(
+            context = context,
+            activitiesApiDataSource = activitiesApiDataSource,
+            sessionsApiDataSource = sessionsApiDataSource,
+            sessionDataCreator = sessionDataCreator
+        )
     }
 
     @Provides
