@@ -1,5 +1,6 @@
 package jp.ceed.android.mylapslogger.repository
 
+import androidx.annotation.VisibleForTesting
 import jp.ceed.android.mylapslogger.datasource.SessionsApiDataSource
 import jp.ceed.android.mylapslogger.model.PracticeResult
 import jp.ceed.android.mylapslogger.network.response.Sessions
@@ -35,7 +36,8 @@ class PracticeResultsRepository @Inject constructor (
         }
     }
 
-    private fun calculateNextLoadTime(sessions: Sessions): Long {
+    @VisibleForTesting
+    fun calculateNextLoadTime(sessions: Sessions): Long {
         val lastLap = sessions.sessions.last().laps.last()
         val lastLapStarted: Long = DateUtil.convertToTimeMillis(lastLap.dateTimeStart)
         val duration: Long = lastLap.duration.toFloat().toLong()

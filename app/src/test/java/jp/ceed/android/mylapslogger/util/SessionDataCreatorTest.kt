@@ -13,7 +13,7 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 @RunWith(JUnitPlatform::class)
-internal class SessionDataCreatorTest : Spek({
+object SessionDataCreatorTest : Spek({
 
     val sessionResponse: Sessions = loadJsonAsEntity(
         fileName = "session_response.json",

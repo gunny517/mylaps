@@ -1,6 +1,7 @@
 package jp.ceed.android.mylapslogger.viewModel
 
 import android.location.Location
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -41,7 +42,8 @@ class PracticeResultFragmentViewModel @Inject constructor (
 
     val trackLength: Int = state.get<Int>("trackLength") ?: 0
 
-    private val sessionNo: Int = state.get<Int>("sessionNo") ?: 0
+    @VisibleForTesting
+    val sessionNo: Int = state.get<Int>("sessionNo") ?: 0
 
     init {
         if(appSettings.isAllowSessionAutoLoading()){

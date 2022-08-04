@@ -62,8 +62,8 @@
 	<string name="label_activity_info_title_total_time">走行時間</string>
 	<string name="label_activity_info_title_fuel_consumption">燃費（cc/周）</string>
 	<string name="label_activity_info_title_best_lap">ベストラップ</string>
-	<string name="label_session_list_title_best_lap">Best</string>
-	<string name="label_session_list_title_lap_count">Laps</string>
+	<string name="label_session_list_title_best_lap">ベスト</string>
+	<string name="label_session_list_title_lap_count">周回数</string>
 	<string name="label_app_info_title_app_version">アプリバージョン：</string>
 	<string name="label_app_info_title_show_practice_results_as_separate">セッションを分割して表示</string>
 	<string name="label_app_info_title_allow_session_auto_loading">セッションを自動更新</string>
