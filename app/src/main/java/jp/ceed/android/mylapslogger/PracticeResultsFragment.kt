@@ -5,7 +5,6 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,7 +16,6 @@ import jp.ceed.android.mylapslogger.args.SessionInfoFragmentParams
 import jp.ceed.android.mylapslogger.databinding.FragmentPracticeResultBinding
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.viewModel.PracticeResultFragmentViewModel
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PracticeResultsFragment : Fragment() {
@@ -78,7 +76,6 @@ class PracticeResultsFragment : Fragment() {
         viewModel.practiceResult.observe(viewLifecycleOwner) {
             adapter.submitList(it.sessionData)
         }
-        lifecycleScope.launch {  }
     }
 
     private fun navigateToSessionSummary() {
@@ -88,7 +85,7 @@ class PracticeResultsFragment : Fragment() {
             )
             findNavController().navigate(
                 PracticeResultsFragmentDirections
-                    .actionPracticeResultsFragmentToPracticeSummaryFragment(params)
+                    .GoPracticeSummaryFragment(params)
             )
         }
     }
@@ -96,7 +93,7 @@ class PracticeResultsFragment : Fragment() {
     private fun navigateToActivityInfo() {
         viewModel.practiceResult.value?.let {
             findNavController().navigate(
-                PracticeResultsFragmentDirections.actionPracticeResultsFragmentToActivityInfoFragment(
+                PracticeResultsFragmentDirections.GoToActivityInfoFragment(
                     args.activityId,
                     args.trackId,
                     args.sessionDate,
@@ -118,14 +115,14 @@ class PracticeResultsFragment : Fragment() {
         )
         findNavController().navigate(
             PracticeResultsFragmentDirections
-                .actionPracticeResultFragmentToSessionInfoFragment(sessionInfoFragmentParams, args.sessionDate, titleText)
+                .GoToSessionInfoFragment(sessionInfoFragmentParams, args.sessionDate, titleText)
         )
     }
 
     private fun navigateToPracticeByTrackFragment(){
         findNavController().navigate(
             PracticeResultsFragmentDirections
-                .actionPracticeResultFramgentToPracticeByTrackFragment(args.trackId)
+                .GoToPracticeByTrackFragment(args.trackId)
         )
     }
 }

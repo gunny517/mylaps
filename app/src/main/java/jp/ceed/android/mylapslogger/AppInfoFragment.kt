@@ -37,7 +37,7 @@ class AppInfoFragment: Fragment() {
     }
 
     private fun navigateToErrorLog(){
-        findNavController().navigate(R.id.action_AppInfoFragment_to_ErrorLogFragment)
+        findNavController().navigate(R.id.GoToErrorLogFragment)
     }
 
 }

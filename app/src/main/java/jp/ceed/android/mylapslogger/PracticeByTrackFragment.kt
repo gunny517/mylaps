@@ -58,14 +58,14 @@ class PracticeByTrackFragment: Fragment() {
     private fun navigateToPracticeResults(practiceTrack: PracticeTrack) {
         findNavController().navigate(
             if(AppSettings(requireContext()).isShowPracticeResultsAsSeparate()){
-                PracticeByTrackFragmentDirections.actionPracticeByTrackFragmentToSessionListFragment(
+                PracticeByTrackFragmentDirections.GoToSessionListFragment(
                     practiceTrack.id,
                     practiceTrack.displayTime,
                     practiceTrack.trackId,
                     practiceTrack.trackLength
                 )
             }else{
-                PracticeByTrackFragmentDirections.actionPracticeByTrackFragmentToPracticeResultFragment(
+                PracticeByTrackFragmentDirections.GoToPracticeResultFragment(
                     practiceTrack.id,
                     practiceTrack.displayTime,
                     practiceTrack.trackId,

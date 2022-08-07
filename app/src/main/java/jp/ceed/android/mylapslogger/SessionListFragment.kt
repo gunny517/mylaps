@@ -52,7 +52,7 @@ class SessionListFragment: Fragment() {
 
     private fun navigateToPracticeResult(sessionNo: Int){
         findNavController().navigate(
-            SessionListFragmentDirections.actionSessionListFragmentToPracticeResultFragment(
+            SessionListFragmentDirections.GoToPracticeResultFragment(
                 args.activityId,
                 args.sessionDate,
                 args.trackId,

@@ -12,35 +12,35 @@
 		tools:layout="@layout/fragment_activities">
 
 		<action
-			android:id="@+id/action_ActivitiesFragment_to_LoginFragment"
+			android:id="@+id/GoToLoginFragment"
 			app:destination="@id/LoginFragment" />
 
 		<action
-			android:id="@+id/action_ActivitiesFragment_to_PracticeResultsFragment"
+			android:id="@+id/GoToPracticeResultsFragment"
 			app:destination="@id/PracticeResultFragment"/>
 
 		<action
-			android:id="@+id/action_ActivitiesFragment_to_UserInfoFragment"
+			android:id="@+id/GoToUserInfoFragment"
 			app:destination="@id/UserInfoFragment"/>
 
 		<action
-			android:id="@+id/action_ActivitiesFragment_to_AppInfoFragment"
+			android:id="@+id/GoToAppInfoFragment"
 			app:destination="@id/AppInfoFragment"/>
 
 		<action
-			android:id="@+id/action_ActivitiesFragment_to_SessionListFragment"
+			android:id="@+id/GoToSessionListFragment"
 			app:destination="@id/SessionListFragment"/>
 
 		<action
-			android:id="@+id/action_ActivitiesFragment_to_TrackBestFragment"
+			android:id="@+id/GoToTrackBestFragment"
 			app:destination="@id/TrackBestFragment"/>
 
 		<action
-			android:id="@+id/action_ActivitiesFragment_to_TotalDistanceFragment"
+			android:id="@+id/GoToTotalDistanceFragment"
 			app:destination="@id/TotalDistanceFragment"/>
 
 		<action
-			android:id="@+id/action_ActivitiesFragment_to_FuelConsumptionListFragment"
+			android:id="@+id/GoToFuelConsumptionListFragment"
 			app:destination="@id/FuelConsumptionListFragment"/>
 	</fragment>
 
@@ -51,7 +51,7 @@
 		tools:layout="@layout/fragment_login">
 
 		<action
-			android:id="@+id/action_LoginFragment_to_ActivitiesFragment"
+			android:id="@+id/GoToActivitiesFragment"
 			app:destination="@id/ActivitiesFragment" />
 	</fragment>
 
@@ -86,19 +86,19 @@
 			app:argType="integer"/>
 
 		<action
-			android:id="@+id/action_PracticeResultsFragment_to_PracticeSummaryFragment"
+			android:id="@+id/GoPracticeSummaryFragment"
 			app:destination="@id/PracticeSummaryFragment"/>
 
 		<action
-			android:id="@+id/action_PracticeResultsFragment_to_ActivityInfoFragment"
+			android:id="@+id/GoToActivityInfoFragment"
 			app:destination="@id/ActivityInfoFragment"/>
 
 		<action
-			android:id="@+id/action_PracticeResultFragment_to_SessionInfoFragment"
+			android:id="@+id/GoToSessionInfoFragment"
 			app:destination="@id/SessionInfoFragment"/>
 
 		<action
-			android:id="@+id/action_PracticeResultFramgent_to_PracticeByTrackFragment"
+			android:id="@+id/GoToPracticeByTrackFragment"
 			app:destination="@id/PracticeByTrackFragment"/>
 	</fragment>
 
@@ -178,7 +178,7 @@
 		android:label="{sessionDate}">
 
 		<action
-			android:id="@+id/action_SessionListFragment_to_PracticeResultFragment"
+			android:id="@+id/GoToPracticeResultFragment"
 			app:destination="@id/PracticeResultFragment"/>
 
 		<argument
@@ -207,7 +207,7 @@
 		android:label="@string/label_app_info_fragment">
 
 		<action
-			android:id="@+id/action_AppInfoFragment_to_ErrorLogFragment"
+			android:id="@+id/GoToErrorLogFragment"
 			app:destination="@id/ErrorLogFragment"/>
 	</fragment>
 
@@ -217,7 +217,7 @@
 		android:label="@string/label_track_best_fragment">
 
 		<action
-			android:id="@+id/action_TrackBestFragment_to_PracticeResultFragment"
+			android:id="@+id/GoToPracticeResultFragment"
 			app:destination="@id/PracticeResultFragment"/>
 	</fragment>
 
@@ -227,7 +227,7 @@
 		android:label="@string/label_total_distance">
 
 		<action
-			android:id="@+id/action_TotalDistanceFragment_to_PracticeByTrackFragment"
+			android:id="@+id/GoToPracticeByTrackFragment"
 			app:destination="@id/PracticeByTrackFragment"/>
 	</fragment>
 
@@ -240,11 +240,11 @@
 			app:argType="integer"/>
 
 		<action
-			android:id="@+id/action_PracticeByTrackFragment_to_PracticeResultFragment"
+			android:id="@+id/GoToPracticeResultFragment"
 			app:destination="@id/PracticeResultFragment"/>
 
 		<action
-			android:id="@+id/action_PracticeByTrackFragment_to_SessionListFragment"
+			android:id="@+id/GoToSessionListFragment"
 			app:destination="@id/SessionListFragment"/>
 	</fragment>
 
