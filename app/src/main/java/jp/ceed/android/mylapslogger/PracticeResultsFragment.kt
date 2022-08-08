@@ -85,7 +85,7 @@ class PracticeResultsFragment : Fragment() {
             )
             findNavController().navigate(
                 PracticeResultsFragmentDirections
-                    .GoPracticeSummaryFragment(params)
+                    .goPracticeSummaryFragment(params)
             )
         }
     }
@@ -93,7 +93,7 @@ class PracticeResultsFragment : Fragment() {
     private fun navigateToActivityInfo() {
         viewModel.practiceResult.value?.let {
             findNavController().navigate(
-                PracticeResultsFragmentDirections.GoToActivityInfoFragment(
+                PracticeResultsFragmentDirections.goToActivityInfoFragment(
                     args.activityId,
                     args.trackId,
                     args.sessionDate,
@@ -115,14 +115,14 @@ class PracticeResultsFragment : Fragment() {
         )
         findNavController().navigate(
             PracticeResultsFragmentDirections
-                .GoToSessionInfoFragment(sessionInfoFragmentParams, args.sessionDate, titleText)
+                .goToSessionInfoFragment(sessionInfoFragmentParams, args.sessionDate, titleText)
         )
     }
 
     private fun navigateToPracticeByTrackFragment(){
         findNavController().navigate(
             PracticeResultsFragmentDirections
-                .GoToPracticeByTrackFragment(args.trackId)
+                .goToPracticeByTrackFragment(args.trackId)
         )
     }
 }

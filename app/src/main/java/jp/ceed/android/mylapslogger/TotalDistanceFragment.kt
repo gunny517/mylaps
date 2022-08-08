@@ -46,7 +46,7 @@ class TotalDistanceFragment: Fragment() {
     private fun navigateToPracticeByTrack(totalDistance: TotalDistance){
         findNavController().navigate(
             TotalDistanceFragmentDirections.
-                GoToPracticeByTrackFragment(totalDistance.id)
+                goToPracticeByTrackFragment(totalDistance.id)
         )
     }
 }

@@ -49,7 +49,7 @@ class TrackBestFragment: Fragment() {
 
     private fun navigateToPracticeResult(item: PracticeTrack){
         findNavController().navigate(
-            TrackBestFragmentDirections.GoToPracticeResultFragment(
+            TrackBestFragmentDirections.goToPracticeResultFragment(
                 item.id,
                 item.displayTime,
                 item.trackId,

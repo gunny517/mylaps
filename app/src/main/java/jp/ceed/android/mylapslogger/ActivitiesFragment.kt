@@ -94,15 +94,15 @@ class ActivitiesFragment : Fragment() {
     }
 
     private fun navigateToUserInfo() {
-        findNavController().navigate(R.id.GoToUserInfoFragment)
+        findNavController().navigate(R.id.goToUserInfoFragment)
     }
 
     private fun navigateToAppInfo(){
-        findNavController().navigate(R.id.GoToAppInfoFragment)
+        findNavController().navigate(R.id.goToAppInfoFragment)
     }
 
     private fun navigateToFuelConsumptionList(){
-        findNavController().navigate(R.id.GoToFuelConsumptionListFragment)
+        findNavController().navigate(R.id.goToFuelConsumptionListFragment)
     }
 
     private fun initLayout() {
@@ -131,14 +131,14 @@ class ActivitiesFragment : Fragment() {
     private fun navigateToPracticeResults(activitiesItem: ActivitiesItem) {
         findNavController().navigate(
             if(AppSettings(requireContext()).isShowPracticeResultsAsSeparate()){
-                ActivitiesFragmentDirections.GoToSessionListFragment(
+                ActivitiesFragmentDirections.goToSessionListFragment(
                     activitiesItem.id,
                     activitiesItem.displayTime,
                     activitiesItem.locationId,
                     activitiesItem.trackLength
                 )
             }else{
-                ActivitiesFragmentDirections.GoToPracticeResultsFragment(
+                ActivitiesFragmentDirections.goToPracticeResultsFragment(
                     activitiesItem.id,
                     activitiesItem.displayTime,
                     activitiesItem.locationId,
@@ -150,15 +150,15 @@ class ActivitiesFragment : Fragment() {
     }
 
     private fun navigateToTrackBest(){
-        findNavController().navigate(R.id.GoToTrackBestFragment)
+        findNavController().navigate(R.id.goToTrackBestFragment)
     }
 
     private fun navigateToTotalDistance(){
-        findNavController().navigate(R.id.GoToTotalDistanceFragment)
+        findNavController().navigate(R.id.goToTotalDistanceFragment)
     }
 
     private fun navigateToLogin(){
-        findNavController().navigate(R.id.GoToLoginFragment)
+        findNavController().navigate(R.id.goToLoginFragment)
     }
 
     private fun startPracticeService(activities: List<ActivitiesItem>?){
