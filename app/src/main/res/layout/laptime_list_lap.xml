@@ -51,7 +51,7 @@
                 android:layout_toStartOf="@id/diffPrevLap"
                 android:layout_toEndOf="@id/numberTextView"
                 android:layout_centerVertical="true"
-                android:textSize="32sp"
+                android:textSize="28sp"
                 android:textColor="@color/text_default"
                 android:text="@{item.duration}"/>
         </RelativeLayout>

@@ -14,8 +14,6 @@ class DateUtil {
 
         private const val API_TIME_FORMAT_WITH_MILLI_SEC = "yyyy-MM-dd'T'HH:mm:ss.SSSX"
 
-        private const val HMS_FORMAT = "HH:mm:ss"
-
         private const val HM_FORMAT = "HH:mm"
 
         private const val YMD_FORMAT = "yyyy-MM-dd (EEE)"
@@ -23,8 +21,6 @@ class DateUtil {
         private const val YMD_HMS_FORMAT = "yyyy-MM-dd HH:mm:ss"
 
         private val YMD_SIMPLE_DATE_FORMAT = SimpleDateFormat(YMD_FORMAT, Locale.US)
-
-        private val HMS_SIMPLE_DATE_FORMAT = SimpleDateFormat(HMS_FORMAT, Locale.JAPAN)
 
         private val HM_SIMPLE_DATE_FORMAT = SimpleDateFormat(HM_FORMAT, Locale.JAPAN)
 
@@ -41,15 +37,6 @@ class DateUtil {
             } catch (e: ParseException) {
                 LogUtil.e(e)
                 0L
-            }
-        }
-
-        fun toHmsFromDateTimeWithMilliSec(dateStr: String): String {
-            return try {
-                HMS_SIMPLE_DATE_FORMAT.format(Objects.requireNonNull(API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(dateStr)).time)
-            } catch (e: ParseException) {
-                LogUtil.e(e)
-                ""
             }
         }
 

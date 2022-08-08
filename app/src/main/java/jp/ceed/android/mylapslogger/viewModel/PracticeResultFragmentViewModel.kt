@@ -96,10 +96,10 @@ class PracticeResultFragmentViewModel @Inject constructor (
                 for (entry in practiceResult.sessionData) {
                     when (entry) {
                         is PracticeResultsItem.Section -> {
-                            entry.sessionInfoLabel = if (sessionInfoRepository.findBySessionId(entry.sessionId) == null) {
-                                resourceRepository.getString(R.string.label_practice_result_section_no_session_info)
+                            entry.sessionInfoLabelColor = if (sessionInfoRepository.findBySessionId(entry.sessionId) == null) {
+                                R.color.text_disabled
                             } else {
-                                resourceRepository.getString(R.string.label_practice_result_section_has_session_info)
+                                R.color.text_default
                             }
                         }
                         else -> continue

@@ -31,7 +31,7 @@ sealed class PracticeResultsItem {
         var sessionId: Long,
         var sectionTitle: String,
         var sessionTime: String,
-        var sessionInfoLabel: String? = null,
+        var sessionInfoLabelColor: Int? = null,
         var averageDuration: String,
         var medianDuration: String
     ): PracticeResultsItem(){
@@ -40,7 +40,7 @@ sealed class PracticeResultsItem {
             sectionTitle = sessions.id.toString (),
             averageDuration = sessions.aveLapDuration,
             medianDuration = sessions.medianLapDuration,
-            sessionTime = DateUtil.toHmsFromDateTimeWithMilliSec(sessions.dateTimeStart)
+            sessionTime = DateUtil.toHmFromDateTimeWithMilliSec(sessions.dateTimeStart)
         )
     }
 
