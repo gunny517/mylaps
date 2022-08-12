@@ -21,7 +21,7 @@ class ActivitiesFragmentViewModel @Inject constructor (
 
     val activities: MutableLiveData<List<ActivitiesItem>> = MutableLiveData()
 
-    val progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
+    val showProgress: MutableLiveData<Boolean> = MutableLiveData(false)
 
     var event: MutableLiveData<Event<EventState>> = MutableLiveData()
 
@@ -43,19 +43,16 @@ class ActivitiesFragmentViewModel @Inject constructor (
     }
 
     private fun callActivitiesRequest(userId: String) {
-        if (activities.value?.isNotEmpty() == true) {
-            return
-        }
-        progressVisibility.value = true
         viewModelScope.launch {
+            showProgress.value = true
             try {
                 activities.value = apiRepository.getActivities(userId)
                 event.value = Event(EventState.START_PRACTICE_SERVICE)
             } catch (e: Exception) {
                 exceptionUtil.save(e, viewModelScope)
             }
+            showProgress.value = false
         }
-        progressVisibility.value = false
     }
 
 }

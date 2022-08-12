@@ -23,11 +23,10 @@ class LoginFragment : Fragment() {
 
     private val viewModel: LoginFragmentViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -50,7 +49,6 @@ class LoginFragment : Fragment() {
         viewModel.password.observe(viewLifecycleOwner) { viewModel.updateLoginButtonEnabled() }
         viewModel.loginResult.observe(viewLifecycleOwner) { onFinishLogin(it) }
     }
-
 
     private fun onFinishLogin(loginResult: LoginResult) {
         when (loginResult) {
