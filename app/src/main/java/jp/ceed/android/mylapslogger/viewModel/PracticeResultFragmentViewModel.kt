@@ -36,7 +36,7 @@ class PracticeResultFragmentViewModel @Inject constructor (
 
     val practiceResult: MutableLiveData<PracticeResult> = MutableLiveData()
 
-    val progressVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
+    val showProgress: MutableLiveData<Boolean> = MutableLiveData(false)
 
     val activityId: Int = state.get<Int>("activityId") ?: 0
 
@@ -57,7 +57,7 @@ class PracticeResultFragmentViewModel @Inject constructor (
         userAccountRepository.getAccessToken()?.let { token ->
             viewModelScope.launch {
                 try {
-                    progressVisibility.value = true
+                    showProgress.value = true
                     applySessionInfoLabel(
                         apiRepository.getPracticeResult(
                             token = token,
@@ -66,7 +66,7 @@ class PracticeResultFragmentViewModel @Inject constructor (
                             sessionNo = sessionNo,
                         )
                     )
-                    progressVisibility.value = false
+                    showProgress.value = false
                 } catch (e: Exception) {
                     exceptionUtil.save(e, viewModelScope)
                 }
