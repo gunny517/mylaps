@@ -25,33 +25,41 @@ class ActivitiesFragmentViewModel @Inject constructor (
 
     var event: MutableLiveData<Event<EventState>> = MutableLiveData()
 
+    var userId: String? = null
+
     enum class EventState{
         GO_TO_LOGIN,
         START_PRACTICE_SERVICE,
         NONE,
     }
 
+    init {
+        checkAccount()
+    }
+
     fun checkAccount() {
-        val token: String? = userAccountRepository.getAccessToken()
-        val userId: String? = userAccountRepository.getUserId()
-        if (token == null || userId == null) {
+        userId = userAccountRepository.getUserId()
+        if (userId == null) {
             event.value = Event(EventState.GO_TO_LOGIN)
         } else {
             event.value = Event(EventState.NONE)
-            callActivitiesRequest(userId)
+            callActivitiesRequest()
         }
     }
 
-    private fun callActivitiesRequest(userId: String) {
-        viewModelScope.launch {
-            showProgress.value = true
-            try {
-                activities.value = apiRepository.getActivities(userId)
-                event.value = Event(EventState.START_PRACTICE_SERVICE)
-            } catch (e: Exception) {
-                exceptionUtil.save(e, viewModelScope)
+    private fun callActivitiesRequest() {
+        userId?.let {
+            viewModelScope.launch {
+                showProgress.value = true
+                activities.value = emptyList()
+                try {
+                    activities.value = apiRepository.getActivities(it)
+                    event.value = Event(EventState.START_PRACTICE_SERVICE)
+                } catch (e: Exception) {
+                    exceptionUtil.save(e, viewModelScope)
+                }
+                showProgress.value = false
             }
-            showProgress.value = false
         }
     }
 

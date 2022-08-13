@@ -46,11 +46,6 @@ class ActivitiesFragment : Fragment() {
         initLayout()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.checkAccount()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
