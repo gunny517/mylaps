@@ -58,14 +58,16 @@ class PracticeResultFragmentViewModel @Inject constructor (
             viewModelScope.launch {
                 try {
                     showProgress.value = true
-                    applySessionInfoLabel(
-                        apiRepository.getPracticeResult(
-                            token = token,
-                            activityId = activityId,
-                            trackLength = trackLength,
-                            sessionNo = sessionNo,
-                        )
+                    val result = apiRepository.getPracticeResult(
+                        token = token,
+                        activityId = activityId,
+                        trackLength = trackLength,
+                        sessionNo = sessionNo,
                     )
+                    applySessionInfoLabel(result.sessionData)
+                    applySessionInfoLabel(result.sessionSummary)
+                    this@PracticeResultFragmentViewModel.practiceResult.postValue(result)
+                    onLoadResult(result.dateStartTime)
                     showProgress.value = false
                 } catch (e: Exception) {
                     exceptionUtil.save(e, viewModelScope)
@@ -83,17 +85,20 @@ class PracticeResultFragmentViewModel @Inject constructor (
                     trackLength = trackLength,
                     sessionNo = sessionNo,
                 )
-                practiceResultsRepository.sessionFlow.collect{ practiceResult ->
-                    applySessionInfoLabel(practiceResult)
+                practiceResultsRepository.sessionFlow.collect{ result ->
+                    applySessionInfoLabel(result.sessionData)
+                    applySessionInfoLabel(result.sessionSummary)
+                    this@PracticeResultFragmentViewModel.practiceResult.postValue(result)
+                    onLoadResult(result.dateStartTime)
                 }
             }
         }
     }
 
-    private fun applySessionInfoLabel(practiceResult: PracticeResult) {
+    private fun applySessionInfoLabel(list: List<PracticeResultsItem>) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                for (entry in practiceResult.sessionData) {
+                for (entry in list) {
                     when (entry) {
                         is PracticeResultsItem.Section -> {
                             entry.sessionInfoLabelColor = if (sessionInfoRepository.findBySessionId(entry.sessionId) == null) {
@@ -105,13 +110,11 @@ class PracticeResultFragmentViewModel @Inject constructor (
                         else -> continue
                     }
                 }
-                this@PracticeResultFragmentViewModel.practiceResult.postValue(practiceResult)
-                onLoadResult(practiceResult.dateStartTime)
             }
         }
     }
 
-    private fun onLoadResult(dataStartTime: String) {
+    private fun onLoadResult(dataStartTime: String?) {
         if (!DateUtil.isValidForWeather(dataStartTime)) {
             return
         }

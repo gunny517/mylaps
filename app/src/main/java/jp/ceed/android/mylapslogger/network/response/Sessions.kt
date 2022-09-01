@@ -76,19 +76,19 @@ data class Sessions(
         val chipId: Int,
 
         @SerialName("dateTimeStart")
-        val dateTimeStart: String,
+        val dateTimeStart: String?,
 
         @SerialName("bestLap")
-        val bestLap: BestLap,
+        val bestLap: BestLap?,
 
         @SerialName("aveLapDuration")
-        val aveLapDuration: String,
+        val aveLapDuration: String?,
 
         @SerialName("medianLapDuration")
-        val medianLapDuration: String,
+        val medianLapDuration: String?,
 
         @SerialName("duration")
-        val duration: String,
+        val duration: String?,
 
         @SerialName("laps")
         val laps: List<Laps>,

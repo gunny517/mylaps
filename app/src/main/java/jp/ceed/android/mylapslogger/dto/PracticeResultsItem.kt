@@ -38,8 +38,8 @@ sealed class PracticeResultsItem {
         constructor(sessions: Sessions.Sessions): this(
             sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart),
             sectionTitle = sessions.id.toString (),
-            averageDuration = sessions.aveLapDuration,
-            medianDuration = sessions.medianLapDuration,
+            averageDuration = sessions.aveLapDuration ?: "",
+            medianDuration = sessions.medianLapDuration ?: "",
             sessionTime = DateUtil.toHmFromDateTimeWithMilliSec(sessions.dateTimeStart)
         )
     }
@@ -52,8 +52,8 @@ sealed class PracticeResultsItem {
     ): PracticeResultsItem(){
         constructor(sessions: Sessions.Sessions):this(
             sessionId = DateUtil.toTimeFromDateTimeWithMilliSec(sessions.dateTimeStart),
-            number = sessions.bestLap.nr.toString(),
-            duration = sessions.bestLap.duration,
+            number = sessions.bestLap?.nr.toString(),
+            duration = sessions.bestLap?.duration ?: "",
             lapCount = sessions.laps.size
         )
     }

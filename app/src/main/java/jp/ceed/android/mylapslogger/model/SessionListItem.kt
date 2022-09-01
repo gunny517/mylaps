@@ -15,9 +15,9 @@ data class SessionListItem(
     constructor(sessions: Sessions.Sessions, totalBest: String): this(
         no = sessions.id.toString(),
         startTime = DateUtil.toHmFromDateTimeWithMilliSec(sessions.dateTimeStart),
-        bestLap = sessions.bestLap.duration,
+        bestLap = sessions.bestLap?.duration ?: "",
         lapCount = sessions.laps.size.toString(),
-        bestLapTextColor = if(sessions.bestLap.duration.equals(totalBest)){
+        bestLapTextColor = if(sessions.bestLap?.duration.equals(totalBest)){
             R.color.text_session_list_best_lap
         }else{
             R.color.text_default

@@ -31,18 +31,18 @@ class DateUtil {
         private val YMD_HMS_SIMPLE_DATE_FORMAT = SimpleDateFormat(YMD_HMS_FORMAT, Locale.JAPAN)
 
 
-        fun toTimeFromDateTimeWithMilliSec(dateTimeStr: String): Long {
+        fun toTimeFromDateTimeWithMilliSec(dateTimeStr: String?): Long {
             return try {
-                Objects.requireNonNull(API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(dateTimeStr)).time
+                Objects.requireNonNull(API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(dateTimeStr ?: "")).time
             } catch (e: ParseException) {
                 LogUtil.e(e)
                 0L
             }
         }
 
-        fun toHmFromDateTimeWithMilliSec(dateStr: String): String {
+        fun toHmFromDateTimeWithMilliSec(dateStr: String?): String {
             return try {
-                HM_SIMPLE_DATE_FORMAT.format(Objects.requireNonNull(API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(dateStr)).time)
+                HM_SIMPLE_DATE_FORMAT.format(Objects.requireNonNull(API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(dateStr ?: "")).time)
             } catch (e: ParseException) {
                 LogUtil.e(e)
                 ""

@@ -18,7 +18,7 @@ class SessionDataCreator @Inject constructor(
                 continue
             }
             lapList.add(PracticeResultsItem.Section(session))
-            val sessionBest: Float = parseBestLap(session.bestLap.duration)
+            val sessionBest: Float = parseBestLap(session.bestLap?.duration)
             for (lap in session.laps) {
                 val item = PracticeResultsItem.Lap(lap, session)
                 if(showSpeedBar){
@@ -48,7 +48,10 @@ class SessionDataCreator @Inject constructor(
         }
     }
 
-    private fun parseBestLap(bestLap: String): Float {
+    private fun parseBestLap(bestLap: String?): Float {
+        if(bestLap == null) {
+            return DEFAULT_BEST_LAP_TIME
+        }
         return try {
             bestLap.toFloat()
         } catch (e: NumberFormatException) {
