@@ -18,6 +18,9 @@
 	<string name="next">Next</string>
 	<string name="previous">Previous</string>
 
+	<string name="menu_sort_by_best_lap">ベストタイム順</string>
+	<string name="menu_sort_by_date">日付順</string>
+
 	<string name="label_login_button">LOGIN</string>
 	<string name="hint_user_name">user name</string>
 	<string name="hint_password">password</string>

@@ -53,8 +53,25 @@ interface PracticeTrackDao {
                 "t.length as track_length " +
                 "FROM Practice p, Track t WHERE p.track_id = t.id " +
                 "AND p.track_id = (:trackId) " +
+                "ORDER BY p.best_lap ASC"
+    )
+    fun getPracticeListByTrackOrderByBestLap(trackId: Int): List<PracticeTrack>
+
+    @Query(
+        "SELECT p.id, " +
+                "p.track_id, " +
+                "t.name, " +
+                "p.lap_count, " +
+                "p.best_lap, " +
+                "p.start_time, " +
+                "p.end_time, " +
+                "p.display_time, " +
+                "p.total_training_time, " +
+                "t.length as track_length " +
+                "FROM Practice p, Track t WHERE p.track_id = t.id " +
+                "AND p.track_id = (:trackId) " +
                 "ORDER BY p.id DESC"
     )
-    fun getPracticeListByTrack(trackId: Int): List<PracticeTrack>
+    fun getPracticeListByTrackOrderByDate(trackId: Int): List<PracticeTrack>
 
 }
