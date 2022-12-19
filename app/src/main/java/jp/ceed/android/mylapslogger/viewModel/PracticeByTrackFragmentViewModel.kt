@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PracticeByTrackFragmentViewModel @Inject constructor (
     savedStateHandle: SavedStateHandle,
-    practiceTrackRepository: PracticeTrackRepository,
+    val practiceTrackRepository: PracticeTrackRepository,
 ) : ViewModel() {
 
     private val trackId: Int = savedStateHandle.get<Int>("trackId") ?: throw IllegalStateException("Should have trackId")
@@ -21,8 +21,12 @@ class PracticeByTrackFragmentViewModel @Inject constructor (
     val practiceTrackList: MutableLiveData<List<PracticeTrack>> = MutableLiveData()
 
     init {
+        loadValues(true)
+    }
+
+    fun loadValues(sortByBestLap: Boolean) {
         viewModelScope.launch {
-            practiceTrackList.value = practiceTrackRepository.getPracticeListByTrack(trackId)
+            practiceTrackList.value = practiceTrackRepository.getPracticeListByTrack(trackId, sortByBestLap)
         }
     }
 }

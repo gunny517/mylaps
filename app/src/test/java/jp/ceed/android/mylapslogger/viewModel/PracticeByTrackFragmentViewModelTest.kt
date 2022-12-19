@@ -32,7 +32,7 @@ object PracticeByTrackFragmentViewModelTest : Spek({
 
     val practiceTrackRepository: PracticeTrackRepository = mockk(relaxed = true) {
         coEvery {
-            getPracticeListByTrack(any())
+            getPracticeListByTrack(any(), true)
         } returns listOf(listItem)
     }
 

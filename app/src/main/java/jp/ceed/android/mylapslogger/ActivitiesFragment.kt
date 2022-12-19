@@ -52,13 +52,11 @@ class ActivitiesFragment : Fragment() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        menu.findItem(R.id.action_session_info).isVisible = false
-        menu.findItem(R.id.action_session_summary).isVisible = false
         menu.findItem(R.id.action_user_info).isVisible = true
         menu.findItem(R.id.action_app_info).isVisible = true
         menu.findItem(R.id.action_track_best).isVisible = true
         menu.findItem(R.id.action_total_distance).isVisible = true
-        menu.findItem(R.id.fuel_consumption_list).isVisible = true
+        menu.findItem(R.id.action_fuel_consumption_list).isVisible = true
         super.onPrepareOptionsMenu(menu)
     }
 
@@ -80,7 +78,7 @@ class ActivitiesFragment : Fragment() {
                 navigateToTotalDistance()
                 true
             }
-            R.id.fuel_consumption_list -> {
+            R.id.action_fuel_consumption_list -> {
                 navigateToFuelConsumptionList()
                 true
             }

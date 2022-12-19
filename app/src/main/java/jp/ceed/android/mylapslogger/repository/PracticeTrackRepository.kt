@@ -39,8 +39,12 @@ class PracticeTrackRepository @Inject constructor (
             practiceTrackDao.findBestLapByTrackId(trackId)
         }
 
-    suspend fun getPracticeListByTrack(trackId: Int): List<PracticeTrack> =
+    suspend fun getPracticeListByTrack(trackId: Int, sortByBestLap: Boolean): List<PracticeTrack> =
         withContext(dispatcher){
-            practiceTrackDao.getPracticeListByTrack(trackId)
+            if(sortByBestLap) {
+                practiceTrackDao.getPracticeListByTrackOrderByBestLap(trackId)
+            } else {
+                practiceTrackDao.getPracticeListByTrackOrderByDate(trackId)
+            }
         }
 }

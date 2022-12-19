@@ -1,9 +1,7 @@
 package jp.ceed.android.mylapslogger
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,6 +25,7 @@ class PracticeByTrackFragment: Fragment() {
     val viewModel: PracticeByTrackFragmentViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setHasOptionsMenu(true)
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_practice_by_track, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -36,6 +35,26 @@ class PracticeByTrackFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.findItem(R.id.action_sort_by_best_time).isVisible = true
+        menu.findItem(R.id.action_sort_by_date).isVisible = true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.action_sort_by_best_time -> {
+                viewModel.loadValues(true)
+                true
+            }
+            R.id.action_sort_by_date -> {
+                viewModel.loadValues(false)
+                true
+            }
+            else -> false
+        }
     }
 
     private fun initLayout(){
