@@ -2,9 +2,12 @@ package jp.ceed.android.mylapslogger
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.MenuProvider
+import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +27,33 @@ class PracticeByTrackFragment: Fragment() {
 
     val viewModel: PracticeByTrackFragmentViewModel by viewModels()
 
+    private val menuProvider: MenuProvider = object : MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            val useMenus = listOf(
+                R.id.action_sort_by_best_time,
+                R.id.action_sort_by_date
+            )
+            menu.forEach {
+                it.isVisible = useMenus.contains(it.itemId)
+            }
+        }
+
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            return when(menuItem.itemId) {
+                R.id.action_sort_by_best_time -> {
+                    viewModel.loadValues(true)
+                    true
+                }
+                R.id.action_sort_by_date -> {
+                    viewModel.loadValues(false)
+                    true
+                }
+                else -> false
+            }
+        }
+
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_practice_by_track, container, false)
@@ -35,26 +65,7 @@ class PracticeByTrackFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        super.onPrepareOptionsMenu(menu)
-        menu.findItem(R.id.action_sort_by_best_time).isVisible = true
-        menu.findItem(R.id.action_sort_by_date).isVisible = true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
-            R.id.action_sort_by_best_time -> {
-                viewModel.loadValues(true)
-                true
-            }
-            R.id.action_sort_by_date -> {
-                viewModel.loadValues(false)
-                true
-            }
-            else -> false
-        }
+        requireActivity().addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun initLayout(){
