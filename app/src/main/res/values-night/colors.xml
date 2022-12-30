@@ -20,4 +20,6 @@
 	<color name="bg_lap_list_shown">#666666</color>
 	<color name="window_back_ground">#232323</color>
 	<color name="speed_bar">#002CB1</color>
+	<color name="bg_session_memo_button">#00000000</color>
+	<color name="stroke_session_memo_button">#ffffff</color>
 </resources>
