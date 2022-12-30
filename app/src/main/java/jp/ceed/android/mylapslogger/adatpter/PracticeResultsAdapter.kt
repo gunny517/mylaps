@@ -9,7 +9,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
 import jp.ceed.android.mylapslogger.BR
 import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.databinding.LaptimeListLapBinding
@@ -44,7 +43,7 @@ class PracticeResultsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: PracticeResultsItem = getItem(position)
         holder.viewDataBinding?.setVariable(BR.item, item)
-        holder.sectionButton?.setOnClickListener {
+        holder.itemView.setOnClickListener {
             when(item){
                 is PracticeResultsItem.Section -> { onClickSection(item) }
                 else -> {}
@@ -67,7 +66,7 @@ class PracticeResultsAdapter(
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val sectionButton: MaterialButton? = itemView.findViewById(R.id.section_button)
+
         val viewDataBinding: ViewDataBinding? = DataBindingUtil.bind(itemView)
     }
 
