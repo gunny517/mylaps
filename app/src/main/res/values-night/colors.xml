@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="colorPrimary">#464646</color>
-	<color name="colorPrimaryDark">#33FF9A6B</color>
+	<color name="colorPrimary">#FF5722</color>
+	<color name="colorPrimaryDark">#88FF5722</color>
 	<color name="colorAccent">#3184c9</color>
 	<color name="black">#FF000000</color>
 	<color name="white">#FFFFFFFF</color>
-
-	<color name="bg_lap_list_section">#000000</color>
+	<color name="bg_lap_list_section">#999999</color>
 	<color name="bg_lap_list_report_best">#3F2168</color>
 	<color name="bg_lap_list_session_best">#21631E</color>
 	<color name="text_default">#ffffff</color>
+	<color name="text_inverted">#333333</color>
 	<color name="text_disabled">#999999</color>
 	<color name="text_sub_item">#999999</color>
 	<color name="text_faster">#94D17D</color>
@@ -18,6 +18,6 @@
 	<color name="text_session_list_best_lap">#9B54FD</color>
 	<color name="text_link">#03A9F4</color>
 	<color name="bg_lap_list_shown">#666666</color>
-	<color name="window_back_ground">#232323</color>
-	<color name="speed_bar">#002CB1</color>
+	<color name="window_back_ground">#383838</color>
+	<color name="speed_bar">#4F2788</color>
 </resources>

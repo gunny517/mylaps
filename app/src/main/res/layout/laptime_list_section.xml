@@ -22,7 +22,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="18sp"
-            android:textColor="@color/text_default"
+            android:textColor="@color/text_inverted"
             android:text="@{@string/format_session_title(item.sectionTitle)}"
             tools:text="タイトル"/>
 
@@ -35,7 +35,7 @@
             app:layout_constraintStart_toEndOf="@id/titleTextView"
             android:layout_marginStart="30sp"
             android:textSize="18sp"
-            android:textColor="@color/text_default"
+            android:textColor="@color/text_inverted"
             android:text="@{item.sessionTime}"
             tools:text="開始時間"/>
 
