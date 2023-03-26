@@ -104,7 +104,7 @@ class PracticeResultFragmentViewModel @Inject constructor (
                             entry.sessionInfoLabelColor = if (sessionInfoRepository.findBySessionId(entry.sessionId) == null) {
                                 R.color.text_disabled
                             } else {
-                                R.color.text_default
+                                R.color.text_inverted
                             }
                         }
                         else -> continue
