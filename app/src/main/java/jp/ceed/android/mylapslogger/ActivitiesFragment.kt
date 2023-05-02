@@ -79,7 +79,6 @@ class ActivitiesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setHasOptionsMenu(true)
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_activities, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

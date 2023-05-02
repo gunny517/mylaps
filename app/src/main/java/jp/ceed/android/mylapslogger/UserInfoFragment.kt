@@ -16,12 +16,12 @@ class UserInfoFragment : Fragment() {
 
     private var _binding: FragmentUserInfoBinding? = null
 
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
-    val viewModel: UserInfoFragmentViewModel by viewModels()
+    private val viewModel: UserInfoFragmentViewModel by viewModels()
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_info, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

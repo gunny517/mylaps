@@ -26,7 +26,7 @@ class PracticeSummaryFragment : Fragment() {
 
     private val args: PracticeSummaryFragmentArgs by navArgs()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_practice_summary, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

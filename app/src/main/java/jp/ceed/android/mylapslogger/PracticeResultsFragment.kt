@@ -1,7 +1,12 @@
 package jp.ceed.android.mylapslogger
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
@@ -63,8 +68,7 @@ class PracticeResultsFragment : Fragment() {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        setHasOptionsMenu(true)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_practice_result, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

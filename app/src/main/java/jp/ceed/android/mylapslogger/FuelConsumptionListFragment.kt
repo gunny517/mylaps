@@ -17,9 +17,9 @@ import jp.ceed.android.mylapslogger.viewModel.FuelConsumptionListFragmentViewMod
 @AndroidEntryPoint
 class FuelConsumptionListFragment: Fragment() {
 
-    val viewModel: FuelConsumptionListFragmentViewModel by viewModels()
+    private val viewModel: FuelConsumptionListFragmentViewModel by viewModels()
 
-    var _binding: FragmentFuelConsumptionListBinding? = null
+    private var _binding: FragmentFuelConsumptionListBinding? = null
 
     val binding get() = _binding!!
 

@@ -19,13 +19,13 @@ import jp.ceed.android.mylapslogger.viewModel.TrackBestFragmentViewModel
 @AndroidEntryPoint
 class TrackBestFragment: Fragment() {
 
-    var _binding: FragmentTrackBestBinding? = null
+    private var _binding: FragmentTrackBestBinding? = null
 
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
-    val viewModel: TrackBestFragmentViewModel by viewModels()
+    private val viewModel: TrackBestFragmentViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_track_best, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

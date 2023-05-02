@@ -21,7 +21,7 @@ class SessionInfoFragment: Fragment() {
 
     private val viewModel: SessionInfoFragmentViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_session_info, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
