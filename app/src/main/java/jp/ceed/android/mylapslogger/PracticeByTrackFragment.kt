@@ -1,7 +1,12 @@
 package jp.ceed.android.mylapslogger
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
@@ -21,11 +26,11 @@ import jp.ceed.android.mylapslogger.viewModel.PracticeByTrackFragmentViewModel
 @AndroidEntryPoint
 class PracticeByTrackFragment: Fragment() {
 
-    var _binding: FragmentPracticeByTrackBinding? = null;
+    private var _binding: FragmentPracticeByTrackBinding? = null;
 
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
-    val viewModel: PracticeByTrackFragmentViewModel by viewModels()
+    private val viewModel: PracticeByTrackFragmentViewModel by viewModels()
 
     private val menuProvider: MenuProvider = object : MenuProvider {
         override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -55,7 +60,6 @@ class PracticeByTrackFragment: Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        setHasOptionsMenu(true)
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_practice_by_track, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel

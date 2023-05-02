@@ -25,7 +25,7 @@ class TotalDistanceFragment: Fragment() {
 
     private val viewModel: TotalDistanceFragmentViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_total_distance, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel

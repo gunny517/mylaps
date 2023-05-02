@@ -23,7 +23,7 @@ class ErrorLogFragment: Fragment() {
 
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_error_log, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

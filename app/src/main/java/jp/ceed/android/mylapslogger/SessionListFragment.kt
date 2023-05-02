@@ -23,12 +23,12 @@ class SessionListFragment: Fragment() {
 
     private var _binding: FragmentSessionListBinding? = null
 
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     private val viewModel: SessionListFragmentViewModel by viewModels()
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_session_list, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
