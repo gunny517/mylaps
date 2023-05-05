@@ -11,4 +11,5 @@
 	<dimen name="text_size_l">24sp</dimen>
 	<dimen name="padding_m">10sp</dimen>
 	<dimen name="padding_l">16sp</dimen>
+	<dimen name="padding_xl">24sp</dimen>
 </resources>

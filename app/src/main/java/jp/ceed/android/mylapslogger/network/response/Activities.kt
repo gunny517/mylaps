@@ -47,13 +47,13 @@ data class Activities(
         val chipLabel: String,
 
         @SerialName("chipListDto")
-        val chipListDto: String?,
+        val chipListDto: String? = null,
 
         @SerialName("chipCode")
         val chipCode: String,
 
         @SerialName("practiceSessionsDto")
-        val practiceSessionsDto: String?,
+        val practiceSessionsDto: String? = null,
     ) {
         @Serializable
         data class Location (
@@ -65,10 +65,10 @@ data class Activities(
             val id: Int = 0,
 
             @SerialName("description")
-            val description: String?,
+            val description: String? = null,
 
             @SerialName("url")
-            val url: String?,
+            val url: String? = null,
 
             @SerialName("trackLength")
             val trackLength: Int = 0,
@@ -86,7 +86,7 @@ data class Activities(
             val x2ServiceId: Int = 0,
 
             @SerialName("ipAddress")
-            val ipAddress: String?,
+            val ipAddress: String? = null,
 
             @SerialName("sections")
             val sections: List<Sections>,
