@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/TrackBestFragment"
+        android:orderInCategory="100"
+        android:title="@string/action_track_best_fragment"/>
+
+    <item
+        android:id="@+id/TotalDistanceFragment"
+        android:orderInCategory="100"
+        android:title="@string/action_total_distance"/>
+
+    <item
+        android:id="@+id/FuelConsumptionListFragment"
+        android:orderInCategory="100"
+        android:title="@string/label_fuel_consumption_ist"/>
+
+    <item android:id="@+id/UserInfoFragment"
+        android:orderInCategory="100"
+        android:title="@string/action_user_info"/>
+
+    <item android:id="@+id/SpeedCalculatorFragment"
+        android:orderInCategory="100"
+        android:title="@string/action_speed_calculator"/>
+
+    <item
+        android:id="@+id/AppInfoFragment"
+        android:orderInCategory="100"
+        android:title="@string/action_app_settings"/>
+</menu>

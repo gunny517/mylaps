@@ -16,10 +16,34 @@ class PracticeTrackRepository @Inject constructor (
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    suspend fun getTotalDistanceList(): List<TotalDistance> =
+    suspend fun getTotalDistanceList(totalLabel: String): List<TotalDistance> =
         withContext(dispatcher){
-            practiceTrackDao.getTotalDistance()
+            addTotalDistance(practiceTrackDao.getTotalDistance(), totalLabel)
         }
+
+    private fun addTotalDistance(list: List<TotalDistance>, label: String): List<TotalDistance> {
+        var distance = 0
+        var lapCount = 0
+        var trainingCount = 0
+        list.forEach {
+            distance += it.distance
+            lapCount += it.totalLapCount
+            trainingCount += it.trainingCount
+        }
+        val result = ArrayList<TotalDistance>()
+        result.add(
+            TotalDistance(
+                id = 0,
+                name = label,
+                length = 0,
+                distance = distance,
+                totalLapCount = lapCount,
+                trainingCount = trainingCount
+            )
+        )
+        result.addAll(list)
+        return result
+    }
 
     suspend fun findBestLapList(): List<PracticeTrack> =
         withContext(dispatcher){

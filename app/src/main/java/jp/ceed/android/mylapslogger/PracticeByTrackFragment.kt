@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
@@ -85,7 +86,7 @@ class PracticeByTrackFragment: Fragment() {
 
     private fun setActionbarTitle(practiceTrack: PracticeTrack?) {
         practiceTrack?.let {
-            (requireActivity() as MainActivity).setToolbarTitle(practiceTrack.trackName)
+            (activity as? AppCompatActivity)?.supportActionBar?.title = it.trackName
         }
     }
 

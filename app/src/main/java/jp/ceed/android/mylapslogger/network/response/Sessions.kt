@@ -76,19 +76,19 @@ data class Sessions(
         val chipId: Int,
 
         @SerialName("dateTimeStart")
-        val dateTimeStart: String?,
+        val dateTimeStart: String? = null,
 
         @SerialName("bestLap")
-        val bestLap: BestLap?,
+        val bestLap: BestLap? = null,
 
         @SerialName("aveLapDuration")
-        val aveLapDuration: String?,
+        val aveLapDuration: String? = null,
 
         @SerialName("medianLapDuration")
-        val medianLapDuration: String?,
+        val medianLapDuration: String? = null,
 
         @SerialName("duration")
-        val duration: String?,
+        val duration: String? = null,
 
         @SerialName("laps")
         val laps: List<Laps>,
@@ -138,7 +138,7 @@ data class Sessions(
             val speed: Speed,
 
             @SerialName("diffPrevLap")
-            val diffPrevLap: String?,
+            val diffPrevLap: String? = null,
 
             @SerialName("sessionDuration")
             val sessionDuration: String,
@@ -169,7 +169,7 @@ data class Sessions(
                 val duration: String,
 
                 @SerialName("diffPrevLap")
-                val diffPrevLap: String?,
+                val diffPrevLap: String? = null,
 
                 @SerialName("speed")
                 val speed: Speed,
