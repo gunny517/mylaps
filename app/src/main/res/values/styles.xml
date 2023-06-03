@@ -4,4 +4,8 @@
         <item name="android:layout_marginBottom">6sp</item>
         <item name="android:textSize">@dimen/text_size_m</item>
     </style>
+    <style name="speed_calc_item_title">
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:gravity">end</item>
+    </style>
 </resources>

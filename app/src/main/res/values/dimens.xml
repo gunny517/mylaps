@@ -11,4 +11,9 @@
 	<dimen name="text_size_l">24sp</dimen>
 	<dimen name="padding_m">10sp</dimen>
 	<dimen name="padding_l">16sp</dimen>
+	<dimen name="padding_xl">24sp</dimen>
+	<dimen name="input_edit_text_s">60sp</dimen>
+	<dimen name="input_edit_text_m">120sp</dimen>
+	<dimen name="input_edit_text_l">240sp</dimen>
+	<dimen name="text_view_m">80sp</dimen>
 </resources>

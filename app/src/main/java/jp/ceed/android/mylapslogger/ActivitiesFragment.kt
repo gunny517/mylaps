@@ -4,12 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import androidx.core.view.MenuProvider
-import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,48 +30,6 @@ class ActivitiesFragment : Fragment() {
 
     private val viewModel: ActivitiesFragmentViewModel by viewModels()
 
-    private val menuProvider = object : MenuProvider{
-
-        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            val useMenus = listOf(
-                R.id.action_user_info,
-                R.id.action_app_info,
-                R.id.action_track_best,
-                R.id.action_total_distance,
-                R.id.action_fuel_consumption_list
-            )
-            menu.forEach {
-                it.isVisible = useMenus.contains(it.itemId)
-            }
-        }
-
-        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-            return when (menuItem.itemId) {
-                R.id.action_user_info -> {
-                    navigateToUserInfo()
-                    true
-                }
-                R.id.action_app_info -> {
-                    navigateToAppInfo()
-                    true
-                }
-                R.id.action_track_best -> {
-                    navigateToTrackBest()
-                    true
-                }
-                R.id.action_total_distance -> {
-                    navigateToTotalDistance()
-                    true
-                }
-                R.id.action_fuel_consumption_list -> {
-                    navigateToFuelConsumptionList()
-                    true
-                }
-                else -> false
-            }
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -88,7 +43,6 @@ class ActivitiesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
-        requireActivity().addMenuProvider(menuProvider ,viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onDestroyView() {
@@ -100,7 +54,7 @@ class ActivitiesFragment : Fragment() {
         findNavController().navigate(R.id.goToUserInfoFragment)
     }
 
-    private fun navigateToAppInfo(){
+    private fun navigateToAppSettings(){
         findNavController().navigate(R.id.goToAppInfoFragment)
     }
 

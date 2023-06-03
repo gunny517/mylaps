@@ -257,4 +257,9 @@
 		android:id="@+id/FuelConsumptionListFragment"
 		android:name="jp.ceed.android.mylapslogger.FuelConsumptionListFragment"
 		android:label="@string/label_fuel_consumption_ist"/>
+
+	<fragment
+		android:id="@+id/SpeedCalculatorFragment"
+		android:name="jp.ceed.android.mylapslogger.SpeedCalculatorFragment"
+		android:label="@string/action_speed_calculator"/>
 </navigation>

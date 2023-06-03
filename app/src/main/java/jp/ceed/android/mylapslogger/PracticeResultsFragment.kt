@@ -135,7 +135,7 @@ class PracticeResultsFragment : Fragment() {
     private fun navigateToPracticeByTrackFragment(){
         findNavController().navigate(
             PracticeResultsFragmentDirections
-                .goToPracticeByTrackFragment(args.trackId)
+                .goToPracticeByTrackFragment(args.trackId,)
         )
     }
 }

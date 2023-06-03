@@ -108,4 +108,9 @@ object RepositoryForActivityModule {
             sessionDataCreator = sessionDataCreator,
         )
     }
+
+    @Provides
+    fun bindInputValuesRepository(@ActivityContext context: Context): InputValueRepository {
+        return InputValueRepository(context)
+    }
 }

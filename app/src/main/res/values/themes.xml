@@ -17,16 +17,10 @@
 		<!-- Customize your theme here. -->
 		<item name="android:textColor">@color/text_default</item>
 		<item name="android:windowBackground">@color/window_back_ground</item>
+		<item name="actionBarStyle">@style/MyActionBar</item>
 	</style>
 
-	<style name="Theme.Mylapslogger.NoActionBar">
-		<item name="windowActionBar">false</item>
-		<item name="windowNoTitle">true</item>
+	<style name="MyActionBar" parent="Widget.AppCompat.Light.ActionBar">
+		<item name="background">@color/colorPrimary</item>
 	</style>
-
-	<style name="Theme.Mylapslogger.AppBarOverlay"
-		parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-	<style name="Theme.Mylapslogger.PopupOverlay"
-		parent="ThemeOverlay.AppCompat.Light" />
 </resources>
