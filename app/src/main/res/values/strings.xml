@@ -4,6 +4,7 @@
 	<string name="action_user_info">ユーザー情報</string>
 	<string name="action_session_info">走行データ</string>
 	<string name="action_app_settings">設定</string>
+	<string name="action_speed_calculator">速度計算機</string>
 	<string name="action_track_best_fragment">ベストタイム</string>
 	<string name="action_total_distance">走行距離</string>
 	<!-- Strings used for fragments for navigation -->
@@ -74,4 +75,11 @@
 	<string name="label_app_info_title_debug_info">デバッグ機能</string>
 	<string name="label_show_error_log">エラーログを表示</string>
 	<string name="label_total_distance_all">合計</string>
+	<string name="label_fragment_speed_calculator">速度計算機</string>
+	<string name="speed_calc_drive">ドライブ</string>
+	<string name="speed_calc_driven">ドリブン</string>
+	<string name="speed_calc_rpm">回転数</string>
+	<string name="speed_calc_circumference">タイヤ外周</string>
+	<string name="speed_calc_final_ratio">ギヤ比</string>
+	<string name="speed_calc_speed">速度</string>
 </resources>

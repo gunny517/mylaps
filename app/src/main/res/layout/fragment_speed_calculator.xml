@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="jp.ceed.android.mylapslogger.viewModel.SpeedCalculatorFragmentViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/text_view_m"
+                android:layout_height="wrap_content"
+                style="@style/speed_calc_item_title"
+                android:text="@string/speed_calc_drive" />
+
+            <EditText
+                android:id="@+id/driveEditTxt"
+                android:layout_width="@dimen/input_edit_text_m"
+                android:layout_height="wrap_content"
+                android:hint="@string/speed_calc_drive"
+                android:inputType="number"
+                android:importantForAutofill="no"
+                android:text="@={viewModel.inputDrive}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/text_view_m"
+                android:layout_height="wrap_content"
+                style="@style/speed_calc_item_title"
+                android:text="@string/speed_calc_driven" />
+
+            <EditText
+                android:layout_width="@dimen/input_edit_text_m"
+                android:layout_height="wrap_content"
+                android:hint="@string/speed_calc_driven"
+                android:inputType="number"
+                android:importantForAutofill="no"
+                android:text="@={viewModel.inputDriven}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/text_view_m"
+                android:layout_height="wrap_content"
+                style="@style/speed_calc_item_title"
+                android:text="@string/speed_calc_final_ratio" />
+
+            <EditText
+                android:layout_width="@dimen/input_edit_text_m"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:inputType="none"
+                android:importantForAutofill="no"
+                android:text="@{viewModel.finalRatio}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/text_view_m"
+                android:layout_height="wrap_content"
+                style="@style/speed_calc_item_title"
+                android:text="@string/speed_calc_circumference" />
+
+            <EditText
+                android:layout_width="@dimen/input_edit_text_m"
+                android:layout_height="wrap_content"
+                android:hint="@string/speed_calc_circumference"
+                android:inputType="number"
+                android:importantForAutofill="no"
+                android:text="@={viewModel.inputCircumference}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/text_view_m"
+                android:layout_height="wrap_content"
+                style="@style/speed_calc_item_title"
+                android:text="@string/speed_calc_rpm" />
+
+            <EditText
+                android:layout_width="@dimen/input_edit_text_m"
+                android:layout_height="wrap_content"
+                android:hint="@string/speed_calc_rpm"
+                android:inputType="number"
+                android:importantForAutofill="no"
+                android:text="@={viewModel.inputRpm}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/text_view_m"
+                android:layout_height="wrap_content"
+                style="@style/speed_calc_item_title"
+                android:text="@string/speed_calc_speed" />
+
+            <EditText
+                android:layout_width="@dimen/input_edit_text_m"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:inputType="none"
+                android:importantForAutofill="no"
+                android:text="@{viewModel.speed}" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
