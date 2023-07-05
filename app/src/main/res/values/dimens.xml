@@ -16,4 +16,5 @@
 	<dimen name="input_edit_text_m">120sp</dimen>
 	<dimen name="input_edit_text_l">240sp</dimen>
 	<dimen name="text_view_m">80sp</dimen>
+	<dimen name="text_view_l">160sp</dimen>
 </resources>
