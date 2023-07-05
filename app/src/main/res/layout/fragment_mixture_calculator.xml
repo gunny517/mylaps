@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="jp.ceed.android.mylapslogger.viewModel.MixtureCalculatorFragmentViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/text_view_l"
+                android:layout_height="wrap_content"
+                style="@style/speed_calc_item_title"
+                android:text="@string/mixture_calc_current_total_fuel" />
+
+            <EditText
+                android:id="@+id/driveEditTxt"
+                android:layout_width="@dimen/input_edit_text_m"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="@string/mixture_calc_hint_cc"
+                android:importantForAutofill="no"
+                android:text="@={viewModel.currentTotalFuel}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/text_view_l"
+                android:layout_height="wrap_content"
+                style="@style/speed_calc_item_title"
+                android:text="@string/mixture_calc_current_mix_ratio" />
+
+            <EditText
+                android:layout_width="@dimen/input_edit_text_m"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="@string/mixture_calc_hint_ratio"
+                android:importantForAutofill="no"
+                android:text="@={viewModel.currentMixtureRatio}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/text_view_l"
+                android:layout_height="wrap_content"
+                style="@style/speed_calc_item_title"
+                android:text="@string/mixture_calc_added_fuel" />
+
+            <EditText
+                android:layout_width="@dimen/input_edit_text_m"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="@string/mixture_calc_hint_cc"
+                android:importantForAutofill="no"
+                android:text="@={viewModel.addedFuelNet}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/text_view_l"
+                android:layout_height="wrap_content"
+                style="@style/speed_calc_item_title"
+                android:text="@string/mixture_calc_dest_mix_ratio" />
+
+            <EditText
+                android:layout_width="@dimen/input_edit_text_m"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="@string/mixture_calc_hint_ratio"
+                android:importantForAutofill="no"
+                android:text="@={viewModel.destMixtureRatio}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/text_view_l"
+                android:layout_height="wrap_content"
+                style="@style/speed_calc_item_title"
+                android:text="@string/mixture_calc_added_oil" />
+
+            <EditText
+                android:layout_width="@dimen/input_edit_text_m"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:focusable="false"
+                android:importantForAutofill="no"
+                android:text="@{viewModel.addedOilNet}" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
