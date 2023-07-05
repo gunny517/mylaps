@@ -262,4 +262,9 @@
 		android:id="@+id/SpeedCalculatorFragment"
 		android:name="jp.ceed.android.mylapslogger.SpeedCalculatorFragment"
 		android:label="@string/action_speed_calculator"/>
+
+	<fragment
+		android:id="@+id/MixtureCalculatorFragment"
+		android:name="jp.ceed.android.mylapslogger.MixtureCalculatorFragment"
+		android:label="@string/action_mixture_calculator"/>
 </navigation>

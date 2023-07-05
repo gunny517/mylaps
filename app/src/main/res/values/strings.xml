@@ -5,6 +5,7 @@
 	<string name="action_session_info">走行データ</string>
 	<string name="action_app_settings">設定</string>
 	<string name="action_speed_calculator">速度計算機</string>
+	<string name="action_mixture_calculator">混合比計算機</string>
 	<string name="action_track_best_fragment">ベストタイム</string>
 	<string name="action_total_distance">走行距離</string>
 	<!-- Strings used for fragments for navigation -->
@@ -82,4 +83,12 @@
 	<string name="speed_calc_circumference">タイヤ外周</string>
 	<string name="speed_calc_final_ratio">ギヤ比</string>
 	<string name="speed_calc_speed">速度</string>
+	<string name="mixture_calc_current_total_fuel">今あるガソリンの総量</string>
+	<string name="mixture_calc_current_mix_ratio">今あるガソリンの混合比</string>
+	<string name="mixture_calc_added_fuel">追加するガソリンの量</string>
+	<string name="mixture_calc_dest_mix_ratio">最終的な混合比</string>
+	<string name="mixture_calc_added_oil">追加すべきオイルの量</string>
+	<string name="mixture_calc_hint_cc">cc</string>
+	<string name="mixture_calc_hint_ratio">25</string>
+	
 </resources>
