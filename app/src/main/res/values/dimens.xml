@@ -9,7 +9,9 @@
 	<dimen name="text_size_ms">18sp</dimen>
 	<dimen name="text_size_m">20sp</dimen>
 	<dimen name="text_size_l">24sp</dimen>
-	<dimen name="padding_m">10sp</dimen>
+	<dimen name="text_size_xl">28sp</dimen>
+	<dimen name="padding_s">4sp</dimen>
+	<dimen name="padding_m">8sp</dimen>
 	<dimen name="padding_l">16sp</dimen>
 	<dimen name="padding_xl">24sp</dimen>
 	<dimen name="input_edit_text_s">60sp</dimen>
