@@ -5,7 +5,7 @@
 	<color name="colorAccent">#3184c9</color>
 	<color name="black">#FF000000</color>
 	<color name="white">#FFFFFFFF</color>
-	<color name="bg_lap_list_section">#999999</color>
+	<color name="bg_lap_list_section">#cccccc</color>
 	<color name="bg_lap_list_report_best">#3F2168</color>
 	<color name="bg_lap_list_session_best">#21631E</color>
 	<color name="text_default">#ffffff</color>
