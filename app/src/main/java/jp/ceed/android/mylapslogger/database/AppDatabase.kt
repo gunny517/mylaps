@@ -74,24 +74,25 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        const val CREATE_SESSION_INFO = "CREATE TABLE IF NOT EXISTS SessionInfo " +
-                "(session_id INTEGER NOT NULL, " +
+        const val CREATE_SESSION_INFO = "CREATE TABLE IF NOT EXISTS SessionInfo (" +
+                "session_id INTEGER NOT NULL, " +
                 "temperature TEXT, " +
                 "pressure TEXT, " +
                 "humidity TEXT, " +
                 "description TEXT, " +
-                "PRIMARY KEY(session_id))"
+                "PRIMARY KEY(session_id)" +
+                ")"
         
-        const val CREATE_TRACK = "CREATE TABLE IF NOT EXISTS Track " +
-                "(id INTEGER NOT NULL, " +
+        const val CREATE_TRACK = "CREATE TABLE IF NOT EXISTS Track (" +
+                "id INTEGER NOT NULL, " +
                 "name TEXT NOT NULL, " +
                 "length INTEGER NOT NULL, " +
                 "created INTEGER NOT NULL, " +
-                "PRIMARY KEY(id))"
+                "PRIMARY KEY(id)" +
+                ")"
         
-        const val CREATE_PRACTICE = "CREATE TABLE IF NOT EXISTS Practice " +
-                "(id INTEGER NOT NULL AUTOINCREMENT, " +
-                "activity_id TEXT NOT NULL, " +
+        const val CREATE_PRACTICE = "CREATE TABLE IF NOT EXISTS Practice (" +
+                "activity_id INTEGER NOT NULL, " +
                 "track_id INTEGER NOT NULL, " +
                 "lap_count INTEGER NOT NULL, " +
                 "best_lap TEXT NOT NULL, " +
@@ -100,12 +101,14 @@ abstract class AppDatabase : RoomDatabase() {
                 "display_time TEXT, " +
                 "total_training_time TEXT NOT NULL, " +
                 "active_training_time TEXT NOT NULL, " +
-                "PRIMARY KEY(id))"
+                "PRIMARY KEY(`activity_id`)" +
+                ")"
 
-        const val CRATE_ERROR_LOG = "CREATE TABLE IF NOT EXISTS ErrorLog " +
-                "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+        const val CRATE_ERROR_LOG = "CREATE TABLE IF NOT EXISTS ErrorLog (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 "stack_trace TEXT NOT NULL, " +
-                "created INTEGER NOT NULL)"
+                "created INTEGER NOT NULL" +
+                ")"
 
         const val ALTER_ACTIVITY_INFO_ADD_FUEL_CONSUMPTION = "ALTER TABLE ActivityInfo " +
                 "ADD COLUMN fuel_consumption REAL "

@@ -27,7 +27,7 @@ class PracticeRepository @Inject constructor (
             val list: ArrayList<Long> = ArrayList()
             val practiceList = practiceDao.findAll()
             for(entry in practiceList){
-                list.add(entry.id)
+                list.add(entry.activityId)
             }
             list
         }
