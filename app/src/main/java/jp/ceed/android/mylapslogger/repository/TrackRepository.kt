@@ -16,7 +16,7 @@ class TrackRepository @Inject constructor(
         withContext(dispatcher){
             val trackIdList = getTrackIdList()
             for(entry in activities){
-                if(trackIdList.contains(entry.id)){
+                if(trackIdList.contains(entry.locationId)){
                     continue
                 }
                 trackDao.save(Track(entry))

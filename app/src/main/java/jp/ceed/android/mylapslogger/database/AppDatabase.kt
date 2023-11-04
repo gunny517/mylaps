@@ -6,8 +6,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import jp.ceed.android.mylapslogger.dao.*
-import jp.ceed.android.mylapslogger.entity.*
+import jp.ceed.android.mylapslogger.dao.ActivityInfoDao
+import jp.ceed.android.mylapslogger.dao.ActivityInfoTrackDao
+import jp.ceed.android.mylapslogger.dao.ErrorLogDao
+import jp.ceed.android.mylapslogger.dao.PracticeDao
+import jp.ceed.android.mylapslogger.dao.PracticeTrackDao
+import jp.ceed.android.mylapslogger.dao.SessionInfoDao
+import jp.ceed.android.mylapslogger.dao.TrackDao
+import jp.ceed.android.mylapslogger.entity.ActivityInfo
+import jp.ceed.android.mylapslogger.entity.ErrorLog
+import jp.ceed.android.mylapslogger.entity.Practice
+import jp.ceed.android.mylapslogger.entity.SessionInfo
+import jp.ceed.android.mylapslogger.entity.Track
+
+const val DATABASE_VERSION = 11
 
 @Database(entities = [
     ActivityInfo::class,
@@ -15,7 +27,7 @@ import jp.ceed.android.mylapslogger.entity.*
     Track::class,
     Practice::class,
     ErrorLog::class ],
-    version = 10)
+    version = DATABASE_VERSION)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun activityInfoDao(): ActivityInfoDao
@@ -55,6 +67,7 @@ abstract class AppDatabase : RoomDatabase() {
                     addMigrations(MIGRATION_7_8)
                     addMigrations(MIGRATION_8_9)
                     addMigrations(MIGRATION_9_10)
+                    addMigrations(MIGRATION_10_11)
                 }.build()
                 INSTANCE = instance
                 instance
@@ -77,7 +90,8 @@ abstract class AppDatabase : RoomDatabase() {
                 "PRIMARY KEY(id))"
         
         const val CREATE_PRACTICE = "CREATE TABLE IF NOT EXISTS Practice " +
-                "(id INTEGER NOT NULL, " +
+                "(id INTEGER NOT NULL AUTOINCREMENT, " +
+                "activity_id TEXT NOT NULL, " +
                 "track_id INTEGER NOT NULL, " +
                 "lap_count INTEGER NOT NULL, " +
                 "best_lap TEXT NOT NULL, " +
@@ -164,6 +178,13 @@ abstract class AppDatabase : RoomDatabase() {
         private val MIGRATION_9_10 = object : Migration(9, 10){
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(TRUNCATE_PRACTICE)
+            }
+        }
+
+        private val MIGRATION_10_11 = object : Migration(10, 11){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(DROP_PRACTICE)
+                database.execSQL(CREATE_PRACTICE)
             }
         }
     }

@@ -30,7 +30,7 @@ class ApiRepository @Inject constructor (
             )
         )
 
-    suspend fun loadPracticeResultsForSessionList(token: String, activityId: Int) =
+    suspend fun loadPracticeResultsForSessionList(token: String, activityId: Long) =
         createSessionItemList(
             sessions = sessionsApiDataSource.getSession(
                 activityId = activityId,
@@ -44,7 +44,7 @@ class ApiRepository @Inject constructor (
             SessionListItem(it, sessions.bestLap.duration)
         }
 
-    suspend fun getPracticeResult(token: String, activityId: Int, trackLength: Int, sessionNo: Int?): PracticeResult {
+    suspend fun getPracticeResult(token: String, activityId: Long, trackLength: Int, sessionNo: Int?): PracticeResult {
         val sessions = sessionsApiDataSource.getSession(
             activityId = activityId,
             token = token

@@ -12,9 +12,9 @@ class PracticeRepository @Inject constructor (
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
-    suspend fun findById(id: Int): Practice =
+    suspend fun findByActivityId(activityId: Long): Practice =
         withContext(dispatcher){
-            practiceDao.findById(id)
+            practiceDao.findByActivityId(activityId)
         }
 
     suspend fun savePractice(practice: Practice) =
@@ -22,9 +22,9 @@ class PracticeRepository @Inject constructor (
             practiceDao.save(practice)
         }
 
-    suspend fun getPracticeIdList(): List<Int> =
+    suspend fun getPracticeIdList(): List<Long> =
         withContext(dispatcher){
-            val list: ArrayList<Int> = ArrayList()
+            val list: ArrayList<Long> = ArrayList()
             val practiceList = practiceDao.findAll()
             for(entry in practiceList){
                 list.add(entry.id)

@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ActivitiesItem(
-    val id: Int,
+    val id: Long,
     val locationId: Int,
     val displayTime: String?,
     val startTime: String,

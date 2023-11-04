@@ -57,7 +57,7 @@ class PracticeResultsRepository @Inject constructor (
         )
 
     data class Args(
-        var activityId: Int,
+        var activityId: Long,
         var token: String,
         var trackLength: Int,
         var sessionNo: Int,
