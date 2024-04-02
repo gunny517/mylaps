@@ -17,7 +17,7 @@ data class Activities(
     data class ActivityDto (
 
         @SerialName("id")
-        val id: Int = 0,
+        val id: Long = 0,
 
         @SerialName("name")
         val name: String,

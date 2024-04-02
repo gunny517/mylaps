@@ -47,7 +47,7 @@ object ActivityInfoFragmentViewModelTest : Spek({
         coEvery {
             findById(any())
         } returns ActivityInfo(
-            activityId = (savedStateHandle.get<Int>("activityId") ?: 0),
+            activityId = (savedStateHandle.get<Long>("activityId") ?: 0),
             description = "This is description",
             fuelConsumption = 1.2F,
             trackId = (savedStateHandle.get<Int>("trackId") ?: 0),
@@ -95,7 +95,7 @@ object ActivityInfoFragmentViewModelTest : Spek({
                 coVerify {
                     viewModel.activityInfoRepository.update(
                         ActivityInfo(
-                            activityId = 123,
+                            activityId = 123L,
                             description = "This is Updated value.",
                             fuelConsumption = 1.5F,
                             trackId = 111,
@@ -139,7 +139,7 @@ object ActivityInfoFragmentViewModelTest : Spek({
                 coVerify {
                     viewModel.activityInfoRepository.insert(
                         ActivityInfo(
-                            activityId = 123,
+                            activityId = 123L,
                             description = "This is input value",
                             fuelConsumption = 1.4F,
                             trackId = 111,

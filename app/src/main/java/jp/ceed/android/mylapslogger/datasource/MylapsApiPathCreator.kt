@@ -17,7 +17,7 @@ class MylapsApiPathCreator @Inject constructor(
             .build()
             .toString()
 
-    fun createSessionRequestPath(activityId: Int): String =
+    fun createSessionRequestPath(activityId: Long): String =
         Uri.parse(context.getString(R.string.practice_api_end_point))
             .buildUpon()
             .path(context.getString(R.string.session_request_path, activityId))

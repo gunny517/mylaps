@@ -94,14 +94,14 @@ class PracticeByTrackFragment: Fragment() {
         findNavController().navigate(
             if(AppSettings(requireContext()).isShowPracticeResultsAsSeparate()){
                 PracticeByTrackFragmentDirections.goToSessionListFragment(
-                    practiceTrack.id,
+                    practiceTrack.activityId,
                     practiceTrack.displayTime,
                     practiceTrack.trackId,
                     practiceTrack.trackLength
                 )
             }else{
                 PracticeByTrackFragmentDirections.goToPracticeResultFragment(
-                    practiceTrack.id,
+                    practiceTrack.activityId,
                     practiceTrack.displayTime,
                     practiceTrack.trackId,
                     practiceTrack.trackLength,

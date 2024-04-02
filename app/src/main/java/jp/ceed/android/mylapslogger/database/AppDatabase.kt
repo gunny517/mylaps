@@ -6,8 +6,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import jp.ceed.android.mylapslogger.dao.*
-import jp.ceed.android.mylapslogger.entity.*
+import jp.ceed.android.mylapslogger.dao.ActivityInfoDao
+import jp.ceed.android.mylapslogger.dao.ActivityInfoTrackDao
+import jp.ceed.android.mylapslogger.dao.ErrorLogDao
+import jp.ceed.android.mylapslogger.dao.PracticeDao
+import jp.ceed.android.mylapslogger.dao.PracticeTrackDao
+import jp.ceed.android.mylapslogger.dao.SessionInfoDao
+import jp.ceed.android.mylapslogger.dao.TrackDao
+import jp.ceed.android.mylapslogger.entity.ActivityInfo
+import jp.ceed.android.mylapslogger.entity.ErrorLog
+import jp.ceed.android.mylapslogger.entity.Practice
+import jp.ceed.android.mylapslogger.entity.SessionInfo
+import jp.ceed.android.mylapslogger.entity.Track
+
+const val DATABASE_VERSION = 11
 
 @Database(entities = [
     ActivityInfo::class,
@@ -15,7 +27,7 @@ import jp.ceed.android.mylapslogger.entity.*
     Track::class,
     Practice::class,
     ErrorLog::class ],
-    version = 10)
+    version = DATABASE_VERSION)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun activityInfoDao(): ActivityInfoDao
@@ -55,29 +67,32 @@ abstract class AppDatabase : RoomDatabase() {
                     addMigrations(MIGRATION_7_8)
                     addMigrations(MIGRATION_8_9)
                     addMigrations(MIGRATION_9_10)
+                    addMigrations(MIGRATION_10_11)
                 }.build()
                 INSTANCE = instance
                 instance
             }
         }
 
-        const val CREATE_SESSION_INFO = "CREATE TABLE IF NOT EXISTS SessionInfo " +
-                "(session_id INTEGER NOT NULL, " +
+        const val CREATE_SESSION_INFO = "CREATE TABLE IF NOT EXISTS SessionInfo (" +
+                "session_id INTEGER NOT NULL, " +
                 "temperature TEXT, " +
                 "pressure TEXT, " +
                 "humidity TEXT, " +
                 "description TEXT, " +
-                "PRIMARY KEY(session_id))"
+                "PRIMARY KEY(session_id)" +
+                ")"
         
-        const val CREATE_TRACK = "CREATE TABLE IF NOT EXISTS Track " +
-                "(id INTEGER NOT NULL, " +
+        const val CREATE_TRACK = "CREATE TABLE IF NOT EXISTS Track (" +
+                "id INTEGER NOT NULL, " +
                 "name TEXT NOT NULL, " +
                 "length INTEGER NOT NULL, " +
                 "created INTEGER NOT NULL, " +
-                "PRIMARY KEY(id))"
+                "PRIMARY KEY(id)" +
+                ")"
         
-        const val CREATE_PRACTICE = "CREATE TABLE IF NOT EXISTS Practice " +
-                "(id INTEGER NOT NULL, " +
+        const val CREATE_PRACTICE = "CREATE TABLE IF NOT EXISTS Practice (" +
+                "activity_id INTEGER NOT NULL, " +
                 "track_id INTEGER NOT NULL, " +
                 "lap_count INTEGER NOT NULL, " +
                 "best_lap TEXT NOT NULL, " +
@@ -86,12 +101,14 @@ abstract class AppDatabase : RoomDatabase() {
                 "display_time TEXT, " +
                 "total_training_time TEXT NOT NULL, " +
                 "active_training_time TEXT NOT NULL, " +
-                "PRIMARY KEY(id))"
+                "PRIMARY KEY(`activity_id`)" +
+                ")"
 
-        const val CRATE_ERROR_LOG = "CREATE TABLE IF NOT EXISTS ErrorLog " +
-                "(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+        const val CRATE_ERROR_LOG = "CREATE TABLE IF NOT EXISTS ErrorLog (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 "stack_trace TEXT NOT NULL, " +
-                "created INTEGER NOT NULL)"
+                "created INTEGER NOT NULL" +
+                ")"
 
         const val ALTER_ACTIVITY_INFO_ADD_FUEL_CONSUMPTION = "ALTER TABLE ActivityInfo " +
                 "ADD COLUMN fuel_consumption REAL "
@@ -164,6 +181,13 @@ abstract class AppDatabase : RoomDatabase() {
         private val MIGRATION_9_10 = object : Migration(9, 10){
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(TRUNCATE_PRACTICE)
+            }
+        }
+
+        private val MIGRATION_10_11 = object : Migration(10, 11){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(DROP_PRACTICE)
+                database.execSQL(CREATE_PRACTICE)
             }
         }
     }

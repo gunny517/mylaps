@@ -13,7 +13,7 @@ class ActivityInfoRepository @Inject constructor (
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    suspend fun findById(id: Int): ActivityInfo? =
+    suspend fun findById(id: Long): ActivityInfo? =
         withContext(dispatcher) {
             dao.findById(id)
         }

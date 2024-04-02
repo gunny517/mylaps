@@ -7,6 +7,9 @@
         <variable
             name="item"
             type="jp.ceed.android.mylapslogger.dto.PracticeResultsItem.Section" />
+        <variable
+            name="sessionMemoButtonVisibility"
+            type="int" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -46,8 +49,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="@dimen/text_size_ms"
+            android:textSize="@dimen/text_size_s"
             android:text="@string/label_practice_result_section_session_info"
-            android:textColor="@{context.getColor(item.sessionInfoLabelColor)}"/>
+            android:textColor="@{context.getColor(item.sessionInfoLabelColor)}"
+            android:visibility="@{sessionMemoButtonVisibility}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

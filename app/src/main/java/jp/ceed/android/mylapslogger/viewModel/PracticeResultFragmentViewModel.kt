@@ -11,7 +11,13 @@ import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.model.PracticeResult
-import jp.ceed.android.mylapslogger.repository.*
+import jp.ceed.android.mylapslogger.repository.ApiRepository
+import jp.ceed.android.mylapslogger.repository.LocationRepository
+import jp.ceed.android.mylapslogger.repository.PracticeResultsRepository
+import jp.ceed.android.mylapslogger.repository.ResourceRepository
+import jp.ceed.android.mylapslogger.repository.SessionInfoRepository
+import jp.ceed.android.mylapslogger.repository.UserAccountRepository
+import jp.ceed.android.mylapslogger.repository.WeatherRepository
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.util.DateUtil
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
@@ -38,7 +44,7 @@ class PracticeResultFragmentViewModel @Inject constructor (
 
     val showProgress: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    val activityId: Int = state.get<Int>("activityId") ?: 0
+    val activityId: Long = state.get<Long>("activityId") ?: 0
 
     val trackLength: Int = state.get<Int>("trackLength") ?: 0
 

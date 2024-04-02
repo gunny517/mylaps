@@ -24,7 +24,7 @@ class ActivityInfoFragmentViewModel @Inject constructor(
 
     var fuelConsumption: MutableLiveData<String?> = MutableLiveData()
 
-    var activityId: Int = savedStateHandle.get<Int>("activityId") ?: throw IllegalStateException("Should have activityId")
+    var activityId: Long = savedStateHandle.get<Long>("activityId") ?: throw IllegalStateException("Should have activityId")
 
     var bestLap: MutableLiveData<String> = MutableLiveData(savedStateHandle.get("bestLap"))
 

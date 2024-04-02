@@ -24,7 +24,7 @@ class SessionListFragmentViewModel @Inject constructor (
 
     var isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    val activityId: Int = savedStateHandle.get<Int>("activityId") ?: throw IllegalStateException("Should have activityId")
+    val activityId: Long = savedStateHandle.get<Long>("activityId") ?: throw IllegalStateException("Should have activityId")
 
     init {
         loadSessionInfo()

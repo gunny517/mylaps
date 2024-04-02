@@ -1,11 +1,13 @@
 package jp.ceed.android.mylapslogger.datasource
 
-import io.ktor.client.request.*
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.request.parameter
 import jp.ceed.android.mylapslogger.constants.AppConstants
 import jp.ceed.android.mylapslogger.network.JsonApiKtorClientCreator
 import jp.ceed.android.mylapslogger.network.response.Sessions
 import java.io.IOException
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 class SessionsApiDataSource @Inject constructor(
@@ -13,7 +15,7 @@ class SessionsApiDataSource @Inject constructor(
     private val jsonApiKtorClientCreator: JsonApiKtorClientCreator,
 ) {
 
-    suspend fun getSession(activityId: Int, token: String): Sessions =
+    suspend fun getSession(activityId: Long, token: String): Sessions =
         try {
             jsonApiKtorClientCreator.getDefaultClient().get<Sessions>(
                 urlString = apiPathCreator.createSessionRequestPath(activityId)

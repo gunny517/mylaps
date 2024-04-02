@@ -6,8 +6,8 @@ import jp.ceed.android.mylapslogger.entity.Practice
 @Dao
 interface PracticeDao {
 
-    @Query("SELECT * FROM Practice WHERE id = (:id)")
-    fun findById(id: Int): Practice
+    @Query("SELECT * FROM Practice WHERE activity_id = (:activityId)")
+    fun findByActivityId(activityId: Long): Practice
 
     @Query("SELECT * FROM Practice")
     fun findAll(): List<Practice>

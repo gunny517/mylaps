@@ -18,10 +18,16 @@ import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
 
 class PracticeResultsAdapter(
     context: Context,
-    private val onClickListener: (PracticeResultsItem.Section) -> Unit
+    private val onClickListener: ((PracticeResultsItem.Section) -> Unit)?
 ) : ListAdapter<PracticeResultsItem, PracticeResultsAdapter.ViewHolder>(diffCallback) {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
+
+    private val sessionMenuButtonVisibility = if (onClickListener == null) {
+        View.GONE
+    } else {
+        View.VISIBLE
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when(viewType){
@@ -43,6 +49,7 @@ class PracticeResultsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: PracticeResultsItem = getItem(position)
         holder.viewDataBinding?.setVariable(BR.item, item)
+        holder.viewDataBinding?.setVariable(BR.sessionMemoButtonVisibility, sessionMenuButtonVisibility)
         holder.itemView.setOnClickListener {
             when(item){
                 is PracticeResultsItem.Section -> { onClickSection(item) }
@@ -53,7 +60,7 @@ class PracticeResultsAdapter(
 
     private fun onClickSection(item: PracticeResultsItem.Section) {
         if (item.sessionId != 0L) {
-            onClickListener(item)
+            onClickListener?.let { it(item) }
         }
     }
 

@@ -8,7 +8,7 @@ import jp.ceed.android.mylapslogger.network.response.Sessions
 
 @Entity
 data class Practice(
-    @ColumnInfo(name = "id") @PrimaryKey var id: Int,
+    @ColumnInfo(name = "activity_id") @PrimaryKey var activityId: Long,
     @ColumnInfo(name = "track_id") var trackId: Int,
     @ColumnInfo(name = "lap_count") var lapCount: Int,
     @ColumnInfo(name = "best_lap") var bestLap: String,
@@ -19,7 +19,7 @@ data class Practice(
     @ColumnInfo(name = "active_training_time") var activeTrainingTime: String
 ){
     constructor(activitiesItem: ActivitiesItem, sessions: Sessions): this(
-        id = activitiesItem.id,
+        activityId = activitiesItem.id,
         trackId = activitiesItem.locationId,
         lapCount = sessions.stats.lapCount,
         bestLap = sessions.bestLap.duration,
