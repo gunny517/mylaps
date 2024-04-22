@@ -24,6 +24,10 @@
         android:orderInCategory="100"
         android:title="@string/action_speed_calculator"/>
 
+    <item android:id="@+id/FinalRatiFragment"
+        android:orderInCategory="100"
+        android:title="@string/action_final_ratio"/>
+
     <item android:id="@+id/MixtureCalculatorFragment"
         android:orderInCategory="100"
         android:title="@string/action_mixture_calculator"/>

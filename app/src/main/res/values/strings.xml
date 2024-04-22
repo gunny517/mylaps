@@ -6,6 +6,7 @@
 	<string name="action_app_settings">設定</string>
 	<string name="action_speed_calculator">速度計算機</string>
 	<string name="action_mixture_calculator">混合比計算機</string>
+	<string name="action_final_ratio">ファイナル計算機</string>
 	<string name="action_track_best_fragment">ベストタイム</string>
 	<string name="action_total_distance">走行距離</string>
 	<!-- Strings used for fragments for navigation -->
@@ -90,5 +91,9 @@
 	<string name="mixture_calc_added_oil">追加すべきオイルの量</string>
 	<string name="mixture_calc_hint_cc">cc</string>
 	<string name="mixture_calc_hint_ratio">25</string>
-	
+	<string name="calculate">計算</string>
+	<string name="drive_min">ドライブ：下限</string>
+	<string name="drive_max">ドライブ：上限</string>
+	<string name="driven_min">ドリブン：下限</string>
+	<string name="driven_max">ドリブン：上限</string>
 </resources>

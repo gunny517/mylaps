@@ -264,6 +264,11 @@
 		android:label="@string/action_speed_calculator"/>
 
 	<fragment
+		android:id="@+id/FinalRatiFragment"
+		android:name="jp.ceed.kart.settings.ui.data.fragment.FinalRatioFragment"
+		android:label="@string/action_final_ratio"/>
+
+	<fragment
 		android:id="@+id/MixtureCalculatorFragment"
 		android:name="jp.ceed.android.mylapslogger.MixtureCalculatorFragment"
 		android:label="@string/action_mixture_calculator"/>
