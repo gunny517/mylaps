@@ -20,4 +20,5 @@
 	<color name="bg_lap_list_shown">#cccccc</color>
 	<color name="window_back_ground">#ffffff</color>
 	<color name="speed_bar">#695AAC</color>
+	<color name="divider">#cccccc</color>
 </resources>
