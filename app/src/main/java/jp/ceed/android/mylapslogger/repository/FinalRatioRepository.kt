@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.dto.FinalRatioDto
+import jp.ceed.android.mylapslogger.model.FinalRatioResult
 import javax.inject.Inject
 
 class FinalRatioRepository @Inject constructor (
@@ -26,21 +27,17 @@ class FinalRatioRepository @Inject constructor (
         paramDriveMax: String?,
         paramDrivenMin: String?,
         paramDrivenMax: String?
-    ): Pair<List<String>, Int> {
+    ): FinalRatioResult {
         val driveMin: Int = paramDriveMin?.toInt() ?: DRIVE_MIN
         val driveMax: Int = paramDriveMax?.toInt() ?: DRIVE_MAX
         val drivenMin: Int = paramDrivenMin?.toInt() ?: DRIVEN_MIN
         val drivenMax: Int = paramDrivenMax?.toInt() ?: DRIVEN_MAX
 
-        val driveList: ArrayList<Int> = ArrayList()
+        val driveList: ArrayList<String> = ArrayList()
         for(i in driveMin..driveMax){
-            driveList.add(i)
+            driveList.add(i.toString())
         }
         val list: ArrayList<String> = ArrayList()
-        list.add("")
-        for(drive in driveList){
-            list.add(drive.toString())
-        }
         for(driven in drivenMin..drivenMax){
             list.add(driven.toString())
             for(drive in driveList){
@@ -48,8 +45,9 @@ class FinalRatioRepository @Inject constructor (
                 list.add(String.format("%.2f", ratio))
             }
         }
+        driveList.add(0, "")
         saveCalculateValue(driveMin, driveMax, drivenMin, drivenMax)
-        return Pair(list, driveList.size + 1)
+        return FinalRatioResult(driveList, list)
     }
 
     fun getSavedValue(): FinalRatioDto {

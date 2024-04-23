@@ -19,7 +19,8 @@
 	<dimen name="input_edit_text_l">240sp</dimen>
 	<dimen name="text_view_m">80sp</dimen>
 	<dimen name="text_view_l">160sp</dimen>
-	<dimen name="final_ratio_item_width">100dp</dimen>
+	<dimen name="final_ratio_label_width">100dp</dimen>
+	<dimen name="final_ratio_item_width">90dp</dimen>
 	<dimen name="final_ratio_edit_text_width">60dp</dimen>
 	<dimen name="final_ratio_item_height">40dp</dimen>
 </resources>
