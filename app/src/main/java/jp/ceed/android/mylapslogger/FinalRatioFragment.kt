@@ -38,6 +38,12 @@ class FinalRatioFragment: Fragment() {
     }
 
     private fun init(){
+        viewModel.headerItems.observe(viewLifecycleOwner){
+            val adapter = FinalRatioAdapter(requireContext(), it)
+            binding.headerView.adapter = adapter
+            binding.headerView.layoutManager = GridLayoutManager(requireContext(), viewModel.colSize.value ?: 0)
+            binding.headerView.addItemDecoration(DividerItemDecoration(requireContext(), GridLayoutManager.VERTICAL))
+        }
         viewModel.finalRatioList.observe(viewLifecycleOwner){
             val adapter = FinalRatioAdapter(requireContext(), it)
             binding.recyclerView.adapter = adapter
