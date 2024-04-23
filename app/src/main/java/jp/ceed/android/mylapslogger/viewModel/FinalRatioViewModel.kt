@@ -16,6 +16,8 @@ class FinalRatioViewModel @Inject constructor(
 
     val finalRatioList: MutableLiveData<List<String>> = MutableLiveData()
 
+    val headerItems: MutableLiveData<List<String>> = MutableLiveData()
+
     var driveMin: MutableLiveData<String> = MutableLiveData()
 
     var driveMax: MutableLiveData<String> = MutableLiveData()
@@ -49,8 +51,9 @@ class FinalRatioViewModel @Inject constructor(
             drivenMin.value,
             drivenMax.value
         )
-        colSize.value = result.second
-        finalRatioList.value = result.first
+        colSize.value = result.headerItems.size
+        headerItems.value = result.headerItems
+        finalRatioList.value = result.adapterItems
         event.value = Event(EventState.CALCULATE)
     }
 }
