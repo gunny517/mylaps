@@ -8,7 +8,7 @@ import jp.ceed.android.mylapslogger.repository.FinalRatioRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class FinalRatioViewModel @Inject constructor(
+class FinalRatioFragmentViewModel @Inject constructor(
     private var finalRatioRepository: FinalRatioRepository
 ) : ViewModel() {
 

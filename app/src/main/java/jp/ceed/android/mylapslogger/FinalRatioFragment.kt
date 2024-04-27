@@ -14,7 +14,7 @@ import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.adatpter.FinalRatioAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentFinalRatioBinding
 import jp.ceed.android.mylapslogger.util.Util
-import jp.ceed.android.mylapslogger.viewModel.FinalRatioViewModel
+import jp.ceed.android.mylapslogger.viewModel.FinalRatioFragmentViewModel
 
 @AndroidEntryPoint
 class FinalRatioFragment: Fragment() {
@@ -23,7 +23,7 @@ class FinalRatioFragment: Fragment() {
 
     val binding get() = _binding!!
 
-    val viewModel: FinalRatioViewModel by viewModels()
+    val viewModel: FinalRatioFragmentViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_final_ratio, container, false)
