@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'com.google.firebase.crashlytics'
     id 'com.google.gms.google-services'
+    id "de.mannodermaus.android-junit5" version "1.10.0.0"
 }
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
@@ -36,8 +37,6 @@ android {
         targetSdk 34
         versionCode Integer.parseInt(AppVersionCode)
         versionName AppVersionName
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // Room database の設定
         javaCompileOptions {
@@ -121,7 +120,9 @@ dependencies {
     implementation "io.ktor:ktor-client-serialization-jvm:$ktor_version"
     implementation "io.ktor:ktor-client-auth:$ktor_version"
 
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.10.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.10.1"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation("androidx.fragment:fragment-testing:1.6.2")
@@ -136,13 +137,5 @@ dependencies {
     testImplementation 'androidx.test.ext:truth:1.5.0'
 
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
-
-    // For spek test.
-    def spek_version = "2.0.0"
-    testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spek_version"
-    testImplementation "org.spekframework.spek2:spek-runner-junit5:$spek_version"
-    testImplementation "org.junit.platform:junit-platform-runner:1.0.0"
-
     testImplementation "io.mockk:mockk:1.12.4"
-
 }
