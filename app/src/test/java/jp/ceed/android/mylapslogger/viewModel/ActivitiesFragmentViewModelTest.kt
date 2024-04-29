@@ -7,11 +7,10 @@ import io.mockk.mockk
 import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
-import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+
 class ActivitiesFragmentViewModelTest {
 
     private val isLogin: UserAccountRepository = mockk(relaxed = true) {
@@ -34,14 +33,13 @@ class ActivitiesFragmentViewModelTest {
 
     private val apiRepository: ApiRepository = mockk(relaxed = true)
 
-    @BeforeAll
-    fun beforeAll() {
+    @BeforeEach
+    fun beforeEach () {
         initMainLooper()
     }
 
     @Test
     fun checkAccount() {
-
         // 未ログインの場合ログインイベントが呼ばれる
         var viewModel = ActivitiesFragmentViewModel(
             apiRepository = apiRepository,
