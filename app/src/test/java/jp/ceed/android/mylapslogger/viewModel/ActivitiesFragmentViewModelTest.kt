@@ -7,13 +7,14 @@ import io.mockk.mockk
 import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ActivitiesFragmentViewModelTest {
 
-    val isLogin: UserAccountRepository = mockk(relaxed = true) {
+    private val isLogin: UserAccountRepository = mockk(relaxed = true) {
         every {
             getAccessToken()
         } returns "access token"
@@ -22,7 +23,7 @@ class ActivitiesFragmentViewModelTest {
         } returns "user id"
     }
 
-    val isNotLogin: UserAccountRepository = mockk(relaxed = true) {
+    private val isNotLogin: UserAccountRepository = mockk(relaxed = true) {
         every {
             getAccessToken()
         } returns null
@@ -31,15 +32,11 @@ class ActivitiesFragmentViewModelTest {
         } returns null
     }
 
-    val apiRepository: ApiRepository = mockk(relaxed = true)
+    private val apiRepository: ApiRepository = mockk(relaxed = true)
 
-    @BeforeEach
-    fun setUp() {
+    @BeforeAll
+    fun beforeAll() {
         initMainLooper()
-    }
-
-    @AfterEach
-    fun tearDown() {
     }
 
     @Test
