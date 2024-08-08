@@ -3,10 +3,14 @@ package jp.ceed.android.mylapslogger.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import jp.ceed.android.mylapslogger.repository.MixtureRepository
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
-class MixtureCalculatorFragmentViewModel @Inject constructor() : ViewModel() {
+class MixtureCalculatorFragmentViewModel @Inject constructor(
+    var mixtureRepository: MixtureRepository
+) : ViewModel() {
 
     var currentTotalFuel: MutableLiveData<String> = MutableLiveData()
 
@@ -38,22 +42,12 @@ class MixtureCalculatorFragmentViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun calculate() {
-        val curTotal: Float = floatValue(currentTotalFuel) ?: return
-        val curRatio: Float = floatValue(currentMixtureRatio) ?: return
-        val addFuel: Float = floatValue(addedFuelNet) ?: 0f
-        val destMixtureRatio: Float = floatValue(destMixtureRatio) ?: return
-        val actualFuel: Float = curTotal / (1 + (1 / curRatio))
-        val actualOil: Float = curTotal - actualFuel
-        val neededTotalOil: Float = (curTotal + addFuel) / destMixtureRatio
-        addedOilNet.value = (neededTotalOil - actualOil).toString()
+        val result: Float = mixtureRepository.calculate(
+            currentTotalFuel,
+            currentMixtureRatio,
+            addedFuelNet,
+            destMixtureRatio
+        )
+        addedOilNet.value = String.format(Locale.JAPAN, "%.1f", result)
     }
-
-    private fun floatValue(target: MutableLiveData<String>): Float? {
-        return if(target.value.isNullOrEmpty()) {
-            null
-        } else {
-            target.value?.toFloat()
-        }
-    }
-
 }

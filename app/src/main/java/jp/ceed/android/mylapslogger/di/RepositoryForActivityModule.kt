@@ -7,12 +7,31 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
-import jp.ceed.android.mylapslogger.dao.*
+import jp.ceed.android.mylapslogger.dao.ActivityInfoDao
+import jp.ceed.android.mylapslogger.dao.ActivityInfoTrackDao
+import jp.ceed.android.mylapslogger.dao.PracticeDao
+import jp.ceed.android.mylapslogger.dao.PracticeTrackDao
+import jp.ceed.android.mylapslogger.dao.PreferenceDao
+import jp.ceed.android.mylapslogger.dao.SessionInfoDao
+import jp.ceed.android.mylapslogger.dao.TrackDao
 import jp.ceed.android.mylapslogger.datasource.ActivitiesApiDataSource
 import jp.ceed.android.mylapslogger.datasource.LoginDataSource
 import jp.ceed.android.mylapslogger.datasource.SessionsApiDataSource
 import jp.ceed.android.mylapslogger.network.JsonApiKtorClientCreator
-import jp.ceed.android.mylapslogger.repository.*
+import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
+import jp.ceed.android.mylapslogger.repository.ActivityInfoTrackRepository
+import jp.ceed.android.mylapslogger.repository.ApiRepository
+import jp.ceed.android.mylapslogger.repository.InputValueRepository
+import jp.ceed.android.mylapslogger.repository.LocationRepository
+import jp.ceed.android.mylapslogger.repository.MixtureRepository
+import jp.ceed.android.mylapslogger.repository.PracticeRepository
+import jp.ceed.android.mylapslogger.repository.PracticeResultsRepository
+import jp.ceed.android.mylapslogger.repository.PracticeTrackRepository
+import jp.ceed.android.mylapslogger.repository.ResourceRepository
+import jp.ceed.android.mylapslogger.repository.SessionInfoRepository
+import jp.ceed.android.mylapslogger.repository.TrackRepository
+import jp.ceed.android.mylapslogger.repository.UserAccountRepository
+import jp.ceed.android.mylapslogger.repository.WeatherRepository
 import jp.ceed.android.mylapslogger.util.SessionDataCreator
 
 
@@ -112,5 +131,10 @@ object RepositoryForActivityModule {
     @Provides
     fun bindInputValuesRepository(@ActivityContext context: Context): InputValueRepository {
         return InputValueRepository(context)
+    }
+
+    @Provides
+    fun bindMixtureRepository(): MixtureRepository {
+        return MixtureRepository()
     }
 }
