@@ -8,22 +8,17 @@ import io.mockk.mockk
 import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.repository.PracticeResultsRepository
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 
-@RunWith(JUnitPlatform::class)
-object PracticeResultFragmentViewModelTest : Spek({
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class PracticeResultFragmentViewModelTest {
 
-    lateinit var viewModel: PracticeResultFragmentViewModel
-
-    initMainLooper()
-
-    val state: SavedStateHandle = mockk {
+    private val state: SavedStateHandle = mockk {
         every {
-            get<Int>("activityId")
-        } returns 2
+            get<Long>("activityId")
+        } returns 2L
         every {
             get<Int>("trackLength")
         } returns 1003
@@ -32,7 +27,14 @@ object PracticeResultFragmentViewModelTest : Spek({
         } returns 3
     }
 
-    describe("初期化処理の実行") {
+    private lateinit var viewModel: PracticeResultFragmentViewModel
+    @BeforeAll
+    fun beforeAll() {
+        initMainLooper()
+    }
+
+    @Test
+    fun initState() {
         viewModel = PracticeResultFragmentViewModel(
             state = state,
             appSettings = mockk(relaxed = true),
@@ -45,68 +47,62 @@ object PracticeResultFragmentViewModelTest : Spek({
             resourceRepository = mockk(),
             practiceResultsRepository = mockk(),
         )
-
-        it("画面遷移のパラメータがセットされること") {
-            assertThat(viewModel.activityId).isEqualTo(2)
-            assertThat(viewModel.trackLength).isEqualTo(1003)
-            assertThat(viewModel.sessionNo).isEqualTo(3)
-        }
+        // 画面遷移のパラメータがセットされること
+        assertThat(viewModel.activityId).isEqualTo(2)
+        assertThat(viewModel.trackLength).isEqualTo(1003)
+        assertThat(viewModel.sessionNo).isEqualTo(3)
     }
 
-    describe("ログイン状態の場合") {
 
-        context("自動読み込みがOFFに設定されている場合") {
-            val useAccountRepository: UserAccountRepository = mockk {
-                every {
-                    getAccessToken()
-                } returns "access token"
-            }
-            viewModel = PracticeResultFragmentViewModel(
-                state = state,
-                appSettings = mockk {
-                    every { isAllowSessionAutoLoading() } returns false
-                },
-                userAccountRepository = useAccountRepository,
-                apiRepository = mockk(),
-                weatherRepository = mockk(),
-                locationRepository = mockk(),
-                sessionInfoRepository = mockk(),
-                exceptionUtil = mockk(),
-                resourceRepository = mockk(),
-                practiceResultsRepository = mockk(),
+
+    @Test
+    fun loadPracticeResult() {
+        // 自動読み込みがOFFに設定されている場合
+        val useAccountRepository: UserAccountRepository = mockk {
+            every {
+                getAccessToken()
+            } returns "access token"
+        }
+        viewModel = PracticeResultFragmentViewModel(
+            state = state,
+            appSettings = mockk {
+                every { isAllowSessionAutoLoading() } returns false
+            },
+            userAccountRepository = useAccountRepository,
+            apiRepository = mockk(),
+            weatherRepository = mockk(),
+            locationRepository = mockk(),
+            sessionInfoRepository = mockk(),
+            exceptionUtil = mockk(),
+            resourceRepository = mockk(),
+            practiceResultsRepository = mockk(),
+        )
+        // 自動読み込みではない読み込みが実行されること
+        coVerify {
+            viewModel.apiRepository.getPracticeResult("access token", 2, 1003, 3)
+        }
+
+        // 自動読み込みがONに設定されている場合
+        viewModel = PracticeResultFragmentViewModel(
+            state = state,
+            appSettings = mockk {
+                every { isAllowSessionAutoLoading() } returns true
+            },
+            userAccountRepository = useAccountRepository,
+            apiRepository = mockk(),
+            weatherRepository = mockk(),
+            locationRepository = mockk(),
+            sessionInfoRepository = mockk(),
+            exceptionUtil = mockk(),
+            resourceRepository = mockk(),
+            practiceResultsRepository = mockk(relaxed = true),
+        )
+        // 自動読み込みの処理が実行されること
+        coVerify {
+            viewModel.practiceResultsRepository.args = PracticeResultsRepository.Args(
+                2, "access token", 1003, 3
             )
-
-            it("自動読み込みではない読み込みが実行されること") {
-                coVerify {
-                    viewModel.apiRepository.getPracticeResult("access token", 2, 1003, 3)
-                }
-            }
-
-            context("自動読み込みがONに設定されている場合") {
-
-                it("自動読み込みの処理が実行されること") {
-                    viewModel = PracticeResultFragmentViewModel(
-                        state = state,
-                        appSettings = mockk {
-                            every { isAllowSessionAutoLoading() } returns true
-                        },
-                        userAccountRepository = useAccountRepository,
-                        apiRepository = mockk(),
-                        weatherRepository = mockk(),
-                        locationRepository = mockk(),
-                        sessionInfoRepository = mockk(),
-                        exceptionUtil = mockk(),
-                        resourceRepository = mockk(),
-                        practiceResultsRepository = mockk(relaxed = true),
-                    )
-                    coVerify {
-                        viewModel.practiceResultsRepository.args = PracticeResultsRepository.Args(
-                            2, "access token", 1003, 3
-                        )
-                        viewModel.practiceResultsRepository.sessionFlow.collect(any())
-                    }
-                }
-            }
+            viewModel.practiceResultsRepository.sessionFlow.collect(any())
         }
     }
-})
+}

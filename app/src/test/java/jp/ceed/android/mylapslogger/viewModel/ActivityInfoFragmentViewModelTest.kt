@@ -9,20 +9,18 @@ import io.mockk.mockk
 import jp.ceed.android.mylapslogger.entity.ActivityInfo
 import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 
-@RunWith(JUnitPlatform::class)
-object ActivityInfoFragmentViewModelTest : Spek({
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class ActivityInfoFragmentViewModelTest {
 
-    initMainLooper()
 
-    val savedStateHandle: SavedStateHandle = mockk(relaxed = true) {
+    private val savedStateHandle: SavedStateHandle = mockk(relaxed = true) {
         every {
-            get<Int>("activityId")
-        } returns 123
+            get<Long>("activityId")
+        } returns 123L
         every {
             get<Int>("trackId")
         } returns 111
@@ -43,7 +41,7 @@ object ActivityInfoFragmentViewModelTest : Spek({
         } returns "12"
     }
 
-    val hasRecord: ActivityInfoRepository = mockk {
+    private val hasRecord: ActivityInfoRepository = mockk {
         coEvery {
             findById(any())
         } returns ActivityInfo(
@@ -55,99 +53,101 @@ object ActivityInfoFragmentViewModelTest : Spek({
         )
     }
 
-    val hasNotRecord: ActivityInfoRepository = mockk {
+    private val hasNotRecord: ActivityInfoRepository = mockk {
         coEvery {
             findById(any())
         } returns null
     }
 
-    describe("フィールドの値"){
+    @BeforeAll
+    fun setUp() {
+        initMainLooper()
+    }
 
-        context("既に保存されている場合"){
-            val viewModel = ActivityInfoFragmentViewModel(
-                savedStateHandle = savedStateHandle,
-                activityInfoRepository = hasRecord,
+    @Test
+    fun loadActivityInfo() {
+        // 既に保存されている場合
+        var viewModel = ActivityInfoFragmentViewModel(
+            savedStateHandle = savedStateHandle,
+            activityInfoRepository = hasRecord,
+        )
+
+        // パラメータの値がフィールドにセットされる
+        assertThat(viewModel.activityId).isEqualTo(123)
+        assertThat(viewModel.bestLap.value).isEqualTo("42.85")
+        assertThat(viewModel.totalLap.value).isEqualTo("12")
+        assertThat(viewModel.totalTime.value).isEqualTo("1:23:45.678")
+        assertThat(viewModel.totalDistance.value).isEqualTo("123.45")
+        assertThat(viewModel.trackId).isEqualTo(111)
+        assertThat(viewModel.dateTime).isEqualTo("2022-01-01")
+
+        // DataBaseから取得した値がフィールドにセットされる
+        assertThat(viewModel.description.value).isEqualTo("This is description")
+        assertThat(viewModel.fuelConsumption.value).isEqualTo("1.2")
+
+        // 更新モードになっている
+        assertThat(viewModel.isUpdate).isEqualTo(true)
+
+        // 保存が実行されると更新処理が実行される
+        viewModel.description.value = "This is Updated value."
+        viewModel.fuelConsumption.value = "1.5"
+        viewModel.saveSessionInfo()
+        coVerify {
+            viewModel.activityInfoRepository.update(
+                ActivityInfo(
+                    activityId = 123L,
+                    description = "This is Updated value.",
+                    fuelConsumption = 1.5F,
+                    trackId = 111,
+                    dateTime = "2022-01-01",
+                )
             )
-
-            it("パラメータの値がフィールドにセットされる") {
-                assertThat(viewModel.activityId).isEqualTo(123)
-                assertThat(viewModel.bestLap.value).isEqualTo("42.85")
-                assertThat(viewModel.totalLap.value).isEqualTo("12")
-                assertThat(viewModel.totalTime.value).isEqualTo("1:23:45.678")
-                assertThat(viewModel.totalDistance.value).isEqualTo("123.45")
-                assertThat(viewModel.trackId).isEqualTo(111)
-                assertThat(viewModel.dateTime).isEqualTo("2022-01-01")
-            }
-
-            it("DataBaseから取得した値がフィールドにセットされる") {
-                assertThat(viewModel.description.value).isEqualTo("This is description")
-                assertThat(viewModel.fuelConsumption.value).isEqualTo("1.2")
-            }
-
-            it("更新モードになっている") {
-                assertThat(viewModel.isUpdate).isEqualTo(true)
-            }
-
-            it("保存が実行されると更新処理が実行される"){
-                viewModel.description.value = "This is Updated value."
-                viewModel.fuelConsumption.value = "1.5"
-                viewModel.saveSessionInfo()
-                coVerify {
-                    viewModel.activityInfoRepository.update(
-                        ActivityInfo(
-                            activityId = 123L,
-                            description = "This is Updated value.",
-                            fuelConsumption = 1.5F,
-                            trackId = 111,
-                            dateTime = "2022-01-01",
-                        )
-                    )
-                }
-            }
         }
 
-        context("保存されていなかった場合"){
+        // 保存されていなかった場合
+        viewModel = ActivityInfoFragmentViewModel(
+            savedStateHandle = savedStateHandle,
+            activityInfoRepository = hasNotRecord,
+        )
 
-            val viewModel = ActivityInfoFragmentViewModel(
-                savedStateHandle = savedStateHandle,
-                activityInfoRepository = hasNotRecord,
+        // パラメータの値がフィールドにセットされる
+        assertThat(viewModel.activityId).isEqualTo(123)
+        assertThat(viewModel.bestLap.value).isEqualTo("42.85")
+        assertThat(viewModel.totalLap.value).isEqualTo("12")
+        assertThat(viewModel.totalTime.value).isEqualTo("1:23:45.678")
+        assertThat(viewModel.totalDistance.value).isEqualTo("123.45")
+        assertThat(viewModel.trackId).isEqualTo(111)
+        assertThat(viewModel.dateTime).isEqualTo("2022-01-01")
+
+        // データベースの値がセットされていない
+        assertThat(viewModel.description.value).isNull()
+        assertThat(viewModel.fuelConsumption.value).isNull()
+
+        // 入力モードになっている
+        assertThat(viewModel.isUpdate).isEqualTo(false)
+
+        // 保存が実行されると挿入が実行される
+        viewModel.description.value = "This is input value"
+        viewModel.fuelConsumption.value = "1.4"
+        viewModel.saveSessionInfo()
+        coVerify {
+            viewModel.activityInfoRepository.insert(
+                ActivityInfo(
+                    activityId = 123L,
+                    description = "This is input value",
+                    fuelConsumption = 1.4F,
+                    trackId = 111,
+                    dateTime = "2022-01-01"
+                )
             )
-
-            it("パラメータの値がフィールドにセットされる") {
-                assertThat(viewModel.activityId).isEqualTo(123)
-                assertThat(viewModel.bestLap.value).isEqualTo("42.85")
-                assertThat(viewModel.totalLap.value).isEqualTo("12")
-                assertThat(viewModel.totalTime.value).isEqualTo("1:23:45.678")
-                assertThat(viewModel.totalDistance.value).isEqualTo("123.45")
-                assertThat(viewModel.trackId).isEqualTo(111)
-                assertThat(viewModel.dateTime).isEqualTo("2022-01-01")
-            }
-
-            it("データベースの値がセットされていない"){
-                assertThat(viewModel.description.value).isNull()
-                assertThat(viewModel.fuelConsumption.value).isNull()
-            }
-
-            it("入力モードになっている") {
-                assertThat(viewModel.isUpdate).isEqualTo(false)
-            }
-
-            it("保存が実行されると挿入が実行される"){
-                viewModel.description.value = "This is input value"
-                viewModel.fuelConsumption.value = "1.4"
-                viewModel.saveSessionInfo()
-                coVerify {
-                    viewModel.activityInfoRepository.insert(
-                        ActivityInfo(
-                            activityId = 123L,
-                            description = "This is input value",
-                            fuelConsumption = 1.4F,
-                            trackId = 111,
-                            dateTime = "2022-01-01"
-                        )
-                    )
-                }
-            }
         }
     }
-})
+
+    @Test
+    fun saveSessionInfo() {
+    }
+
+    @Test
+    fun calculateFuelConsumption() {
+    }
+}

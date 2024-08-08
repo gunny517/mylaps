@@ -7,36 +7,43 @@ import io.mockk.mockk
 import jp.ceed.android.mylapslogger.entity.TotalDistance
 import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.repository.PracticeTrackRepository
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import jp.ceed.android.mylapslogger.repository.ResourceRepository
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 
-@RunWith(JUnitPlatform::class)
-object TotalDistanceFragmentViewModelTest : Spek({
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class TotalDistanceFragmentViewModelTest {
 
-    initMainLooper()
+    private val headerItem: TotalDistance = mockk(relaxed = true)
 
-    val listItem: TotalDistance = mockk {
+    private val listItem: TotalDistance = mockk(relaxed = true) {
         every {
             id
         } returns 135
     }
 
-    val practiceTrackRepository: PracticeTrackRepository = mockk(relaxed = true) {
+    private val practiceTrackRepository: PracticeTrackRepository = mockk(relaxed = true) {
         coEvery {
-            getTotalDistanceList()
-        } returns listOf(listItem)
+            getTotalDistanceList(any())
+        } returns listOf(headerItem, listItem)
     }
 
-    val viewModel = TotalDistanceFragmentViewModel(
-        practiceTrackRepository = practiceTrackRepository
-    )
+    private val resourceRepository: ResourceRepository = mockk(relaxed = true)
 
-    describe("初期化処理の確認") {
-        it("フィールドが正しく初期化されている") {
-            assertThat(viewModel.totalDistanceList.value).hasSize(1)
-            assertThat(viewModel.totalDistanceList.value?.get(0)?.id).isEqualTo(135)
-        }
+    private lateinit var viewModel: TotalDistanceFragmentViewModel
+    @BeforeAll
+    fun beforeAll() {
+        initMainLooper()
+        viewModel = TotalDistanceFragmentViewModel(
+            practiceTrackRepository = practiceTrackRepository,
+            resourceRepository = resourceRepository
+        )
     }
-})
+
+    @Test
+    fun initState() {
+        assertThat(viewModel.totalDistanceList.value).hasSize(2)
+        assertThat(viewModel.totalDistanceList.value?.get(1)?.id).isEqualTo(135)
+    }
+}

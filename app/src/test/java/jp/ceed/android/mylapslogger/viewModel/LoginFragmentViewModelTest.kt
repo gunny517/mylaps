@@ -6,49 +6,53 @@ import io.mockk.mockk
 import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.model.LoginResult
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 
-@RunWith(JUnitPlatform::class)
-object LoginFragmentViewModelTest : Spek({
-
-    initMainLooper()
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class LoginFragmentViewModelTest {
 
     // repositoryのモック（失敗時）
-    val repositoryForFail: UserAccountRepository = mockk{
+    private val repositoryForFail: UserAccountRepository = mockk{
         coEvery {
             requestLogin(any(), any())
         } returns false
     }
 
     // repositoryのモック（成功時）
-    val repositoryForSuccess: UserAccountRepository = mockk{
+    private val repositoryForSuccess: UserAccountRepository = mockk{
         coEvery {
             requestLogin(any(), any())
         } returns true
     }
 
-    describe("ログイン失敗時") {
-        val viewModel = LoginFragmentViewModel(
-            userAccountRepository = repositoryForFail,
-            exceptionUtil = mockk(relaxed = true),
-        )
-        viewModel.callLogin()
-        it("失敗時の処理が実行される") {
-            assertThat(viewModel.loginResult.value).isEqualTo(LoginResult.Failed)
-        }
+    @BeforeAll
+    fun setUp() {
+        initMainLooper()
     }
 
-    describe("ログイン成功時") {
+    @Test
+    fun callLogin() {
+        callLoginSuccess()
+        callLoginFailed()
+    }
+
+    private fun callLoginSuccess() {
         val viewModel = LoginFragmentViewModel(
             userAccountRepository = repositoryForSuccess,
             exceptionUtil = mockk(relaxed = true),
         )
         viewModel.callLogin()
-        it("成功時の処理が実行される") {
-            assertThat(viewModel.loginResult.value).isEqualTo(LoginResult.Success)
-        }
+        assertThat(viewModel.loginResult.value).isEqualTo(LoginResult.Success)
     }
-})
+
+    private fun callLoginFailed() {
+        val viewModel = LoginFragmentViewModel(
+            userAccountRepository = repositoryForFail,
+            exceptionUtil = mockk(relaxed = true),
+        )
+        viewModel.callLogin()
+        assertThat(viewModel.loginResult.value).isEqualTo(LoginResult.Failed)
+    }
+}

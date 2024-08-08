@@ -9,53 +9,54 @@ import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.model.SessionListItem
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 
-@RunWith(JUnitPlatform::class)
-object SessionListFragmentViewModelTest : Spek({
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class SessionListFragmentViewModelTest {
 
-    initMainLooper()
-
-    val savedStateHandle: SavedStateHandle = mockk {
+    private val savedStateHandle: SavedStateHandle = mockk {
         every {
-            get<Int>("activityId")
+            get<Long>("activityId")
         } returns 123
     }
 
-    val firstItem: List<SessionListItem> = mockk(relaxed = true) {
+    private val firstItem: List<SessionListItem> = mockk(relaxed = true) {
         every {
             get(0).no
         } returns 123.toString()
     }
 
-    val apiRepository: ApiRepository = mockk {
+    private val apiRepository: ApiRepository = mockk {
         coEvery {
             loadPracticeResultsForSessionList(any(), any())
         } returns firstItem
     }
 
-    val userAccountRepository: UserAccountRepository = mockk {
+    private val userAccountRepository: UserAccountRepository = mockk {
         every {
             getAccessToken()
         } returns "user token."
     }
 
-    val viewModel = SessionListFragmentViewModel(
-        savedStateHandle = savedStateHandle,
-        apiRepository = apiRepository,
-        userAccountRepository = userAccountRepository,
-        exceptionUtil = mockk(),
-    )
-
-    describe("初期状態の確認") {
-        it("フィールドが正しく初期化されている") {
-            assertThat(viewModel.activityId).isEqualTo(123)
-            assertThat(viewModel.sessionItemList.value?.get(0)?.no).isEqualTo(123.toString())
-            assertThat(viewModel.isLoading.value).isEqualTo(false)
-        }
+    private lateinit var viewModel: SessionListFragmentViewModel
+    @BeforeAll
+    fun beforeAll() {
+        initMainLooper()
+        viewModel = SessionListFragmentViewModel(
+            savedStateHandle = savedStateHandle,
+            apiRepository = apiRepository,
+            userAccountRepository = userAccountRepository,
+            exceptionUtil = mockk(),
+        )
     }
 
-})
+    @Test
+    fun initState() {
+        // フィールドが正しく初期化されている
+        assertThat(viewModel.activityId).isEqualTo(123)
+        assertThat(viewModel.sessionItemList.value?.get(0)?.no).isEqualTo(123.toString())
+        assertThat(viewModel.isLoading.value).isEqualTo(false)
+    }
+}

@@ -9,77 +9,73 @@ import io.mockk.mockk
 import jp.ceed.android.mylapslogger.args.SessionInfoFragmentParams
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.initMainLooper
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 
-@RunWith(JUnitPlatform::class)
-object SessionInfoFragmentViewModelTest : Spek({
-
-    initMainLooper()
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class SessionInfoFragmentViewModelTest {
 
     // フラグメントに渡されるパラメータの準備
-    val params = SessionInfoFragmentParams(12345L, "average", "median")
-    val savedStateHandle = mockk<SavedStateHandle> {
+    private val params = SessionInfoFragmentParams(12345L, "average", "median")
+    private val savedStateHandle = mockk<SavedStateHandle> {
         every {
             get<SessionInfoFragmentParams>("params")
         } returns params
     }
 
-    // ViewModel生成
-    val viewModel = SessionInfoFragmentViewModel(
-        savedStateHandle = savedStateHandle,
-        sessionInfoRepository = mockk(relaxed = true),
-        locationRepository = mockk(relaxed = true),
-        weatherRepository = mockk(relaxed = true),
-        exceptionUtil = mockk(relaxed = true),
-    )
+    private lateinit var viewModel: SessionInfoFragmentViewModel
 
-    viewModel.sessionInfoRepository = mockk()
-    coEvery {
-        viewModel.sessionInfoRepository.findBySessionId(12345L)
-    } returns SessionInfo(12345L)
+    @BeforeAll
+    fun beforeAll() {
+        initMainLooper()
+        viewModel = SessionInfoFragmentViewModel(
+            savedStateHandle = savedStateHandle,
+            sessionInfoRepository = mockk(relaxed = true),
+            locationRepository = mockk(relaxed = true),
+            weatherRepository = mockk(relaxed = true),
+            exceptionUtil = mockk(relaxed = true),
+        )
+    }
 
-    describe("loadSessionInfoを実行すると"){
-        it("セッション情報がロードされている"){
-            viewModel.loadSessionInfo(12345L)
-            assertThat(viewModel.sessionInfo.value?.sessionId).isEqualTo(12345L)
+    @Test
+    fun clearEditTest() {
+        // 入力内容がクリアされている
+        viewModel.sessionInfo.value = SessionInfo(
+            sessionId = 12345L,
+            description = "this is description")
+        viewModel.clearEditText()
+        assertThat(viewModel.sessionInfo.value?.description).isNull()
+        assertThat(viewModel.sessionInfo.value?.humidity).isNull()
+        assertThat(viewModel.sessionInfo.value?.temperature).isNull()
+        assertThat(viewModel.sessionInfo.value?.pressure).isNull()
+    }
+
+    @Test
+    fun saveSessionInfo() {
+        // 上書きモードの時はupdateが実行されること
+        viewModel.loadSessionInfo(12345L)
+        viewModel.saveSessionInfo()
+        coVerify {
+            viewModel.sessionInfoRepository.update(viewModel.sessionInfo.value ?: throw AssertionError())
+        }
+        // 入力モードの時はinsertが実行されること
+        viewModel.loadSessionInfo(12345L)
+        viewModel.isInsert = true
+        viewModel.saveSessionInfo()
+        coVerify {
+            viewModel.sessionInfoRepository.insert(viewModel.sessionInfo.value ?: throw AssertionError())
         }
     }
 
-    describe("clearEditTextを実行すると"){
-        it("入力内容がクリアされている"){
-            viewModel.sessionInfo.value = SessionInfo(
-                sessionId = 12345L,
-                description = "this is description")
-            viewModel.clearEditText()
-            assertThat(viewModel.sessionInfo.value?.description).isNull()
-            assertThat(viewModel.sessionInfo.value?.humidity).isNull()
-            assertThat(viewModel.sessionInfo.value?.temperature).isNull()
-            assertThat(viewModel.sessionInfo.value?.pressure).isNull()
-        }
+    @Test
+    fun loadSessionInfo() {
+        viewModel.sessionInfoRepository = mockk()
+        coEvery {
+            viewModel.sessionInfoRepository.findBySessionId(12345L)
+        } returns SessionInfo(12345L)
+        // セッション情報がロードされている
+        viewModel.loadSessionInfo(12345L)
+        assertThat(viewModel.sessionInfo.value?.sessionId).isEqualTo(12345L)
     }
-
-    describe("saveSessionInfoを実行すると"){
-        context("上書きモードの時"){
-            it("updateが実行されること"){
-                viewModel.loadSessionInfo(12345L)
-                viewModel.saveSessionInfo()
-                coVerify {
-                    viewModel.sessionInfoRepository.update(viewModel.sessionInfo.value ?: throw AssertionError())
-                }
-            }
-        }
-        context("入力モードの時"){
-            it("insertが実行されること"){
-                viewModel.loadSessionInfo(12345L)
-                viewModel.isInsert = true
-                viewModel.saveSessionInfo()
-                coVerify {
-                    viewModel.sessionInfoRepository.insert(viewModel.sessionInfo.value ?: throw AssertionError())
-                }
-            }
-        }
-    }
-})
+}

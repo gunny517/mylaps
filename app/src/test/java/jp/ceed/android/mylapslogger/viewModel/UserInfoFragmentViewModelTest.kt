@@ -6,36 +6,35 @@ import io.mockk.mockk
 import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.network.response.LoginResponse
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 
-@RunWith(JUnitPlatform::class)
-object UserInfoFragmentViewModelTest : Spek({
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class UserInfoFragmentViewModelTest {
 
-    initMainLooper()
-
-    val oAuthResponse: LoginResponse = mockk(relaxed = true) {
+    private val oAuthResponse: LoginResponse = mockk(relaxed = true) {
         every {
             userId
         } returns "user id for test."
     }
 
-    val userAccountRepository: UserAccountRepository = mockk {
+    private val userAccountRepository: UserAccountRepository = mockk {
         every {
             getUserInfo()
         } returns oAuthResponse
     }
 
-    val viewModel = UserInfoFragmentViewModel(
-        userAccountRepository = userAccountRepository,
-    )
-
-    describe("ユーザー情報の読み込み") {
-        it("ユーザー情報が正常に読み込まれる") {
-            assertThat(viewModel.userInfo.value?.userId).isEqualTo("user id for test.")
-        }
+    private lateinit var viewModel: UserInfoFragmentViewModel
+    @BeforeAll
+    fun beforeAll() {
+        initMainLooper()
+        viewModel = UserInfoFragmentViewModel(
+            userAccountRepository = userAccountRepository,
+        )
     }
-
-})
+    @Test
+    fun getUserInfo() {
+        assertThat(viewModel.userInfo.value?.userId).isEqualTo("user id for test.")
+    }
+}
