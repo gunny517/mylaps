@@ -1,5 +1,7 @@
 package jp.ceed.android.mylapslogger.viewModel
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,7 +21,7 @@ class ActivitiesFragmentViewModel @Inject constructor (
     var exceptionUtil: ExceptionUtil,
 ) : ViewModel() {
 
-    val activities: MutableLiveData<List<ActivitiesItem>> = MutableLiveData()
+    val activities: MutableState<List<ActivitiesItem>> = mutableStateOf(mutableListOf())
 
     val showProgress: MutableLiveData<Boolean> = MutableLiveData(false)
 
@@ -27,9 +29,12 @@ class ActivitiesFragmentViewModel @Inject constructor (
 
     var userId: String? = null
 
-    enum class EventState{
+    var selectedActivity: ActivitiesItem? = null
+
+    enum class EventState {
         GO_TO_LOGIN,
         START_PRACTICE_SERVICE,
+        GO_TO_PRACTICE_RESULT,
         NONE,
     }
 
@@ -45,6 +50,11 @@ class ActivitiesFragmentViewModel @Inject constructor (
             event.value = Event(EventState.NONE)
             callActivitiesRequest()
         }
+    }
+
+    fun onClickItem(item: ActivitiesItem) {
+        selectedActivity = item
+        event.value = Event(EventState.GO_TO_PRACTICE_RESULT)
     }
 
     private fun callActivitiesRequest() {

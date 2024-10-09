@@ -24,4 +24,6 @@ data class ActivitiesItem(
         place = dto.location.name,
         trackLength = dto.location.trackLength
     )
+
+    fun displayTimeOrEmpty(): String = displayTime ?: ""
 }
