@@ -1,5 +1,7 @@
 package jp.ceed.android.mylapslogger.viewModel
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,23 +15,26 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ActivitiesFragmentViewModel @Inject constructor (
+class ActivitiesComposeFragmentViewModel @Inject constructor (
     var apiRepository: ApiRepository,
     var userAccountRepository: UserAccountRepository,
     var exceptionUtil: ExceptionUtil,
 ) : ViewModel() {
 
-    val activities: MutableLiveData<List<ActivitiesItem>> = MutableLiveData()
+    val activities: MutableState<List<ActivitiesItem>> = mutableStateOf(mutableListOf())
 
-    val showProgress: MutableLiveData<Boolean> = MutableLiveData(false)
+    val showProgress: MutableState<Boolean> = mutableStateOf(false)
 
     var event: MutableLiveData<Event<EventState>> = MutableLiveData()
 
     var userId: String? = null
 
-    enum class EventState{
+    var selectedActivity: ActivitiesItem? = null
+
+    enum class EventState {
         GO_TO_LOGIN,
         START_PRACTICE_SERVICE,
+        GO_TO_PRACTICE_RESULT,
         NONE,
     }
 
@@ -47,6 +52,11 @@ class ActivitiesFragmentViewModel @Inject constructor (
         }
     }
 
+    fun onClickItem(item: ActivitiesItem) {
+        selectedActivity = item
+        event.value = Event(EventState.GO_TO_PRACTICE_RESULT)
+    }
+
     private fun callActivitiesRequest() {
         userId?.let {
             viewModelScope.launch {
@@ -54,7 +64,7 @@ class ActivitiesFragmentViewModel @Inject constructor (
                 activities.value = emptyList()
                 try {
                     activities.value = apiRepository.getActivities(it)
-                    event.value = Event(EventState.START_PRACTICE_SERVICE)
+//                    event.value = Event(EventState.START_PRACTICE_SERVICE)
                 } catch (e: Exception) {
                     exceptionUtil.save(e, viewModelScope)
                 }

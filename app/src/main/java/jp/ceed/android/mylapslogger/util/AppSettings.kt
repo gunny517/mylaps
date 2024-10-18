@@ -30,6 +30,13 @@ class AppSettings @Inject constructor (
         getPreferences().edit().putBoolean(ALLOW_SESSION_AUTO_LOADING, value).apply()
     }
 
+    fun isUseCompose(): Boolean =
+        getPreferences().getBoolean(USE_COMPOSE, false)
+
+    fun saveUseCompose(useCompose: Boolean) {
+        getPreferences().edit().putBoolean(USE_COMPOSE, useCompose).apply()
+    }
+
     private fun getPreferences(): SharedPreferences{
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
@@ -39,6 +46,7 @@ class AppSettings @Inject constructor (
         const val SHOW_PRACTICE_RESULTS_AS_SEPARATE = "SHOW_PRACTICE_RESULTS_AS_SEPARATE"
         const val SHOW_SPEED_BAR = "SHOW_SPEED_BAR"
         const val ALLOW_SESSION_AUTO_LOADING = "ALLOW_SESSION_AUTO_LOADING"
+        const val USE_COMPOSE = "USE_COMPOSE"
     }
 
 }

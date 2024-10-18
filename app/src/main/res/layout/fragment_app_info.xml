@@ -43,12 +43,34 @@
             android:text="@string/label_app_info_title_settings"/>
 
         <TextView
-            android:id="@+id/showAsSeparateTitleTextView"
+            android:id="@+id/useComposeTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_m"
             android:layout_marginStart="@dimen/padding_l"
             app:layout_constraintTop_toBottomOf="@+id/settingTitleTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/text_size_ms"
+            android:text="@string/label_use_compose"/>
+
+        <CheckBox
+            android:id="@+id/useComposeCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/useComposeTitleTextView"
+            app:layout_constraintTop_toTopOf="@id/useComposeTitleTextView"
+            app:layout_constraintBottom_toBottomOf="@id/useComposeTitleTextView"
+            android:checked="@{viewModel.useCompose}"
+            android:onCheckedChanged="@{(_, checked) -> viewModel.saveUseCompose(checked)}"/>
+
+
+        <TextView
+            android:id="@+id/showAsSeparateTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_m"
+            android:layout_marginStart="@dimen/padding_l"
+            app:layout_constraintTop_toBottomOf="@+id/useComposeTitleTextView"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="@dimen/text_size_ms"
             android:text="@string/label_app_info_title_show_practice_results_as_separate"/>

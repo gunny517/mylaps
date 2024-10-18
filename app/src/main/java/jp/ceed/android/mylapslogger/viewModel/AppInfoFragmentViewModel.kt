@@ -19,6 +19,8 @@ class AppInfoFragmentViewModel @Inject constructor (
 
     var showPracticeResultAsSeparate: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    var useCompose: MutableLiveData<Boolean> = MutableLiveData(false)
+
     var showSpeedBar: MutableLiveData<Boolean> = MutableLiveData(false)
 
     var allowSessionAutoLoading: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -36,12 +38,17 @@ class AppInfoFragmentViewModel @Inject constructor (
 
     private fun initAppSettings(){
         showPracticeResultAsSeparate.value = appSettings.isShowPracticeResultsAsSeparate()
+        useCompose.value = appSettings.isUseCompose()
         showSpeedBar.value = appSettings.isShowSpeedBar()
         allowSessionAutoLoading.value = appSettings.isAllowSessionAutoLoading()
     }
 
     fun saveShowPracticeResultsAsSeparate(checked: Boolean){
         appSettings.saveShowPracticeResultsAsSeparate(checked)
+    }
+
+    fun saveUseCompose(checked: Boolean) {
+        appSettings.saveUseCompose(checked)
     }
 
     fun saveShowSpeedBar(checked: Boolean){

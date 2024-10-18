@@ -14,6 +14,8 @@ import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.constants.AppConstants
 import jp.ceed.android.mylapslogger.databinding.ActivityMainBinding
+import jp.ceed.android.mylapslogger.util.AppSettings
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -24,11 +26,19 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
 
+    @Inject
+    lateinit var appSettings: AppSettings
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         navController = findNavController(R.id.nav_host_fragment_content_main)
+        if (appSettings.isUseCompose()) {
+            navController.setGraph(R.navigation.compose_navigation)
+        } else {
+            navController.setGraph(R.navigation.view_navigation)
+        }
         drawerLayout = findViewById(R.id.drawerLayout)
         val navigationView = findViewById<NavigationView>(R.id.navigationView)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)

@@ -3,11 +3,11 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/nav_graph"
-	app:startDestination="@id/ActivitiesFragment">
+	app:startDestination="@id/ActivitiesComposeFragment">
 
 	<fragment
-		android:id="@+id/ActivitiesFragment"
-		android:name="jp.ceed.android.mylapslogger.ActivitiesFragment"
+		android:id="@+id/ActivitiesComposeFragment"
+		android:name="jp.ceed.android.mylapslogger.ActivitiesComposeFragment"
 		android:label="@string/activities_fragment_label">
 
 		<action
@@ -15,8 +15,8 @@
 			app:destination="@id/LoginFragment" />
 
 		<action
-			android:id="@+id/goToPracticeResultsFragment"
-			app:destination="@id/PracticeResultFragment"/>
+			android:id="@+id/goToPracticeResultsComposeFragment"
+			app:destination="@id/PracticeResultsComposeFragment"/>
 
 		<action
 			android:id="@+id/goToUserInfoFragment"
@@ -55,10 +55,9 @@
 	</fragment>
 
 	<fragment
-		android:id="@+id/PracticeResultFragment"
-		android:name="jp.ceed.android.mylapslogger.PracticeResultsFragment"
-		android:label="{sessionDate}"
-		tools:layout="@layout/fragment_practice_result">
+		android:id="@+id/PracticeResultsComposeFragment"
+		android:name="jp.ceed.android.mylapslogger.PracticeResultsComposeFragment"
+		android:label="{sessionDate}">
 
 		<argument
 			android:name="activityId"
@@ -178,7 +177,7 @@
 
 		<action
 			android:id="@+id/goToPracticeResultFragment"
-			app:destination="@id/PracticeResultFragment"/>
+			app:destination="@id/PracticeResultsFragment"/>
 
 		<argument
 			android:name="activityId"
@@ -217,7 +216,7 @@
 
 		<action
 			android:id="@+id/goToPracticeResultFragment"
-			app:destination="@id/PracticeResultFragment"/>
+			app:destination="@id/PracticeResultsFragment"/>
 	</fragment>
 
 	<fragment
@@ -240,7 +239,7 @@
 
 		<action
 			android:id="@+id/goToPracticeResultFragment"
-			app:destination="@id/PracticeResultFragment"/>
+			app:destination="@id/PracticeResultsFragment"/>
 
 		<action
 			android:id="@+id/goToSessionListFragment"
