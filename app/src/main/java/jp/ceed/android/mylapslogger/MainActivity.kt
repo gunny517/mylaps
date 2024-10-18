@@ -34,11 +34,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         navController = findNavController(R.id.nav_host_fragment_content_main)
-        if (appSettings.isUseCompose()) {
-            navController.setGraph(R.navigation.compose_navigation)
-        } else {
-            navController.setGraph(R.navigation.view_navigation)
-        }
+//        if (appSettings.isUseCompose()) {
+//            navController.setGraph(R.navigation.compose_navigation)
+//        } else {
+//            navController.setGraph(R.navigation.view_navigation)
+//        }
         drawerLayout = findViewById(R.id.drawerLayout)
         val navigationView = findViewById<NavigationView>(R.id.navigationView)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
