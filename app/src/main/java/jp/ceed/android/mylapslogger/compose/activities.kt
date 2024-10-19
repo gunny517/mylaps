@@ -64,33 +64,35 @@ fun ActivityRow (
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(8.dp)
             .clickable { onClick(item) }
     ) {
         Text(
             modifier = Modifier
                 .padding(top = 8.dp, start = 8.dp, end = 8.dp)
                 .align(Alignment.Start),
-            fontSize = 16.sp,
+            fontSize = 20.sp,
             color = colorResource(id = R.color.text_default),
             text = item.displayTimeOrEmpty()
         )
         Text(
             modifier = Modifier
                 .padding(8.dp)
-                .align(Alignment.Start),
+                .align(Alignment.End),
             fontSize = 16.sp,
             color = colorResource(id = R.color.text_default),
             text = item.place
         )
-        HorizontalDivider(
-            modifier = Modifier.padding(0.dp)
-        )
     }
+    HorizontalDivider(
+        thickness = 0.5.dp,
+        color = colorResource(id = R.color.divider)
+    )
 }
 
 @Composable
 @Preview(showBackground = true)
-fun Preview() {
+fun ActivitiesPreview() {
     Activities(
         activities =
         listOf(
