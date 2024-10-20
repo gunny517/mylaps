@@ -211,7 +211,7 @@
 
 	<fragment
 		android:id="@+id/TrackBestFragment"
-		android:name="jp.ceed.android.mylapslogger.TrackBestFragment"
+		android:name="jp.ceed.android.mylapslogger.TrackBestComposeFragment"
 		android:label="@string/label_track_best_fragment">
 
 		<action
