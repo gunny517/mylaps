@@ -1,6 +1,7 @@
 package jp.ceed.android.mylapslogger.compose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,7 +35,10 @@ fun PracticeResultsCompose (
 ) {
     viewModel.practiceResult.value?.let {
         PracticeResults(
-            practiceResult = it
+            practiceResult = it,
+            isRefreshing = viewModel.showProgress.value,
+            onRefresh = { viewModel.loadPracticeResult() },
+            onClick = { section -> viewModel.onClickSection(section) }
         )
     }
 }
@@ -44,12 +48,16 @@ fun PracticeResultsCompose (
 fun PracticeResults (
     practiceResult: PracticeResult,
     isRefreshing: Boolean = false,
-    onRefresh: () -> Unit = {}
+    onRefresh: () -> Unit = {},
+    onClick: (PracticeResultsItem.Section) -> Unit = {}
 ) {
     PullToRefreshBox(isRefreshing = isRefreshing, onRefresh = { onRefresh() }) {
         LazyColumn {
             items (count = practiceResult.sessionData.size) { index ->
-                PracticeRow(item = practiceResult.sessionData[index])
+                PracticeRow(
+                    item = practiceResult.sessionData[index],
+                    onClick = onClick
+                )
             }
         }
     }
@@ -57,22 +65,27 @@ fun PracticeResults (
 
 @Composable
 fun PracticeRow (
-    item: PracticeResultsItem
+    item: PracticeResultsItem,
+    onClick: (PracticeResultsItem.Section) -> Unit
 ) {
     when (item) {
-        is PracticeResultsItem.Section -> SectionRow(item = item)
+        is PracticeResultsItem.Section -> SectionRow(item = item, onClick = onClick)
         is PracticeResultsItem.Lap -> LapRow(item = item)
         else -> {}
     }
 }
 
 @Composable
-fun SectionRow(item: PracticeResultsItem.Section) {
+fun SectionRow(
+    item: PracticeResultsItem.Section,
+    onClick: (PracticeResultsItem.Section) -> Unit
+) {
     val title = String.format(Locale.JAPANESE, stringResource(id = R.string.format_session_title), item.sectionTitle)
     Row (
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onClick(item) }
             .background(colorResource(id = R.color.bg_lap_list_section))
             .padding(horizontal = 8.dp, vertical = 4.dp)
     ) {

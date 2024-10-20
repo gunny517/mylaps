@@ -68,7 +68,7 @@ class ActivitiesComposeFragment : Fragment() {
                     activitiesItem.trackLength
                 )
             }else{
-                ActivitiesComposeFragmentDirections.goToPracticeResultsComposeFragment(
+                ActivitiesComposeFragmentDirections.goToPracticeResultsFragment(
                     activitiesItem.id,
                     activitiesItem.displayTime,
                     activitiesItem.locationId,

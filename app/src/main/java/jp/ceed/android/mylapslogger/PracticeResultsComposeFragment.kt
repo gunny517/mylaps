@@ -70,6 +70,11 @@ class PracticeResultsComposeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        viewModel.sectionClickEvent.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {  session ->
+                navigateToSessionInfo(session)
+            }
+        }
     }
 
     private fun navigateToSessionSummary() {

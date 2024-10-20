@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
+import jp.ceed.android.mylapslogger.entity.Event
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.model.PracticeResult
 import jp.ceed.android.mylapslogger.repository.ApiRepository
@@ -44,7 +45,7 @@ class PracticeResultComposeFragmentViewModel @Inject constructor (
 
     val practiceResult: MutableState<PracticeResult?> = mutableStateOf(null)
 
-    val showProgress: MutableLiveData<Boolean> = MutableLiveData(false)
+    val showProgress: MutableState<Boolean> = mutableStateOf(false)
 
     val activityId: Long = state.get<Long>("activityId") ?: 0
 
@@ -52,6 +53,8 @@ class PracticeResultComposeFragmentViewModel @Inject constructor (
 
     @VisibleForTesting
     val sessionNo: Int = state.get<Int>("sessionNo") ?: 0
+
+    val sectionClickEvent: MutableLiveData<Event<PracticeResultsItem.Section>> = MutableLiveData()
 
     init {
         if(appSettings.isAllowSessionAutoLoading()){
@@ -82,6 +85,10 @@ class PracticeResultComposeFragmentViewModel @Inject constructor (
                 }
             }
         }
+    }
+
+    fun onClickSection(clickedSection: PracticeResultsItem.Section) {
+        this.sectionClickEvent.value = Event(clickedSection)
     }
 
     private fun startAutoLoading(){

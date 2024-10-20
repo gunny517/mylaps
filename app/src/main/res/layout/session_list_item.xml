@@ -38,7 +38,7 @@
             android:layout_marginStart="30sp"
             android:textSize="@dimen/text_size_l"
             android:text="@{item.startTime}"
-            tools:text="開始時間"/>
+            tools:text="08:00"/>
 
         <TextView
             android:id="@+id/bestLapTitleTextView"

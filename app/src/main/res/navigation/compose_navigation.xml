@@ -15,7 +15,7 @@
 			app:destination="@id/LoginFragment" />
 
 		<action
-			android:id="@+id/goToPracticeResultsComposeFragment"
+			android:id="@+id/goToPracticeResultsFragment"
 			app:destination="@id/PracticeResultsComposeFragment"/>
 
 		<action
@@ -28,7 +28,7 @@
 
 		<action
 			android:id="@+id/goToSessionListFragment"
-			app:destination="@id/SessionListFragment"/>
+			app:destination="@id/SessionListComposeFragment"/>
 
 		<action
 			android:id="@+id/goToTrackBestFragment"
@@ -171,13 +171,13 @@
 	</fragment>
 
 	<fragment
-		android:id="@+id/SessionListFragment"
-		android:name="jp.ceed.android.mylapslogger.SessionListFragment"
+		android:id="@+id/SessionListComposeFragment"
+		android:name="jp.ceed.android.mylapslogger.SessionListComposeFragment"
 		android:label="{sessionDate}">
 
 		<action
-			android:id="@+id/goToPracticeResultFragment"
-			app:destination="@id/PracticeResultsFragment"/>
+			android:id="@+id/goToPracticeResultsFragment"
+			app:destination="@id/PracticeResultsComposeFragment"/>
 
 		<argument
 			android:name="activityId"
@@ -216,7 +216,7 @@
 
 		<action
 			android:id="@+id/goToPracticeResultFragment"
-			app:destination="@id/PracticeResultsFragment"/>
+			app:destination="@id/PracticeResultsComposeFragment"/>
 	</fragment>
 
 	<fragment

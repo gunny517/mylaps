@@ -64,8 +64,8 @@ fun ActivityRow (
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
             .clickable { onClick(item) }
+            .padding(8.dp)
     ) {
         Text(
             modifier = Modifier
