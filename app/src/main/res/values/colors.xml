@@ -17,6 +17,7 @@
 	<color name="text_menu">@color/black</color>
 	<color name="text_link">#03A9F4</color>
 	<color name="text_session_list_best_lap">#5801D3</color>
+	<color name="text_water_mark">#66666666</color>
 	<color name="bg_lap_list_shown">#cccccc</color>
 	<color name="window_back_ground">#ffffff</color>
 	<color name="speed_bar">#695AAC</color>

@@ -1,7 +1,9 @@
 package jp.ceed.android.mylapslogger.compose
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -42,16 +44,23 @@ fun Activities (
     isRefreshing: Boolean = false,
     onRefresh: () -> Unit = {}
 ) {
-    PullToRefreshBox(isRefreshing = isRefreshing, onRefresh = { onRefresh() }) {
-        LazyColumn {
-            items(count = activities.size) { index ->
-                val item = activities[index]
-                ActivityRow(
-                    item = item,
-                    onClick = onClick
-                )
+    Box (
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+    ) {
+        PullToRefreshBox(isRefreshing = isRefreshing, onRefresh = { onRefresh() }) {
+            LazyColumn {
+                items(count = activities.size) { index ->
+                    val item = activities[index]
+                    ActivityRow(
+                        item = item,
+                        onClick = onClick
+                    )
+                }
             }
         }
+        WaterMark()
     }
 }
 

@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -50,15 +51,22 @@ fun PracticeResults (
     onRefresh: () -> Unit = {},
     onClick: (PracticeResultsItem.Section) -> Unit = {}
 ) {
-    PullToRefreshBox(isRefreshing = isRefreshing, onRefresh = { onRefresh() }) {
-        LazyColumn {
-            items (count = practiceResult.sessionData.size) { index ->
-                PracticeRow(
-                    item = practiceResult.sessionData[index],
-                    onClick = onClick
-                )
+    Box (
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+    ) {
+        PullToRefreshBox(isRefreshing = isRefreshing, onRefresh = { onRefresh() }) {
+            LazyColumn {
+                items (count = practiceResult.sessionData.size) { index ->
+                    PracticeRow(
+                        item = practiceResult.sessionData[index],
+                        onClick = onClick
+                    )
+                }
             }
         }
+        WaterMark()
     }
 }
 
