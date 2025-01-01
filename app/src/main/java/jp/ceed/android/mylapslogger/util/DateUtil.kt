@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import java.util.Objects
 
 class DateUtil {
 
@@ -34,55 +33,106 @@ class DateUtil {
         private val YMD_HMS_SIMPLE_DATE_FORMAT = SimpleDateFormat(YMD_HMS_FORMAT, Locale.JAPAN)
 
 
-        fun toTimeFromDateTimeWithMilliSec(dateTimeStr: String?): Long {
+        /**
+         * API レスポンスの日付文字列を UNIX タイムに変換して返す
+         *
+         * @param subject 対象の日付文字列
+         * @return UNIX タイム
+         */
+        fun toTimeFromDateTimeWithMilliSec(subject: String?): Long {
             return try {
-                Objects.requireNonNull(API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(dateTimeStr ?: "")).time
+                API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(subject ?: "")?.time ?: 0L
             } catch (e: ParseException) {
                 LogUtil.e(e)
                 0L
             }
         }
 
-        fun toHmFromDateTimeWithMilliSec(dateStr: String?): String {
-            return try {
-                HM_SIMPLE_DATE_FORMAT.format(Objects.requireNonNull(API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(dateStr ?: "")).time)
+        /**
+         * API レスポンスの日付文字列を HH:mm 形式の時間文字列に変換して返す
+         *
+         * @param subject 対象の日付文字列
+         * @return HH:mm 形式の時間文字列
+         */
+        fun toHmFromDateTimeWithMilliSec(subject: String?): String {
+            subject ?: return ""
+            try {
+                API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(subject)?.let {
+                    return HM_SIMPLE_DATE_FORMAT.format(it.time)
+                }
+                return ""
             } catch (e: ParseException) {
                 LogUtil.e(e)
-                ""
+                return ""
             }
         }
 
-        fun toYmdFormatFromDateTime(dateTimeStr: String): String? {
-            return try {
-                YMD_SIMPLE_DATE_FORMAT.format(Objects.requireNonNull(API_SIMPLE_DATE_FORMAT.parse(dateTimeStr)).time)
+        /**
+         * API レスポンスの日付文字列を yyyy-MM-dd(EEE) 形式の日付文字列に変換して返す
+         *
+         * @param subject 対象の日付文字列
+         * @return yyyy-MM-dd(EEE) 形式の日付文字列
+         */
+        fun toYmdFormatFromDateTime(subject: String): String? {
+            try {
+                API_SIMPLE_DATE_FORMAT.parse(subject)?.let {
+                    return YMD_SIMPLE_DATE_FORMAT.format(it.time)
+                }
+                return null
             } catch (e: ParseException) {
                 LogUtil.e(e)
-                null
+                return null
             }
         }
 
-        fun isValidForWeather(dateStr: String?): Boolean{
-            if(dateStr == null){
-                return false
-            }
-            val sessionStartTime = API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(dateStr)?.time ?: 0
+        /**
+         * 気象データを取得するのに妥当な期間内にあるかどうか判定する
+         *
+         * @param subject 対象の日付
+         * @return 気象データを取得するのに妥当な期間内にあるかどうか
+         */
+        fun isValidForWeather(subject: String?): Boolean{
+            subject ?: return false
+            val sessionStartTime = API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(subject)?.time ?: 0
             val now = System.currentTimeMillis()
             return now - sessionStartTime < DELTA_FOR_WEATHER_DATA
         }
 
-
+        /**
+         * 現在時刻を 2025-01-01T12:30:00.000+09:00 形式の日付文字列に変換して返す
+         *
+         * @return 2025-01-01T12:30:00.000+09:00 形式の日付文字列
+         */
         fun createDateTimeString(): String {
             return API_SIMPLE_DATE_FORMAT.format(System.currentTimeMillis())
         }
 
-        fun convertToTimeMillis(timeString: String): Long {
-            return API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(timeString)?.time ?: 0L
+        /**
+         * 引数で指定された 2025-01-01T12:30:00.000+09:00 形式の日付文字列を UNIX タイムに変換して返す
+         *
+         * @param subject 対象の日付文字列
+         * @return UNIX タイム
+         */
+        fun convertToTimeMillis(subject: String): Long {
+            return API_SIMPLE_DATE_FORMAT_W_MILLI_SEC.parse(subject)?.time ?: 0L
         }
 
-        fun createYmdHmsString(time: Long): String{
-            return YMD_HMS_SIMPLE_DATE_FORMAT.format(Date(time))
+        /**
+         * 引数で指定された UNIX タイムを 2025-01-01 12:30:00 形式の日付文字列に変換して返す
+         *
+         * @param subject 対象の UNIX タイム
+         * @return 2025-01-01T12:30:00.000+09:00 形式の日付文字列
+         */
+        fun createYmdHmsString(subject: Long): String{
+            return YMD_HMS_SIMPLE_DATE_FORMAT.format(Date(subject))
         }
 
+        /**
+         * 引数で指定された日付文字列が本日であるかどうか判定する
+         *
+         * @param target 対象の日付文字列
+         * @return 本日である場合は true.
+         */
         fun isToday(target: String): Boolean{
             val startDate = API_SIMPLE_DATE_FORMAT.parse(target) ?: return false
             val subject = Calendar.getInstance()
