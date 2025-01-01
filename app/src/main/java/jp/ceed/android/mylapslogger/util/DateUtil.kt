@@ -2,7 +2,10 @@ package jp.ceed.android.mylapslogger.util
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.Objects
 
 class DateUtil {
 
@@ -80,15 +83,14 @@ class DateUtil {
             return YMD_HMS_SIMPLE_DATE_FORMAT.format(Date(time))
         }
 
-        fun isToday(startTimeStr: String): Boolean{
-            val cal = Calendar.getInstance()
-            cal.set(Calendar.HOUR_OF_DAY, 0)
-            cal.set(Calendar.MINUTE, 0)
-            cal.set(Calendar.SECOND, 0)
-            val today = cal.time
+        fun isToday(target: String): Boolean{
+            val startDate = API_SIMPLE_DATE_FORMAT.parse(target) ?: return false
+            val subject = Calendar.getInstance()
+            subject.time = startDate
+            val today = Calendar.getInstance()
             return try {
-                val startTime = API_SIMPLE_DATE_FORMAT.parse(startTimeStr)
-                startTime > today
+                today.get(Calendar.YEAR) == subject.get(Calendar.YEAR)
+                        && today.get(Calendar.DAY_OF_YEAR) == subject.get(Calendar.DAY_OF_YEAR)
             } catch (e: ParseException){
                 false
             }
