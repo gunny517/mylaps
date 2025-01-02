@@ -99,9 +99,9 @@ class DateUtil {
         }
 
         /**
-         * 現在時刻を 2025-01-01T12:30:00.000+09:00 形式の日付文字列に変換して返す
+         * 現在時刻を 2025-01-01T12:30:00+09:00 形式の日付文字列に変換して返す
          *
-         * @return 2025-01-01T12:30:00.000+09:00 形式の日付文字列
+         * @return 2025-01-01T12:30:00+09:00 形式の日付文字列
          */
         fun createDateTimeString(): String {
             return API_SIMPLE_DATE_FORMAT.format(System.currentTimeMillis())
