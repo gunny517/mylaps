@@ -24,11 +24,6 @@ class PracticeRepository @Inject constructor (
 
     suspend fun getPracticeIdList(): List<Long> =
         withContext(dispatcher){
-            val list: ArrayList<Long> = ArrayList()
-            val practiceList = practiceDao.findAll()
-            for(entry in practiceList){
-                list.add(entry.activityId)
-            }
-            list
+            practiceDao.findAll().map { it.activityId }
         }
 }

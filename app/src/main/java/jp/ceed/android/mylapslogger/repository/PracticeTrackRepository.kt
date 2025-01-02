@@ -22,40 +22,22 @@ class PracticeTrackRepository @Inject constructor (
         }
 
     private fun addTotalDistance(list: List<TotalDistance>, label: String): List<TotalDistance> {
-        var distance = 0
-        var lapCount = 0
-        var trainingCount = 0
-        list.forEach {
-            distance += it.distance
-            lapCount += it.totalLapCount
-            trainingCount += it.trainingCount
-        }
-        val result = ArrayList<TotalDistance>()
-        result.add(
-            TotalDistance(
-                id = 0,
-                name = label,
-                length = 0,
-                distance = distance,
-                totalLapCount = lapCount,
-                trainingCount = trainingCount
-            )
+        val firstItem = TotalDistance(
+            id = 0,
+            name = label,
+            length = 0,
+            distance = list.fold(0) { total, each -> total + each.distance },
+            totalLapCount = list.fold(0) { total, each -> total + each.totalLapCount },
+            trainingCount = list.fold(0) { total, each -> total + each.trainingCount }
         )
-        result.addAll(list)
-        return result
+        return listOf(firstItem) + list
     }
 
     suspend fun findBestLapList(): List<PracticeTrack> =
         withContext(dispatcher){
-            val list: MutableList<PracticeTrack> = mutableListOf()
-            val trackList = trackDao.findAll()
-            for(track in trackList){
-                val record = getBestLapByTrackId(track.id)
-                record?.let {
-                    list.add(record)
-                }
+            trackDao.findAll().mapNotNull {
+                getBestLapByTrackId(it.id)
             }
-            list
         }
 
     private suspend fun getBestLapByTrackId(trackId: Int): PracticeTrack? =
