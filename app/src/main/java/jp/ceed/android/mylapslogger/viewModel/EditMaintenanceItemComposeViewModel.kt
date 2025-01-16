@@ -34,7 +34,8 @@ class EditMaintenanceItemComposeViewModel @Inject constructor(
         }
     }
 
-    fun saveItem() {
+    fun saveItem(inputValue: String) {
+        entity.value.name = inputValue
         if (itemId == null) {
             viewModelScope.launch {
                 repository.insert(entity.value)

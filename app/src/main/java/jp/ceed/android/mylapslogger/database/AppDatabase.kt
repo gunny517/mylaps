@@ -1,6 +1,7 @@
 package jp.ceed.android.mylapslogger.database
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -33,7 +34,9 @@ const val DATABASE_VERSION = 12
     ErrorLog::class,
     MaintenanceItem::class,
     MaintenanceLog::class],
-    version = DATABASE_VERSION)
+    version = DATABASE_VERSION,
+    autoMigrations = [AutoMigration(from = 11, to = 12)],
+)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun activityInfoDao(): ActivityInfoDao
@@ -78,7 +81,6 @@ abstract class AppDatabase : RoomDatabase() {
                     addMigrations(MIGRATION_8_9)
                     addMigrations(MIGRATION_9_10)
                     addMigrations(MIGRATION_10_11)
-                    addMigrations(MIGRATION_11_12)
                 }.build()
                 INSTANCE = instance
                 instance
@@ -133,17 +135,6 @@ abstract class AppDatabase : RoomDatabase() {
                 "date_time TEXT NOT NULL DEFAULT ''"
 
         const val TRUNCATE_PRACTICE = "DELETE FROM Practice"
-
-        const val CREATE_TABLE_MAINTENANCE_ITEM = "CREATE TABLE IF NOT EXISTS MaintenanceItem ( " +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                "name TEXT NOT NULL )"
-
-        const val CREATE_TABLE_MAINTENANCE_LOG = "CREATE TABLE IF NOT EXISTS MaintenanceLog ( " +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                "issue_date INTEGER NOT NULL, " +
-                "running_time INTEGER NOT NULL , " +
-                "description TEXT, " +
-                "item_id INT NOT NULL )"
 
 
         private val MIGRATION_2_3 = object : Migration(2, 3){
@@ -211,13 +202,6 @@ abstract class AppDatabase : RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(DROP_PRACTICE)
                 database.execSQL(CREATE_PRACTICE)
-            }
-        }
-
-        private val MIGRATION_11_12 = object : Migration(11, 12) {
-            override fun migrate(db: SupportSQLiteDatabase) {
-                db.execSQL(CREATE_TABLE_MAINTENANCE_ITEM)
-                db.execSQL(CREATE_TABLE_MAINTENANCE_LOG)
             }
         }
     }

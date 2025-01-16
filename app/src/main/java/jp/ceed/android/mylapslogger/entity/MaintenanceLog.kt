@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class MaintenanceLog(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "issue_date") val issueDate: Long,
     @ColumnInfo(name = "running_time") val runningTime: Int,
     @ColumnInfo(name = "item_id") val itemId: Int,

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 12,
-    "identityHash": "ad694e80b4fd18b88a2b5bbf211c1c4b",
+    "identityHash": "6fc230b898de4f3ec74e9b8983970bee",
     "entities": [
       {
         "tableName": "ActivityInfo",
@@ -238,7 +238,7 @@
       },
       {
         "tableName": "MaintenanceItem",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -254,7 +254,7 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
             "id"
           ]
@@ -264,7 +264,7 @@
       },
       {
         "tableName": "MaintenanceLog",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `issue_date` INTEGER NOT NULL, `running_time` INTEGER NOT NULL, `item_id` INTEGER NOT NULL, `description` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `issue_date` INTEGER NOT NULL, `running_time` INTEGER NOT NULL, `item_id` INTEGER NOT NULL, `description` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -298,7 +298,7 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
             "id"
           ]
@@ -310,7 +310,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ad694e80b4fd18b88a2b5bbf211c1c4b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6fc230b898de4f3ec74e9b8983970bee')"
     ]
   }
 }
