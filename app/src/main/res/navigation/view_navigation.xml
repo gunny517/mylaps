@@ -272,4 +272,26 @@
 		android:id="@+id/MixtureCalculatorFragment"
 		android:name="jp.ceed.android.mylapslogger.MixtureCalculatorFragment"
 		android:label="@string/action_mixture_calculator"/>
+
+	<fragment
+		android:id="@+id/EditMaintenanceItemComposeFragment"
+		android:name="jp.ceed.android.mylapslogger.EditMaintenanceItemComposeFragment"
+		android:label="">
+
+		<argument
+			android:name="itemId"
+			app:argType="integer"
+			android:defaultValue="0"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/MaintenanceLogComposeFragment"
+		android:name="jp.ceed.android.mylapslogger.MaintenanceLogComposeFragment"
+		android:label="">
+
+		<action
+			android:id="@+id/goToEditMaintenanceItem"
+			app:destination="@id/EditMaintenanceItemComposeFragment"/>
+	</fragment>
+
 </navigation>

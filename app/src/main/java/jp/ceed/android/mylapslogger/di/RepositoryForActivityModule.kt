@@ -9,6 +9,8 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.dao.ActivityInfoDao
 import jp.ceed.android.mylapslogger.dao.ActivityInfoTrackDao
+import jp.ceed.android.mylapslogger.dao.MaintenanceItemDao
+import jp.ceed.android.mylapslogger.dao.MaintenanceLogDao
 import jp.ceed.android.mylapslogger.dao.PracticeDao
 import jp.ceed.android.mylapslogger.dao.PracticeTrackDao
 import jp.ceed.android.mylapslogger.dao.PreferenceDao
@@ -23,6 +25,8 @@ import jp.ceed.android.mylapslogger.repository.ActivityInfoTrackRepository
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.InputValueRepository
 import jp.ceed.android.mylapslogger.repository.LocationRepository
+import jp.ceed.android.mylapslogger.repository.MaintenanceItemRepository
+import jp.ceed.android.mylapslogger.repository.MaintenanceLogRepository
 import jp.ceed.android.mylapslogger.repository.MixtureRepository
 import jp.ceed.android.mylapslogger.repository.PracticeRepository
 import jp.ceed.android.mylapslogger.repository.PracticeResultsRepository
@@ -136,5 +140,19 @@ object RepositoryForActivityModule {
     @Provides
     fun bindMixtureRepository(): MixtureRepository {
         return MixtureRepository()
+    }
+
+    @Provides
+    fun bindMaintenanceRepository(
+        maintenanceLogDao: MaintenanceLogDao
+    ): MaintenanceLogRepository {
+        return MaintenanceLogRepository(maintenanceLogDao)
+    }
+
+    @Provides
+    fun bindMaintenanceItemRepository(
+        maintenanceItemDao: MaintenanceItemDao
+    ): MaintenanceItemRepository {
+        return MaintenanceItemRepository(maintenanceItemDao)
     }
 }

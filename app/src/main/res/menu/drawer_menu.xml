@@ -36,4 +36,9 @@
         android:id="@+id/AppInfoFragment"
         android:orderInCategory="100"
         android:title="@string/action_app_settings"/>
+
+    <item
+        android:id="@+id/MaintenanceLogComposeFragment"
+        android:orderInCategory="100"
+        android:title="@string/action_maintenance_log"/>
 </menu>

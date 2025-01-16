@@ -9,24 +9,30 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import jp.ceed.android.mylapslogger.dao.ActivityInfoDao
 import jp.ceed.android.mylapslogger.dao.ActivityInfoTrackDao
 import jp.ceed.android.mylapslogger.dao.ErrorLogDao
+import jp.ceed.android.mylapslogger.dao.MaintenanceItemDao
+import jp.ceed.android.mylapslogger.dao.MaintenanceLogDao
 import jp.ceed.android.mylapslogger.dao.PracticeDao
 import jp.ceed.android.mylapslogger.dao.PracticeTrackDao
 import jp.ceed.android.mylapslogger.dao.SessionInfoDao
 import jp.ceed.android.mylapslogger.dao.TrackDao
 import jp.ceed.android.mylapslogger.entity.ActivityInfo
 import jp.ceed.android.mylapslogger.entity.ErrorLog
+import jp.ceed.android.mylapslogger.entity.MaintenanceItem
+import jp.ceed.android.mylapslogger.entity.MaintenanceLog
 import jp.ceed.android.mylapslogger.entity.Practice
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.entity.Track
 
-const val DATABASE_VERSION = 11
+const val DATABASE_VERSION = 12
 
 @Database(entities = [
     ActivityInfo::class,
     SessionInfo::class,
     Track::class,
     Practice::class,
-    ErrorLog::class ],
+    ErrorLog::class,
+    MaintenanceItem::class,
+    MaintenanceLog::class],
     version = DATABASE_VERSION)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -43,6 +49,10 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun errorLogDao(): ErrorLogDao
 
     abstract fun activityInfoTrackDao(): ActivityInfoTrackDao
+
+    abstract fun maintenanceItemDao(): MaintenanceItemDao
+
+    abstract fun maintenanceLogDao(): MaintenanceLogDao
 
     companion object {
 
@@ -68,6 +78,7 @@ abstract class AppDatabase : RoomDatabase() {
                     addMigrations(MIGRATION_8_9)
                     addMigrations(MIGRATION_9_10)
                     addMigrations(MIGRATION_10_11)
+                    addMigrations(MIGRATION_11_12)
                 }.build()
                 INSTANCE = instance
                 instance
@@ -122,6 +133,18 @@ abstract class AppDatabase : RoomDatabase() {
                 "date_time TEXT NOT NULL DEFAULT ''"
 
         const val TRUNCATE_PRACTICE = "DELETE FROM Practice"
+
+        const val CREATE_TABLE_MAINTENANCE_ITEM = "CREATE TABLE IF NOT EXISTS MaintenanceItem ( " +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "name TEXT NOT NULL )"
+
+        const val CREATE_TABLE_MAINTENANCE_LOG = "CREATE TABLE IF NOT EXISTS MaintenanceLog ( " +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "issue_date INTEGER NOT NULL, " +
+                "running_time INTEGER NOT NULL , " +
+                "description TEXT, " +
+                "item_id INT NOT NULL )"
+
 
         private val MIGRATION_2_3 = object : Migration(2, 3){
             override fun migrate(database: SupportSQLiteDatabase) {
@@ -188,6 +211,13 @@ abstract class AppDatabase : RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(DROP_PRACTICE)
                 database.execSQL(CREATE_PRACTICE)
+            }
+        }
+
+        private val MIGRATION_11_12 = object : Migration(11, 12) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(CREATE_TABLE_MAINTENANCE_ITEM)
+                db.execSQL(CREATE_TABLE_MAINTENANCE_LOG)
             }
         }
     }

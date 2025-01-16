@@ -9,6 +9,8 @@
 	<string name="action_final_ratio">ファイナル計算機</string>
 	<string name="action_track_best_fragment">ベストタイム</string>
 	<string name="action_total_distance">走行距離</string>
+	<string name="action_maintenance_log">メンテナンスログ</string>
+	<string name="action_edit_maintenance_item">アイテムの編集</string>
 	<!-- Strings used for fragments for navigation -->
 	<string name="activities_fragment_label">走行日一覧</string>
 	<string name="login_fragment_label">ログイン</string>

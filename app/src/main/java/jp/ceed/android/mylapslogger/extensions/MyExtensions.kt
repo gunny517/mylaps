@@ -1,3 +1,5 @@
 package jp.ceed.android.mylapslogger.extensions
 
-fun Float.toDisplayValue(): String = String.format("%.03f", this)
+import java.util.Locale
+
+fun Float.toDisplayValue(): String = String.format(Locale.JAPAN, "%.03f", this)
