@@ -2,5 +2,6 @@ package jp.ceed.android.mylapslogger.entity
 
 enum class EventState {
 	SAVED,
-	CLICKED
+	CLICKED,
+	ACTION_ADD,
 }

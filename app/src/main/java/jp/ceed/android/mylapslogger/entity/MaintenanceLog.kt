@@ -6,9 +6,19 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class MaintenanceLog(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "issue_date") val issueDate: Long,
-    @ColumnInfo(name = "running_time") val runningTime: Int,
-    @ColumnInfo(name = "item_id") val itemId: Int,
-    val description: String?,
-)
+    @PrimaryKey(autoGenerate = true) var id: Int = 0,
+    @ColumnInfo(name = "issue_date") var issueDate: Long = 0L,
+    @ColumnInfo(name = "running_time") var runningTime: Float = 0F,
+    @ColumnInfo(name = "item_id") var itemId: Int = 0,
+    var description: String? = null,
+) {
+    fun descriptionOrDefault(): String = description ?: ""
+    
+    fun setRunningTime(value: String) {
+        try {
+            runningTime = value.toFloat()
+        } catch (e: NumberFormatException) {
+            // Nothing to do.
+        }
+    }
+}

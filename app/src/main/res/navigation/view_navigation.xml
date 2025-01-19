@@ -290,8 +290,22 @@
 		android:label="">
 
 		<action
-			android:id="@+id/goToEditMaintenanceItem"
+			android:id="@+id/maintenanceLogToMaintenanceItem"
 			app:destination="@id/EditMaintenanceItemComposeFragment"/>
+
+		<action
+			android:id="@+id/maintenanceLogToEditMaintenanceLog"
+			app:destination="@id/EditMaintenanceLogComposeFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/EditMaintenanceLogComposeFragment"
+		android:name="jp.ceed.android.mylapslogger.EditMaintenanceLogComposeFragment">
+
+		<argument
+			android:name="maintenance_log_id"
+			app:argType="integer"
+			android:defaultValue="0"/>
 	</fragment>
 
 </navigation>

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 12,
-    "identityHash": "6fc230b898de4f3ec74e9b8983970bee",
+    "identityHash": "89a4ee59f30a8072685b07201b8ab148",
     "entities": [
       {
         "tableName": "ActivityInfo",
@@ -264,7 +264,7 @@
       },
       {
         "tableName": "MaintenanceLog",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `issue_date` INTEGER NOT NULL, `running_time` INTEGER NOT NULL, `item_id` INTEGER NOT NULL, `description` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `issue_date` INTEGER NOT NULL, `running_time` REAL NOT NULL, `item_id` INTEGER NOT NULL, `description` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -281,7 +281,7 @@
           {
             "fieldPath": "runningTime",
             "columnName": "running_time",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -310,7 +310,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6fc230b898de4f3ec74e9b8983970bee')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '89a4ee59f30a8072685b07201b8ab148')"
     ]
   }
 }

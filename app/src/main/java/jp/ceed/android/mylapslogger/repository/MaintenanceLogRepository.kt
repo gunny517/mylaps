@@ -18,4 +18,22 @@ class MaintenanceLogRepository @Inject constructor(
             maintenanceLogDao.findAll()
         }
     }
+
+    suspend fun findByItemId(itemId: Int): List<MaintenanceLog> {
+        return withContext(dispatcher) {
+            maintenanceLogDao.findByItemId(itemId)
+        }
+    }
+
+    suspend fun findById(id: Int): MaintenanceLog {
+        return withContext(dispatcher) {
+            maintenanceLogDao.findById(id)
+        }
+    }
+
+    suspend fun save(entity: MaintenanceLog) {
+        return withContext(dispatcher) {
+            maintenanceLogDao.save(entity)
+        }
+    }
 }

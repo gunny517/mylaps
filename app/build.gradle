@@ -94,6 +94,9 @@ dependencies {
     implementation 'androidx.compose.runtime:runtime-livedata:1.7.4'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6'
+    implementation "com.google.accompanist:accompanist-pager:0.13.0"
+    implementation "com.google.accompanist:accompanist-pager-indicators:0.13.0"
+
     debugImplementation 'androidx.compose.ui:ui-tooling'
 
     def dagger_hilt_version = "2.48"
