@@ -12,7 +12,6 @@ data class MaintenanceLog(
     @ColumnInfo(name = "item_id") var itemId: Int = 0,
     var description: String? = null,
 ) {
-    fun descriptionOrDefault(): String = description ?: ""
     
     fun setRunningTime(value: String) {
         try {

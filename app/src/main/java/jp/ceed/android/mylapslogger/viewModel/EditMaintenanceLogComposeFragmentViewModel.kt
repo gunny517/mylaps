@@ -33,9 +33,9 @@ class EditMaintenanceLogComposeFragmentViewModel @Inject constructor(
         loadMaintenanceItem()
     }
 
-    fun onClickSave() {
+    fun onClickSave(maintenanceLog: MaintenanceLog) {
         viewModelScope.launch {
-            maintenanceLogRepository.save(maintenanceLog.value)
+            maintenanceLogRepository.save(maintenanceLog)
         }
     }
 

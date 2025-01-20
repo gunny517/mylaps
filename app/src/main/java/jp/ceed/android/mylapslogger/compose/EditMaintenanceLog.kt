@@ -19,6 +19,8 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -33,6 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.entity.MaintenanceItem
 import jp.ceed.android.mylapslogger.entity.MaintenanceLog
+import jp.ceed.android.mylapslogger.extensions.findById
 import jp.ceed.android.mylapslogger.extensions.toYmdString
 import jp.ceed.android.mylapslogger.viewModel.EditMaintenanceLogComposeFragmentViewModel
 
@@ -43,7 +46,7 @@ fun EditMaintenanceLogCompose(
     EditMaintenanceLogCompose(
         maintenanceLog = viewModel.maintenanceLog,
         maintenanceLogItems = viewModel.maintenanceItems,
-        onClickSave = { viewModel.onClickSave() }
+        onClickSave = { maintenanceLog -> viewModel.onClickSave(maintenanceLog) }
     )
 }
 
@@ -51,17 +54,43 @@ fun EditMaintenanceLogCompose(
 fun EditMaintenanceLogCompose(
     maintenanceLog: MutableState<MaintenanceLog>,
     maintenanceLogItems: MutableState<List<MaintenanceItem>>,
-    onClickSave: () -> Unit = {},
+    onClickSave: (maintenanceLog: MaintenanceLog) -> Unit = {  },
 ) {
     val datePickerState: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
-    val selectedItemName: MutableState<String> = remember {
-        mutableStateOf("")
-    }
     val dropDownExpanded: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
+    val issueDate: MutableState<Long> = remember {
+        mutableLongStateOf(maintenanceLog.value.issueDate)
+    }
+    val runningTime: MutableState<String> = remember {
+        mutableStateOf(maintenanceLog.value.runningTime.toString())
+    }
+    val itemName: MutableState<String> = remember {
+        val name = maintenanceLogItems.value.findById(maintenanceLog.value.itemId)?.name ?: ""
+        mutableStateOf(name)
+    }
+    val itemId: MutableState<Int> = remember {
+        mutableIntStateOf(maintenanceLog.value.itemId ?: 0)
+    }
+    val description: MutableState<String> = remember {
+        mutableStateOf(maintenanceLog.value.description ?: "")
+    }
+    val isValidValues: MutableState<Boolean> = remember {
+        mutableStateOf(true)
+    }
+    fun validateValues() {
+        var isValid = true
+        try {
+            runningTime.value.toFloat()
+        } catch (e: NumberFormatException) {
+            isValid = false
+        }
+        isValidValues.value = isValid
+    }
+
     Surface (
         modifier = Modifier
             .fillMaxWidth()
@@ -76,20 +105,23 @@ fun EditMaintenanceLogCompose(
             // 実施日
             ItemInputBox(
                 label = stringResource(id = R.string.maintenance_log_issue_date),
-                value = maintenanceLog.value.issueDate.toYmdString(),
+                value = issueDate.value.toYmdString(),
                 enabled = false,
                 onClick = { datePickerState.value = true }
             )
             // ランニングタイム
             ItemInputBox(
                 label = stringResource(id = R.string.running_time),
-                value = maintenanceLog.value.runningTime.toString(),
+                value = runningTime.value,
                 keyboardType = KeyboardType.Number,
-                onValueChange = { maintenanceLog.value.setRunningTime(it) }
+                onValueChange = {
+                    runningTime.value = it
+                    validateValues()
+                }
             )
             // アイテム
             ItemInputBox(
-                value = selectedItemName.value,
+                value = itemName.value,
                 enabled = false,
                 label = stringResource(id = R.string.maintenance_item),
                 onClick = { dropDownExpanded.value = true }
@@ -97,9 +129,9 @@ fun EditMaintenanceLogCompose(
             // 詳細
             ItemInputBox(
                 label = stringResource(id = R.string.maintenance_log_description),
-                value = maintenanceLog.value.descriptionOrDefault(),
+                value = description.value,
                 minLines = 4,
-                onValueChange = { maintenanceLog.value.description = it }
+                onValueChange = { description.value = it }
             )
             Box (
                 modifier = Modifier
@@ -110,7 +142,18 @@ fun EditMaintenanceLogCompose(
                 Button(
                     modifier = Modifier.width(200.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.colorPrimary)),
-                    onClick = { onClickSave() }
+                    enabled = isValidValues.value,
+                    onClick = {
+                        onClickSave(
+                            MaintenanceLog(
+                                id = maintenanceLog.value.id,
+                                issueDate = issueDate.value,
+                                runningTime = runningTime.value.toFloat(),
+                                itemId = itemId.value,
+                                description = description.value
+                            )
+                        )
+                    }
                 ) {
                     Text(text = stringResource(id = R.string.label_save))
                 }
@@ -124,9 +167,8 @@ fun EditMaintenanceLogCompose(
                     DropdownMenuItem(
                         text = { Text(text = item.name) },
                         onClick = {
-                            selectedItemName.value = item.name
-                            maintenanceLog.value.itemId =
-                                maintenanceLogItems.value.find { item.id == it.id }?.id ?: 0
+                            itemName.value = item.name
+                            itemId.value = item.id
                             dropDownExpanded.value = false
                         }
                     )
@@ -137,7 +179,7 @@ fun EditMaintenanceLogCompose(
         if (datePickerState.value) {
             CommonDatePickerDialog(
                 selectedDateMillis = System.currentTimeMillis(),
-                onDateSelected = { maintenanceLog.value.issueDate = it ?: 0 },
+                onDateSelected = { issueDate.value = it ?: 0 },
                 onDismiss = { datePickerState.value = false }
             )
         }
