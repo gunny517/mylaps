@@ -7,15 +7,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.Surface
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -41,7 +37,7 @@ import jp.ceed.android.mylapslogger.viewModel.EditMaintenanceLogComposeFragmentV
 fun EditMaintenanceLogCompose(
     viewModel: EditMaintenanceLogComposeFragmentViewModel = viewModel()
 ) {
-    EditMaintenanceLogCompose(
+    EditMaintenanceLogContent(
         issueDate = viewModel.issueDate,
         runningTime = viewModel.runningTime,
         itemId = viewModel.itemId,
@@ -53,7 +49,7 @@ fun EditMaintenanceLogCompose(
 }
 
 @Composable
-fun EditMaintenanceLogCompose(
+fun EditMaintenanceLogContent(
     issueDate: MutableState<Long> = mutableLongStateOf(0L),
     runningTime: MutableState<String> = mutableStateOf(""),
     itemId: MutableState<Int> = mutableIntStateOf(0),
@@ -119,7 +115,7 @@ fun EditMaintenanceLogCompose(
             // 詳細
             ItemInputBox(
                 label = stringResource(id = R.string.maintenance_log_description),
-                value = description.value ?: "",
+                value = description.value,
                 minLines = 4,
                 onValueChange = { description.value = it }
             )
@@ -129,16 +125,11 @@ fun EditMaintenanceLogCompose(
                     .padding(8.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                Button(
-                    modifier = Modifier.width(200.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.colorPrimary)),
+                CommonButton(
+                    label = stringResource(id = R.string.label_save),
                     enabled = isValidValues.value,
-                    onClick = {
-                        onClickSave()
-                    }
-                ) {
-                    Text(text = stringResource(id = R.string.label_save))
-                }
+                    onClick = onClickSave
+                )
             }
             // ドロップダウンメニュー
             DropdownMenu(
@@ -194,10 +185,7 @@ fun ItemInputBox(
                 keyboardType = keyboardType,
                 imeAction = ImeAction.Next
             ),
-            colors = OutlinedTextFieldDefaults.colors(
-                disabledBorderColor = colorResource(id = R.color.text_default),
-                disabledTextColor = colorResource(id = R.color.text_disabled)
-            )
+            colors = OutLineTextFieldColors()
         )
     }
 }
@@ -205,5 +193,5 @@ fun ItemInputBox(
 @Preview
 @Composable
 fun EditMaintenanceLogPreview() {
-    EditMaintenanceLogCompose()
+    EditMaintenanceLogContent()
 }

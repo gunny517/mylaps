@@ -2,8 +2,13 @@ package jp.ceed.android.mylapslogger.compose
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -34,6 +39,36 @@ fun WaterMark () {
         color = colorResource(id = R.color.text_water_mark),
         text = "Compose."
     )
+}
+
+@Composable
+fun OutLineTextFieldColors(): TextFieldColors {
+    val defaultTextColor = colorResource(id = R.color.text_default)
+    return OutlinedTextFieldDefaults.colors(
+        unfocusedLabelColor = defaultTextColor,
+        focusedLabelColor = defaultTextColor,
+        disabledLabelColor = defaultTextColor,
+        disabledBorderColor = defaultTextColor,
+        disabledTextColor = defaultTextColor,
+        unfocusedTextColor = defaultTextColor,
+        focusedTextColor = defaultTextColor
+    )
+}
+
+@Composable
+fun CommonButton(
+    label: String = "",
+    enabled: Boolean = true,
+    onClick: () -> Unit = {  }
+) {
+    Button(
+        modifier = Modifier.width(200.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.colorPrimary)),
+        enabled = enabled,
+        onClick = { onClick() }
+    ) {
+        Text(text = label)
+    }
 }
 
 @Composable
