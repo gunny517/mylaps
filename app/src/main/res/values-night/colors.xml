@@ -9,6 +9,7 @@
 	<color name="bg_lap_list_report_best">#3F2168</color>
 	<color name="bg_lap_list_session_best">#21631E</color>
 	<color name="text_default">#ffffff</color>
+	<color name="text_un_focused">#999999</color>
 	<color name="text_inverted">#333333</color>
 	<color name="text_disabled">#666666</color>
 	<color name="text_sub_item">#999999</color>

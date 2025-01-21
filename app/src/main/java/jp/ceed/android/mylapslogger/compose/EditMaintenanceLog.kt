@@ -185,7 +185,7 @@ fun ItemInputBox(
                 keyboardType = keyboardType,
                 imeAction = ImeAction.Next
             ),
-            colors = OutLineTextFieldColors()
+            colors = outLineTextFieldColors()
         )
     }
 }

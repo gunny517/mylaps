@@ -25,14 +25,14 @@ import jp.ceed.android.mylapslogger.viewModel.EditMaintenanceItemComposeViewMode
 fun EditMaintenanceItemCompose(
     viewModel: EditMaintenanceItemComposeViewModel = viewModel()
 ) {
-    EditMaintenanceItem(
+    EditMaintenanceItemContent(
         entity = viewModel.entity.value,
         onClickSave = { inputValue -> viewModel.saveItem(inputValue) }
     )
 }
 
 @Composable
-fun EditMaintenanceItem(
+fun EditMaintenanceItemContent(
     entity: MaintenanceItem,
     onClickSave: (String) -> Unit = {}
 ) {
@@ -43,11 +43,12 @@ fun EditMaintenanceItem(
         modifier = Modifier.fillMaxWidth()
     ) {
         OutlinedTextField(
+            label = { Text(text = stringResource(id = R.string.maintenance_item)) },
             modifier = Modifier.padding(all = 8.dp),
-            placeholder = { Text(text = "エンジン") },
+            placeholder = { Text(text = stringResource(id = R.string.maintenance_item)) },
             value = inputValue,
             onValueChange = { inputValue = it },
-            colors = OutLineTextFieldColors()
+            colors = outLineTextFieldColors()
         )
         Box (
             modifier = Modifier.fillMaxWidth(),
@@ -65,5 +66,5 @@ fun EditMaintenanceItem(
 @Preview
 @Composable
 fun EditMaintenanceItemPreview() {
-    EditMaintenanceItem(entity = MaintenanceItem(0, "エンジン１号機"))
+    EditMaintenanceItemContent(entity = MaintenanceItem(0, "エンジン１号機"))
 }

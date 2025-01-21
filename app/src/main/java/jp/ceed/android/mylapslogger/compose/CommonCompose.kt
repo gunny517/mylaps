@@ -42,16 +42,19 @@ fun WaterMark () {
 }
 
 @Composable
-fun OutLineTextFieldColors(): TextFieldColors {
-    val defaultTextColor = colorResource(id = R.color.text_default)
+fun outLineTextFieldColors(): TextFieldColors {
+    val focused = colorResource(id = R.color.text_default)
+    val unFocused = colorResource(id = R.color.text_un_focused)
     return OutlinedTextFieldDefaults.colors(
-        unfocusedLabelColor = defaultTextColor,
-        focusedLabelColor = defaultTextColor,
-        disabledLabelColor = defaultTextColor,
-        disabledBorderColor = defaultTextColor,
-        disabledTextColor = defaultTextColor,
-        unfocusedTextColor = defaultTextColor,
-        focusedTextColor = defaultTextColor
+        unfocusedLabelColor = unFocused,
+        focusedLabelColor = focused,
+        unfocusedBorderColor = unFocused,
+        focusedBorderColor = focused,
+        disabledLabelColor = unFocused,
+        disabledBorderColor = unFocused,
+        disabledTextColor = unFocused,
+        unfocusedTextColor = unFocused,
+        focusedTextColor = focused
     )
 }
 

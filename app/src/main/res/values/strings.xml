@@ -100,7 +100,7 @@
 	<string name="driven_min">ドリブン：下限</string>
 	<string name="driven_max">ドリブン：上限</string>
 	<string name="maintenance_log_issue_date">実施日</string>
-	<string name="maintenance_item">アイテム</string>
+	<string name="maintenance_item">メンテナンス対象</string>
 	<string name="running_time">ランニングタイム</string>
 	<string name="maintenance_log_description">詳細</string>
 	<string name="label_ok">OK</string>
