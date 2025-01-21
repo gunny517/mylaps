@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import jp.ceed.android.mylapslogger.repository.MaintenanceItemRepository
 import jp.ceed.android.mylapslogger.repository.MaintenanceLogRepository
+import jp.ceed.android.mylapslogger.usecase.EditMaintenanceLogUseCase
 import jp.ceed.android.mylapslogger.usecase.MaintenanceLogUseCase
 
 @Module
@@ -18,5 +19,13 @@ object UseCaseModule {
         maintenanceLogRepository: MaintenanceLogRepository
     ): MaintenanceLogUseCase {
         return MaintenanceLogUseCase(maintenanceItemRepository, maintenanceLogRepository)
+    }
+
+    @Provides
+    fun bindsEditMaintenanceLogUseCase(
+        maintenanceItemRepository: MaintenanceItemRepository,
+        maintenanceLogRepository: MaintenanceLogRepository,
+    ): EditMaintenanceLogUseCase {
+        return EditMaintenanceLogUseCase(maintenanceItemRepository, maintenanceLogRepository)
     }
 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -46,7 +47,10 @@ fun EditMaintenanceItem(
             modifier = Modifier.padding(all = 8.dp),
             placeholder = { Text(text = "エンジン") },
             value = inputValue,
-            onValueChange = { inputValue = it }
+            onValueChange = { inputValue = it },
+            colors = OutlinedTextFieldDefaults.colors(
+
+            )
         )
         Box (
             modifier = Modifier.fillMaxWidth(),

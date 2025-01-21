@@ -34,8 +34,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.entity.MaintenanceItem
-import jp.ceed.android.mylapslogger.entity.MaintenanceLog
-import jp.ceed.android.mylapslogger.extensions.findById
 import jp.ceed.android.mylapslogger.extensions.toYmdString
 import jp.ceed.android.mylapslogger.viewModel.EditMaintenanceLogComposeFragmentViewModel
 
@@ -44,39 +42,31 @@ fun EditMaintenanceLogCompose(
     viewModel: EditMaintenanceLogComposeFragmentViewModel = viewModel()
 ) {
     EditMaintenanceLogCompose(
-        maintenanceLog = viewModel.maintenanceLog,
-        maintenanceLogItems = viewModel.maintenanceItems,
-        onClickSave = { maintenanceLog -> viewModel.onClickSave(maintenanceLog) }
+        issueDate = viewModel.issueDate,
+        runningTime = viewModel.runningTime,
+        itemId = viewModel.itemId,
+        description = viewModel.description,
+        itemName = viewModel.itemName,
+        logItems = viewModel.logItems,
+        onClickSave = { viewModel.onClickSave() }
     )
 }
 
 @Composable
 fun EditMaintenanceLogCompose(
-    maintenanceLog: MutableState<MaintenanceLog>,
-    maintenanceLogItems: MutableState<List<MaintenanceItem>>,
-    onClickSave: (maintenanceLog: MaintenanceLog) -> Unit = {  },
+    issueDate: MutableState<Long> = mutableLongStateOf(0L),
+    runningTime: MutableState<String> = mutableStateOf(""),
+    itemId: MutableState<Int> = mutableIntStateOf(0),
+    description: MutableState<String> = mutableStateOf(""),
+    itemName: MutableState<String> = mutableStateOf(""),
+    logItems: MutableState<List<MaintenanceItem>> = mutableStateOf(listOf()),
+    onClickSave: () -> Unit = {  },
 ) {
     val datePickerState: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
     val dropDownExpanded: MutableState<Boolean> = remember {
         mutableStateOf(false)
-    }
-    val issueDate: MutableState<Long> = remember {
-        mutableLongStateOf(maintenanceLog.value.issueDate)
-    }
-    val runningTime: MutableState<String> = remember {
-        mutableStateOf(maintenanceLog.value.runningTime.toString())
-    }
-    val itemName: MutableState<String> = remember {
-        val name = maintenanceLogItems.value.findById(maintenanceLog.value.itemId)?.name ?: ""
-        mutableStateOf(name)
-    }
-    val itemId: MutableState<Int> = remember {
-        mutableIntStateOf(maintenanceLog.value.itemId ?: 0)
-    }
-    val description: MutableState<String> = remember {
-        mutableStateOf(maintenanceLog.value.description ?: "")
     }
     val isValidValues: MutableState<Boolean> = remember {
         mutableStateOf(true)
@@ -129,7 +119,7 @@ fun EditMaintenanceLogCompose(
             // 詳細
             ItemInputBox(
                 label = stringResource(id = R.string.maintenance_log_description),
-                value = description.value,
+                value = description.value ?: "",
                 minLines = 4,
                 onValueChange = { description.value = it }
             )
@@ -144,15 +134,7 @@ fun EditMaintenanceLogCompose(
                     colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.colorPrimary)),
                     enabled = isValidValues.value,
                     onClick = {
-                        onClickSave(
-                            MaintenanceLog(
-                                id = maintenanceLog.value.id,
-                                issueDate = issueDate.value,
-                                runningTime = runningTime.value.toFloat(),
-                                itemId = itemId.value,
-                                description = description.value
-                            )
-                        )
+                        onClickSave()
                     }
                 ) {
                     Text(text = stringResource(id = R.string.label_save))
@@ -163,7 +145,7 @@ fun EditMaintenanceLogCompose(
                 expanded = dropDownExpanded.value,
                 onDismissRequest = { dropDownExpanded.value = false }
             ) {
-                maintenanceLogItems.value.forEach { item ->
+                logItems.value.forEach { item ->
                     DropdownMenuItem(
                         text = { Text(text = item.name) },
                         onClick = {
@@ -223,12 +205,5 @@ fun ItemInputBox(
 @Preview
 @Composable
 fun EditMaintenanceLogPreview() {
-    EditMaintenanceLogCompose(
-        maintenanceLog =  remember {
-            mutableStateOf(MaintenanceLog())
-        },
-        maintenanceLogItems = remember {
-            mutableStateOf(listOf())
-        }
-    )
+    EditMaintenanceLogCompose()
 }

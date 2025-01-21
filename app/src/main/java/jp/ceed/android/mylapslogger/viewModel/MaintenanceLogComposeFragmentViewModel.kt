@@ -20,10 +20,12 @@ class MaintenanceLogComposeFragmentViewModel @Inject constructor (
     private val useCase: MaintenanceLogUseCase,
 ): ViewModel() {
 
-    val eventState: MutableLiveData<Event<EventState>> = MutableLiveData(Event(EventState.CLICKED))
+    val event: MutableLiveData<Event<EventState>> = MutableLiveData(Event(EventState.NONE))
 
-    val maintenanceLogs: MutableState<List<MaintenanceLogList>> =
-        mutableStateOf(mutableListOf())
+    val maintenanceLogs: MutableState<List<MaintenanceLogList>> = mutableStateOf(mutableListOf())
+
+    var selectedLogId: Int = 0
+
 
     fun loadMaintenanceLogs() {
         viewModelScope.launch {
@@ -32,7 +34,11 @@ class MaintenanceLogComposeFragmentViewModel @Inject constructor (
     }
 
     fun onClickFab() {
-        eventState.value = Event(EventState.ACTION_ADD)
+        event.value = Event(EventState.ACTION_ADD)
     }
 
+    fun onClickLogItem(logId: Int) {
+        selectedLogId = logId
+        event.value = Event(EventState.ITEM_SELECTED)
+    }
 }

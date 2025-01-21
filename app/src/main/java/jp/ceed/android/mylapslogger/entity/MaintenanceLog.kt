@@ -12,12 +12,5 @@ data class MaintenanceLog(
     @ColumnInfo(name = "item_id") var itemId: Int = 0,
     var description: String? = null,
 ) {
-    
-    fun setRunningTime(value: String) {
-        try {
-            runningTime = value.toFloat()
-        } catch (e: NumberFormatException) {
-            // Nothing to do.
-        }
-    }
+    fun descriptionOrEmptyString(): String = description ?: ""
 }

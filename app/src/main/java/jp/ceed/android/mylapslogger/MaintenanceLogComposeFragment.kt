@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.compose.MaintenanceLogCompose
 import jp.ceed.android.mylapslogger.entity.EventState
+import jp.ceed.android.mylapslogger.viewModel.EditMaintenanceLogComposeFragmentViewModel
 import jp.ceed.android.mylapslogger.viewModel.MaintenanceLogComposeFragmentViewModel
 
 @AndroidEntryPoint
@@ -50,14 +51,19 @@ class MaintenanceLogComposeFragment: Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadMaintenanceLogs()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.loadMaintenanceLogs()
         requireActivity().addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
-        viewModel.eventState.observe(viewLifecycleOwner) {
+        viewModel.event.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { content ->
                 when (content.name) {
-                    EventState.ACTION_ADD.name -> navigateToEditMaintenanceLog()
+                    EventState.ACTION_ADD.name -> navigateToEditMaintenanceLog(0)
+                    EventState.ITEM_SELECTED.name -> navigateToEditMaintenanceLog(viewModel.selectedLogId)
                 }
             }
         }
@@ -67,9 +73,10 @@ class MaintenanceLogComposeFragment: Fragment() {
         findNavController().navigate(R.id.maintenanceLogToMaintenanceItem)
     }
 
-    fun navigateToEditMaintenanceLog() {
-        findNavController().navigate(R.id.maintenanceLogToEditMaintenanceLog)
+    private fun navigateToEditMaintenanceLog(logId: Int) {
+        findNavController().navigate(
+            R.id.maintenanceLogToEditMaintenanceLog,
+            Bundle().apply { putInt(EditMaintenanceLogComposeFragmentViewModel.MAINTENANCE_LOG_ID, logId) }
+        )
     }
-
-
 }
