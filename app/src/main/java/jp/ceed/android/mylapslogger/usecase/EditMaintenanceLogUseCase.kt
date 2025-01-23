@@ -28,4 +28,8 @@ class EditMaintenanceLogUseCase @Inject constructor (
         maintenanceLogRepository.save(maintenanceLog)
     }
 
+    suspend fun deleteMaintenanceLog(maintenanceLog: MaintenanceLog) {
+        maintenanceLogRepository.delete(maintenanceLog)
+    }
+
 }

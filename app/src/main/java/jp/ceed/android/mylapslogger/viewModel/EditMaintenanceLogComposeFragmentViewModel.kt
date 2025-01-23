@@ -40,7 +40,7 @@ class EditMaintenanceLogComposeFragmentViewModel @Inject constructor(
 
     val logItems: MutableState<List<MaintenanceItem>> = mutableStateOf(listOf())
 
-    private val logId: Int = state.get<Int>(MAINTENANCE_LOG_ID) ?: 0
+    val logId: Int = state.get<Int>(MAINTENANCE_LOG_ID) ?: 0
 
     val event: MutableLiveData<Event<EventState>> = MutableLiveData(Event(EventState.NONE))
 
@@ -58,6 +58,15 @@ class EditMaintenanceLogComposeFragmentViewModel @Inject constructor(
                     itemId = itemId.value,
                     description = description.value
                 )
+            )
+        }
+        event.value = Event(EventState.SAVED)
+    }
+
+    fun onClickDelete() {
+        viewModelScope.launch {
+            useCase.deleteMaintenanceLog(
+                MaintenanceLog(logId)
             )
         }
         event.value = Event(EventState.SAVED)

@@ -36,4 +36,10 @@ class MaintenanceLogRepository @Inject constructor(
             maintenanceLogDao.save(entity)
         }
     }
+
+    suspend fun delete(entity: MaintenanceLog) {
+        return withContext(dispatcher) {
+            maintenanceLogDao.delete(entity)
+        }
+    }
 }

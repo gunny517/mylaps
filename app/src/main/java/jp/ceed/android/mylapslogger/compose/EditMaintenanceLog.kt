@@ -1,12 +1,13 @@
 package jp.ceed.android.mylapslogger.compose
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.Surface
@@ -38,25 +39,30 @@ fun EditMaintenanceLogCompose(
     viewModel: EditMaintenanceLogComposeFragmentViewModel = viewModel()
 ) {
     EditMaintenanceLogContent(
+        logId = viewModel.logId,
         issueDate = viewModel.issueDate,
         runningTime = viewModel.runningTime,
         itemId = viewModel.itemId,
         description = viewModel.description,
         itemName = viewModel.itemName,
         logItems = viewModel.logItems,
-        onClickSave = { viewModel.onClickSave() }
+        onClickSave = { viewModel.onClickSave() },
+        onClickDelete = { viewModel.onClickDelete() }
+
     )
 }
 
 @Composable
 fun EditMaintenanceLogContent(
+    logId: Int,
     issueDate: MutableState<Long> = mutableLongStateOf(0L),
     runningTime: MutableState<String> = mutableStateOf(""),
     itemId: MutableState<Int> = mutableIntStateOf(0),
     description: MutableState<String> = mutableStateOf(""),
     itemName: MutableState<String> = mutableStateOf(""),
     logItems: MutableState<List<MaintenanceItem>> = mutableStateOf(listOf()),
-    onClickSave: () -> Unit = {  },
+    onClickSave: () -> Unit = {},
+    onClickDelete: () -> Unit = {},
 ) {
     val datePickerState: MutableState<Boolean> = remember {
         mutableStateOf(false)
@@ -119,17 +125,26 @@ fun EditMaintenanceLogContent(
                 minLines = 4,
                 onValueChange = { description.value = it }
             )
-            Box (
+            Row (
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                contentAlignment = Alignment.Center,
+                    .padding(8.dp)
+                    .align(Alignment.CenterHorizontally),
             ) {
                 CommonButton(
                     label = stringResource(id = R.string.label_save),
+                    width = 100,
                     enabled = isValidValues.value,
                     onClick = onClickSave
                 )
+                if (logId != 0) {
+                    Spacer(modifier = Modifier.width(8.dp))
+                    CommonButton(
+                        label = stringResource(id = R.string.label_delete),
+                        width = 100,
+                        enabled = isValidValues.value,
+                        onClick = onClickDelete
+                    )
+                }
             }
             // ドロップダウンメニュー
             DropdownMenu(
@@ -193,5 +208,5 @@ fun ItemInputBox(
 @Preview
 @Composable
 fun EditMaintenanceLogPreview() {
-    EditMaintenanceLogContent()
+    EditMaintenanceLogContent(1)
 }
