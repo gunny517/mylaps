@@ -131,26 +131,25 @@ fun MaintenanceLogRow(
     Row (
         modifier = Modifier
             .fillMaxWidth()
-            .background(colorResource(id = R.color.window_back_ground))
             .clickable { onClick(item.id) }
             .padding(8.dp)
     ) {
         Column {
             Text(
                 color = colorResource(id = R.color.text_default),
-                fontSize = 14.sp,
+                fontSize = 16.sp,
                 text = item.issueDate.toYmdString()
             )
             Text(
                 color = colorResource(id = R.color.text_default),
-                fontSize = 14.sp,
+                fontSize = 16.sp,
                 text = item.runningTime.toString()
             )
         }
         Text(
             modifier = Modifier.padding(start = 16.dp),
             color = colorResource(id = R.color.text_default),
-            fontSize = 16.sp,
+            fontSize = 18.sp,
             text = item.descriptionOrEmptyString()
         )
     }
