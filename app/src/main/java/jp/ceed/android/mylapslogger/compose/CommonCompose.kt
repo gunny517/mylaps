@@ -62,10 +62,11 @@ fun outLineTextFieldColors(): TextFieldColors {
 fun CommonButton(
     label: String = "",
     enabled: Boolean = true,
+    width: Int = 200,
     onClick: () -> Unit = {  }
 ) {
     Button(
-        modifier = Modifier.width(200.dp),
+        modifier = Modifier.width(width.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.colorPrimary)),
         enabled = enabled,
         onClick = { onClick() }

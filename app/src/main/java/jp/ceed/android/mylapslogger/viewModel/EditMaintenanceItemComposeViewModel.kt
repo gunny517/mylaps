@@ -3,7 +3,6 @@ package jp.ceed.android.mylapslogger.viewModel
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,39 +15,33 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditMaintenanceItemComposeViewModel @Inject constructor(
-    state: SavedStateHandle,
     val repository: MaintenanceItemRepository
 ): ViewModel() {
-    private val itemId: Int? = state.get<Int>("id")
 
-    lateinit var entity: MutableState<MaintenanceItem>
+    var items: MutableState<List<MaintenanceItem>> = mutableStateOf(mutableListOf())
 
     var event: MutableLiveData<Event<EventState>> = MutableLiveData(Event(EventState.NONE))
 
     init {
-        if (itemId == null ||itemId == 0) {
-            entity = mutableStateOf(MaintenanceItem(0, ""))
-        } else {
-            loadMaintenanceItem(itemId)
-        }
+        loadMaintenanceItems()
     }
 
-    private fun loadMaintenanceItem(id: Int) {
+    private fun loadMaintenanceItems() {
         viewModelScope.launch {
-            entity.value = repository.findById(id)
+            items.value = repository.findAll()
         }
     }
 
-    fun saveItem(inputValue: String) {
-        entity.value.name = inputValue
-        if (itemId == null) {
-            viewModelScope.launch {
-                repository.insert(entity.value)
-            }
-        } else {
-            viewModelScope.launch {
-                repository.update(entity.value)
-            }
+    fun saveItem(item: MaintenanceItem) {
+        viewModelScope.launch {
+            repository.save(item)
+        }
+        event.value = Event(EventState.SAVED)
+    }
+
+    fun deleteItem(item: MaintenanceItem) {
+        viewModelScope.launch {
+            repository.delete(item)
         }
         event.value = Event(EventState.SAVED)
     }

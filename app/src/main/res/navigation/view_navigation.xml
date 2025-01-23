@@ -276,13 +276,7 @@
 	<fragment
 		android:id="@+id/EditMaintenanceItemComposeFragment"
 		android:name="jp.ceed.android.mylapslogger.EditMaintenanceItemComposeFragment"
-		android:label="">
-
-		<argument
-			android:name="itemId"
-			app:argType="integer"
-			android:defaultValue="0"/>
-	</fragment>
+		android:label=""/>
 
 	<fragment
 		android:id="@+id/MaintenanceLogComposeFragment"

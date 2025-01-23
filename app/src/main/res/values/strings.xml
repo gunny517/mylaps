@@ -105,4 +105,6 @@
 	<string name="maintenance_log_description">詳細</string>
 	<string name="label_ok">OK</string>
 	<string name="label_save">保存</string>
+	<string name="label_create">作成</string>
+	<string name="label_delete">削除</string>
 </resources>

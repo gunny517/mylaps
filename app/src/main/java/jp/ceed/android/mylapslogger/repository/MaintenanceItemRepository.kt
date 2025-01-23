@@ -36,4 +36,20 @@ class MaintenanceItemRepository @Inject constructor (
             maintenanceItemDao.update(entity)
         }
     }
+
+    suspend fun save(entity: MaintenanceItem) {
+        withContext(dispatcher) {
+            if (entity.id == 0) {
+                maintenanceItemDao.insert(entity)
+            } else {
+                maintenanceItemDao.update(entity)
+            }
+        }
+    }
+
+    suspend fun delete(entity: MaintenanceItem) {
+        withContext(dispatcher) {
+            maintenanceItemDao.delete(entity)
+        }
+    }
 }

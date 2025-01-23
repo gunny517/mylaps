@@ -1,6 +1,7 @@
 package jp.ceed.android.mylapslogger.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -20,4 +21,8 @@ interface MaintenanceItemDao {
 
     @Update(entity = MaintenanceItem::class)
     fun update(entity: MaintenanceItem)
+
+    @Delete(entity = MaintenanceItem::class)
+    fun delete(entity: MaintenanceItem)
+
 }
