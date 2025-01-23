@@ -91,6 +91,7 @@ fun TabContent(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
+            .background(colorResource(id = R.color.window_back_ground))
     ) {
         TabRow(
             selectedTabIndex = pagerState.currentPage,

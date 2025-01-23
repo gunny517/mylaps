@@ -77,7 +77,7 @@ fun MaintenanceItemRow (
         OutlinedTextField(
             label = { Text(text = stringResource(id = R.string.maintenance_item)) },
             modifier = Modifier
-                .width(200.dp)
+                .width(240.dp)
                 .padding(all = 8.dp),
             placeholder = { Text(text = stringResource(id = R.string.maintenance_item)) },
             value = inputValue.value,
@@ -86,7 +86,7 @@ fun MaintenanceItemRow (
         )
         CommonButton(
             label = saveButtonLabel,
-            width = 100,
+            width = 60,
             onClick = {
                 maintenanceItem.name = inputValue.value
                 onClickSave(maintenanceItem)
@@ -96,7 +96,7 @@ fun MaintenanceItemRow (
             Spacer(modifier = Modifier.width(8.dp))
             CommonButton(
                 label = stringResource(id = R.string.label_delete),
-                width = 100,
+                width = 60,
                 onClick = { onClickDelete(maintenanceItem) }
             )
         }
