@@ -23,4 +23,5 @@
 	<color name="window_back_ground">#ffffff</color>
 	<color name="speed_bar">#695AAC</color>
 	<color name="divider">#cccccc</color>
+	<color name="tab_background">#999999</color>
 </resources>

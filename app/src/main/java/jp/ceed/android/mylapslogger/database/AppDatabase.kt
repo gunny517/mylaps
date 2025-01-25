@@ -1,7 +1,6 @@
 package jp.ceed.android.mylapslogger.database
 
 import android.content.Context
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -35,7 +34,6 @@ const val DATABASE_VERSION = 12
     MaintenanceItem::class,
     MaintenanceLog::class],
     version = DATABASE_VERSION,
-    autoMigrations = [AutoMigration(from = 11, to = 12)],
 )
 abstract class AppDatabase : RoomDatabase() {
 
@@ -81,6 +79,7 @@ abstract class AppDatabase : RoomDatabase() {
                     addMigrations(MIGRATION_8_9)
                     addMigrations(MIGRATION_9_10)
                     addMigrations(MIGRATION_10_11)
+                    addMigrations(MIGRATION_11_12)
                 }.build()
                 INSTANCE = instance
                 instance
@@ -136,72 +135,89 @@ abstract class AppDatabase : RoomDatabase() {
 
         const val TRUNCATE_PRACTICE = "DELETE FROM Practice"
 
+        const val CREATE_TABLE_MAINTENANCE_ITEM = "CREATE TABLE IF NOT EXISTS `MaintenanceItem` " +
+                "(`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "`name` TEXT NOT NULL)"
+
+        const val CREATE_TABLE_MAINTENANCE_LOG = "CREATE TABLE IF NOT EXISTS `MaintenanceLog` " +
+                "(`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "`issue_date` INTEGER NOT NULL, " +
+                "`running_time` REAL NOT NULL, " +
+                "`item_id` INTEGER NOT NULL, `description` TEXT)"
+
 
         private val MIGRATION_2_3 = object : Migration(2, 3){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(CREATE_TRACK)
-                database.execSQL(CREATE_PRACTICE)
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(CREATE_TRACK)
+                db.execSQL(CREATE_PRACTICE)
             }
         }
 
         const val DROP_PRACTICE = "DROP TABLE Practice"
 
         private val MIGRATION_1_2 = object : Migration(1, 2){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(CREATE_SESSION_INFO)
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(CREATE_SESSION_INFO)
             }
         }
 
         private val MIGRATION_3_4 = object : Migration(3, 4){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(DROP_PRACTICE)
-                database.execSQL(CREATE_PRACTICE)
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(DROP_PRACTICE)
+                db.execSQL(CREATE_PRACTICE)
             }
         }
 
         private val MIGRATION_4_5 = object : Migration(4, 5){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(DROP_PRACTICE)
-                database.execSQL(CREATE_PRACTICE)
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(DROP_PRACTICE)
+                db.execSQL(CREATE_PRACTICE)
             }
         }
 
         private val MIGRATION_5_6 = object : Migration(5, 6){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(DROP_PRACTICE)
-                database.execSQL(CREATE_PRACTICE)
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(DROP_PRACTICE)
+                db.execSQL(CREATE_PRACTICE)
             }
         }
 
         private val MIGRATION_6_7 = object : Migration(6, 7){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(CRATE_ERROR_LOG)
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(CRATE_ERROR_LOG)
             }
         }
 
         private val MIGRATION_7_8 = object : Migration(7, 8){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(ALTER_ACTIVITY_INFO_ADD_FUEL_CONSUMPTION)
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(ALTER_ACTIVITY_INFO_ADD_FUEL_CONSUMPTION)
             }
         }
 
         private val MIGRATION_8_9 = object : Migration(8, 9){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(ALTER_ACTIVITY_INFO_ADD_TRACK_ID)
-                database.execSQL(ALTER_ACTIVITY_INFO_ADD_DATETIME)
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(ALTER_ACTIVITY_INFO_ADD_TRACK_ID)
+                db.execSQL(ALTER_ACTIVITY_INFO_ADD_DATETIME)
             }
         }
 
         private val MIGRATION_9_10 = object : Migration(9, 10){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(TRUNCATE_PRACTICE)
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(TRUNCATE_PRACTICE)
             }
         }
 
         private val MIGRATION_10_11 = object : Migration(10, 11){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(DROP_PRACTICE)
-                database.execSQL(CREATE_PRACTICE)
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(DROP_PRACTICE)
+                db.execSQL(CREATE_PRACTICE)
+            }
+        }
+
+        private val MIGRATION_11_12 = object : Migration(10, 11){
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(CREATE_TABLE_MAINTENANCE_ITEM)
+                db.execSQL(CREATE_TABLE_MAINTENANCE_LOG)
             }
         }
     }
