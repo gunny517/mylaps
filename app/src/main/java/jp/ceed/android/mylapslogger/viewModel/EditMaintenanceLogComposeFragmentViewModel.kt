@@ -1,5 +1,6 @@
 package jp.ceed.android.mylapslogger.viewModel
 
+import android.net.Uri
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
@@ -42,6 +43,8 @@ class EditMaintenanceLogComposeFragmentViewModel @Inject constructor(
 
     val logId: Int = state.get<Int>(MAINTENANCE_LOG_ID) ?: 0
 
+    val imageUri: MutableState<Uri?> = mutableStateOf(null)
+
     val event: MutableLiveData<Event<EventState>> = MutableLiveData(Event(EventState.NONE))
 
     init {
@@ -56,7 +59,8 @@ class EditMaintenanceLogComposeFragmentViewModel @Inject constructor(
                     issueDate = issueDate.value,
                     runningTime = runningTime.value.toFloat(),
                     itemId = itemId.value,
-                    description = description.value
+                    description = description.value,
+                    imageUri = imageUri.value?.toString(),
                 )
             )
         }
@@ -72,6 +76,20 @@ class EditMaintenanceLogComposeFragmentViewModel @Inject constructor(
         event.value = Event(EventState.SAVED)
     }
 
+    fun onClickCamera() {
+        event.value = Event(EventState.START_CAMERA)
+    }
+
+    fun onClickClearImage() {
+        imageUri.value = null
+    }
+
+    fun loadImage(uri: Uri) {
+        viewModelScope.launch {
+            imageUri.value = uri
+        }
+    }
+
     private fun loadMaintenanceLog() {
         viewModelScope.launch {
             val editMaintenanceLog = useCase.loadEditMaintenanceLog(logId)
@@ -81,6 +99,9 @@ class EditMaintenanceLogComposeFragmentViewModel @Inject constructor(
             itemName.value = editMaintenanceLog.logItems.findById(editMaintenanceLog.log.itemId)?.name ?: ""
             description.value = editMaintenanceLog.log.descriptionOrEmptyString()
             logItems.value = editMaintenanceLog.logItems
+            editMaintenanceLog.log.imageUri?.let {
+                imageUri.value = Uri.parse(it)
+            }
         }
     }
 }

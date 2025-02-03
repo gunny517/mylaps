@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- name: FileProviderのURIに使用される。path: ファイルが配置されるディレクトリ名として使用される。 -->
+    <external-files-path
+        name="mnt_log_images"
+        path="MntLogImages"/>
+</paths>

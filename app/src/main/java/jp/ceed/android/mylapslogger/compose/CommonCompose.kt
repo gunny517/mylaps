@@ -71,7 +71,10 @@ fun CommonButton(
         enabled = enabled,
         onClick = { onClick() }
     ) {
-        Text(text = label)
+        Text(
+            text = label,
+            color = colorResource(R.color.text_default)
+        )
     }
 }
 

@@ -23,7 +23,7 @@ import jp.ceed.android.mylapslogger.entity.Practice
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.entity.Track
 
-const val DATABASE_VERSION = 12
+const val DATABASE_VERSION = 13
 
 @Database(entities = [
     ActivityInfo::class,
@@ -80,6 +80,7 @@ abstract class AppDatabase : RoomDatabase() {
                     addMigrations(MIGRATION_9_10)
                     addMigrations(MIGRATION_10_11)
                     addMigrations(MIGRATION_11_12)
+                    addMigrations(MIGRATION_12_13)
                 }.build()
                 INSTANCE = instance
                 instance
@@ -143,8 +144,13 @@ abstract class AppDatabase : RoomDatabase() {
                 "(`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 "`issue_date` INTEGER NOT NULL, " +
                 "`running_time` REAL NOT NULL, " +
-                "`item_id` INTEGER NOT NULL, `description` TEXT)"
+                "`item_id` INTEGER NOT NULL, " +
+                "`description` TEXT, " +
+                "`image_uri` TEXT )"
 
+        const val ALTER_TABLE_MAINTENANCE_LOG_ADD_IMAGE_URI = "ALTER TABLE `MaintenanceLog` " +
+                "ADD COLUMN " +
+                "`image_uri` TEXT"
 
         private val MIGRATION_2_3 = object : Migration(2, 3){
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -214,10 +220,16 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        private val MIGRATION_11_12 = object : Migration(10, 11){
+        private val MIGRATION_11_12 = object : Migration(11, 12){
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL(CREATE_TABLE_MAINTENANCE_ITEM)
                 db.execSQL(CREATE_TABLE_MAINTENANCE_LOG)
+            }
+        }
+
+        private val MIGRATION_12_13 = object : Migration(12, 13) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(ALTER_TABLE_MAINTENANCE_LOG_ADD_IMAGE_URI)
             }
         }
     }

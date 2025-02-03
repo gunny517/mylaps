@@ -11,6 +11,7 @@ data class MaintenanceLog(
     @ColumnInfo(name = "running_time") var runningTime: Float = 0F,
     @ColumnInfo(name = "item_id") var itemId: Int = 0,
     var description: String? = null,
+    @ColumnInfo(name = "image_uri") var imageUri: String? = null,
 ) {
     fun descriptionOrEmptyString(): String = description ?: ""
 }
