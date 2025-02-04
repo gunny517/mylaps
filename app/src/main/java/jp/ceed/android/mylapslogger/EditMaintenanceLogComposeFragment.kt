@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.compose.EditMaintenanceLogCompose
+import jp.ceed.android.mylapslogger.constants.AppConstants
 import jp.ceed.android.mylapslogger.entity.EventState
 import jp.ceed.android.mylapslogger.viewModel.EditMaintenanceLogComposeFragmentViewModel
 import java.io.File
@@ -26,7 +28,7 @@ class EditMaintenanceLogComposeFragment: Fragment() {
 
     val viewModel: EditMaintenanceLogComposeFragmentViewModel by viewModels()
 
-    private var imageUri: Uri = Uri.EMPTY
+    private var imageUri: Uri? = null
 
     private val startCameraForResult = registerForActivityResult(
         ActivityResultContracts.TakePicture()
@@ -59,25 +61,30 @@ class EditMaintenanceLogComposeFragment: Fragment() {
         }
     }
 
-    private fun createAndSetImageUri(): Uri {
-        fun createImageFile(): File {
-            return File.createTempFile(
-                UUID.randomUUID().toString(),
-                ".jpg",
-                requireContext().getExternalFilesDir("MntLogImages")
-            )
+    private fun deleteOldImage() {
+        imageUri?.let {
+            requireContext().contentResolver.delete(it, null, null)
         }
+    }
 
+    private fun createAndSetImageUri() {
+        val imageFile = File.createTempFile(
+            UUID.randomUUID().toString(),
+            AppConstants.IMG_SUFFIX_JPG,
+            requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        )
         imageUri = FileProvider.getUriForFile(
             requireContext(),
-            "${BuildConfig.APPLICATION_ID}.image_provider",
-            createImageFile()
+            AppConstants.IMAGE_PROVIDER_AUTHORITY,
+            imageFile
         )
-        return imageUri
     }
 
 
     private fun onSaved() {
+        viewModel.removedImageUri?.let {
+            requireContext().contentResolver.delete(it, null, null)
+        }
         findNavController().popBackStack()
     }
 
@@ -90,7 +97,11 @@ class EditMaintenanceLogComposeFragment: Fragment() {
 
     private fun startCamera() {
         if (hasCameraPermission()) {
-            startCameraForResult.launch(createAndSetImageUri())
+            deleteOldImage()
+            createAndSetImageUri()
+            imageUri?.let {
+                startCameraForResult.launch(it)
+            }
         } else {
             requestCameraPermissionForResult.launch(Manifest.permission.CAMERA)
         }
@@ -98,7 +109,7 @@ class EditMaintenanceLogComposeFragment: Fragment() {
 
     private fun onCameraResult(isSuccess: Boolean) {
         if (isSuccess) {
-            viewModel.loadImage(imageUri)
+            viewModel.imageUri.value = imageUri
         }
     }
 }

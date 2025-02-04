@@ -45,6 +45,8 @@ class EditMaintenanceLogComposeFragmentViewModel @Inject constructor(
 
     val imageUri: MutableState<Uri?> = mutableStateOf(null)
 
+    var removedImageUri: Uri? = null
+
     val event: MutableLiveData<Event<EventState>> = MutableLiveData(Event(EventState.NONE))
 
     init {
@@ -81,13 +83,8 @@ class EditMaintenanceLogComposeFragmentViewModel @Inject constructor(
     }
 
     fun onClickClearImage() {
+        removedImageUri = imageUri.value
         imageUri.value = null
-    }
-
-    fun loadImage(uri: Uri) {
-        viewModelScope.launch {
-            imageUri.value = uri
-        }
     }
 
     private fun loadMaintenanceLog() {
