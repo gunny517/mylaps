@@ -61,6 +61,7 @@ fun EditMaintenanceLogCompose(
         onClickSave = { viewModel.onClickSave() },
         onClickDelete = { viewModel.onClickDelete() },
         onClickCamera = { viewModel.onClickCamera() },
+        onClickPhoto = { viewModel.onClickPhoto() },
         onClickClearImage = { viewModel.onClickClearImage() }
     )
 }
@@ -70,8 +71,8 @@ fun EditMaintenanceLogCompose(
 fun EditMaintenanceLogContent(
     logId: Int,
     issueDate: MutableState<Long> = mutableLongStateOf(0L),
-    runningTime: MutableState<String> = mutableStateOf(""),
     itemId: MutableState<Int> = mutableIntStateOf(0),
+    runningTime: MutableState<String> = mutableStateOf(""),
     description: MutableState<String> = mutableStateOf(""),
     itemName: MutableState<String> = mutableStateOf(""),
     logItems: MutableState<List<MaintenanceItem>> = mutableStateOf(listOf()),
@@ -79,6 +80,7 @@ fun EditMaintenanceLogContent(
     onClickSave: () -> Unit = {},
     onClickDelete: () -> Unit = {},
     onClickCamera: () -> Unit = {},
+    onClickPhoto: () -> Unit = {},
     onClickClearImage: () -> Unit = {},
 ) {
     val datePickerState: MutableState<Boolean> = remember {
@@ -136,6 +138,22 @@ fun EditMaintenanceLogContent(
                 label = stringResource(id = R.string.maintenance_item),
                 onClick = { dropDownExpanded.value = true }
             )
+            // ドロップダウンメニュー
+            DropdownMenu(
+                expanded = dropDownExpanded.value,
+                onDismissRequest = { dropDownExpanded.value = false }
+            ) {
+                logItems.value.forEach { item ->
+                    DropdownMenuItem(
+                        text = { Text(text = item.name) },
+                        onClick = {
+                            itemName.value = item.name
+                            itemId.value = item.id
+                            dropDownExpanded.value = false
+                        }
+                    )
+                }
+            }
             // 詳細
             ItemInputBox(
                 label = stringResource(id = R.string.maintenance_log_description),
@@ -171,39 +189,29 @@ fun EditMaintenanceLogContent(
             ) {
                 CommonButton(
                     label = stringResource(id = R.string.label_save),
-                    width = 100,
+                    width = 80,
                     enabled = isValidValues.value,
                     onClick = onClickSave
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 CommonButton(
                     label = stringResource(R.string.label_camera),
-                    width = 100,
+                    width = 80,
                     onClick = onClickCamera,
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                CommonButton(
+                    label = stringResource(R.string.label_photo),
+                    width = 80,
+                    onClick = onClickPhoto,
                 )
                 if (logId != 0) {
                     Spacer(modifier = Modifier.width(8.dp))
                     CommonButton(
                         label = stringResource(id = R.string.label_delete),
-                        width = 100,
+                        width = 80,
                         enabled = isValidValues.value,
                         onClick = onClickDelete
-                    )
-                }
-            }
-            // ドロップダウンメニュー
-            DropdownMenu(
-                expanded = dropDownExpanded.value,
-                onDismissRequest = { dropDownExpanded.value = false }
-            ) {
-                logItems.value.forEach { item ->
-                    DropdownMenuItem(
-                        text = { Text(text = item.name) },
-                        onClick = {
-                            itemName.value = item.name
-                            itemId.value = item.id
-                            dropDownExpanded.value = false
-                        }
                     )
                 }
             }

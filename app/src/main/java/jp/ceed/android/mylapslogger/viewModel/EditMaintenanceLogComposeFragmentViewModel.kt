@@ -82,6 +82,10 @@ class EditMaintenanceLogComposeFragmentViewModel @Inject constructor(
         event.value = Event(EventState.START_CAMERA)
     }
 
+    fun onClickPhoto() {
+        event.value = Event(EventState.SELECT_PHOTO)
+    }
+
     fun onClickClearImage() {
         removedImageUri = imageUri.value
         imageUri.value = null

@@ -7,4 +7,5 @@ enum class EventState {
     ITEM_SELECTED,
     ACTION_ADD,
     START_CAMERA,
+    SELECT_PHOTO,
 }

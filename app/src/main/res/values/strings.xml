@@ -107,5 +107,6 @@
 	<string name="label_save">保存</string>
 	<string name="label_create">作成</string>
 	<string name="label_delete">削除</string>
-	<string name="label_camera">写真</string>
+	<string name="label_camera">カメラ</string>
+	<string name="label_photo">写真</string>
 </resources>

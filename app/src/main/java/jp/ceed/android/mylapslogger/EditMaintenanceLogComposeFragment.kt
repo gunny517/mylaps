@@ -34,6 +34,14 @@ class EditMaintenanceLogComposeFragment: Fragment() {
         ActivityResultContracts.TakePicture()
     ) { result -> onCameraResult(result) }
 
+    private val startSelectPhotoForResult = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri ->
+        uri?.let {
+            viewModel.imageUri.value = it
+        }
+    }
+
     private val requestCameraPermissionForResult = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { startCamera() }
@@ -53,9 +61,11 @@ class EditMaintenanceLogComposeFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.event.observe(viewLifecycleOwner) {
             viewModel.event.value?.getContentIfNotHandled()?.let {
-                when (it.name) {
-                    EventState.SAVED.name -> onSaved()
-                    EventState.START_CAMERA.name -> startCamera()
+                when (it) {
+                    EventState.SAVED -> onSaved()
+                    EventState.START_CAMERA -> startCamera()
+                    EventState.SELECT_PHOTO -> selectPhoto()
+                    else -> {}
                 }
             }
         }
@@ -105,6 +115,10 @@ class EditMaintenanceLogComposeFragment: Fragment() {
         } else {
             requestCameraPermissionForResult.launch(Manifest.permission.CAMERA)
         }
+    }
+
+    private fun selectPhoto() {
+        startSelectPhotoForResult.launch("image/*")
     }
 
     private fun onCameraResult(isSuccess: Boolean) {
