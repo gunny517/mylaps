@@ -34,7 +34,7 @@ class PracticeResultsComposeFragment : Fragment() {
             val useMenus = listOf(
                 R.id.action_session_summary,
                 R.id.action_session_info,
-                R.id.action_track_best
+                R.id.action_time_history
             )
             menu.forEach {
                 it.isVisible = useMenus.contains(it.itemId)
@@ -51,7 +51,7 @@ class PracticeResultsComposeFragment : Fragment() {
                     navigateToActivityInfo()
                     true
                 }
-                R.id.action_track_best -> {
+                R.id.action_time_history -> {
                     navigateToPracticeByTrackFragment()
                     true
                 }

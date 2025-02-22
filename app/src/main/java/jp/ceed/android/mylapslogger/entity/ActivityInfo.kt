@@ -20,4 +20,7 @@ data class ActivityInfo(
 
 	@ColumnInfo(name = "date_time")
 	var dateTime: String,
+
+	@ColumnInfo(name = "event_name")
+	var eventName: String?
 )

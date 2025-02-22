@@ -11,6 +11,11 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlinx-serialization'
     id 'kotlin-kapt'
+    id 'androidx.room'
+}
+
+room {
+    schemaDirectory "$projectDir/schemas"
 }
 
 composeCompiler {
@@ -51,7 +56,8 @@ android {
                 arguments += [
                         "room.schemaLocation"  : "$projectDir/schemas".toString(),
                         "room.incremental"     : "true",
-                        "room.expandProjection": "true"]
+                        "room.expandProjection": "true"
+                ]
             }
         }
     }
@@ -108,7 +114,6 @@ dependencies {
     implementation "com.google.dagger:hilt-android:${dagger_hilt_version}"
     ksp "com.google.dagger:hilt-android-compiler:${dagger_hilt_version}"
 
-    def room_version = "2.6.1"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     ksp "androidx.room:room-compiler:$room_version"

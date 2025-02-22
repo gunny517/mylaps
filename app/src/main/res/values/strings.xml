@@ -8,6 +8,7 @@
 	<string name="action_mixture_calculator">混合比計算機</string>
 	<string name="action_final_ratio">ファイナル計算機</string>
 	<string name="action_track_best_fragment">ベストタイム</string>
+	<string name="action_track_time_history">タイム履歴</string>
 	<string name="action_total_distance">走行距離</string>
 	<string name="action_maintenance_log">メンテナンスログ</string>
 	<string name="action_edit_maintenance_item">アイテムの編集</string>
@@ -61,6 +62,7 @@
 	<string name="label_session_info_hint_pressure">hp</string>
 	<string name="label_session_info_hint_humidity">%</string>
 	<string name="label_session_info_hint_description">備考</string>
+	<string name="label_session_info_hint_event_name">イベント名</string>
 	<string name="label_practice_result_section_session_info">セッションメモ</string>
 	<string name="label_session_info_title_average">平均タイム</string>
 	<string name="label_session_info_title_median">中間タイム</string>

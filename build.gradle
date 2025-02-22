@@ -7,6 +7,7 @@ buildscript {
 
 	ext.kotlin_version = "2.0.21"
 	ext.koin_version = '3.1.4'
+	ext.room_version = '2.6.1'
 
 	dependencies {
 		classpath 'com.android.tools.build:gradle:8.5.2'
@@ -17,12 +18,14 @@ buildscript {
 		classpath 'com.google.dagger:hilt-android-gradle-plugin:2.48'
 		classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
 		classpath 'com.google.gms:google-services:4.4.2'
+		classpath "androidx.room:androidx.room.gradle.plugin:$room_version"
 	}
 }
 
 plugins {
 	id 'com.google.devtools.ksp' version '2.0.21-1.0.27' apply false
 	id "org.jetbrains.kotlin.plugin.compose" version "2.0.0"
+	id 'androidx.room' version "$room_version" apply false
 }
 
 allprojects {

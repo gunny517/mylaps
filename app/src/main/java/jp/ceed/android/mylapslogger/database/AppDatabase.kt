@@ -1,6 +1,7 @@
 package jp.ceed.android.mylapslogger.database
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -23,7 +24,7 @@ import jp.ceed.android.mylapslogger.entity.Practice
 import jp.ceed.android.mylapslogger.entity.SessionInfo
 import jp.ceed.android.mylapslogger.entity.Track
 
-const val DATABASE_VERSION = 13
+const val DATABASE_VERSION = 14
 
 @Database(entities = [
     ActivityInfo::class,
@@ -34,6 +35,9 @@ const val DATABASE_VERSION = 13
     MaintenanceItem::class,
     MaintenanceLog::class],
     version = DATABASE_VERSION,
+    autoMigrations = [
+        AutoMigration(from = 13, to = 14)
+    ]
 )
 abstract class AppDatabase : RoomDatabase() {
 
