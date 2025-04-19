@@ -25,7 +25,7 @@ class SessionsApiDataSource @Inject constructor(
                 parameter("optimized", "false")
             }
         } catch (e: Exception) {
-            throw IOException("Activities loading failed.")
+            throw IOException(e)
         }
 
     companion object {
