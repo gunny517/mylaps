@@ -5,6 +5,7 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import jp.ceed.android.mylapslogger.initMainLooper
+import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import org.junit.jupiter.api.BeforeEach
@@ -33,6 +34,8 @@ class ActivitiesFragmentViewModelTest {
 
     private val apiRepository: ApiRepository = mockk(relaxed = true)
 
+    private val activityInfoRepository = mockk<ActivityInfoRepository>(relaxed = true)
+
     @BeforeEach
     fun beforeEach () {
         initMainLooper()
@@ -44,6 +47,7 @@ class ActivitiesFragmentViewModelTest {
         var viewModel = ActivitiesFragmentViewModel(
             apiRepository = apiRepository,
             userAccountRepository = isNotLogin,
+            activityInfoRepository = activityInfoRepository,
             exceptionUtil = mockk(),
         )
         viewModel.checkAccount()
@@ -54,6 +58,7 @@ class ActivitiesFragmentViewModelTest {
         viewModel = ActivitiesFragmentViewModel(
             apiRepository = apiRepository,
             userAccountRepository = isLogin,
+            activityInfoRepository = activityInfoRepository,
             exceptionUtil = mockk(),
         )
         viewModel.checkAccount()

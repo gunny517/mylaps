@@ -50,6 +50,7 @@ class ActivityInfoFragmentViewModelTest {
             fuelConsumption = 1.2F,
             trackId = (savedStateHandle.get<Int>("trackId") ?: 0),
             dateTime = (savedStateHandle.get<String>("dateTime") ?: ""),
+            eventName = "2024 APG Rd.6"
         )
     }
 
@@ -84,6 +85,7 @@ class ActivityInfoFragmentViewModelTest {
         // DataBaseから取得した値がフィールドにセットされる
         assertThat(viewModel.description.value).isEqualTo("This is description")
         assertThat(viewModel.fuelConsumption.value).isEqualTo("1.2")
+        assertThat(viewModel.eventName.value).isEqualTo("2024 APG Rd.6")
 
         // 更新モードになっている
         assertThat(viewModel.isUpdate).isEqualTo(true)
@@ -100,6 +102,7 @@ class ActivityInfoFragmentViewModelTest {
                     fuelConsumption = 1.5F,
                     trackId = 111,
                     dateTime = "2022-01-01",
+                    eventName = "2024 APG Rd.6"
                 )
             )
         }
@@ -129,6 +132,7 @@ class ActivityInfoFragmentViewModelTest {
         // 保存が実行されると挿入が実行される
         viewModel.description.value = "This is input value"
         viewModel.fuelConsumption.value = "1.4"
+        viewModel.eventName.value = "insert event name"
         viewModel.saveSessionInfo()
         coVerify {
             viewModel.activityInfoRepository.insert(
@@ -137,7 +141,8 @@ class ActivityInfoFragmentViewModelTest {
                     description = "This is input value",
                     fuelConsumption = 1.4F,
                     trackId = 111,
-                    dateTime = "2022-01-01"
+                    dateTime = "2022-01-01",
+                    eventName = "insert event name",
                 )
             )
         }

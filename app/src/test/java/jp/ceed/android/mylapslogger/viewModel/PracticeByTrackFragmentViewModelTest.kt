@@ -7,6 +7,7 @@ import io.mockk.every
 import io.mockk.mockk
 import jp.ceed.android.mylapslogger.entity.PracticeTrack
 import jp.ceed.android.mylapslogger.initMainLooper
+import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
 import jp.ceed.android.mylapslogger.repository.PracticeTrackRepository
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
@@ -30,9 +31,11 @@ class PracticeByTrackFragmentViewModelTest {
 
     private val practiceTrackRepository: PracticeTrackRepository = mockk(relaxed = true) {
         coEvery {
-            getPracticeListByTrack(any(), true)
+            getPracticeListByTrack(any(), false)
         } returns listOf(listItem)
     }
+
+    private val activityInfoTrackRepository = mockk<ActivityInfoRepository>(relaxed = true)
 
     private lateinit var viewModel: PracticeByTrackFragmentViewModel
 
@@ -45,6 +48,7 @@ class PracticeByTrackFragmentViewModelTest {
     fun setUp() {
         viewModel = PracticeByTrackFragmentViewModel(
             savedStateHandle = savedStateHandle,
+            activityInfoRepository = activityInfoTrackRepository,
             practiceTrackRepository = practiceTrackRepository,
         )
     }

@@ -83,7 +83,8 @@
 
 		<argument
 			android:name="sessionNo"
-			app:argType="integer"/>
+			app:argType="integer"
+			app:nullable="false"/>
 
 		<action
 			android:id="@+id/goPracticeSummaryFragment"
@@ -183,7 +184,8 @@
 
 		<argument
 			android:name="activityId"
-			app:argType="long"/>
+			app:argType="long"
+			app:nullable="false"/>
 
 		<argument
 			android:name="sessionDate"

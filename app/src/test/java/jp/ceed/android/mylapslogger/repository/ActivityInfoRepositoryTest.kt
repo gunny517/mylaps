@@ -32,7 +32,7 @@ class ActivityInfoRepositoryTest {
 
     private val repository: ActivityInfoRepository = ActivityInfoRepository(dao, Dispatchers.Main)
 
-    private val activityInfo = ActivityInfo(2, "", 3.3f, 4, "date_time")
+    private val activityInfo = ActivityInfo(2, "", 3.3f, 4, "date_time", "event_name")
 
     @BeforeEach
     fun beforeEach() {
