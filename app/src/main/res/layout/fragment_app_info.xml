@@ -128,10 +128,31 @@
             android:onCheckedChanged="@{(_, checked) -> viewModel.saveShowSpeedBar(checked)}"/>
 
         <TextView
+            android:id="@+id/showSectorTimeTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_m"
+            android:layout_marginStart="@dimen/padding_l"
+            app:layout_constraintTop_toBottomOf="@id/showSpeedBarTitleTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/text_size_ms"
+            android:text="@string/label_app_info_title_show_sector_time"/>
+
+        <CheckBox
+            android:id="@+id/showSectorTimeCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/showSectorTimeTitleTextView"
+            app:layout_constraintTop_toTopOf="@id/showSectorTimeTitleTextView"
+            app:layout_constraintBottom_toBottomOf="@id/showSectorTimeTitleTextView"
+            android:checked="@{viewModel.showSectorTime}"
+            android:onCheckedChanged="@{(_, checked) -> viewModel.saveShowSectorTime(checked)}"/>
+
+        <TextView
             android:id="@+id/debugInfoTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/showSpeedBarTitleTextView"
+            app:layout_constraintTop_toBottomOf="@id/showSectorTimeTitleTextView"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/padding_xl"
             android:layout_marginBottom="@dimen/padding_l"

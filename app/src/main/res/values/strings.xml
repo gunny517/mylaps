@@ -78,6 +78,7 @@
 	<string name="label_use_compose">コンポーズを使用</string>
 	<string name="label_app_info_title_allow_session_auto_loading">セッションを自動更新</string>
 	<string name="label_app_info_title_show_speed_bar">ラップタイムの下にグラフバーを表示</string>
+	<string name="label_app_info_title_show_sector_time">セクタータイムを表示</string>
 	<string name="label_app_info_title_settings">設定</string>
 	<string name="label_app_info_title_debug_info">デバッグ機能</string>
 	<string name="label_show_error_log">エラーログを表示</string>
