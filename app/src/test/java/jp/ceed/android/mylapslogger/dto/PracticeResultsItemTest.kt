@@ -33,7 +33,7 @@ class PracticeResultsItemTest {
         assertThat(
             PracticeResultsItem.Lap().apply {
                 duration = "57.190"
-                rawSectorValues = listOf("29.119", "28.070")
+                rawSectorValues = listOf("29.120", "28.070")
             }.isValidSectorTime()
         ).isEqualTo(true)
     }
