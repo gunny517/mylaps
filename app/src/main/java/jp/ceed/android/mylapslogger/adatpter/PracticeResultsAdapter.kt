@@ -12,11 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.android.mylapslogger.BR
 import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.databinding.LaptimeListLapBinding
-import jp.ceed.android.mylapslogger.databinding.LaptimeListLapWithSectorBinding
 import jp.ceed.android.mylapslogger.databinding.LaptimeListSectionBinding
 import jp.ceed.android.mylapslogger.databinding.SummaryListLapBinding
 import jp.ceed.android.mylapslogger.dto.PracticeResultsItem
-import jp.ceed.android.mylapslogger.util.AppSettings
 
 class PracticeResultsAdapter(
     context: Context,
@@ -31,10 +29,6 @@ class PracticeResultsAdapter(
         View.VISIBLE
     }
 
-    private val showSectorTime: Boolean by lazy {
-        AppSettings(context).isShowSectorTime()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when(viewType){
             VIEW_TYPE_SECTION -> {
@@ -42,11 +36,7 @@ class PracticeResultsAdapter(
                 ViewHolder(binding.root)
             }
             VIEW_TYPE_LAP -> {
-                val binding = if (showSectorTime) {
-                    DataBindingUtil.inflate(inflater, R.layout.laptime_list_lap_with_sector, parent, false) as LaptimeListLapWithSectorBinding
-                } else {
-                    DataBindingUtil.inflate(inflater, R.layout.laptime_list_lap, parent, false) as LaptimeListLapBinding
-                }
+                val binding: LaptimeListLapBinding = DataBindingUtil.inflate(inflater, R.layout.laptime_list_lap, parent, false)
                 ViewHolder(binding.root)
             }
             else -> {

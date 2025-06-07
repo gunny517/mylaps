@@ -36,9 +36,7 @@ class SessionDataCreator @Inject constructor(
                 lapList.add(item)
             }
         }
-        if (AppSettings(context).isShowSectorTime()) {
-            calculateSectorData(lapList, sessions.sections.size)
-        }
+        calculateSectorData(lapList, sessions.sections.size)
         return lapList
     }
 

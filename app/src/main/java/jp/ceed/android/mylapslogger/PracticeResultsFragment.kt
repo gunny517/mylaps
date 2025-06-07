@@ -65,7 +65,6 @@ class PracticeResultsFragment : Fragment() {
                 else -> false
             }
         }
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

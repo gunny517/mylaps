@@ -38,13 +38,6 @@ class AppSettings @Inject constructor (
         getPreferences().edit { putBoolean(USE_COMPOSE, useCompose) }
     }
 
-    fun isShowSectorTime(): Boolean =
-        getPreferences().getBoolean(SHOW_SECTOR_TIME, false)
-
-    fun saveShowSectorTIme(showSectorTime: Boolean) {
-        getPreferences().edit { putBoolean(SHOW_SECTOR_TIME, showSectorTime) }
-    }
-
     private fun getPreferences(): SharedPreferences{
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
@@ -55,7 +48,6 @@ class AppSettings @Inject constructor (
         const val SHOW_SPEED_BAR = "SHOW_SPEED_BAR"
         const val ALLOW_SESSION_AUTO_LOADING = "ALLOW_SESSION_AUTO_LOADING"
         const val USE_COMPOSE = "USE_COMPOSE"
-        const val SHOW_SECTOR_TIME = "SHOW_SECTOR_TIME"
     }
 
 }
