@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.entity.Event
 import jp.ceed.android.mylapslogger.model.ActivitiesItem
+import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
 import jp.ceed.android.mylapslogger.util.ExceptionUtil
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class ActivitiesFragmentViewModel @Inject constructor (
     var apiRepository: ApiRepository,
     var userAccountRepository: UserAccountRepository,
+    var activityInfoRepository: ActivityInfoRepository,
     var exceptionUtil: ExceptionUtil,
 ) : ViewModel() {
 
@@ -43,23 +45,31 @@ class ActivitiesFragmentViewModel @Inject constructor (
             event.value = Event(EventState.GO_TO_LOGIN)
         } else {
             event.value = Event(EventState.NONE)
-            callActivitiesRequest()
+            loadActivities()
         }
     }
 
-    private fun callActivitiesRequest() {
-        userId?.let {
+    private fun loadActivities() {
+        userId?.let { userId ->
             viewModelScope.launch {
                 showProgress.value = true
                 activities.value = emptyList()
                 try {
-                    activities.value = apiRepository.getActivities(it)
+                    val items = apiRepository.getActivities(userId)
+                    putEventName(items)
+                    activities.value = items
                     event.value = Event(EventState.START_PRACTICE_SERVICE)
                 } catch (e: Exception) {
                     exceptionUtil.save(e, viewModelScope)
                 }
                 showProgress.value = false
             }
+        }
+    }
+
+    private suspend fun putEventName(activitiesItems: List<ActivitiesItem>) {
+        activitiesItems.forEach { item ->
+            item.eventName = activityInfoRepository.findById(item.id)?.eventName
         }
     }
 

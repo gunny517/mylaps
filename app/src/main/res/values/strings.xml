@@ -8,7 +8,10 @@
 	<string name="action_mixture_calculator">混合比計算機</string>
 	<string name="action_final_ratio">ファイナル計算機</string>
 	<string name="action_track_best_fragment">ベストタイム</string>
+	<string name="action_track_time_history">タイム履歴</string>
 	<string name="action_total_distance">走行距離</string>
+	<string name="action_maintenance_log">メンテナンスログ</string>
+	<string name="action_edit_maintenance_item">アイテムの編集</string>
 	<!-- Strings used for fragments for navigation -->
 	<string name="activities_fragment_label">走行日一覧</string>
 	<string name="login_fragment_label">ログイン</string>
@@ -59,6 +62,7 @@
 	<string name="label_session_info_hint_pressure">hp</string>
 	<string name="label_session_info_hint_humidity">%</string>
 	<string name="label_session_info_hint_description">備考</string>
+	<string name="label_session_info_hint_event_name">イベント名</string>
 	<string name="label_practice_result_section_session_info">セッションメモ</string>
 	<string name="label_session_info_title_average">平均タイム</string>
 	<string name="label_session_info_title_median">中間タイム</string>
@@ -71,8 +75,10 @@
 	<string name="label_session_list_title_lap_count">周回数</string>
 	<string name="label_app_info_title_app_version">アプリバージョン：</string>
 	<string name="label_app_info_title_show_practice_results_as_separate">セッションを分割して表示</string>
+	<string name="label_use_compose">コンポーズを使用</string>
 	<string name="label_app_info_title_allow_session_auto_loading">セッションを自動更新</string>
 	<string name="label_app_info_title_show_speed_bar">ラップタイムの下にグラフバーを表示</string>
+	<string name="label_app_info_title_show_sector_time">セクタータイムを表示</string>
 	<string name="label_app_info_title_settings">設定</string>
 	<string name="label_app_info_title_debug_info">デバッグ機能</string>
 	<string name="label_show_error_log">エラーログを表示</string>
@@ -96,4 +102,14 @@
 	<string name="drive_max">ドライブ：上限</string>
 	<string name="driven_min">ドリブン：下限</string>
 	<string name="driven_max">ドリブン：上限</string>
+	<string name="maintenance_log_issue_date">実施日</string>
+	<string name="maintenance_item">メンテナンス対象</string>
+	<string name="running_time">ランニングタイム</string>
+	<string name="maintenance_log_description">詳細</string>
+	<string name="label_ok">OK</string>
+	<string name="label_save">保存</string>
+	<string name="label_create">作成</string>
+	<string name="label_delete">削除</string>
+	<string name="label_camera">カメラ</string>
+	<string name="label_photo">写真</string>
 </resources>

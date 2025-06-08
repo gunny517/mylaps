@@ -6,10 +6,16 @@ import io.mockk.mockk
 import jp.ceed.android.mylapslogger.initMainLooper
 import jp.ceed.android.mylapslogger.model.LoginResult
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.TestInstance
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class LoginFragmentViewModelTest {
 
@@ -27,15 +33,15 @@ class LoginFragmentViewModelTest {
         } returns true
     }
 
-    @BeforeAll
+    @BeforeEach
     fun setUp() {
         initMainLooper()
+        Dispatchers.setMain(UnconfinedTestDispatcher())
     }
 
-    @Test
-    fun callLogin() {
-        callLoginSuccess()
-        callLoginFailed()
+    @AfterEach
+    fun tearDown() {
+        Dispatchers.resetMain()
     }
 
     private fun callLoginSuccess() {

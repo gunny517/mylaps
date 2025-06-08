@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import jp.ceed.android.mylapslogger.adatpter.PracticeByTrackAdapter
 import jp.ceed.android.mylapslogger.databinding.FragmentPracticeByTrackBinding
-import jp.ceed.android.mylapslogger.entity.PracticeTrack
+import jp.ceed.android.mylapslogger.model.PracticeByTrack
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.viewModel.PracticeByTrackFragmentViewModel
 
@@ -60,7 +60,7 @@ class PracticeByTrackFragment: Fragment() {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_practice_by_track, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -80,17 +80,17 @@ class PracticeByTrackFragment: Fragment() {
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
         viewModel.practiceTrackList.observe(viewLifecycleOwner){
             adapter.submitList(it)
-            setActionbarTitle(viewModel.practiceTrackList.value?.get(0))
+            setActionbarTitle(viewModel.practiceTrackList.value?.first())
         }
     }
 
-    private fun setActionbarTitle(practiceTrack: PracticeTrack?) {
-        practiceTrack?.let {
+    private fun setActionbarTitle(model: PracticeByTrack?) {
+        model?.let {
             (activity as? AppCompatActivity)?.supportActionBar?.title = it.trackName
         }
     }
 
-    private fun navigateToPracticeResults(practiceTrack: PracticeTrack) {
+    private fun navigateToPracticeResults(practiceTrack: PracticeByTrack) {
         findNavController().navigate(
             if(AppSettings(requireContext()).isShowPracticeResultsAsSeparate()){
                 PracticeByTrackFragmentDirections.goToSessionListFragment(

@@ -22,6 +22,8 @@ class ActivityInfoFragmentViewModel @Inject constructor(
 
     var description: MutableLiveData<String?> = MutableLiveData()
 
+    var eventName: MutableLiveData<String?> = MutableLiveData()
+
     var fuelConsumption: MutableLiveData<String?> = MutableLiveData()
 
     var activityId: Long = savedStateHandle.get<Long>("activityId") ?: throw IllegalStateException("Should have activityId")
@@ -59,7 +61,8 @@ class ActivityInfoFragmentViewModel @Inject constructor(
     private fun onLoadActivityInfo(activityInfo: ActivityInfo?){
         activityInfo?.let {
             description.value = activityInfo.description
-            fuelConsumption.value = activityInfo.fuelConsumption.toString()
+            eventName.value = activityInfo.eventName
+            fuelConsumption.value = activityInfo.fuelConsumption?.toString()
             isUpdate = true
         }
     }
@@ -71,6 +74,7 @@ class ActivityInfoFragmentViewModel @Inject constructor(
             fuelConsumption = fuelConsumption.value?.toFloat(),
             trackId = trackId,
             dateTime = dateTime,
+            eventName = eventName.value
         )
         viewModelScope.launch {
             if(isUpdate){

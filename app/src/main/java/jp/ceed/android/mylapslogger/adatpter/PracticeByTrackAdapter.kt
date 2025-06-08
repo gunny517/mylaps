@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.android.mylapslogger.BR
 import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.databinding.PracticeByTrackListItemBinding
-import jp.ceed.android.mylapslogger.entity.PracticeTrack
+import jp.ceed.android.mylapslogger.model.PracticeByTrack
 
 class PracticeByTrackAdapter(
     context: Context,
-    private val onClick: (PracticeTrack) -> Unit,
-): ListAdapter<PracticeTrack, PracticeByTrackAdapter.ViewHolder>(diffCallback) {
+    private val onClick: (PracticeByTrack) -> Unit,
+): ListAdapter<PracticeByTrack, PracticeByTrackAdapter.ViewHolder>(diffCallback) {
 
     val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -40,15 +40,15 @@ class PracticeByTrackAdapter(
     }
 
     companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<PracticeTrack>() {
+        val diffCallback = object : DiffUtil.ItemCallback<PracticeByTrack>() {
             override fun areItemsTheSame(
-                oldItem: PracticeTrack,
-                newItem: PracticeTrack
+                oldItem: PracticeByTrack,
+                newItem: PracticeByTrack
             ): Boolean = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: PracticeTrack,
-                newItem: PracticeTrack
+                oldItem: PracticeByTrack,
+                newItem: PracticeByTrack
             ): Boolean = oldItem == newItem
 
         }

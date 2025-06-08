@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/compose_navigation"
+	app:startDestination="@id/ActivitiesComposeFragment">
+
+	<fragment
+		android:id="@+id/ActivitiesComposeFragment"
+		android:name="jp.ceed.android.mylapslogger.ActivitiesComposeFragment"
+		android:label="@string/activities_fragment_label">
+
+		<action
+			android:id="@+id/goToLoginFragment"
+			app:destination="@id/LoginFragment" />
+
+		<action
+			android:id="@+id/goToPracticeResultsFragment"
+			app:destination="@id/PracticeResultsComposeFragment"/>
+
+		<action
+			android:id="@+id/goToUserInfoFragment"
+			app:destination="@id/UserInfoFragment"/>
+
+		<action
+			android:id="@+id/goToAppInfoFragment"
+			app:destination="@id/AppInfoFragment"/>
+
+		<action
+			android:id="@+id/goToSessionListFragment"
+			app:destination="@id/SessionListComposeFragment"/>
+
+		<action
+			android:id="@+id/goToTrackBestFragment"
+			app:destination="@id/TrackBestFragment"/>
+
+		<action
+			android:id="@+id/goToTotalDistanceFragment"
+			app:destination="@id/TotalDistanceFragment"/>
+
+		<action
+			android:id="@+id/goToFuelConsumptionListFragment"
+			app:destination="@id/FuelConsumptionListFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/LoginFragment"
+		android:name="jp.ceed.android.mylapslogger.LoginFragment"
+		android:label="@string/login_fragment_label"
+		tools:layout="@layout/fragment_login">
+
+		<action
+			android:id="@+id/goToActivitiesFragment"
+			app:destination="@id/ActivitiesFragment" />
+	</fragment>
+
+	<fragment
+		android:id="@+id/PracticeResultsComposeFragment"
+		android:name="jp.ceed.android.mylapslogger.PracticeResultsComposeFragment"
+		android:label="{sessionDate}">
+
+		<argument
+			android:name="activityId"
+			app:argType="long"
+			app:nullable="false"/>
+
+		<argument
+			android:name="sessionDate"
+			app:argType="string"
+			app:nullable="true"/>
+
+		<argument
+			android:name="trackId"
+			app:argType="integer"
+			app:nullable="false"/>
+
+		<argument
+			android:name="trackLength"
+			app:argType="integer"
+			app:nullable="false"/>
+
+		<argument
+			android:name="sessionNo"
+			app:argType="integer"/>
+
+		<action
+			android:id="@+id/goPracticeSummaryFragment"
+			app:destination="@id/PracticeSummaryFragment"/>
+
+		<action
+			android:id="@+id/goToActivityInfoFragment"
+			app:destination="@id/ActivityInfoFragment"/>
+
+		<action
+			android:id="@+id/goToSessionInfoFragment"
+			app:destination="@id/SessionInfoFragment"/>
+
+		<action
+			android:id="@+id/goToPracticeByTrackFragment"
+			app:destination="@id/PracticeByTrackFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/PracticeSummaryFragment"
+		android:name="jp.ceed.android.mylapslogger.PracticeSummaryFragment"
+		tools:layout="@layout/fragment_practice_summary">
+
+		<argument
+			android:name="params"
+			app:argType="jp.ceed.android.mylapslogger.args.PracticeSummaryFragmentParams"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/UserInfoFragment"
+		android:name="jp.ceed.android.mylapslogger.UserInfoFragment"
+		android:label="@string/label_user_info_fragment"
+		tools:layout="@layout/fragment_user_info"/>
+
+	<fragment
+		android:id="@+id/ActivityInfoFragment"
+		android:name="jp.ceed.android.mylapslogger.ActivityInfoFragment"
+		tools:layout="@layout/fragment_activity_info">
+
+		<argument
+			android:name="activityId"
+			app:argType="long"/>
+
+		<argument
+			android:name="trackId"
+			app:argType="integer"/>
+
+		<argument
+			android:name="dateTime"
+			app:argType="string"
+			app:nullable="true"/>
+
+		<argument
+			android:name="bestLap"
+			app:argType="string"/>
+
+		<argument
+			android:name="totalLap"
+			app:argType="string"/>
+
+		<argument
+			android:name="totalTime"
+			app:argType="string"/>
+
+		<argument
+			android:name="totalDistance"
+			app:argType="string"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/SessionInfoFragment"
+		android:name="jp.ceed.android.mylapslogger.SessionInfoFragment"
+		android:label="{sessionDate} {title}">
+
+		<argument
+			android:name="params"
+			app:argType="jp.ceed.android.mylapslogger.args.SessionInfoFragmentParams"/>
+
+		<argument
+			android:name="sessionDate"
+			app:argType="string"
+			app:nullable="true"/>
+
+		<argument
+			android:name="title"
+			app:argType="string"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/SessionListComposeFragment"
+		android:name="jp.ceed.android.mylapslogger.SessionListComposeFragment"
+		android:label="{sessionDate}">
+
+		<action
+			android:id="@+id/goToPracticeResultsFragment"
+			app:destination="@id/PracticeResultsComposeFragment"/>
+
+		<argument
+			android:name="activityId"
+			app:argType="long"/>
+
+		<argument
+			android:name="sessionDate"
+			app:argType="string"
+			app:nullable="true"/>
+
+		<argument
+			android:name="trackId"
+			app:argType="integer"
+			app:nullable="false"/>
+
+		<argument
+			android:name="trackLength"
+			app:argType="integer"
+			app:nullable="false"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/AppInfoFragment"
+		android:name="jp.ceed.android.mylapslogger.AppInfoFragment"
+		android:label="@string/label_app_info_fragment">
+
+		<action
+			android:id="@+id/goToErrorLogFragment"
+			app:destination="@id/ErrorLogFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/TrackBestFragment"
+		android:name="jp.ceed.android.mylapslogger.TrackBestComposeFragment"
+		android:label="@string/label_track_best_fragment">
+
+		<action
+			android:id="@+id/goToPracticeResultFragment"
+			app:destination="@id/PracticeResultsComposeFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/TotalDistanceFragment"
+		android:name="jp.ceed.android.mylapslogger.TotalDistanceFragment"
+		android:label="@string/label_total_distance">
+
+		<action
+			android:id="@+id/goToPracticeByTrackFragment"
+			app:destination="@id/PracticeByTrackFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/PracticeByTrackFragment"
+		android:name="jp.ceed.android.mylapslogger.PracticeByTrackFragment">
+
+		<argument
+			android:name="trackId"
+			app:argType="integer"/>
+
+		<action
+			android:id="@+id/goToPracticeResultFragment"
+			app:destination="@id/PracticeResultsFragment"/>
+
+		<action
+			android:id="@+id/goToSessionListFragment"
+			app:destination="@id/SessionListFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/ErrorLogFragment"
+		android:name="jp.ceed.android.mylapslogger.ErrorLogFragment"
+		android:label="@string/label_error_log"/>
+
+	<fragment
+		android:id="@+id/FuelConsumptionListFragment"
+		android:name="jp.ceed.android.mylapslogger.FuelConsumptionListFragment"
+		android:label="@string/label_fuel_consumption_ist"/>
+
+	<fragment
+		android:id="@+id/SpeedCalculatorFragment"
+		android:name="jp.ceed.android.mylapslogger.SpeedCalculatorFragment"
+		android:label="@string/action_speed_calculator"/>
+
+	<fragment
+		android:id="@+id/FinalRatiFragment"
+		android:name="jp.ceed.kart.settings.ui.data.fragment.FinalRatioFragment"
+		android:label="@string/action_final_ratio"/>
+
+	<fragment
+		android:id="@+id/MixtureCalculatorFragment"
+		android:name="jp.ceed.android.mylapslogger.MixtureCalculatorFragment"
+		android:label="@string/action_mixture_calculator"/>
+</navigation>

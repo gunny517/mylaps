@@ -7,30 +7,22 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
 class TrackRepository @Inject constructor(
     private val trackDao: TrackDao,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    suspend fun saveAll(activities: List<ActivitiesItem>) =
+    suspend fun saveAll(activities: List<ActivitiesItem>, created: Long) =
         withContext(dispatcher){
-            val trackIdList = getTrackIdList()
-            for(entry in activities){
-                if(trackIdList.contains(entry.locationId)){
-                    continue
-                }
-                trackDao.save(Track(entry))
+            activities.filter { getTrackIdList().contains(it.locationId).not() }.forEach {
+                trackDao.save(Track(it, created))
             }
         }
 
     private suspend fun getTrackIdList(): List<Int> =
         withContext(dispatcher){
-            val list: MutableList<Int> = mutableListOf()
-            val trackList = trackDao.findAll()
-            for(entry in trackList){
-                list.add(entry.id)
-            }
-            list
+            trackDao.findAll().map { it.id }
         }
 }
 

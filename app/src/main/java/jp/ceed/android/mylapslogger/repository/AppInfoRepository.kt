@@ -11,6 +11,6 @@ class AppInfoRepository @Inject constructor (@ApplicationContext val context: Co
 
     fun getVersionName(): String = application.packageManager.getPackageInfo(
         application.packageName, 0
-    ).versionName
+    ).versionName ?: ""
 
 }

@@ -6,9 +6,11 @@
 	<color name="black">#FF000000</color>
 	<color name="white">#FFFFFFFF</color>
 	<color name="bg_lap_list_section">#cccccc</color>
-	<color name="bg_lap_list_report_best">#3F2168</color>
-	<color name="bg_lap_list_session_best">#21631E</color>
+	<color name="bg_lap_list_report_best">#483859</color>
+	<color name="bg_lap_list_session_best">#324E30</color>
 	<color name="text_default">#ffffff</color>
+	<color name="text_best">#C19FFF</color>
+	<color name="text_un_focused">#999999</color>
 	<color name="text_inverted">#333333</color>
 	<color name="text_disabled">#666666</color>
 	<color name="text_sub_item">#999999</color>
@@ -16,8 +18,11 @@
 	<color name="text_slower">#EC8275</color>
 	<color name="text_menu">@color/white</color>
 	<color name="text_session_list_best_lap">#9B54FD</color>
+	<color name="text_water_mark">#66666666</color>
 	<color name="text_link">#03A9F4</color>
 	<color name="bg_lap_list_shown">#666666</color>
 	<color name="window_back_ground">#383838</color>
-	<color name="speed_bar">#4F2788</color>
+	<color name="speed_bar">#302B38</color>
+	<color name="divider">#666666</color>
+	<color name="tab_background">#484848</color>
 </resources>

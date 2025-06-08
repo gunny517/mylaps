@@ -17,7 +17,7 @@
 
 		<action
 			android:id="@+id/goToPracticeResultsFragment"
-			app:destination="@id/PracticeResultFragment"/>
+			app:destination="@id/PracticeResultsFragment"/>
 
 		<action
 			android:id="@+id/goToUserInfoFragment"
@@ -56,7 +56,7 @@
 	</fragment>
 
 	<fragment
-		android:id="@+id/PracticeResultFragment"
+		android:id="@+id/PracticeResultsFragment"
 		android:name="jp.ceed.android.mylapslogger.PracticeResultsFragment"
 		android:label="{sessionDate}"
 		tools:layout="@layout/fragment_practice_result">
@@ -83,7 +83,8 @@
 
 		<argument
 			android:name="sessionNo"
-			app:argType="integer"/>
+			app:argType="integer"
+			app:nullable="false"/>
 
 		<action
 			android:id="@+id/goPracticeSummaryFragment"
@@ -179,11 +180,12 @@
 
 		<action
 			android:id="@+id/goToPracticeResultFragment"
-			app:destination="@id/PracticeResultFragment"/>
+			app:destination="@id/PracticeResultsFragment"/>
 
 		<argument
 			android:name="activityId"
-			app:argType="long"/>
+			app:argType="long"
+			app:nullable="false"/>
 
 		<argument
 			android:name="sessionDate"
@@ -218,7 +220,7 @@
 
 		<action
 			android:id="@+id/goToPracticeResultFragment"
-			app:destination="@id/PracticeResultFragment"/>
+			app:destination="@id/PracticeResultsFragment"/>
 	</fragment>
 
 	<fragment
@@ -241,7 +243,7 @@
 
 		<action
 			android:id="@+id/goToPracticeResultFragment"
-			app:destination="@id/PracticeResultFragment"/>
+			app:destination="@id/PracticeResultsFragment"/>
 
 		<action
 			android:id="@+id/goToSessionListFragment"
@@ -272,4 +274,34 @@
 		android:id="@+id/MixtureCalculatorFragment"
 		android:name="jp.ceed.android.mylapslogger.MixtureCalculatorFragment"
 		android:label="@string/action_mixture_calculator"/>
+
+	<fragment
+		android:id="@+id/EditMaintenanceItemComposeFragment"
+		android:name="jp.ceed.android.mylapslogger.EditMaintenanceItemComposeFragment"
+		android:label=""/>
+
+	<fragment
+		android:id="@+id/MaintenanceLogComposeFragment"
+		android:name="jp.ceed.android.mylapslogger.MaintenanceLogComposeFragment"
+		android:label="">
+
+		<action
+			android:id="@+id/maintenanceLogToMaintenanceItem"
+			app:destination="@id/EditMaintenanceItemComposeFragment"/>
+
+		<action
+			android:id="@+id/maintenanceLogToEditMaintenanceLog"
+			app:destination="@id/EditMaintenanceLogComposeFragment"/>
+	</fragment>
+
+	<fragment
+		android:id="@+id/EditMaintenanceLogComposeFragment"
+		android:name="jp.ceed.android.mylapslogger.EditMaintenanceLogComposeFragment">
+
+		<argument
+			android:name="maintenance_log_id"
+			app:argType="integer"
+			android:defaultValue="0"/>
+	</fragment>
+
 </navigation>

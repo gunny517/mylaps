@@ -5,12 +5,20 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import jp.ceed.android.mylapslogger.initMainLooper
+import jp.ceed.android.mylapslogger.repository.ActivityInfoRepository
 import jp.ceed.android.mylapslogger.repository.ApiRepository
 import jp.ceed.android.mylapslogger.repository.UserAccountRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class ActivitiesFragmentViewModelTest {
 
     private val isLogin: UserAccountRepository = mockk(relaxed = true) {
@@ -33,9 +41,17 @@ class ActivitiesFragmentViewModelTest {
 
     private val apiRepository: ApiRepository = mockk(relaxed = true)
 
+    private val activityInfoRepository = mockk<ActivityInfoRepository>(relaxed = true)
+
     @BeforeEach
-    fun beforeEach () {
+    fun setUp() {
         initMainLooper()
+        Dispatchers.setMain(UnconfinedTestDispatcher())
+    }
+
+    @AfterEach
+    fun tearDown() {
+        Dispatchers.resetMain()
     }
 
     @Test
@@ -44,6 +60,7 @@ class ActivitiesFragmentViewModelTest {
         var viewModel = ActivitiesFragmentViewModel(
             apiRepository = apiRepository,
             userAccountRepository = isNotLogin,
+            activityInfoRepository = activityInfoRepository,
             exceptionUtil = mockk(),
         )
         viewModel.checkAccount()
@@ -54,6 +71,7 @@ class ActivitiesFragmentViewModelTest {
         viewModel = ActivitiesFragmentViewModel(
             apiRepository = apiRepository,
             userAccountRepository = isLogin,
+            activityInfoRepository = activityInfoRepository,
             exceptionUtil = mockk(),
         )
         viewModel.checkAccount()

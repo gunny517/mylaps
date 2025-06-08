@@ -13,7 +13,8 @@ data class ActivitiesItem(
     val startTime: String,
     val endTimeRaw: String,
     val place: String,
-    val trackLength: Int
+    val trackLength: Int,
+    var eventName: String? = null
 ): Parcelable {
     constructor(dto: Activities.ActivityDto): this (
         id = dto.id,
@@ -24,4 +25,6 @@ data class ActivitiesItem(
         place = dto.location.name,
         trackLength = dto.location.trackLength
     )
+
+    fun displayTimeOrEmpty(): String = displayTime ?: ""
 }

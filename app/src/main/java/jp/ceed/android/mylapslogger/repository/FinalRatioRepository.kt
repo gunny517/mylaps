@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jp.ceed.android.mylapslogger.dto.FinalRatioDto
 import jp.ceed.android.mylapslogger.model.FinalRatioResult
+import java.util.Locale
 import javax.inject.Inject
 
 class FinalRatioRepository @Inject constructor (
@@ -42,7 +43,7 @@ class FinalRatioRepository @Inject constructor (
             list.add(driven.toString())
             for(drive in driveList){
                 val ratio: Float = driven.toFloat() / drive.toFloat()
-                list.add(String.format("%.2f", ratio))
+                list.add(String.format(Locale.JAPAN, "%.2f", ratio))
             }
         }
         driveList.add(0, "")

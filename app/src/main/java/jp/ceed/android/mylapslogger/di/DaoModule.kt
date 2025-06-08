@@ -6,7 +6,16 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import jp.ceed.android.mylapslogger.dao.*
+import jp.ceed.android.mylapslogger.dao.ActivityInfoDao
+import jp.ceed.android.mylapslogger.dao.ActivityInfoTrackDao
+import jp.ceed.android.mylapslogger.dao.ErrorLogDao
+import jp.ceed.android.mylapslogger.dao.MaintenanceItemDao
+import jp.ceed.android.mylapslogger.dao.MaintenanceLogDao
+import jp.ceed.android.mylapslogger.dao.PracticeDao
+import jp.ceed.android.mylapslogger.dao.PracticeTrackDao
+import jp.ceed.android.mylapslogger.dao.PreferenceDao
+import jp.ceed.android.mylapslogger.dao.SessionInfoDao
+import jp.ceed.android.mylapslogger.dao.TrackDao
 import jp.ceed.android.mylapslogger.database.AppDatabase
 
 @Module
@@ -51,5 +60,15 @@ object DaoModule {
     @Provides
     fun bindsTrackDao(@ApplicationContext context: Context): TrackDao {
         return AppDatabase.getInstance(context).trackDao()
+    }
+
+    @Provides
+    fun bindMaintenanceLogDao(@ApplicationContext context: Context): MaintenanceLogDao {
+        return AppDatabase.getInstance(context).maintenanceLogDao()
+    }
+
+    @Provides
+    fun bindMaintenanceItemDao(@ApplicationContext context: Context): MaintenanceItemDao {
+        return AppDatabase.getInstance(context).maintenanceItemDao()
     }
 }

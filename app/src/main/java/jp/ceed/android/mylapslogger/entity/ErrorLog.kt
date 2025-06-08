@@ -15,9 +15,9 @@ data class ErrorLog(
 
     val created: Long
 ){
-    constructor(_stackTrace: String?) :this(
+    constructor(stackTrace: String?) :this(
         0,
-        _stackTrace ?: UNKNOWN_ERROR,
+        stackTrace ?: UNKNOWN_ERROR,
         System.currentTimeMillis()
     )
 

@@ -9,6 +9,8 @@
 	<color name="bg_lap_list_report_best">#c0a1e9</color>
 	<color name="bg_lap_list_session_best">#b1e7ad</color>
 	<color name="text_default">#333333</color>
+	<color name="text_best">#6931CA</color>
+	<color name="text_un_focused">#484848</color>
 	<color name="text_inverted">#ffffff</color>
 	<color name="text_disabled">#999999</color>
 	<color name="text_sub_item">#666666</color>
@@ -17,8 +19,10 @@
 	<color name="text_menu">@color/black</color>
 	<color name="text_link">#03A9F4</color>
 	<color name="text_session_list_best_lap">#5801D3</color>
+	<color name="text_water_mark">#66666666</color>
 	<color name="bg_lap_list_shown">#cccccc</color>
 	<color name="window_back_ground">#ffffff</color>
 	<color name="speed_bar">#695AAC</color>
 	<color name="divider">#cccccc</color>
+	<color name="tab_background">#999999</color>
 </resources>

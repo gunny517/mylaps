@@ -55,7 +55,7 @@ class PracticeDataService @Inject constructor (): Service() {
 
     private fun updateTrackList(activities: List<ActivitiesItem>){
         GlobalScope.launch {
-            trackRepository.saveAll(activities)
+            trackRepository.saveAll(activities, System.currentTimeMillis())
         }
     }
 

@@ -3,7 +3,9 @@ package jp.ceed.android.mylapslogger
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,6 +20,7 @@ import jp.ceed.android.mylapslogger.model.ActivitiesItem
 import jp.ceed.android.mylapslogger.service.PracticeDataService
 import jp.ceed.android.mylapslogger.util.AppSettings
 import jp.ceed.android.mylapslogger.viewModel.ActivitiesFragmentViewModel
+import jp.ceed.android.mylapslogger.viewModel.ActivitiesFragmentViewModel.EventState
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @OptIn(DelicateCoroutinesApi::class)
@@ -50,18 +53,6 @@ class ActivitiesFragment : Fragment() {
         _binding = null
     }
 
-    private fun navigateToUserInfo() {
-        findNavController().navigate(R.id.goToUserInfoFragment)
-    }
-
-    private fun navigateToAppSettings(){
-        findNavController().navigate(R.id.goToAppInfoFragment)
-    }
-
-    private fun navigateToFuelConsumptionList(){
-        findNavController().navigate(R.id.goToFuelConsumptionListFragment)
-    }
-
     private fun initLayout() {
         val adapter = ActivitiesAdapter(requireContext(), object : ActivitiesAdapter.OnClickListener {
             override fun onClick(activitiesItem: ActivitiesItem) {
@@ -76,11 +67,11 @@ class ActivitiesFragment : Fragment() {
         }
         viewModel.event.observe(viewLifecycleOwner, EventObserver { eventState ->
             when(eventState){
-                ActivitiesFragmentViewModel.EventState.GO_TO_LOGIN ->
+                EventState.GO_TO_LOGIN ->
                     navigateToLogin()
-                ActivitiesFragmentViewModel.EventState.START_PRACTICE_SERVICE ->
+                EventState.START_PRACTICE_SERVICE ->
                     startPracticeService(viewModel.activities.value)
-                ActivitiesFragmentViewModel.EventState.NONE -> {}
+                EventState.NONE -> {}
             }
         })
     }
@@ -104,14 +95,6 @@ class ActivitiesFragment : Fragment() {
                 )
             }
         )
-    }
-
-    private fun navigateToTrackBest(){
-        findNavController().navigate(R.id.goToTrackBestFragment)
-    }
-
-    private fun navigateToTotalDistance(){
-        findNavController().navigate(R.id.goToTotalDistanceFragment)
     }
 
     private fun navigateToLogin(){

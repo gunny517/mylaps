@@ -14,13 +14,9 @@ class ErrorLogRepository @Inject constructor (
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
-    suspend fun findAll(): List<ErrorLogItem> = withContext(dispatcher){
-            val results: ArrayList<ErrorLogItem> = ArrayList()
-            val list = dao.findAll()
-            for(entry in list){
-                results.add(ErrorLogItem(entry.stackTrace))
-            }
-            results
+    suspend fun findAll(): List<ErrorLogItem> =
+        withContext(dispatcher) {
+            dao.findAll().map { ErrorLogItem(it) }
         }
 
     suspend fun insert(errorLog: ErrorLog){

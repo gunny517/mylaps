@@ -149,8 +149,8 @@ data class Sessions(
             @SerialName("sections")
             val sections: List<Sections>,
 
-            @SerialName("dataAttributes")
-            val dataAttributes: List<String>,
+//            @SerialName("dataAttributes")
+//            val dataAttributes: List<DataAttributes>,
         ) {
 
             @Serializable
@@ -173,6 +173,23 @@ data class Sessions(
 
                 @SerialName("speed")
                 val speed: Speed,
+            )
+
+            /**
+             * type : "VOLTAGE"
+             * value : 1.2
+             *
+             * @property type
+             * @property value
+             */
+            @Serializable
+            data class DataAttributes(
+
+                @SerialName("type")
+                val type: String?,
+
+                @SerialName("value")
+                val value: Float?
             )
         }
     }
