@@ -59,9 +59,9 @@ sealed class PracticeResultsItem {
          * @param context コンテキスト
          * @return 各セクターのタイム値を連結して State 値に応じた文字色を付与した SpannableStringBuilder
          */
-        fun concatSectionText(context: Context): CharSequence {
+        fun concatSectionText(context: Context): CharSequence? {
             if (sectorDataList.size < 2) {
-                return ""
+                return null
             }
             val builder = SpannableStringBuilder()
             var length = builder.length

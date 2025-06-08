@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="item"
             type="jp.ceed.android.mylapslogger.dto.PracticeResultsItem.Lap" />
@@ -17,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:padding="@dimen/padding_m"
@@ -68,7 +68,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/firstRow"
-            android:background="@color/divider"/>
+            android:background="@color/divider"
+            android:visibility="@{item.concatSectionText(context) == null ? View.GONE : View.VISIBLE}"/>
 
         <TextView
             android:id="@+id/sectorTextView"
@@ -80,8 +81,8 @@
             android:paddingEnd="@dimen/padding_xl"
             android:gravity="end"
             android:textSize="@dimen/text_size_ms"
+            android:visibility="@{item.concatSectionText(context) == null ? View.GONE : View.VISIBLE}"
             android:text="@{item.concatSectionText(context)}"
-            android:visibility="gone"
             tools:text="11.111  22.222  33.333"/>
 
         <androidx.constraintlayout.widget.Guideline

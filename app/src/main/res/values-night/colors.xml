@@ -23,6 +23,6 @@
 	<color name="bg_lap_list_shown">#666666</color>
 	<color name="window_back_ground">#383838</color>
 	<color name="speed_bar">#302B38</color>
-	<color name="divider">#666666</color>
+	<color name="divider">#525252</color>
 	<color name="tab_background">#484848</color>
 </resources>
