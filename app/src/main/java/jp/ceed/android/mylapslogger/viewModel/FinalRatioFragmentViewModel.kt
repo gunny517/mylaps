@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.ceed.android.mylapslogger.entity.Event
+import jp.ceed.android.mylapslogger.model.FinalRatioItem
 import jp.ceed.android.mylapslogger.repository.FinalRatioRepository
 import javax.inject.Inject
 
@@ -14,9 +15,9 @@ class FinalRatioFragmentViewModel @Inject constructor(
 
     enum class EventState { CALCULATE }
 
-    val finalRatioList: MutableLiveData<List<String>> = MutableLiveData()
+    val finalRatioList: MutableLiveData<List<FinalRatioItem>> = MutableLiveData()
 
-    val headerItems: MutableLiveData<List<String>> = MutableLiveData()
+    val headerItems: MutableLiveData<List<FinalRatioItem>> = MutableLiveData()
 
     var driveMin: MutableLiveData<String> = MutableLiveData()
 
@@ -55,5 +56,9 @@ class FinalRatioFragmentViewModel @Inject constructor(
         headerItems.value = result.headerItems
         finalRatioList.value = result.adapterItems
         event.value = Event(EventState.CALCULATE)
+    }
+
+    fun resetAllCells() {
+        finalRatioList.value?.forEach { it.reset() }
     }
 }

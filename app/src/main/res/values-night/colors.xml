@@ -25,4 +25,6 @@
 	<color name="speed_bar">#302B38</color>
 	<color name="divider">#525252</color>
 	<color name="tab_background">#484848</color>
+	<color name="grid_cell">@color/window_back_ground</color>
+	<color name="grid_cell_selected">#666666</color>
 </resources>

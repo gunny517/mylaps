@@ -17,7 +17,7 @@ class MixtureCalculatorFragmentViewModel @Inject constructor(
 
     var currentMixtureRatio: MutableLiveData<String> = MutableLiveData()
 
-    var addedFuelNet: MutableLiveData<String> = MutableLiveData("0")
+    var addedFuelNet: MutableLiveData<String> = MutableLiveData()
 
     var destMixtureRatio: MutableLiveData<String> = MutableLiveData()
 
@@ -50,11 +50,19 @@ class MixtureCalculatorFragmentViewModel @Inject constructor(
 
     private fun calculate() {
         val result: Float = mixtureRepository.calculate(
-            currentTotalFuel = currentTotalFuel,
-            currentMixtureRatio = currentMixtureRatio,
-            addedFuelNet = addedFuelNet,
-            destMixtureRatio = destMixtureRatio
+            currentTotalFuel = floatOrZero(currentTotalFuel),
+            currentMixtureRatio = floatOrZero(currentMixtureRatio),
+            addedFuelNet = floatOrZero(addedFuelNet),
+            destMixtureRatio =floatOrZero(destMixtureRatio)
         )
         addedOilNet.value = String.format(Locale.JAPAN, "%.1f", result)
+    }
+
+    private fun floatOrZero(target: MutableLiveData<String>): Float {
+        return if (target.value.isNullOrEmpty()) {
+            0F
+        } else {
+            target.value!!.toFloat()
+        }
     }
 }

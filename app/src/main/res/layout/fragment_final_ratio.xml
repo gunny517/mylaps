@@ -100,14 +100,26 @@
                     android:text="@={viewModel.drivenMax}"/>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/calculateButton"
-                android:layout_width="@dimen/final_ratio_item_width"
-                android:layout_height="@dimen/final_ratio_item_height"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/calculate"
-                android:onClick="@{v -> viewModel.loadFinalRatio()}"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/calculateButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="36dp"
+                    android:text="@string/calculate"
+                    android:onClick="@{v -> viewModel.loadFinalRatio()}"/>
+
+                <Button
+                    android:id="@+id/clearAllCells"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clearCells"
+                    android:onClick="@{v -> viewModel.resetAllCells()}"/>
+            </LinearLayout>
         </LinearLayout>
 
         <View

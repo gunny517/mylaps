@@ -2,8 +2,11 @@ package jp.ceed.android.mylapslogger.repository
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.ContextCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
+import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.dto.FinalRatioDto
+import jp.ceed.android.mylapslogger.model.FinalRatioItem
 import jp.ceed.android.mylapslogger.model.FinalRatioResult
 import java.util.Locale
 import javax.inject.Inject
@@ -34,21 +37,29 @@ class FinalRatioRepository @Inject constructor (
         val drivenMin: Int = paramDrivenMin?.toInt() ?: DRIVEN_MIN
         val drivenMax: Int = paramDrivenMax?.toInt() ?: DRIVEN_MAX
 
-        val driveList: ArrayList<String> = ArrayList()
+        val driveList: ArrayList<FinalRatioItem> = ArrayList()
         for(i in driveMin..driveMax){
-            driveList.add(i.toString())
+            driveList.add(createItem(i.toString()))
         }
-        val list: ArrayList<String> = ArrayList()
+        val list: ArrayList<FinalRatioItem> = ArrayList()
         for(driven in drivenMin..drivenMax){
-            list.add(driven.toString())
+            list.add(createItem(driven.toString()))
             for(drive in driveList){
-                val ratio: Float = driven.toFloat() / drive.toFloat()
-                list.add(String.format(Locale.JAPAN, "%.2f", ratio))
+                val ratio: Float = driven.toFloat() / drive.text.toFloat()
+                list.add(createItem(String.format(Locale.JAPAN, "%.2f", ratio)))
             }
         }
-        driveList.add(0, "")
+        driveList.add(0, createItem(""))
         saveCalculateValue(driveMin, driveMax, drivenMin, drivenMax)
         return FinalRatioResult(driveList, list)
+    }
+
+    private fun createItem(value: String): FinalRatioItem {
+        return FinalRatioItem(
+            text = value,
+            defaultBgColor = ContextCompat.getColor(context, R.color.grid_cell),
+            selectedBgColor = ContextCompat.getColor(context, R.color.grid_cell_selected)
+        )
     }
 
     fun getSavedValue(): FinalRatioDto {

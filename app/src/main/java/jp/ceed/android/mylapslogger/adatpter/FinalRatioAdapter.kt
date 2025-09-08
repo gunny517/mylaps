@@ -4,11 +4,17 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import jp.ceed.android.mylapslogger.R
 import jp.ceed.android.mylapslogger.databinding.FinalRatioItemBinding
+import jp.ceed.android.mylapslogger.model.FinalRatioItem
 
-class FinalRatioAdapter(val context: Context, private val itemList: List<String>): RecyclerView.Adapter<FinalRatioAdapter.ViewHolder>() {
+class FinalRatioAdapter(
+    val context: Context,
+    private val lifeCycleOwner: LifecycleOwner,
+    private val itemList: List<FinalRatioItem>
+): RecyclerView.Adapter<FinalRatioAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: FinalRatioItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -21,11 +27,11 @@ class FinalRatioAdapter(val context: Context, private val itemList: List<String>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.item = itemList[position]
+        holder.binding.lifecycleOwner = lifeCycleOwner
     }
 
     override fun getItemCount(): Int {
         return itemList.size
     }
-
 
 }

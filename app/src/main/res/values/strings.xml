@@ -98,6 +98,7 @@
 	<string name="mixture_calc_hint_cc">cc</string>
 	<string name="mixture_calc_hint_ratio">25</string>
 	<string name="calculate">計算</string>
+	<string name="clearCells">セルをクリア</string>
 	<string name="drive_min">ドライブ：下限</string>
 	<string name="drive_max">ドライブ：上限</string>
 	<string name="driven_min">ドリブン：下限</string>
