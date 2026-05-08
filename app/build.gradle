@@ -32,21 +32,21 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile file('release.keystore')
+            storePassword 'gunny517'
+            keyAlias 'releaseKey'
+            keyPassword 'gunny517'
         }
     }
     dataBinding {
         enabled true
     }
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "jp.ceed.android.mylapslogger"
         minSdk 24
-        targetSdk 34
+        targetSdk 35
         versionCode Integer.parseInt(AppVersionCode)
         versionName AppVersionName
 

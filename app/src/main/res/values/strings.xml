@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">mylapslogger</string>
+	<string name="app_name">LaptimeLogger</string>
 	<string name="action_session_summary">セッションサマリー</string>
 	<string name="action_user_info">ユーザー情報</string>
 	<string name="action_session_info">走行データ</string>
